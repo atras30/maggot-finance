@@ -20,8 +20,7 @@ use App\Http\Controllers\UserController;
 // });
 
 Route::get("/user", [UserController::class, "index"]);
-Route::get("/user/pengepul", [UserController::class, "getPengepul"]);
-Route::get("/user/warung", [UserController::class, "getWarung"]);
-Route::get("/user/peternak", [UserController::class, "getPeternak"]);
+Route::get("/user/role/{role}", [UserController::class, "getUserByRole"]);
+Route::get("/user/username/{username}", [UserController::class, "getUserByUsername"]);
 Route::post("/user", [UserController::class, "store"]);
 Route::put("/user/{id}", [UserController::class, "edit"]);
