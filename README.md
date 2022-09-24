@@ -5,13 +5,13 @@
 ##### post /auth/login
 
 required body : ["email", "password"]\
-returns : \
-1. 'message' : 'Bad credentials.' if username / password is wrong (200)\
+returns : 
+1. 'message' : 'Bad credentials.' if username / password is wrong (200)
 2. ['token', 'user'] if the given data is correct (200)\
 \
-post /auth/logout\
+#### post /auth/logout
 must include Authorization with bearer token for the corresponding user.\
-returns :\
+returns :
 1. 'message' : 'Successfully logged out.' (200)
 
 post /auth/register\
