@@ -1,1 +1,11 @@
 perlu email verifikasi ?
+
+Pengepulnya ada berapa ? balance peternak yang jual ke pengepul disimpen di pengepulnya atau disimpen di balance akun peternak ? (bakalan terjadi problem ketika pengepulnya banyak) [asumsi sekarang : pengepul banyak, balance peternak disimpen di pengepul]
+
+list transaksi, siapa bisa apa & kemana aja
+  -peternak jual magot ke pengepul
+  -peternak tarik saldo dari pengepul
+  -peternak beli bahan pokok ke warung
+  
+  -pengepul beli magot dari peternak
+  -pengepul 

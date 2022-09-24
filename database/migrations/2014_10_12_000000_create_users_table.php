@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('username')->unique();
             $table->string('email')->unique();
             $table->string('password');
+            $table->unsignedDecimal("balance");
             $table->enum('role', ['peternak', 'pengepul', 'warung']);
             // $table->timestamp('email_verified_at')->nullable();
             // $table->rememberToken();
