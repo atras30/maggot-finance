@@ -40,8 +40,6 @@ Route::post("/user", [UserController::class, "store"]);
 Route::put("/user/{id}", [UserController::class, "edit"]);
 
 
-Route::get("/transaction");
-
 //Authentication
 Route::prefix("auth")->group(function () {
   Route::post("/login", [AuthenticationController::class, "login"]);
