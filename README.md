@@ -6,5 +6,6 @@
 3. Go to /server folder (cd ./maggot-project-server)
 4. in terminal, type 'composer install' to install all laravel dependencies
 5. in terminal, type 'php artisan key:generate' to install key for .env file
+6. in PHPMyAdmin, create a "maggot_server" database
 6. in terminal, type 'php artisan migrate:fresh --seed' to migrate all database schemas
 7. in terminal, type 'php artisan serve' to run the server
