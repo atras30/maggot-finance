@@ -15,7 +15,7 @@ returns :
 1. 'message' : 'Successfully logged out.' (200)
 
 post /auth/register\
-rqeuired body : []... belum
+rqeuired body : []... lanjut ntar lagi dokumentasinya
 \
 get /user\
 post /user\
