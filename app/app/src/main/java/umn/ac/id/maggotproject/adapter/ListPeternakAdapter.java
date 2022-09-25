@@ -34,7 +34,7 @@ public class ListPeternakAdapter extends RecyclerView.Adapter<ListPeternakAdapte
 
     @Override
     public void onBindViewHolder(@NonNull ListPeternakViewHolder holder, int position) {
-        holder.namaPeternak.setText(peternak.get(position).getUsername());
+        holder.namaPeternak.setText(peternak.get(position).getFull_name());
         holder.balancePeternak.setText(String.valueOf(peternak.get(position).getBalance()));
 //        holder.profilePicture.setImageResource(R.drawable.ic_baseline_account_circle_24);
     }
