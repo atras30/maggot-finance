@@ -18,6 +18,11 @@ public class UserModel {
         private String email;
         private double balance;
         private String role;
+
+        public String getFull_name() {
+            return full_name;
+        }
+
         private Date created_at;
         private Date updated_at;
 
