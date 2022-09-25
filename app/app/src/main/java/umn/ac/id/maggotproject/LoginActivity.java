@@ -12,7 +12,8 @@ import android.widget.Toast;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import umn.ac.id.maggotproject.controller.AuthenticationController;
+import umn.ac.id.maggotproject.global.AuthenticatedUser;
+import umn.ac.id.maggotproject.model.AuthenticationModel;
 import umn.ac.id.maggotproject.retrofit.ApiService;
 
 public class LoginActivity extends AppCompatActivity {
@@ -37,16 +38,18 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void login(String email, String password) {
-        ApiService.endpoint().login(email, password).enqueue(new Callback<AuthenticationController>() {
+        ApiService.endpoint().login(email, password).enqueue(new Callback<AuthenticationModel>() {
             @Override
-            public void onResponse(Call<AuthenticationController> call, Response<AuthenticationController> response) {
+            public void onResponse(Call<AuthenticationModel> call, Response<AuthenticationModel> response) {
                 if(response.isSuccessful()) {
-                    AuthenticationController.Result result = response.body().login();
+                    AuthenticationModel.Result result = response.body().login();
 
                     if(result.getMessage() != null) {
                         Toast.makeText(LoginActivity.this, "Wrong email or Password!", Toast.LENGTH_LONG).show();
+                        AuthenticatedUser.logout();
                     } else {
-                        Toast.makeText(LoginActivity.this, "Login Success, Hello " + result.getUser().getFull_name(), Toast.LENGTH_LONG).show();
+                        AuthenticatedUser.setUser(result.getUser());
+                        Toast.makeText(LoginActivity.this, "Login Success, Hello " + AuthenticatedUser.getUser().getFull_name(), Toast.LENGTH_LONG).show();
                     }
 
                     Log.d("Login Response : ", result.toString());
@@ -54,7 +57,7 @@ public class LoginActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onFailure(Call<AuthenticationController> call, Throwable t) {
+            public void onFailure(Call<AuthenticationModel> call, Throwable t) {
                 Log.d("Error response : ", t.toString());
             }
         });

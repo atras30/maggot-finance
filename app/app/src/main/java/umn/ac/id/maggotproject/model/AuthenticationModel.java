@@ -1,10 +1,10 @@
-package umn.ac.id.maggotproject.controller;
+package umn.ac.id.maggotproject.model;
 
 import android.util.Log;
 
 import umn.ac.id.maggotproject.model.UserModel;
 
-public class AuthenticationController {
+public class AuthenticationModel {
     private String token;
     private String message;
     private UserModel.User user;
