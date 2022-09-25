@@ -11,7 +11,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.MaggotProject">
-        <activity android:name=".PengepulActivity"
+        <activity android:name=".ListPeternakActivity"
+            android:label="@string/recyclerview_peternak_title">
+        </activity>
+        <activity
+            android:name=".PengepulActivity"
             android:label="@string/pengepul_title_activity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -19,7 +23,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".MainActivity"></activity>
+        <activity android:name=".MainActivity" />
     </application>
 
 </manifest>

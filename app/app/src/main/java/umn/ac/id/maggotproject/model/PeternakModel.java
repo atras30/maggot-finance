@@ -21,6 +21,26 @@ public class PeternakModel {
         private Date created_at;
         private Date updated_at;
 
+        public String getFull_name() {
+            return full_name;
+        }
+
+        public String getUsername() {
+            return username;
+        }
+
+        public String getEmail() {
+            return email;
+        }
+
+        public double getBalance() {
+            return balance;
+        }
+
+        public String getRole() {
+            return role;
+        }
+
         public String getCreated_at() {
             String pattern = "dd MMMM yyyy hh:mm:ss";
             SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);

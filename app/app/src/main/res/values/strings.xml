@@ -1,6 +1,8 @@
 <resources>
     <string name="app_name">Maggot Finance</string>
     <string name="pengepul_title_activity">Maggot Finance (Pengepul)</string>
-    <string name="warga_title_activity">Maggot Finance (Warga)</string>
+    <string name="peternak_title_activity">Maggot Finance (Peternak)</string>
     <string name="warung_title_activity">Maggot Finance (Warung)</string>
+
+    <string name="recyclerview_peternak_title">Maggot Finance (List Peternak)</string>
 </resources>
