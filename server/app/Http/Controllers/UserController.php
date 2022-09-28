@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use App\Models\User;
-
 class UserController extends Controller {
   public function index() {
     return response()->json([
@@ -52,6 +51,8 @@ class UserController extends Controller {
       "password" => "string|required",
       "role" => "string|required|in:pengepul,peternak,warung"
     ]);
+
+    $validated['password'] = bcrypt($validated['password']);
 
     try {
       User::create($validated);

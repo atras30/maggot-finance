@@ -11,6 +11,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.MaggotProject">
+        <activity android:name=".BuyMaggotActivity">
+        </activity>
         <activity android:name=".LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -20,10 +22,11 @@
         </activity>
         <activity
             android:name=".ListPeternakActivity"
-            android:label="@string/recyclerview_peternak_title"></activity>
+            android:label="@string/recyclerview_peternak_title" />
         <activity
             android:name=".PengepulActivity"
             android:label="@string/pengepul_title_activity">
+
         </activity>
     </application>
 

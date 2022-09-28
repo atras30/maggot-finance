@@ -5,4 +5,11 @@
     <string name="warung_title_activity">Maggot Finance (Warung)</string>
 
     <string name="recyclerview_peternak_title">Maggot Finance (List Peternak)</string>
+
+    <string-array name="arr">
+        <item>test</item>
+        <item>test1</item>
+        <item>test2</item>
+        <item>test3</item>
+    </string-array>
 </resources>

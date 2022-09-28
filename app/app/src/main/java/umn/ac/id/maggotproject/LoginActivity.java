@@ -2,6 +2,7 @@ package umn.ac.id.maggotproject;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -32,6 +33,7 @@ public class LoginActivity extends AppCompatActivity {
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Toast.makeText(LoginActivity.this, "Login Button has been Clicked!", Toast.LENGTH_LONG).show();
                 login(email.getText().toString(), password.getText().toString());
             }
         });
@@ -46,13 +48,12 @@ public class LoginActivity extends AppCompatActivity {
 
                     if(result.getMessage() != null) {
                         Toast.makeText(LoginActivity.this, "Wrong email or Password!", Toast.LENGTH_LONG).show();
-                        AuthenticatedUser.logout();
                     } else {
-                        AuthenticatedUser.setUser(result.getUser());
+                        AuthenticatedUser.setUser(result.getUser(), result.getToken());
                         Toast.makeText(LoginActivity.this, "Login Success, Hello " + AuthenticatedUser.getUser().getFull_name(), Toast.LENGTH_LONG).show();
+                        Intent intent = new Intent(LoginActivity.this, PengepulActivity.class);
+                        startActivity(intent);
                     }
-
-                    Log.d("Login Response : ", result.toString());
                 }
             }
 

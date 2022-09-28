@@ -19,11 +19,11 @@ return new class extends Migration
             $table->string('username')->unique();
             $table->string('email')->unique();
             $table->string('password');
-            $table->unsignedDecimal("balance");
+            $table->unsignedBigInteger("balance")->default(0);
             $table->enum('role', ['peternak', 'pengepul', 'warung']);
+            $table->timestamps();
             // $table->timestamp('email_verified_at')->nullable();
             // $table->rememberToken();
-            $table->timestamps();
         });
     }
 
