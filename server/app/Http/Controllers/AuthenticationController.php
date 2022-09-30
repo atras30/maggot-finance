@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\SuperAdmin;
+use App\Models\TrashManager;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
@@ -13,8 +15,20 @@ class AuthenticationController extends Controller {
       "user" => auth()->user()
     ], Response::HTTP_OK);
   }
-  
-  public function login(Request $request) {
+
+  public function loginUser(Request $request) {
+    return $this->login($request, 'user');
+  }
+
+  public function loginTrashManager(Request $request) {
+    return $this->login($request, 'trash manager');
+  }
+
+  public function loginSuperAdmin(Request $request) {
+    return $this->login($request, 'super admin');
+  }
+
+  public function login($request, $role) {
     $validated = $request->validate([
       "email" => "string|required",
       "password" => "string|required"
@@ -22,7 +36,19 @@ class AuthenticationController extends Controller {
 
     $email = $username = $validated['email'];
 
-    $user = User::where("email", $email)->orWhere("username", $username)->first();
+    switch($role) {
+      case 'user' :
+        $user = User::where("email", $email)->orWhere("username", $username)->first();
+        break;
+      case 'super admin' :
+        $user = SuperAdmin::where("email", $email)->first();
+        break;
+      case 'trash manager' :
+        $user = TrashManager::where("email", $email)->first();
+        break;
+      case 'default' :
+        $user = false;
+    }
 
     if (!$user || !Hash::check($validated['password'], $user->password)) {
       return response()->json([
@@ -32,13 +58,10 @@ class AuthenticationController extends Controller {
 
     $token = $user->createToken("login_token")->plainTextToken;
  
-    return response()->json([
+    return [
       'token' => $token,
       "user" => $user,
-    ], Response::HTTP_OK);
-  }
-
-  public function register() {
+    ];
   }
 
   public function logout() {
@@ -47,5 +70,9 @@ class AuthenticationController extends Controller {
     return response()->json([
       'message' => 'Successfully logged out.'
     ], Response::HTTP_OK);
+  }
+
+  public function register() {
+
   }
 }
