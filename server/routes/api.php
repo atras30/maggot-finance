@@ -1,12 +1,12 @@
 <?php
 
 use App\Http\Controllers\AuthenticationController;
-use App\Http\Controllers\PeternakController;
+use App\Http\Controllers\UserController;
 use App\Http\Controllers\SuperAdminController;
 use App\Http\Controllers\TransactionController;
+use App\Http\Controllers\WargaController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\UserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -29,8 +29,9 @@ Route::middleware('auth:sanctum')->group(function () {
   //Transaction List
   Route::get("/transaction", [TransactionController::class, "index"]);
 
-  //Peternak
-  Route::post("/peternak/sell/maggots", [PeternakController::class, "sellMaggots"]);
+  //Warga
+  Route::post("/user/warga/sell/maggots", [WargaController::class, "sellMaggots"]);
+  Route::post("/user/warga/buy/shop", [UserController::class, "sellMaggots"]);
 
   //Authentication
   Route::prefix("auth")->group(function () {
