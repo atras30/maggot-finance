@@ -4,7 +4,8 @@ namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
-use App\Models\Transaction;
+use App\Models\SuperAdmin;
+use App\Models\TrashManager;
 use Illuminate\Database\Seeder;
 use App\Models\User;
 use Ramsey\Uuid\Uuid;
@@ -23,12 +24,36 @@ class DatabaseSeeder extends Seeder {
     //     'email' => 'test@example.com',
     // ]);
 
+    SuperAdmin::create([
+      "nama_pengelola" => "Universitas Multimedia Nusantara",
+      "tempat" => "Universitas Multimedia Nusantara",
+      "email" => "admin@umn.ac.id",
+      "password" => bcrypt("adminumn2022")
+    ]);
+
+    TrashManager::create([
+      "nama_pengelola" => "Sepatan Timur",
+      "tempat" => "Kecamatan Sepatan Timur",
+      "email" => "sepatanTimur@gmail.com",
+      "super_admin_id" => 1,
+      "password" => bcrypt("testing12345")
+    ]);
+
+    TrashManager::create([
+      "nama_pengelola" => "Rajeg Corps",
+      "tempat" => "Kecamatan Rajeg",
+      "email" => "rajeg@gmail.com",
+      "super_admin_id" => 1,
+      "password" => bcrypt("testing12345")
+    ]);
+
     User::create([
       'full_name' => "Atras Shalhan",
       "username" => "atras30",
       "email" => "atrasshalhan@gmail.com",
       "password" => bcrypt("testing12345"),
-      "role" => "pengepul",
+      "role" => "warung",
+      "trash_manager_id" => 1,
       "balance" => 500000
     ]);
 
@@ -37,8 +62,9 @@ class DatabaseSeeder extends Seeder {
       "username" => "rey123",
       "email" => "reynard@gmail.com",
       "password" => bcrypt("testing12345"),
-      "role" => "peternak",
-      "balance" => 500000
+      "role" => "warga",
+      "balance" => 500000,
+      "trash_manager_id" => 1,
     ]);
 
     User::create([
@@ -46,8 +72,9 @@ class DatabaseSeeder extends Seeder {
       "username" => "berserker543",
       "email" => "jojo@gmail.com",
       "password" => bcrypt("testing12345"),
-      "role" => "peternak",
-      "balance" => 50000
+      "role" => "warga",
+      "balance" => 50000,
+      "trash_manager_id" => 1,
     ]);
 
     User::create([
@@ -56,25 +83,26 @@ class DatabaseSeeder extends Seeder {
       "email" => "boni@gmail.com",
       "password" => bcrypt("testing12345"),
       "role" => "warung",
-      "balance" => 50000
+      "balance" => 50000,
+      "trash_manager_id" => 1,
     ]);
 
-    Transaction::create([
-      "user_id" => "2",
-      "related_transaction_user_id" => "1",
-      "type" => "expense",
-      "weight_in_kg" => 10,
-      "amount_per_kg" => 10000,
-      "total_amount" => 100000,
-    ]);
+    // Transaction::create([
+    //   "user_id" => "2",
+    //   "related_transaction_user_id" => "1",
+    //   "type" => "expense",
+    //   "weight_in_kg" => 10,
+    //   "amount_per_kg" => 10000,
+    //   "total_amount" => 100000,
+    // ]);
 
-    Transaction::create([
-      "user_id" => "1",
-      "related_transaction_user_id" => "2",
-      "type" => "income",
-      "weight_in_kg" => 10,
-      "amount_per_kg" => 10000,
-      "total_amount" => 100000,
-    ]);
+    // Transaction::create([
+    //   "user_id" => "1",
+    //   "related_transaction_user_id" => "2",
+    //   "type" => "income",
+    //   "weight_in_kg" => 10,
+    //   "amount_per_kg" => 10000,
+    //   "total_amount" => 100000,
+    // ]);
   }
 }

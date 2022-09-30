@@ -20,7 +20,8 @@ return new class extends Migration
             $table->string('email')->unique();
             $table->string('password');
             $table->unsignedBigInteger("balance")->default(0);
-            $table->enum('role', ['peternak', 'pengepul', 'warung']);
+            $table->string('role')->enum(["warga", "warung"]);
+            $table->foreignId("trash_manager_id")->constrained("trash_managers", "id")->onUpdate("cascade")->onDelete("cascade");
             $table->timestamps();
             // $table->timestamp('email_verified_at')->nullable();
             // $table->rememberToken();

@@ -61,6 +61,7 @@
         android:backgroundTint="@color/design_default_color_secondary"
         android:layout_margin="20dp"
         android:textColor="@color/black"
+        app:cornerRadius="25dp"
         app:strokeColor="@color/black"
         />
 
