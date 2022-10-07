@@ -1,3 +1,4 @@
 note : waktu create user, balance belom ada error handling : 
 'balance' doesn't have a default -> tambahin required + kasih default value 0 di file migration.
 
+hehehe 
