@@ -14,11 +14,19 @@ public class PengepulActivity extends AppCompatActivity {
         setContentView(R.layout.activity_pengepul);
 
         Button daftarWargaButton = findViewById(R.id.daftarWargaButton);
+        Button beliMaggotButton = findViewById(R.id.beliMaggotWargaButton);
         daftarWargaButton.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(PengepulActivity.this, ListPeternakActivity.class);
+                startActivity(intent);
+            }
+        });
+        beliMaggotButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(PengepulActivity.this, BuyMaggotActivity.class);
                 startActivity(intent);
             }
         });
