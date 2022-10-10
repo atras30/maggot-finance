@@ -9,3 +9,6 @@
 6. in PHPMyAdmin, create a "maggot_server" database
 6. in terminal, type 'php artisan migrate:fresh --seed' to migrate all database schemas
 7. in terminal, type 'php artisan serve' to run the server
+
+### Rest API Documentation
+Buka Readme.md di folder Server
