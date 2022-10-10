@@ -58,7 +58,7 @@
         ]]>
 
         <TextView
-            android:id="@+id/Harga"
+            android:id="@+id/HargaMaggot"
             android:layout_width="279dp"
             android:layout_height="27dp"
             android:layout_margin="5dp"
