@@ -16,6 +16,10 @@ class WargaController extends Controller {
       "amount_per_kg" => "numeric|required",
     ]);
 
+    if(!isset($validated['description'])) {
+      $validated['description'] = "";
+    }
+
     //Transaction dari warga ke pengepul
     $userId = auth()->user()->id;
     $warga = User::find($userId);
