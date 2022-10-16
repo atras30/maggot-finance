@@ -36,18 +36,12 @@ class AuthenticationController extends Controller {
 
     $email = $username = $validated['email'];
 
-    switch($role) {
-      case 'user' :
-        $user = User::where("email", $email)->orWhere("username", $username)->first();
-        break;
-      case 'super admin' :
-        $user = SuperAdmin::where("email", $email)->first();
-        break;
-      case 'trash manager' :
-        $user = TrashManager::where("email", $email)->first();
-        break;
-      case 'default' :
-        $user = false;
+    $user = User::where("email", $email)->orWhere("username", $username)->first();
+    if(!$user) {
+      $user = TrashManager::where("email", $email)->first();
+    }
+    if(!$user) {
+      $user = SuperAdmin::where("email", $email)->first();
     }
 
     if (!$user || !Hash::check($validated['password'], $user->password)) {
@@ -57,7 +51,7 @@ class AuthenticationController extends Controller {
     }
 
     $token = $user->createToken("login_token")->plainTextToken;
- 
+
     return [
       'token' => $token,
       "user" => $user,
@@ -73,6 +67,5 @@ class AuthenticationController extends Controller {
   }
 
   public function register() {
-
   }
 }
