@@ -17,6 +17,7 @@ return new class extends Migration {
       $table->string("tempat");
       $table->string("email");
       $table->string("password");
+      $table->string("role")->default("trash_manager");
       $table->foreignId("super_admin_id")->constrained("super_admins", "id")->onUpdate("cascade")->onDelete("cascade");
       $table->timestamps();
     });

@@ -2,18 +2,25 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Models\Transaction;
 use App\Models\TrashManager;
 use App\Models\User;
+use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
-class WargaController extends Controller {
-  public function sellMaggots(Request $request) {
+class TrashManagerController extends Controller {
+    public function index() {
+      return response()->json([
+        "trash_managers" => TrashManager::all()
+      ], Response::HTTP_OK);
+    }
+
+    public function buyMaggot(Request $request) {
     $validated = $request->validate([
       "description" => "string",
       "weight_in_kg" => "numeric|required",
       "amount_per_kg" => "numeric|required",
+      "farmer_id" =>  "numeric|required"
     ]);
 
     if(!isset($validated['description'])) {
@@ -21,12 +28,11 @@ class WargaController extends Controller {
     }
 
     //Transaction dari warga ke pengepul
-    $userId = auth()->user()->id;
-    $warga = User::find($userId);
-    $validated["warga_id"] = $warga->id;
-    $validated['pengelola_bank_sampah_id'] = $warga->trash_manager->id;
+    $warga = User::find($validated["farmer_id"]);
+    $validated['user_id'] = $warga->id;
+    $validated['trash_manager_id'] = auth()->user()->id;
     $validated['type'] = "income";
-    $validated['transaction_type'] = "transaksi_warga";
+    $validated['transaction_type'] = "farmer_transaction";
     $validated['total_amount'] = $validated['weight_in_kg'] * $validated['amount_per_kg'];
     $warga->balance += $validated['total_amount'];
 
@@ -34,13 +40,13 @@ class WargaController extends Controller {
     $warga->save();
     
     //Transaction dari pengepul ke warga
-    $pengepulTransaction['pengelola_bank_sampah_id'] = $warga->trash_manager->id;
+    $pengepulTransaction['trash_manager_id'] = $warga->trash_manager->id;
+    $pengepulTransaction['farmer_id'] = $warga->id;
     $pengepulTransaction['description'] = $validated['description'];
     $pengepulTransaction['weight_in_kg'] = $validated['weight_in_kg'];
     $pengepulTransaction['amount_per_kg'] = $validated['amount_per_kg'];
-    $pengepulTransaction['warga_id'] = $warga->id;
     $pengepulTransaction['type'] = 'expense';
-    $pengepulTransaction['transaction_type'] = "transaksi_pengelola";
+    $pengepulTransaction['transaction_type'] = "trash_manager_transaction";
     $pengepulTransaction['total_amount'] = $validated['weight_in_kg'] * $validated['amount_per_kg'];
 
     $transaction2 = Transaction::create($pengepulTransaction);

@@ -52,7 +52,7 @@ class DatabaseSeeder extends Seeder {
       "username" => "atras30",
       "email" => "atrasshalhan@gmail.com",
       "password" => bcrypt("testing12345"),
-      "role" => "warung",
+      "role" => "shop",
       "trash_manager_id" => 1,
       "balance" => 500000
     ]);
@@ -62,7 +62,7 @@ class DatabaseSeeder extends Seeder {
       "username" => "rey123",
       "email" => "reynard@gmail.com",
       "password" => bcrypt("testing12345"),
-      "role" => "warga",
+      "role" => "farmer",
       "balance" => 500000,
       "trash_manager_id" => 1,
     ]);
@@ -72,7 +72,7 @@ class DatabaseSeeder extends Seeder {
       "username" => "berserker543",
       "email" => "jojo@gmail.com",
       "password" => bcrypt("testing12345"),
-      "role" => "warga",
+      "role" => "farmer",
       "balance" => 50000,
       "trash_manager_id" => 1,
     ]);
@@ -82,7 +82,7 @@ class DatabaseSeeder extends Seeder {
       "username" => "boni123",
       "email" => "boni@gmail.com",
       "password" => bcrypt("testing12345"),
-      "role" => "warung",
+      "role" => "shop",
       "balance" => 50000,
       "trash_manager_id" => 1,
     ]);

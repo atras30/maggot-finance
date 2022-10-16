@@ -4,7 +4,7 @@ use App\Http\Controllers\AuthenticationController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\SuperAdminController;
 use App\Http\Controllers\TransactionController;
-use App\Http\Controllers\WargaController;
+use App\Http\Controllers\TrashManagerController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -28,9 +28,9 @@ Route::middleware('auth:sanctum')->group(function () {
 
   //Transaction List
   Route::get("/transaction", [TransactionController::class, "index"]);
+  Route::post("/transaction/trash-manager/buy/maggot", [TrashManagerController::class, "buyMaggot"]);
 
   //Warga
-  Route::post("/user/warga/sell/maggots", [WargaController::class, "sellMaggots"]);
   Route::post("/user/warga/buy/shop", [UserController::class, "sellMaggots"]);
 
   //Authentication
@@ -39,6 +39,10 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get("/user", [AuthenticationController::class, "getUser"]);
   });
 });
+
+
+//Trash Managers Endpoints
+Route::get("/trash-manager", [TrashManagerController::class, "index"]);
 
 Route::get("/user", [UserController::class, "index"]);
 Route::get("/user/role/{role}", [UserController::class, "getUserByRole"]);
