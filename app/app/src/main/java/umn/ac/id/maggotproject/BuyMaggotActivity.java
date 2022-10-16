@@ -1,9 +1,12 @@
 package umn.ac.id.maggotproject;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.DatePickerDialog;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -14,16 +17,46 @@ import android.widget.TextView;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import umn.ac.id.maggotproject.adapter.DropDownAdapter;
+import umn.ac.id.maggotproject.adapter.ListPeternakAdapter;
+import umn.ac.id.maggotproject.model.PeternakModel;
+import umn.ac.id.maggotproject.retrofit.ApiService;
 
 public class BuyMaggotActivity extends AppCompatActivity {
     TextView dateTimeDisplay;
     private Calendar calendar;
     private SimpleDateFormat dateFormat;
     private String date;
+    List<PeternakModel.Peternak> results;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_buy_maggot);
+
+        ApiService.endpoint().getPeternak().enqueue(new Callback<PeternakModel>() {
+            @Override
+            public void onResponse(Call<PeternakModel> call, Response<PeternakModel> response) {
+                if(response.isSuccessful()) {
+                    results = response.body().getPeternak();
+                    Spinner spinner = (Spinner) findViewById(R.id.listPeternakSpinner);
+                    // Create an ArrayAdapter using the string array and a default spinner layout
+                    DropDownAdapter adapter = new DropDownAdapter(BuyMaggotActivity.this, R.layout.peternak_dropdown, R.id.namaPeternak, results);
+                    // Specify the layout to use when the list of choices appears
+                    // Apply the adapter to the spinner
+                    spinner.setAdapter(adapter);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<PeternakModel> call, Throwable t) {
+                Log.d("hasil", t.toString());
+            }
+        });
 
         //INI BUAT NGESET CURRENT VALUE DI TEXTVIEW DATE PADA XML
         dateTimeDisplay = (TextView)findViewById(R.id.currentDate);
@@ -34,7 +67,6 @@ public class BuyMaggotActivity extends AppCompatActivity {
         int currentYear = calendar.get(Calendar.YEAR);
         int currentMonth = (calendar.get(Calendar.MONTH) + 1);
         int currentDay = calendar.get(Calendar.DAY_OF_MONTH);
-
         Button selectDate = findViewById(R.id.btnSelectDate);
 
 
@@ -53,16 +85,5 @@ public class BuyMaggotActivity extends AppCompatActivity {
             }
         });
 
-
-        Spinner spinner = (Spinner) findViewById(R.id.listPeternakSpinner);
-
-        // Create an ArrayAdapter using the string array and a default spinner layout
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.arr, android.R.layout.simple_spinner_item);
-
-        // Specify the layout to use when the list of choices appears
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-
-        // Apply the adapter to the spinner
-        spinner.setAdapter(adapter);
     }
 }
