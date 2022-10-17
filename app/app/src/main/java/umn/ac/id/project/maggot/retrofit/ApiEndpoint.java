@@ -13,7 +13,7 @@ public interface ApiEndpoint {
     @GET("user")
     Call<UserModel> getUser();
 
-    @GET("user/role/peternak")
+    @GET("user/role/farmer")
     Call<PeternakModel> getPeternak();
 
     @FormUrlEncoded

@@ -33,7 +33,6 @@ public class LoginActivity extends AppCompatActivity {
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(LoginActivity.this, "Login Button has been Clicked!", Toast.LENGTH_LONG).show();
                 login(email.getText().toString(), password.getText().toString());
             }
         });
@@ -50,7 +49,7 @@ public class LoginActivity extends AppCompatActivity {
                         Toast.makeText(LoginActivity.this, "Wrong email or Password!", Toast.LENGTH_LONG).show();
                     } else {
                         AuthenticatedUser.setUser(result.getUser(), result.getToken());
-                        Toast.makeText(LoginActivity.this, "Login Success, Hello " + AuthenticatedUser.getUser().getFull_name(), Toast.LENGTH_LONG).show();
+                        Toast.makeText(LoginActivity.this, "Login Success, Hello " + AuthenticatedUser.getUser().getFull_name(), Toast.LENGTH_SHORT).show();
                         Intent intent = new Intent(LoginActivity.this, PengepulActivity.class);
                         startActivity(intent);
                     }
