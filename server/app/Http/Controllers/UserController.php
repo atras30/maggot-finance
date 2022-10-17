@@ -27,11 +27,11 @@ class UserController extends Controller {
   }
 
   public function getUserByRole($role) {
-    $validRoles = ["pengepul", "warung", "peternak"];
+    $validRoles = ["shop", "farmer"];
 
     if (!in_array($role, $validRoles)) {
       return response()->json([
-        "message" => "Invalid Role! Role must be either 'pengepul', 'peternak', or 'warung'"
+        "message" => "Invalid Role! Role must be either 'farmer', or 'shop'"
       ], Response::HTTP_NOT_ACCEPTABLE);
     }
 

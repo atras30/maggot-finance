@@ -14,15 +14,15 @@ return new class extends Migration {
     Schema::create('transactions', function (Blueprint $table) {
       $table->id();
       $table->enum('type', ['expense', 'income']);
-      $table->enum('transaction_type', ['transaksi_pengelola', 'transaksi_warga', 'transaksi_warung']);
+      $table->enum('transaction_type', ['trash_manager_transaction', 'shop_transaction', 'farmer_transaction']);
       $table->string("description")->default("");
       $table->unsignedDouble("weight_in_kg")->default(0);
       $table->unsignedDouble("amount_per_kg")->default(0);
       $table->unsignedDouble("total_amount")->default(0);
-      $table->foreignId("pengelola_bank_sampah_id")->constrained("trash_managers")->onUpdate("cascade")->onDelete("cascade")->nullable();
-      // $table->foreignId("warung_id")->constrained("shops")->onUpdate("cascade")->onDelete("cascade")->nullable();
-      $table->foreignId("warga_id")->constrained("users")->onUpdate("cascade")->onDelete("cascade");
+      $table->foreignId("farmer_id")->constrained("users")->onUpdate("cascade")->onDelete("cascade");
+      $table->foreignId("trash_manager_id")->constrained("trash_managers")->onUpdate("cascade")->onDelete("cascade")->nullable();
       $table->timestamps();
+      // $table->foreignId("warung_id")->constrained("shops")->onUpdate("cascade")->onDelete("cascade")->nullable();
     });
   }
 
