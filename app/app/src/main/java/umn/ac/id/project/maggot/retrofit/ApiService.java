@@ -4,7 +4,7 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class ApiService {
-    private static String BASE_URL = "https://api.maggot.masuk.id/api/";
+    private static String BASE_URL = "https://103.63.24.139/~atrasmyi/api/";
     private static Retrofit retrofit;
 
     public static ApiEndpoint endpoint() {
