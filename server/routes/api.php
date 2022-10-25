@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthenticationController;
+use App\Http\Controllers\MailController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\SuperAdminController;
 use App\Http\Controllers\TransactionController;
@@ -59,3 +60,5 @@ Route::prefix("auth")->group(function () {
   Route::post("/login/super-admin", [AuthenticationController::class, "loginSuperAdmin"]);
   Route::post("/login/trash-manager", [AuthenticationController::class, "loginTrashManager"]);
 });
+
+Route::post('/send-registration-mail', [MailController::class, "sendRegistrationMail"]);

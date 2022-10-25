@@ -1,0 +1,1 @@
+Halo, {{ $full_name }}! Anda baru saja bergabung di Aplikasi Maggot Finance!
