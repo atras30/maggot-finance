@@ -61,5 +61,6 @@ Route::prefix("auth")->group(function () {
   Route::post("/login/trash-manager", [AuthenticationController::class, "loginTrashManager"]);
 });
 
+//Mailing Endpoints
 Route::post('/send-registration-mail', [MailController::class, "sendRegistrationMail"]);
 Route::post('/send-transaction-bill', [MailController::class, "sendTransactionBill"]);
