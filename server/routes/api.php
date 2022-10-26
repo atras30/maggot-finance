@@ -62,3 +62,4 @@ Route::prefix("auth")->group(function () {
 });
 
 Route::post('/send-registration-mail', [MailController::class, "sendRegistrationMail"]);
+Route::post('/send-transaction-bill', [MailController::class, "sendTransactionBill"]);

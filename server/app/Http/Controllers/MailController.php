@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Mail\RegistrationMail;
+use App\Mail\TransactionMail;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 
@@ -12,6 +13,14 @@ class MailController extends Controller {
 
     return response()->json([
       "data" => "Email sucecssfully sent"
+    ]);
+  }
+
+  public function sendTransactionBill() {
+    Mail::to("atrasshalhan@gmail.com")->send(new TransactionMail());
+
+    return response()->json([
+      "data" => "Email successfully sent"
     ]);
   }
 }
