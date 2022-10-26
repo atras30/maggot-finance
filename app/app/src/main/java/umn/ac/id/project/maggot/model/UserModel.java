@@ -14,10 +14,19 @@ public class UserModel {
     public class User {
         private int id;
         private String full_name;
+
+        public String getEmail() {
+            return email;
+        }
+
         private String username;
         private String email;
         private double balance;
         private String role;
+
+        public String getRole() {
+            return role;
+        }
 
         public String getFull_name() {
             return full_name;

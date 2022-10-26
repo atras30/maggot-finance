@@ -26,6 +26,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import umn.ac.id.project.maggot.global.AuthenticatedUser;
 import umn.ac.id.project.maggot.model.AuthenticationModel;
+import umn.ac.id.project.maggot.model.UserModel;
 import umn.ac.id.project.maggot.retrofit.ApiService;
 
 public class LoginActivity extends AppCompatActivity {
@@ -53,7 +54,6 @@ public class LoginActivity extends AppCompatActivity {
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(LoginActivity.this, "Login Button has been Clicked!", Toast.LENGTH_LONG).show();
                 login(email.getText().toString(), password.getText().toString());
             }
         });
@@ -90,8 +90,18 @@ public class LoginActivity extends AppCompatActivity {
                     } else {
                         AuthenticatedUser.setUser(result.getUser(), result.getToken());
                         Toast.makeText(LoginActivity.this, "Login Success, Hello " + AuthenticatedUser.getUser().getFull_name(), Toast.LENGTH_LONG).show();
-                        Intent intent = new Intent(LoginActivity.this, PengepulActivity.class);
-                        startActivity(intent);
+
+                        UserModel.User user = AuthenticatedUser.getUser();
+
+                        Log.i("User : ", user.toString());
+
+                        if(user.getRole().equals("farmer")) {
+                            Intent intent = new Intent(LoginActivity.this, PeternakActivity.class);
+                            startActivity(intent);
+                        } else if(user.getRole().equals("trash_manager")) {
+                            Intent intent = new Intent(LoginActivity.this, PengepulActivity.class);
+                            startActivity(intent);
+                        }
                     }
                 }
             }
