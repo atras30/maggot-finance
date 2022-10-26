@@ -13,9 +13,9 @@ return new class extends Migration {
   public function up() {
     Schema::create('trash_managers', function (Blueprint $table) {
       $table->id();
-      $table->string("nama_pengelola");
+      $table->string("nama_pengelola")->unique();
       $table->string("tempat");
-      $table->string("email");
+      $table->string("email")->unique();
       $table->string("password");
       $table->string("role")->default("trash_manager");
       $table->foreignId("super_admin_id")->constrained("super_admins", "id")->onUpdate("cascade")->onDelete("cascade");

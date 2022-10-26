@@ -28,7 +28,7 @@ Route::middleware('auth:sanctum')->group(function () {
   Route::get("/super-admin/trash-managers", [SuperAdminController::class, "getTrashManagers"]);
 
   //Transaction List
-  Route::get("/transaction", [TransactionController::class, "index"]);
+  Route::get("/transactions", [TransactionController::class, "index"]);
   Route::post("/transaction/trash-manager/buy/maggot", [TrashManagerController::class, "buyMaggot"]);
 
   //Warga
@@ -41,10 +41,10 @@ Route::middleware('auth:sanctum')->group(function () {
   });
 });
 
-
 //Trash Managers Endpoints
 Route::get("/trash-manager", [TrashManagerController::class, "index"]);
 
+//User Endpoints
 Route::get("/user", [UserController::class, "index"]);
 Route::get("/user/role/{role}", [UserController::class, "getUserByRole"]);
 Route::get("/user/username/{username}", [UserController::class, "getUserByUsername"]);
