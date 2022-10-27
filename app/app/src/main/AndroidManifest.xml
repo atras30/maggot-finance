@@ -11,7 +11,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.MaggotProject">
-        <activity android:name=".BuyMaggotActivity">
+        <activity android:name=".BuyMaggotActivity"
+            android:label="Cari Peternak Disini">
         </activity>
         <activity android:name=".LoginActivity"
             android:exported="true">

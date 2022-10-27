@@ -55,4 +55,5 @@ public class ListPeternakAdapter extends RecyclerView.Adapter<ListPeternakAdapte
             profilePicture = itemView.findViewById(R.id.profilePicture);
         }
     }
+
 }
