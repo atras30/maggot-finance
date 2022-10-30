@@ -49,9 +49,9 @@ class DatabaseSeeder extends Seeder {
 
     User::create([
       'full_name' => "Atras Shalhan",
-      "username" => "atras30",
+      // "username" => "atras30",
       "email" => "atrasshalhan@gmail.com",
-      "password" => bcrypt("testing12345"),
+      // "password" => bcrypt("testing12345"),
       "role" => "shop",
       "trash_manager_id" => 1,
       "balance" => 500000
@@ -59,9 +59,9 @@ class DatabaseSeeder extends Seeder {
 
     User::create([
       'full_name' => "Reynard Matthew Yaputra",
-      "username" => "rey123",
+      // "username" => "rey123",
       "email" => "reynard@gmail.com",
-      "password" => bcrypt("testing12345"),
+      // "password" => bcrypt("testing12345"),
       "role" => "farmer",
       "balance" => 500000,
       "trash_manager_id" => 1,
@@ -69,9 +69,9 @@ class DatabaseSeeder extends Seeder {
 
     User::create([
       'full_name' => "Jonathan Putra",
-      "username" => "berserker543",
+      // "username" => "berserker543",
       "email" => "jojo@gmail.com",
-      "password" => bcrypt("testing12345"),
+      // "password" => bcrypt("testing12345"),
       "role" => "farmer",
       "balance" => 50000,
       "trash_manager_id" => 1,
@@ -79,9 +79,9 @@ class DatabaseSeeder extends Seeder {
 
     User::create([
       'full_name' => "Bonifasius",
-      "username" => "boni123",
+      // "username" => "boni123",
       "email" => "boni@gmail.com",
-      "password" => bcrypt("testing12345"),
+      // "password" => bcrypt("testing12345"),
       "role" => "shop",
       "balance" => 50000,
       "trash_manager_id" => 1,
