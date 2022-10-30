@@ -13,6 +13,10 @@ public class AuthenticationModel {
         return new Result(token, message, user);
     }
 
+    public String register() {
+        return message;
+    }
+
     public class Result {
         private String token;
         private UserModel.User user;

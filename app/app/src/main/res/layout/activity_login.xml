@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -7,104 +8,110 @@
     android:background="@drawable/background"
     tools:context=".LoginActivity">
 
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+<!--    <de.hdodenhof.circleimageview.CircleImageView-->
+<!--        xmlns:app="http://schemas.android.com/apk/res-auto"-->
+<!--        android:id="@+id/profile_image"-->
+<!--        android:layout_width="24dp"-->
+<!--        android:layout_height="24dp"-->
+<!--        android:src="@drawable/logo"-->
+<!--        app:civ_border_width="2dp"-->
+<!--        app:civ_border_color="#FF000000"/>-->
     <TextView
+        android:id="@+id/logo"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="35dp"
-        android:text="Sign In"
+        android:layout_marginStart="35dp"
+        android:layout_marginTop="35dp"
+        android:layout_marginEnd="35dp"
+        android:layout_marginBottom="20dp"
+        android:text="MagFinance"
         android:textColor="@color/white"
+        android:textSize="20sp" />
+
+    <!--    <TextView-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:text="Forgot Password ? "-->
+<!--        android:layout_below="@id/loginButton"-->
+<!--        android:id="@+id/forgotPassword"-->
+<!--        android:textColor="@color/white"-->
+<!--        android:layout_centerHorizontal="true"-->
+<!--        />-->
+
+    <TextView
+        android:id="@+id/title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/logo"
+        android:layout_marginStart="35dp"
+        android:layout_marginEnd="35dp"
+        android:layout_marginBottom="10dp"
         android:gravity="center"
-        android:id="@+id/signIn"
-        android:textSize="35dp"/>
+        android:text="Maggot Finance"
+        android:textColor="@color/white"
+        android:textSize="30sp" />
 
-    <EditText
+    <TextView
+        android:id="@+id/description"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/signIn"
-        android:hint="Username"
-        android:drawableLeft="@drawable/ic_baseline_person_24"
-        android:drawablePadding="10dp"
+        android:layout_below="@id/title"
+        android:layout_marginStart="35dp"
+        android:layout_marginEnd="35dp"
+        android:layout_marginBottom="20dp"
+        android:text="@string/lorem_ipsum"
         android:textColor="@color/white"
-        android:textColorHint="@color/white"
-        android:id="@+id/username"
-        android:background="#30ffffff"
-        android:padding="15dp"
-        android:inputType="text"
-        android:layout_margin="10dp"/>
-
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/username"
-        android:hint="Password"
-        android:drawableLeft="@drawable/ic_baseline_lock_24"
-        android:drawablePadding="10dp"
-        android:textColor="@color/white"
-        android:textColorHint="@color/white"
-        android:id="@+id/password"
-        android:inputType="textPassword"
-        android:layout_margin="10dp"
-        android:layout_marginTop="0dp"
-        android:padding="15dp"
-        android:background="#30ffffff"
-        />
+        android:textSize="18sp" />
 
     <com.google.android.material.button.MaterialButton
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Login"
-        android:paddingHorizontal="20dp"
-        style="@style/Widget.MaterialComponents.Button.OutlinedButton"
-        android:id="@+id/loginButton"
-        android:layout_below="@id/password"
-        android:layout_centerHorizontal="true"
-        android:backgroundTint="@color/design_default_color_secondary"
-        android:layout_margin="20dp"
+        android:id="@+id/check_city_range_button"
+        android:layout_width="260dp"
+        android:backgroundTint="#8CA4FC"
         android:textColor="@color/black"
-        app:cornerRadius="25dp"
-        app:strokeColor="@color/black"
-        />
+        android:textStyle="bold"
+        android:layout_height="wrap_content"
+        android:drawableStart="@drawable/google"
+        android:text="Cek Jangkauan Kota"
+        android:layout_below="@id/description"
+        app:cornerRadius="50dp"
+        android:layout_centerHorizontal="true"/>
 
-    <TextView
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/login_with_google_button"
+        android:layout_width="260dp"
+        android:layout_height="wrap_content"
+        android:backgroundTint="#DAE2FF"
+        android:textColor="@color/black"
+        android:textStyle="bold"
+        android:text="Masuk Dengan Google"
+        android:layout_below="@id/check_city_range_button"
+        app:cornerRadius="50dp"
+        android:layout_centerHorizontal="true"
+        app:icon="@drawable/google"
+        app:iconSize="20dp"
+        app:iconTintMode="multiply"/>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/register_button"
+            android:layout_width="260dp"
+            android:layout_height="wrap_content"
+            android:backgroundTint="#3886F7"
+            android:textStyle="bold"
+            android:text="Daftar"
+            android:layout_below="@id/login_with_google_button"
+            app:cornerRadius="50dp"
+            android:layout_centerHorizontal="true"
+            android:onClick="navigateToRegisterActivity"/>
+
+    <Button
+        android:id="@+id/logout_button"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/register_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Forgot Password ? "
-        android:layout_below="@id/loginButton"
-        android:id="@+id/forgotPassword"
-        android:textColor="@color/white"
-        android:layout_centerHorizontal="true"
-        />
-
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        >
-
-        <ImageView
-            android:layout_width="48dp"
-            android:layout_height="48dp"
-            android:src="@drawable/google"
-            android:layout_margin="10dp"
-            android:id="@+id/google_icon"
-            />
-
-        <ImageView
-            android:id="@+id/facebook_icon"
-            android:layout_width="48dp"
-            android:layout_height="48dp"
-            android:src="@drawable/fb"
-            android:layout_margin="10dp"
-            />
-
-        <ImageView
-            android:layout_width="48dp"
-            android:layout_height="48dp"
-            android:src="@drawable/twitter"
-            android:layout_margin="10dp"
-            />
-
-    </LinearLayout>
-
-</RelativeLayout>
+        android:text="Logout"/>
+    </RelativeLayout>
+</ScrollView>

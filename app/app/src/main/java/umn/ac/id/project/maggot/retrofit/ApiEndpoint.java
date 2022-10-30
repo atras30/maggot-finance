@@ -19,4 +19,8 @@ public interface ApiEndpoint {
     @FormUrlEncoded
     @POST("auth/login")
     Call<AuthenticationModel> login(@Field("email") String email, @Field("password") String password);
+
+    @FormUrlEncoded
+    @POST("user")
+    Call<AuthenticationModel> register(@Field("email") String email, @Field("password") String password);
 }

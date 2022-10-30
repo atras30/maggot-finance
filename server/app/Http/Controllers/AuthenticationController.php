@@ -66,6 +66,30 @@ class AuthenticationController extends Controller {
     ], Response::HTTP_OK);
   }
 
-  public function register() {
+  public function registerUser(Request $request) {
+    $validated = $request->validate([
+      "full_name" => "string|required",
+      "username" => "string|required|unique:users,username|not_in:pengepul,peternak,warung|alpha_dash",
+      "email" => "string|required|email:rfc,dns|unique:users,email",
+      "password" => "string|required",
+      "role" => "string|required|in:farmer,shop",
+      "trash_manager_id" => "numeric|required"
+    ], [
+      "role.in" => "Role must be either 'farmer' or 'shop'"
+    ]);
+
+    $validated['password'] = bcrypt($validated['password']);
+
+    try {
+      User::create($validated);
+    } catch (\Exception $e) {
+      return response()->json([
+        "error" => $e->getMessage()
+      ], Response::HTTP_INTERNAL_SERVER_ERROR);
+    }
+
+    return response()->json([
+      "message" => "User was successfully created."
+    ], Response::HTTP_CREATED);
   }
 }

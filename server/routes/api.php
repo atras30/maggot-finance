@@ -55,7 +55,7 @@ Route::put("/user/{id}", [UserController::class, "edit"]);
 //Authentication
 Route::prefix("auth")->group(function () {
   Route::post("/login", [AuthenticationController::class, "loginUser"]);
-  Route::post("/register", [AuthenticationController::class, "register"]);
+  Route::post("/user/register", [AuthenticationController::class, "registerUser"]);
 
   Route::post("/login/super-admin", [AuthenticationController::class, "loginSuperAdmin"]);
   Route::post("/login/trash-manager", [AuthenticationController::class, "loginTrashManager"]);

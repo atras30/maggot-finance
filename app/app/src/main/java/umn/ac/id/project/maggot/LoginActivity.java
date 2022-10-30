@@ -20,6 +20,7 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.button.MaterialButton;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -33,9 +34,8 @@ public class LoginActivity extends AppCompatActivity {
     GoogleSignInOptions gso;
     GoogleSignInClient gsc;
 
-    Button loginButton;
-    TextView email, password;
-    ImageView googleIcon, facebookIcon;
+    MaterialButton googleSignInButton;
+    Button logoutButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,27 +45,17 @@ public class LoginActivity extends AppCompatActivity {
         gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN).requestEmail().build();
         gsc = GoogleSignIn.getClient(this, gso);
 
-        loginButton = findViewById(R.id.loginButton);
-        googleIcon = findViewById(R.id.google_icon);
-        facebookIcon = findViewById(R.id.facebook_icon);
-        email = findViewById(R.id.username);
-        password = findViewById(R.id.password);
+        googleSignInButton = findViewById(R.id.login_with_google_button);
+        logoutButton = findViewById(R.id.logout_button);
 
-        loginButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                login(email.getText().toString(), password.getText().toString());
-            }
-        });
-
-        googleIcon.setOnClickListener(new View.OnClickListener() {
+        googleSignInButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 signIn();
             }
         });
 
-        facebookIcon.setOnClickListener(new View.OnClickListener() {
+        logoutButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 gsc.signOut().addOnCompleteListener(new OnCompleteListener<Void>() {
@@ -138,7 +128,12 @@ public class LoginActivity extends AppCompatActivity {
         GoogleSignInAccount acct = GoogleSignIn.getLastSignedInAccount(this);
         Log.i("name", acct.getDisplayName());
         Log.i("email", acct.getEmail());
-        Intent intent = new Intent(LoginActivity.this, PengepulActivity.class);
+//        Intent intent = new Intent(LoginActivity.this, PengepulActivity.class);
+//        startActivity(intent);
+    }
+
+    public void navigateToRegisterActivity(View view) {
+        Intent intent = new Intent(LoginActivity.this, RegisterActivity.class);
         startActivity(intent);
     }
 }

@@ -6,6 +6,8 @@
 
     <string name="recyclerview_peternak_title">Maggot Finance (List Peternak)</string>
 
+    <string name="lorem_ipsum">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla malesuada dapibus quam, sed volutpat ex feugiat sed. Aliquam finibus metus eget tortor cursus suscipit. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla malesuada dapibus quam, sed volutpat ex feugiat sed. Aliquam finibus metus eget tortor cursus suscipit. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla malesuada dapibus quam, sed volutpat ex feugiat sed. Aliquam finibus metus eget tortor cursus suscipit.</string>
+
     <string-array name="arr">
         <item>test</item>
         <item>test1</item>
