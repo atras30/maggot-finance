@@ -47,7 +47,7 @@ Route::get("/trash-manager", [TrashManagerController::class, "index"]);
 //User Endpoints
 Route::get("/user", [UserController::class, "index"]);
 Route::get("/user/role/{role}", [UserController::class, "getUserByRole"]);
-Route::get("/user/username/{username}", [UserController::class, "getUserByUsername"]);
+Route::get("/user/email/{email}", [UserController::class, "getUserByEmail"]);
 Route::post("/user", [UserController::class, "store"]);
 Route::put("/user/{id}", [UserController::class, "edit"]);
 

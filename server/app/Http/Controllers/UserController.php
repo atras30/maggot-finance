@@ -12,12 +12,12 @@ class UserController extends Controller {
     ], Response::HTTP_OK);
   }
 
-  public function getUserByUsername($username) {
-    $user = User::where("username", $username)->get();
+  public function getUserByEmail($email) {
+    $user = User::where("email", $email)->get();
 
     if (!$user->count()) {
       return response()->json([
-        "message" => "User {$username} was not found."
+        "message" => "User {$email} was not found."
       ], Response::HTTP_OK);
     }
 
