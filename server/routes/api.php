@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AuthenticationController;
 use App\Http\Controllers\MailController;
+use App\Http\Controllers\RegistrationController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\SuperAdminController;
 use App\Http\Controllers\TransactionController;
@@ -56,8 +57,14 @@ Route::get("/user/unauthenticated", [UserController::class, "unauthenticatedUser
 //Authentication
 Route::prefix("auth")->group(function () {
   Route::post("/login", [AuthenticationController::class, "login"]);
-  Route::post("/user/register", [AuthenticationController::class, "registerUser"]);
 });
+
+//Registration
+Route::post("/register/user", [RegistrationController::class, "registerUser"]);
+Route::post("/register/user/approve", [RegistrationController::class, "approveUserRequest"]);
+Route::post("/register/user/reject", [RegistrationController::class, "rejectUserRequest"]);
+Route::post("/register/trash-manager/approve", [RegistrationController::class, "rejectTrashManagerRequest"]);
+Route::post("/register/trash-manager/reject", [RegistrationController::class, "rejectTrashManagerRequest"]);
 
 //Mailing Endpoints
 Route::post('/send-registration-mail', [MailController::class, "sendRegistrationMail"]);
