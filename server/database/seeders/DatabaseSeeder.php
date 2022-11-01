@@ -36,7 +36,7 @@ class DatabaseSeeder extends Seeder {
       "tempat" => "Kecamatan Sepatan Timur",
       "email" => "sepatanTimur@gmail.com",
       "super_admin_id" => 1,
-      "password" => bcrypt("testing12345")
+    //   "password" => bcrypt("testing12345")
     ]);
 
     TrashManager::create([
@@ -44,18 +44,26 @@ class DatabaseSeeder extends Seeder {
       "tempat" => "Kecamatan Rajeg",
       "email" => "rajeg@gmail.com",
       "super_admin_id" => 1,
-      "password" => bcrypt("testing12345")
+    //   "password" => bcrypt("testing12345")
     ]);
 
-    User::create([
-      'full_name' => "Atras Shalhan",
-      // "username" => "atras30",
+    TrashManager::create([
+      "nama_pengelola" => "Pluit Corps",
+      "tempat" => "Villa Mutiara Pluit",
       "email" => "atrasshalhan@gmail.com",
-      // "password" => bcrypt("testing12345"),
-      "role" => "shop",
-      "trash_manager_id" => 1,
-      "balance" => 500000
+      "super_admin_id" => 1,
+    //   "password" => bcrypt("testing12345")
     ]);
+
+    // User::create([
+    //   'full_name' => "Atras Shalhan",
+    //   // "username" => "atras30",
+    //   "email" => "atrasshalhan@gmail.com",
+    //   // "password" => bcrypt("testing12345"),
+    //   "role" => "shop",
+    //   "trash_manager_id" => 1,
+    //   "balance" => 500000
+    // ]);
 
     User::create([
       'full_name' => "Reynard Matthew Yaputra",

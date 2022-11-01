@@ -12,6 +12,12 @@ class UserController extends Controller {
     ], Response::HTTP_OK);
   }
 
+  public function unauthenticatedUser() {
+    return response()->json([
+        "data" => User::where("email_verified_at", null)->where("role", "farmer")->get()
+    ], Response::HTTP_OK);
+  }
+
   public function getUserByEmail($email) {
     $user = User::where("email", $email)->get();
 

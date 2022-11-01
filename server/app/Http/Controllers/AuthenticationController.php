@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\RequestUserRegistrationMail;
 use App\Models\SuperAdmin;
 use App\Models\TrashManager;
 use App\Models\User;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Hash;
@@ -16,27 +18,15 @@ class AuthenticationController extends Controller {
     ], Response::HTTP_OK);
   }
 
-  public function loginUser(Request $request) {
-    return $this->login($request, 'user');
-  }
-
-  public function loginTrashManager(Request $request) {
-    return $this->login($request, 'trash manager');
-  }
-
-  public function loginSuperAdmin(Request $request) {
-    return $this->login($request, 'super admin');
-  }
-
-  public function login($request, $role) {
+  public function login(Request $request) {
     $validated = $request->validate([
       "email" => "string|required",
       "password" => "string|required"
     ]);
 
-    $email = $username = $validated['email'];
+    $email = $validated['email'];
 
-    $user = User::where("email", $email)->orWhere("username", $username)->first();
+    $user = User::where("email", $email)->first();
     if(!$user) {
       $user = TrashManager::where("email", $email)->first();
     }
@@ -44,11 +34,11 @@ class AuthenticationController extends Controller {
       $user = SuperAdmin::where("email", $email)->first();
     }
 
-    if (!$user || !Hash::check($validated['password'], $user->password)) {
-      return response()->json([
-        "message" => "Bad Credentials."
-      ], Response::HTTP_OK);
-    }
+    // if (!$user || !Hash::check($validated['password'], $user->password)) {
+    //   return response()->json([
+    //     "message" => "Bad Credentials."
+    //   ], Response::HTTP_OK);
+    // }
 
     $token = $user->createToken("login_token")->plainTextToken;
 
@@ -81,7 +71,9 @@ class AuthenticationController extends Controller {
     // $validated['password'] = bcrypt($validated['password']);
 
     try {
-      User::create($validated);
+      $createdUser = User::create($validated);
+      $trashManager = TrashManager::findOrFail($validated['trash_manager_id']);
+      Mail::to($trashManager->email)->send(new RequestUserRegistrationMail($createdUser->full_name, $createdUser->role));
     } catch (\Exception $e) {
       return response()->json([
         "error" => $e->getMessage()

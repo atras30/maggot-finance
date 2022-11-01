@@ -49,16 +49,14 @@ Route::get("/user", [UserController::class, "index"]);
 Route::get("/user/role/{role}", [UserController::class, "getUserByRole"]);
 Route::get("/user/email/{email}", [UserController::class, "getUserByEmail"]);
 Route::post("/user", [UserController::class, "store"]);
-Route::put("/user/{id}", [UserController::class, "edit"]);
+Route::get("/user/unauthenticated", [UserController::class, "unauthenticatedUser"]);
+// Route::put("/user/{id}", [UserController::class, "edit"]);
 
 
 //Authentication
 Route::prefix("auth")->group(function () {
-  Route::post("/login", [AuthenticationController::class, "loginUser"]);
+  Route::post("/login", [AuthenticationController::class, "login"]);
   Route::post("/user/register", [AuthenticationController::class, "registerUser"]);
-
-  Route::post("/login/super-admin", [AuthenticationController::class, "loginSuperAdmin"]);
-  Route::post("/login/trash-manager", [AuthenticationController::class, "loginTrashManager"]);
 });
 
 //Mailing Endpoints
