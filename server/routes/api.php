@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AuthenticationController;
 use App\Http\Controllers\MailController;
+use App\Http\Controllers\RegistrationController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\SuperAdminController;
 use App\Http\Controllers\TransactionController;
@@ -47,19 +48,23 @@ Route::get("/trash-manager", [TrashManagerController::class, "index"]);
 //User Endpoints
 Route::get("/user", [UserController::class, "index"]);
 Route::get("/user/role/{role}", [UserController::class, "getUserByRole"]);
-Route::get("/user/username/{username}", [UserController::class, "getUserByUsername"]);
+Route::get("/user/email/{email}", [UserController::class, "getUserByEmail"]);
 Route::post("/user", [UserController::class, "store"]);
-Route::put("/user/{id}", [UserController::class, "edit"]);
+Route::get("/user/unauthenticated", [UserController::class, "unauthenticatedUser"]);
+// Route::put("/user/{id}", [UserController::class, "edit"]);
 
 
 //Authentication
 Route::prefix("auth")->group(function () {
-  Route::post("/login", [AuthenticationController::class, "loginUser"]);
-  Route::post("/user/register", [AuthenticationController::class, "registerUser"]);
-
-  Route::post("/login/super-admin", [AuthenticationController::class, "loginSuperAdmin"]);
-  Route::post("/login/trash-manager", [AuthenticationController::class, "loginTrashManager"]);
+  Route::post("/login", [AuthenticationController::class, "login"]);
 });
+
+//Registration
+Route::post("/register/user", [RegistrationController::class, "registerUser"]);
+Route::post("/register/user/approve", [RegistrationController::class, "approveUserRequest"]);
+Route::post("/register/user/reject", [RegistrationController::class, "rejectUserRequest"]);
+Route::post("/register/trash-manager/approve", [RegistrationController::class, "rejectTrashManagerRequest"]);
+Route::post("/register/trash-manager/reject", [RegistrationController::class, "rejectTrashManagerRequest"]);
 
 //Mailing Endpoints
 Route::post('/send-registration-mail', [MailController::class, "sendRegistrationMail"]);

@@ -1,0 +1,1 @@
+Halo, <b>{{ $name }}</b> baru saja meminta untuk bergabung menjadi <b>{{ $role }}</b> di aplikasi Maggot Finance, ayo <span style="color:green"><b>accept</b></span> / <span style="color: red"><b>reject</b></span> permintaan pendaftaran tersebut melalui aplikasi <b>Maggot Finance</b>.

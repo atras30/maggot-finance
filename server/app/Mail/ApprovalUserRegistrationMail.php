@@ -7,7 +7,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 
-class RegistrationMail extends Mailable {
+class ApprovalUserRegistrationMail extends Mailable {
   use Queueable, SerializesModels;
 
   private $full_name;
@@ -27,7 +27,7 @@ class RegistrationMail extends Mailable {
    * @return $this
    */
   public function build() {
-    return $this->subject("Registration Email")->view('mail.registration_mail', [
+    return $this->subject("Maggot Finance's Account has been activated!")->view('mail.approval_user_registration', [
       "full_name" => $this->full_name
     ]);
   }

@@ -16,7 +16,7 @@ return new class extends Migration {
       $table->string("nama_pengelola")->unique();
       $table->string("tempat");
       $table->string("email")->unique();
-      $table->string("password");
+    //   $table->string("password");
       $table->string("role")->default("trash_manager");
       $table->foreignId("super_admin_id")->constrained("super_admins", "id")->onUpdate("cascade")->onDelete("cascade");
       $table->timestamps();
