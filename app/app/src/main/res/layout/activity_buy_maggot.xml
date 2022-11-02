@@ -6,6 +6,7 @@
     android:layout_height="match_parent"
     android:padding="10dp"
     app:barrierMargin="20dp"
+    android:background="@drawable/gradient_background_2"
     tools:context=".BuyMaggotActivity">
     <LinearLayout
         android:id="@+id/linearLayout"
