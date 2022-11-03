@@ -21,5 +21,6 @@ public class AuthenticatedUser {
 
     public static void logout() {
         authenticatedUser = null;
+        token = null;
     }
 }

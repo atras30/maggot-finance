@@ -10,7 +10,9 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:padding="0dp"
+        android:layout_margin="0dp">
 
         <TextView
             android:id="@+id/textView3"
@@ -62,18 +64,49 @@
             app:layout_constraintStart_toStartOf="@+id/textView4"
             app:layout_constraintTop_toBottomOf="@+id/textView4" />
 
-        <EditText
-            android:id="@+id/editText2"
+        <FrameLayout
+            android:id="@+id/daerah_spinner_container"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
+            android:layout_marginTop="20dp"
             android:background="@drawable/rounded_edittext"
-            android:hint="Daerah"
+            app:layout_constraintStart_toStartOf="@+id/editText"
+            app:layout_constraintTop_toBottomOf="@+id/editText">
+
+            <Spinner
+                android:id="@+id/daerah_spinner"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="15dp"
+                android:textColorHint="#777"
+                android:textStyle="bold" />
+        </FrameLayout>
+
+        <EditText
+            android:id="@+id/address"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:background="@drawable/rounded_edittext"
+            android:hint="Alamat Lengkap"
             android:padding="15dp"
             android:textColorHint="#777"
             android:textStyle="bold"
-            app:layout_constraintStart_toStartOf="@+id/editText"
-            app:layout_constraintTop_toBottomOf="@+id/editText" />
+            app:layout_constraintStart_toStartOf="@+id/daerah_spinner_container"
+            app:layout_constraintTop_toBottomOf="@+id/daerah_spinner_container" />
+
+        <EditText
+            android:id="@+id/phone_number"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:background="@drawable/rounded_edittext"
+            android:hint="Nomor Telepon"
+            android:padding="15dp"
+            android:textColorHint="#777"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="@+id/address"
+            app:layout_constraintTop_toBottomOf="@+id/address" />
 
         <LinearLayout
             android:id="@+id/linearLayout2"
@@ -82,7 +115,7 @@
             android:layout_marginTop="20dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/editText2">
+            app:layout_constraintTop_toBottomOf="@+id/phone_number">
 
             <CheckBox
                 android:id="@+id/registration_agreement_checkbox"

@@ -107,7 +107,7 @@ public class BuyMaggotActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<PeternakModel> call, Throwable t) {
-                Log.d("hasil", t.toString());
+                Log.d("Failure : ", t.toString());
             }
         });
 

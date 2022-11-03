@@ -22,7 +22,7 @@ class AuthenticationController extends Controller
     {
         $validated = $request->validate([
             "email" => "string|required",
-            "password" => "string|required"
+            // "password" => "string|required"
         ]);
 
         $email = $validated['email'];

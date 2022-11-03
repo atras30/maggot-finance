@@ -6,7 +6,7 @@
 
     <string name="recyclerview_peternak_title">Maggot Finance (List Peternak)</string>
 
-    <string name="lorem_ipsum">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla malesuada dapibus quam, sed volutpat ex feugiat sed. Aliquam finibus metus eget tortor cursus suscipit. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla malesuada dapibus quam, sed volutpat ex feugiat sed. Aliquam finibus metus eget tortor cursus suscipit. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla malesuada dapibus quam, sed volutpat ex feugiat sed. Aliquam finibus metus eget tortor cursus suscipit.</string>
+    <string name="lorem_ipsum">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla malesuada dapibus quam, sed volutpat ex feugiat sed. Aliquam finibus metus eget tortor cursus suscipit. Aliquam finibus metus eget tortor cursus suscipit. Aliquam finibus metus eget tortor cursus suscipit. Aliquam finibus metus eget tortor cursus suscipit.Aliquam finibus metus eget tortor cursus suscipit.Aliquam finibus metus </string>
 
     <string-array name="arr">
         <item>test</item>
@@ -14,4 +14,21 @@
         <item>test2</item>
         <item>test3</item>
     </string-array>
+
+    <string-array name="numbers">
+        <item>One</item>
+        <item>Two</item>
+        <item>Three</item>
+        <item>Four</item>
+        <item>Five</item>
+    </string-array>
+    <string name="title_activity_trash_manager_dashboard">TrashManagerDashboardActivity</string>
+    <!-- Strings used for fragments for navigation -->
+    <string name="first_fragment_label">First Fragment</string>
+    <string name="second_fragment_label">Second Fragment</string>
+    <string name="next">Next</string>
+    <string name="previous">Previous</string>
+
+    <string name="hello_first_fragment">Hello first fragment</string>
+    <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
 </resources>

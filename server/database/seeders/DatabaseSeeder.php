@@ -8,7 +8,6 @@ use App\Models\SuperAdmin;
 use App\Models\TrashManager;
 use Illuminate\Database\Seeder;
 use App\Models\User;
-use Ramsey\Uuid\Uuid;
 
 class DatabaseSeeder extends Seeder {
   /**
@@ -72,6 +71,7 @@ class DatabaseSeeder extends Seeder {
       // "password" => bcrypt("testing12345"),
       "role" => "farmer",
       "balance" => 500000,
+      "address" => "VMP c5/14",
       "trash_manager_id" => 1,
     ]);
 
@@ -82,6 +82,7 @@ class DatabaseSeeder extends Seeder {
       // "password" => bcrypt("testing12345"),
       "role" => "farmer",
       "balance" => 50000,
+      "address" => "Jakarta Barat, blablabla",
       "trash_manager_id" => 1,
     ]);
 
@@ -92,6 +93,7 @@ class DatabaseSeeder extends Seeder {
       // "password" => bcrypt("testing12345"),
       "role" => "shop",
       "balance" => 50000,
+      "address" => "Jalan gatau bwang",
       "trash_manager_id" => 1,
     ]);
 

@@ -13,7 +13,7 @@ public class AuthenticationModel {
         return new Result(token, message, user);
     }
 
-    public String register() {
+    public String registerUser() {
         return message;
     }
 

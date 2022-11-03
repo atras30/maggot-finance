@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Mail\ApprovalUserRegistrationMail;
 use App\Mail\RejectUserRegistrationMail;
 use App\Mail\RequestUserRegistrationMail;
+use App\Mail\SendUserRegistrationMail;
 use App\Models\TrashManager;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -21,17 +22,28 @@ class RegistrationController extends Controller
             "email" => "string|required|email:rfc,dns|unique:users,email",
             // "password" => "string|required",
             "role" => "string|required|in:farmer,shop",
-            "trash_manager_id" => "numeric|required"
+            "trash_manager_id" => "numeric|required",
+            "address" => "string|required",
+            "phone_number" => "string|required"
         ], [
             "role.in" => "Role must be either 'farmer' or 'shop'"
         ]);
 
         // $validated['password'] = bcrypt($validated['password']);
 
+        $user = User::where("email", $validated['email'])->get()->first();
+
+        if ($user) {
+            return response()->json([
+                "message" => "user is already registered in our app."
+            ], Response::HTTP_OK);
+        }
+
         try {
             $createdUser = User::create($validated);
             $trashManager = TrashManager::findOrFail($validated['trash_manager_id']);
             Mail::to($trashManager->email)->send(new RequestUserRegistrationMail($createdUser->full_name, $createdUser->role));
+            Mail::to($validated['email'])->send(new SendUserRegistrationMail($createdUser, $trashManager));
         } catch (\Exception $e) {
             return response()->json([
                 "error" => $e->getMessage()
@@ -51,7 +63,7 @@ class RegistrationController extends Controller
 
         try {
             $user = User::where("email", $validated['email'])->get()->first();
-            $user->email_verified_at = now();
+            $user->is_verified = 1;
             $user->save();
             Mail::to($user->email)->send(new ApprovalUserRegistrationMail($user->full_name));
             return response()->json([
@@ -72,8 +84,8 @@ class RegistrationController extends Controller
 
         try {
             $user = User::where("email", $validated['email'])->get()->first();
-            $user->delete();
             Mail::to($user->email)->send(new RejectUserRegistrationMail($user->full_name));
+            $user->delete();
             return response()->json([
                 "message" => "Reject request success."
             ]);

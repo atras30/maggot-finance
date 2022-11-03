@@ -1,5 +1,6 @@
 package umn.ac.id.project.maggot;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -30,8 +31,9 @@ public class ListPeternakActivity extends AppCompatActivity {
     private void getDataPeternak() {
         ApiService.endpoint().getPeternak().enqueue(new Callback<PeternakModel>() {
             @Override
-            public void onResponse(Call<PeternakModel> call, Response<PeternakModel> response) {
+            public void onResponse(@NonNull Call<PeternakModel> call, @NonNull Response<PeternakModel> response) {
                 if(response.isSuccessful()) {
+                    assert response.body() != null;
                     List<PeternakModel.Peternak> results = response.body().getPeternak();
                     Log.d(TAG, results.toString());
                     ListPeternakAdapter listPeternakAdapter = new ListPeternakAdapter(ListPeternakActivity.this, results);

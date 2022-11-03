@@ -5,8 +5,10 @@ import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
+import umn.ac.id.project.maggot.model.ApprovalRejectionModel;
 import umn.ac.id.project.maggot.model.AuthenticationModel;
 import umn.ac.id.project.maggot.model.PeternakModel;
+import umn.ac.id.project.maggot.model.TrashManagerModel;
 import umn.ac.id.project.maggot.model.UserModel;
 
 public interface ApiEndpoint {
@@ -16,11 +18,25 @@ public interface ApiEndpoint {
     @GET("user/role/farmer")
     Call<PeternakModel> getPeternak();
 
-    @FormUrlEncoded
-    @POST("auth/login")
-    Call<AuthenticationModel> login(@Field("email") String email, @Field("password") String password);
+    @GET("user/role/farmer")
+    Call<UserModel> getUsers();
+
+    @GET("trash-manager")
+    Call<TrashManagerModel> getTrashManager();
 
     @FormUrlEncoded
-    @POST("user")
-    Call<AuthenticationModel> register(@Field("email") String email, @Field("password") String password);
+    @POST("auth/login")
+    Call<AuthenticationModel> login(@Field("email") String email);
+
+    @FormUrlEncoded
+    @POST("register/user")
+    Call<AuthenticationModel> registerUser(@Field("full_name") String fullName, @Field("email") String email, @Field("role") String role, @Field("trash_manager_id") int trashManagerId, @Field("address") String address, @Field("phone_number") String phoneNumber);
+
+    @FormUrlEncoded
+    @POST("register/user/approve")
+    Call<ApprovalRejectionModel> approvalUserRegistration(@Field("email") String email);
+
+    @FormUrlEncoded
+    @POST("register/user/reject")
+    Call<ApprovalRejectionModel> rejectionUserRegistration(@Field("email") String email);
 }

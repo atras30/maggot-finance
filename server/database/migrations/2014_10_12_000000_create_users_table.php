@@ -19,9 +19,11 @@ return new class extends Migration {
       // $table->string('password');
       $table->unsignedBigInteger("balance")->default(0);
       $table->string('role')->enum(["farmer", "shop"]);
+      $table->string('phone_number')->nullable();
+      $table->string('address');
       $table->foreignId("trash_manager_id")->constrained("trash_managers", "id")->onUpdate("cascade")->onDelete("cascade");
       $table->timestamps();
-      $table->timestamp('email_verified_at')->nullable();
+      $table->boolean('is_verified')->default(0);
       // $table->rememberToken();
     });
   }

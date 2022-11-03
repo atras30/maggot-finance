@@ -1,0 +1,60 @@
+package umn.ac.id.project.maggot.model;
+
+import androidx.annotation.NonNull;
+
+import java.util.Date;
+import java.util.List;
+
+import umn.ac.id.project.maggot.global.Helper;
+
+public class TrashManagerModel {
+    private List<TrashManagers> trash_managers;
+
+    public List<TrashManagers> getTrashManager() {
+        return trash_managers;
+    }
+
+    public static class TrashManagers {
+        private int id, super_admin_id;
+        private String nama_pengelola, tempat, email, role;
+        Date created_at, updated_at;
+
+        public int getId() {
+            return id;
+        }
+
+        public int getSuper_admin_id() {
+            return super_admin_id;
+        }
+
+        public String getNama_pengelola() {
+            return nama_pengelola;
+        }
+
+        public String getTempat() {
+            return tempat;
+        }
+
+        public String getEmail() {
+            return email;
+        }
+
+        public String getRole() {
+            return role;
+        }
+
+        public String getCreated_at() {
+            return Helper.parseDate(created_at);
+        }
+
+        public String getUpdated_at() {
+            return Helper.parseDate(updated_at);
+        }
+
+        @NonNull
+        @Override
+        public String toString() {
+            return tempat + " (" + nama_pengelola + ")";
+        }
+    }
+}
