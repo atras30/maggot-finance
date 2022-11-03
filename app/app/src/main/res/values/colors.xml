@@ -7,4 +7,22 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+
+    <color name="primary"></color>
+    <color name="primaryacc"></color>
+    <color name="secondary"></color>
+    <color name="secondaryacc"></color>
+    <color name="tertiary"></color>
+    <color name="tertiaryacc"></color>
+    <color name="danger"></color>
+    <color name="warning"></color>
+    <color name="success"></color>
+    <color name="grey"></color>
+    <color name="dark"></color>
+    <color name="light"></color>
+
+    <color name="back1start">#041A39</color>
+    <color name="back1end">#2444A3</color>
+    <color name="back2start">#E4EAFF</color>
+    <color name="back2end">#76A8F1</color>
 </resources>

@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="20dp"
+    android:background="@drawable/gradient_background_2"
     tools:context=".PengepulActivity">
 
     <TextView
@@ -47,7 +48,7 @@
                     android:textSize="20sp"
                     android:textStyle="bold"
                     android:id="@+id/rp"
-                    android:text="RP"/>
+                    android:text="Rp"/>
 
                 <TextView
                     android:id="@+id/saldoWarga"
