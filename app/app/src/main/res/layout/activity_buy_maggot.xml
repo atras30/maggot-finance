@@ -7,6 +7,7 @@
     android:padding="10dp"
     app:barrierMargin="20dp"
     tools:context=".BuyMaggotActivity">
+
     <LinearLayout
         android:id="@+id/linearLayout"
         android:layout_width="330dp"
@@ -29,6 +30,12 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.101" />
+
+
+        <umn.ac.id.project.maggot.InstantAutoComplete
+            android:id="@+id/inputpeternak"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content" />
 
         <Spinner
             android:id="@+id/listPeternakSpinner"
@@ -134,26 +141,14 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.545" />
 
-    <Button
-        android:id="@+id/btnSelectDate"
-        android:layout_width="139dp"
-        android:layout_height="38dp"
-        android:text="select date"
-        app:layout_constraintBottom_toTopOf="@+id/linearLayout"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.34"
-        app:layout_constraintStart_toEndOf="@+id/currentDate"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.556" />
-
-    <Button
-        android:id="@+id/scan_qr_code_button"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Scan QR Code"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+    <!--    <Button-->
+<!--        android:id="@+id/scan_qr_code_button"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:text="Scan QR Code"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toTopOf="parent" />-->
 
     <Button
         android:id="@+id/save"
@@ -169,13 +164,5 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/linearLayout"
         app:layout_constraintVertical_bias="0.0" />
-
-    <ListView
-        android:id="@+id/listview"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/white"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -4,9 +4,10 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/AndroidProject/DARIPC/maggot-project-server/app/app/src/main/res/layout/activity_buy_maggot.xml" value="0.22826086956521738" />
-        <entry key="..\:/AndroidProject/maggot-project-server/app/app/src/main/res/layout/activity_buy_maggot.xml" value="0.2053872053872054" />
+        <entry key="..\:/AndroidProject/maggot-project-server/app/app/src/main/res/layout/activity_buy_maggot.xml" value="0.264" />
         <entry key="..\:/AndroidProject/maggot-project-server/app/app/src/main/res/layout/activity_list_peternak.xml" value="0.25416666666666665" />
         <entry key="..\:/AndroidProject/maggot-project-server/app/app/src/main/res/layout/activity_pengepul.xml" value="0.25416666666666665" />
+        <entry key="..\:/AndroidProject/maggot-project-server/app/app/src/main/res/layout/activity_qr_code.xml" value="0.12360688956433637" />
         <entry key="..\:/AndroidProject/maggot-project-server/app/app/src/main/res/layout/activity_searchable.xml" value="0.25416666666666665" />
         <entry key="..\:/AndroidProject/maggot-project-server/app/app/src/main/res/layout/list_peternak_row.xml" value="0.25416666666666665" />
         <entry key="..\:/AndroidProject/maggot-project-server/app/app/src/main/res/layout/peternak_dropdown.xml" value="0.264" />
