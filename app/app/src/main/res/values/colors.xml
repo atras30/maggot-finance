@@ -8,18 +8,18 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
 
-    <color name="primary"></color>
-    <color name="primaryacc"></color>
-    <color name="secondary"></color>
-    <color name="secondaryacc"></color>
-    <color name="tertiary"></color>
-    <color name="tertiaryacc"></color>
-    <color name="danger"></color>
-    <color name="warning"></color>
-    <color name="success"></color>
-    <color name="grey"></color>
-    <color name="dark"></color>
-    <color name="light"></color>
+    <color name="primary">#05377F</color>
+    <color name="primaryacc">#476B9D</color>
+    <color name="secondary">#3886F7</color>
+    <color name="secondaryacc">#8CA4FC</color>
+    <color name="tertiary">#827272</color>
+    <color name="tertiaryacc">#D8C4AD</color>
+    <color name="danger">#EB445A</color>
+    <color name="warning">#FFC409</color>
+    <color name="success">#2DD36F</color>
+    <color name="grey">#606975</color>
+    <color name="dark">#041A39</color>
+    <color name="light">#DAE2FF</color>
 
     <color name="back1start">#041A39</color>
     <color name="back1end">#2444A3</color>

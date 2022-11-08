@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView
+<RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -8,9 +8,6 @@
     android:background="@drawable/gradient_background"
     tools:context=".LoginActivity">
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
 <!--    <de.hdodenhof.circleimageview.CircleImageView-->
 <!--        xmlns:app="http://schemas.android.com/apk/res-auto"-->
 <!--        android:id="@+id/profile_image"-->
@@ -27,7 +24,7 @@
         android:layout_marginTop="35dp"
         android:layout_marginEnd="35dp"
         android:layout_marginBottom="20dp"
-        android:text="MagFinance"
+        android:text="MagFin"
         android:textColor="@color/white"
         android:textSize="20sp" />
 
@@ -46,25 +43,27 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/logo"
+        android:layout_centerVertical="true"
         android:layout_marginStart="35dp"
+        android:layout_marginTop="175dp"
         android:layout_marginEnd="35dp"
-        android:layout_marginBottom="10dp"
-        android:gravity="center"
-        android:text="Maggot Finance"
+        android:text="MagFin"
         android:textColor="@color/white"
-        android:textSize="30sp" />
+        android:textSize="50sp"
+        android:textStyle="bold" />
 
     <TextView
         android:id="@+id/description"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/title"
+        android:layout_centerVertical="true"
         android:layout_marginStart="35dp"
         android:layout_marginEnd="35dp"
         android:layout_marginBottom="20dp"
-        android:text="@string/lorem_ipsum"
+        android:text="Satu Aplikasi untuk Kebutuhan Transaksi Maggotmu!"
         android:textColor="@color/white"
-        android:textSize="18sp" />
+        android:textSize="20sp" />
 
 <!--    <com.google.android.material.button.MaterialButton-->
 <!--        android:id="@+id/check_city_range_button"-->
@@ -92,7 +91,8 @@
         android:layout_centerHorizontal="true"
         app:icon="@drawable/google"
         app:iconSize="20dp"
-        app:iconTintMode="multiply"/>
+        app:iconTintMode="multiply"
+        android:layout_marginTop="210dp"/>
 
 <!--        <com.google.android.material.button.MaterialButton-->
 <!--            android:id="@+id/register_button"-->
@@ -118,5 +118,4 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Logout"/>
-    </RelativeLayout>
-</ScrollView>
+</RelativeLayout>
