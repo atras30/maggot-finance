@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthenticationController;
+use App\Http\Controllers\Controller;
 use App\Http\Controllers\MailController;
 use App\Http\Controllers\RegistrationController;
 use App\Http\Controllers\UserController;
@@ -67,3 +68,6 @@ Route::post("/register/trash-manager/reject", [RegistrationController::class, "r
 //Mailing Endpoints
 Route::post('/send-registration-mail', [MailController::class, "sendRegistrationMail"]);
 Route::post('/send-transaction-bill', [MailController::class, "sendTransactionBill"]);
+
+Route::post('/create-dummy-data', [RegistrationController::class, "createDummyData"]);
+Route::post('/create-transaction-dummy-data', [RegistrationController::class, "createTransactionDummyData"]);
