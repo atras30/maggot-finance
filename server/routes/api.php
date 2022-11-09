@@ -21,8 +21,6 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-
-
 //Authenticated User
 Route::middleware('auth:sanctum')->group(function () {
   //Super Admin

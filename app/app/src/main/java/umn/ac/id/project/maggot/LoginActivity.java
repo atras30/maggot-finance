@@ -163,8 +163,13 @@ public class LoginActivity extends AppCompatActivity {
     private void navigateRegisteredUser() {
         Log.i("Verified", String.valueOf(AuthenticatedUser.getUser().is_verified()));
         if(AuthenticatedUser.getUser().is_verified() == 1) {
-            Intent navigateToDashboardUserActivity = new Intent(LoginActivity.this, UserDashboardActivity.class);
-            startActivity(navigateToDashboardUserActivity);
+            if(AuthenticatedUser.getUser().getRole().equals("farmer")) {
+                Intent navigateToFarmerDashboardActivity = new Intent(LoginActivity.this, FarmerDashboardActivity.class);
+                startActivity(navigateToFarmerDashboardActivity);
+            } else if (AuthenticatedUser.getUser().getRole().equals("shop")) {
+                Intent navigateToDashboardShopActivity = new Intent(LoginActivity.this, ShopDashboardActivity.class);
+                startActivity(navigateToDashboardShopActivity);
+            }
         } else {
             Intent navigateToRegistrationSuccessActivity = new Intent(LoginActivity.this, RegistrationSuccess.class);
             startActivity(navigateToRegistrationSuccessActivity);
