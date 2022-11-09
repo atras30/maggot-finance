@@ -54,6 +54,14 @@ class DatabaseSeeder extends Seeder {
     //   "password" => bcrypt("testing12345")
     ]);
 
+    TrashManager::create([
+      "nama_pengelola" => "Jonathan Corps",
+      "tempat" => "Jakarta Barat",
+      "email" => "jonathanputra134@gmail.com",
+      "super_admin_id" => 1,
+    //   "password" => bcrypt("testing12345")
+    ]);
+
     // User::create([
     //   'full_name' => "Atras Shalhan",
     //   // "username" => "atras30",
