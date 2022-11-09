@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="umn.ac.id.project.maggot">
-    package="umn.ac.id.project.maggot">
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.CAMERA" />
@@ -18,7 +17,7 @@
             android:exported="false" />
         <activity
             android:name=".DashboardWarungActivity"
-            android:exported="false">
+            android:exported="false"/>
         <activity
             android:name=".FarmerTransactionActivity"
             android:exported="false">
@@ -46,7 +45,7 @@
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
-        </activity/>
+        </activity>
         <activity
             android:name=".TrashManagerDashboardActivity"
             android:exported="false">
@@ -91,11 +90,7 @@
         </activity>
         <activity
             android:name=".BuyMaggotActivity"
-            android:exported="true"></activity>
-        <activity
-            android:name=".BuyMaggotActivity"
-            android:exported="true">
-        </activity>
+            android:exported="true"/>
         <activity
             android:name=".LoginActivity"
             android:exported="true">
