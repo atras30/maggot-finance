@@ -19,13 +19,6 @@
             android:layout_above="@id/bottom_navigation_container"
             >
 
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/main_content"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:layout_constraintTop_toTopOf="parent"
-                tools:layout_editor_absoluteX="20dp">
-
                 <TextView
                     android:id="@+id/textView6"
                     android:layout_width="match_parent"
@@ -136,7 +129,6 @@
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@id/barcode_title_dompet_anda" />
-                </androidx.constraintlayout.widget.ConstraintLayout>
             </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
