@@ -16,10 +16,19 @@ public class PeternakModel {
         private String full_name;
         private String username;
         private String email;
+        private String address;
         private double balance;
         private String role;
         private Date created_at;
         private Date updated_at;
+
+        public int getId() {
+            return id;
+        }
+
+        public String getAddress() {
+            return address;
+        }
 
         public String getFull_name() {
             return full_name;

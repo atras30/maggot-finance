@@ -35,11 +35,19 @@ public class FarmerTransactionAdapter extends RecyclerView.Adapter<FarmerTransac
 
     @Override
     public void onBindViewHolder(@NonNull FarmerTransactionAdapter.FarmerTransactionViewHolder holder, int position) {
-        holder.type.setText(transactions.get(position).getType());
+        String type = transactions.get(position).getType();
+
         holder.description.setText(transactions.get(position).getDescription());
         holder.date.setText(transactions.get(position).getCreated_at());
         holder.amount.setText(String.valueOf(transactions.get(position).getAmount()));
-//        holder.icon.setImgResource
+
+        if(type.equalsIgnoreCase("income")) {
+            holder.type.setText("Dana Masuk");
+//            holder.logo.setImageResource(R.drawable.farmer);
+        } else if(type.equalsIgnoreCase("expense")) {
+            holder.type.setText("Dana Keluar");
+            holder.logo.setImageResource(R.drawable.bayar);
+        }
     }
 
     @Override
