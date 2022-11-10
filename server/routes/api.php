@@ -43,6 +43,7 @@ Route::middleware('auth:sanctum')->group(function () {
 
 //Trash Managers Endpoints
 Route::get("/trash-manager", [TrashManagerController::class, "index"]);
+Route::get("/trash-manager/list/user", [TrashManagerController::class, "listUser"]);
 
 //User Endpoints
 Route::get("/user", [UserController::class, "index"]);

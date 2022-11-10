@@ -38,7 +38,7 @@ class TrashManagerController extends Controller {
 
     $transaction1 = Transaction::create($validated);
     $warga->save();
-    
+
     //Transaction dari pengepul ke warga
     $pengepulTransaction['trash_manager_id'] = $warga->trash_manager->id;
     $pengepulTransaction['farmer_id'] = $warga->id;
@@ -55,5 +55,12 @@ class TrashManagerController extends Controller {
       "transaction1" => $transaction1,
       "transaction2" => $transaction2
     ]);
+  }
+
+  public function listUser(Request $request) {
+    $validated = $request->validate([
+        "email" => "string|required"
+    ]);
+    return TrashManager::where('email', $validated['email'])->get()->first()->users;
   }
 }
