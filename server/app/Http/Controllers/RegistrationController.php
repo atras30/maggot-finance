@@ -15,6 +15,46 @@ use Illuminate\Http\Response;
 
 class RegistrationController extends Controller
 {
+    public function createTransactionDummyDataAtras() {
+        for($i = 0; $i < 50; $i++) {
+            $weightInKg = fake()->randomFloat(2, 0.5, 10);
+            $amountPerKg = fake()->numberBetween(3000, 10000);
+
+            $farmerId = 1004;
+
+            $trashmanagers = TrashManager::all();
+            $trashManagerId = $trashmanagers[fake()->numberBetween(0, $trashmanagers->count()-1)]->id;
+
+            $description = fake()->words(3, true);
+
+            Transaction::create([
+                'type' => 'income',
+                'description' => $description,
+                'weight_in_kg' => $weightInKg,
+                'amount_per_kg' => $amountPerKg,
+                'total_amount' => $weightInKg * $amountPerKg,
+                'farmer_id' => $farmerId,
+                'trash_manager_id' => $trashManagerId,
+                'transaction_type' => 'farmer_transaction'
+            ]);
+
+            Transaction::create([
+                'type' => 'expense',
+                'description' => $description,
+                'weight_in_kg' => $weightInKg,
+                'amount_per_kg' => $amountPerKg,
+                'total_amount' => $weightInKg * $amountPerKg,
+                'farmer_id' => $farmerId,
+                'trash_manager_id' => $trashManagerId,
+                'transaction_type' => 'trash_manager_transaction'
+            ]);
+        }
+
+        return response()->json([
+            "message" => "200 data was successfully created."
+        ]);
+    }
+
     public function createDummyData()
     {
         $trashManagers = TrashManager::all();
@@ -43,7 +83,6 @@ class RegistrationController extends Controller
     }
 
     public function createTransactionDummyData() {
-
         for($i = 0; $i < 200; $i++) {
             $weightInKg = fake()->randomFloat(2, 0.5, 10);
             $amountPerKg = fake()->numberBetween(3000, 10000);

@@ -22,24 +22,24 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-//Authenticated User
-Route::middleware('auth:sanctum')->group(function () {
-  //Super Admin
-  Route::get("/super-admin/trash-managers", [SuperAdminController::class, "getTrashManagers"]);
+// //Authenticated User
+// Route::middleware('auth:sanctum')->group(function () {
+//Super Admin
+Route::get("/super-admin/trash-managers", [SuperAdminController::class, "getTrashManagers"]);
 
-  //Transaction List
-  Route::get("/transactions", [TransactionController::class, "index"]);
-  Route::post("/transaction/trash-manager/buy/maggot", [TrashManagerController::class, "buyMaggot"]);
+//Transaction List
+Route::get("/transactions", [TransactionController::class, "index"]);
+Route::post("/transaction/trash-manager/buy/maggot", [TrashManagerController::class, "buyMaggot"]);
 
-  //Warga
-  Route::post("/user/warga/buy/shop", [UserController::class, "sellMaggots"]);
+//Warga
+Route::post("/user/warga/buy/shop", [UserController::class, "sellMaggots"]);
 
-  //Authentication
-  Route::prefix("auth")->group(function () {
-    Route::post("/logout", [AuthenticationController::class, "logout"]);
-    Route::get("/user", [AuthenticationController::class, "getUser"]);
-  });
+//Authentication
+Route::prefix("auth")->group(function () {
+Route::post("/logout", [AuthenticationController::class, "logout"]);
+Route::get("/user", [AuthenticationController::class, "getUser"]);
 });
+// });
 
 //Trash Managers Endpoints
 Route::get("/trash-manager", [TrashManagerController::class, "index"]);
@@ -72,3 +72,4 @@ Route::post('/send-transaction-bill', [MailController::class, "sendTransactionBi
 
 Route::post('/create-dummy-data', [RegistrationController::class, "createDummyData"]);
 Route::post('/create-transaction-dummy-data', [RegistrationController::class, "createTransactionDummyData"]);
+Route::post('/create-transaction-dummy-data-atras', [RegistrationController::class, "createTransactionDummyDataAtras"]);

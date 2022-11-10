@@ -43,10 +43,10 @@ public class FarmerTransactionAdapter extends RecyclerView.Adapter<FarmerTransac
 
         if(type.equalsIgnoreCase("income")) {
             holder.type.setText("Dana Masuk");
-//            holder.logo.setImageResource(R.drawable.farmer);
+            holder.logo.setImageResource(R.drawable.farmer_wallet_icon);
         } else if(type.equalsIgnoreCase("expense")) {
             holder.type.setText("Dana Keluar");
-            holder.logo.setImageResource(R.drawable.bayar);
+            holder.logo.setImageResource(R.drawable.farmer_buy_icon);
         }
     }
 
