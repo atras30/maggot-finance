@@ -35,8 +35,8 @@
         android:id="@+id/bottom_navigation_container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
         android:background="@drawable/rounded_edittext"
-        app:menu="@menu/bottom_navigation_menu"
-        android:layout_alignParentBottom="true"/>
+        app:menu="@menu/bottom_navigation_menu" />
 
 </RelativeLayout>

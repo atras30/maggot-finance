@@ -10,6 +10,7 @@ import umn.ac.id.project.maggot.model.AuthenticationModel;
 import umn.ac.id.project.maggot.model.PeternakModel;
 import umn.ac.id.project.maggot.model.TrashManagerModel;
 import umn.ac.id.project.maggot.model.UserModel;
+import umn.ac.id.project.maggot.model.WarungModel;
 
 public interface ApiEndpoint {
     @GET("user")
@@ -20,6 +21,9 @@ public interface ApiEndpoint {
 
     @GET("user/role/farmer")
     Call<UserModel> getUsers();
+
+    @GET("user/role/shop")
+    Call<WarungModel> getWarung();
 
     @GET("trash-manager")
     Call<TrashManagerModel> getTrashManager();

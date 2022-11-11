@@ -9,14 +9,14 @@
 
     <com.google.android.material.card.MaterialCardView
         style="@style/MyCardView"
-        android:layout_width="407dp"
+        android:layout_width="match_parent"
         android:layout_height="78dp"
         android:background="@drawable/rounded_edittext"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="399dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
             <ImageView
@@ -28,7 +28,7 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
-                android:id="@+id/namaPeternak"
+                android:id="@+id/namaWarung"
                 android:layout_width="320dp"
                 android:layout_height="31dp"
                 android:layout_marginStart="10dp"
@@ -40,15 +40,15 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
-                android:id="@+id/balancePeternak"
+                android:id="@+id/alamatWarung"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="3dp"
-                android:text="Balance : Rp. 00"
+                android:text="Alamat : "
                 android:textSize="12sp"
                 android:textStyle="bold"
-                app:layout_constraintStart_toStartOf="@+id/namaPeternak"
-                app:layout_constraintTop_toBottomOf="@+id/namaPeternak" />
+                app:layout_constraintStart_toStartOf="@+id/namaWarung"
+                app:layout_constraintTop_toBottomOf="@+id/namaWarung" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </com.google.android.material.card.MaterialCardView>

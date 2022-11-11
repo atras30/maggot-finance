@@ -9,7 +9,7 @@
     tools:context=".PengepulActivity">
 
     <TextView
-        android:id="@+id/namaWarga"
+        android:id="@+id/beranda"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textStyle="bold"
@@ -27,8 +27,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
-        app:layout_constraintStart_toStartOf="@id/namaWarga"
-        app:layout_constraintTop_toBottomOf="@id/namaWarga">
+        app:layout_constraintStart_toStartOf="@id/beranda"
+        app:layout_constraintTop_toBottomOf="@id/beranda">
 
         <!--  This is the main content -->
         <RelativeLayout
