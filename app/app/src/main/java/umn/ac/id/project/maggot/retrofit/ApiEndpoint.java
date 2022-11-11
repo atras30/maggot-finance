@@ -4,10 +4,13 @@ import retrofit2.Call;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
+import retrofit2.http.Headers;
 import retrofit2.http.POST;
+import umn.ac.id.project.maggot.global.AuthenticatedUser;
 import umn.ac.id.project.maggot.model.ApprovalRejectionModel;
 import umn.ac.id.project.maggot.model.AuthenticationModel;
 import umn.ac.id.project.maggot.model.PeternakModel;
+import umn.ac.id.project.maggot.model.TransactionModel;
 import umn.ac.id.project.maggot.model.TrashManagerModel;
 import umn.ac.id.project.maggot.model.UserModel;
 import umn.ac.id.project.maggot.model.WarungModel;
@@ -43,4 +46,7 @@ public interface ApiEndpoint {
     @FormUrlEncoded
     @POST("register/user/reject")
     Call<ApprovalRejectionModel> rejectionUserRegistration(@Field("email") String email);
+
+    @GET("transactions")
+    Call<TransactionModel> getAllTransactions();
 }

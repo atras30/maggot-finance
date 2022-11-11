@@ -29,8 +29,8 @@ public class FarmerTransactionActivity extends AppCompatActivity {
         setContentView(R.layout.activity_farmer_transaction);
 
         ArrayList<TransactionModel> transactions = new ArrayList<>();
-        transactions.add(new TransactionModel("income", "penjualan maggot 5 kg", new Date(), 20000));
-        transactions.add(new TransactionModel("outcome", "Testing Deskripsi Doang", new Date(), 50000));
+//        transactions.add(new TransactionModel("income", "penjualan maggot 5 kg", new Date(), 20000));
+//        transactions.add(new TransactionModel("expense", "Testing Deskripsi Doang", new Date(), 50000));
 
         FarmerTransactionAdapter farmerTransactionAdapter = new FarmerTransactionAdapter(FarmerTransactionActivity.this, transactions);
         RecyclerView recyclerView = findViewById(R.id.farmer_transaction_recycler_view);

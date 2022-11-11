@@ -96,7 +96,7 @@ public class LoginActivity extends AppCompatActivity {
                                 Log.i("Checking user", toString());
                                 if(user.getEmail().equals(acct.getEmail())) {
                                     //user exists in database, navigate to either register success activity or dashboard activity depending on approval status.
-                                    AuthenticatedUser.setUser(user, null);
+                                    AuthenticatedUser.setUser(user);
                                     Toast.makeText(LoginActivity.this, "Welcome, " + user.getFull_name(), Toast.LENGTH_SHORT).show();
                                     navigateRegisteredUser();
                                     return;
