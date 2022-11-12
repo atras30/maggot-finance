@@ -9,6 +9,7 @@ import umn.ac.id.project.maggot.global.Helper;
 public class UserModel {
     private List<User> users;
     private User user;
+    private String message;
 
     public List<User> getUsers() {
         return users;

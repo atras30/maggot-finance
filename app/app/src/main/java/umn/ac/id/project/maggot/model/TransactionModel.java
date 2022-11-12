@@ -12,11 +12,11 @@ public class TransactionModel {
         this.data = data;
     }
 
-    public List<Transaction> getAllTransaction() {
+    public List<Transaction> getTransactions() {
         return data;
     }
 
-    private class Transaction {
+    public class Transaction {
         private String type, description, transaction_type, weight_in_kg, amount_per_kg, total_amount;
         private Date created_at;
         private double amount;
@@ -60,8 +60,8 @@ public class TransactionModel {
             return total_amount;
         }
 
-        public Date getCreated_at() {
-            return created_at;
+        public String getCreated_at() {
+            return Helper.parseDate(created_at);
         }
 
         public double getAmount() {

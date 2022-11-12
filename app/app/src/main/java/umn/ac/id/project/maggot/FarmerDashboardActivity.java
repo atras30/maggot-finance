@@ -21,24 +21,27 @@ public class FarmerDashboardActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_farmer_dashboard);
 
+        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new FarmerDashboardFragment(this)).commit();
+
         BottomNavigationView bottomNavigation = findViewById(R.id.bottom_navigation_container);
         bottomNavigation.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                Fragment selectedFragment = null;
+
                 switch(item.getItemId()) {
                     case R.id.beranda:
-                        return true;
+                        selectedFragment = new FarmerDashboardFragment(FarmerDashboardActivity.this);
+                        break;
                     case R.id.transaksi:
-                        Intent intent = new Intent(FarmerDashboardActivity.this, FarmerTransactionActivity.class);
-                        startActivity(intent);
-                        finish();
+                        selectedFragment = new FarmerTransactionFragment(FarmerDashboardActivity.this);
                         break;
                     case R.id.bayar:
-                        Toast.makeText(FarmerDashboardActivity.this, "Bayar", Toast.LENGTH_SHORT).show();
+                        selectedFragment = new FarmerPaymentFragment(FarmerDashboardActivity.this);
                         break;
-                    default:
-                        Toast.makeText(FarmerDashboardActivity.this, "Something went wrong...", Toast.LENGTH_SHORT).show();
                 }
+
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,selectedFragment).commit();
 
                 return true;
             }

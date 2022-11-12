@@ -38,5 +38,3 @@
         android:layout_alignParentBottom="true"
         android:background="@drawable/rounded_edittext"
         app:menu="@menu/bottom_navigation_menu" />
-
-</RelativeLayout>

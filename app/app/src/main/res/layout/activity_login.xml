@@ -8,7 +8,7 @@
     android:background="@drawable/gradient_background"
     tools:context=".LoginActivity"
     android:orientation="vertical"
-    android:padding="20dp">
+    android:padding="30dp">
 
     <TextView
         android:id="@+id/logo"
@@ -77,25 +77,10 @@
             app:icon="@drawable/google"
             app:iconSize="20dp"
             app:iconTintMode="multiply"
-            app:layout_constraintBottom_toTopOf="@+id/logout_button"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.495"
             app:layout_constraintStart_toStartOf="parent" />
 
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/logout_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/login_with_google_button"
-            android:layout_centerHorizontal="true"
-            android:width="260dp"
-            android:backgroundTint="#DAE2FF"
-            android:text="Logout"
-            android:textColor="@color/black"
-            android:textStyle="bold"
-            app:cornerRadius="50dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </LinearLayout>

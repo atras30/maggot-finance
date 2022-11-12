@@ -35,6 +35,12 @@ class AuthenticationController extends Controller
             $user = SuperAdmin::where("email", $email)->first();
         }
 
+        if (!$user) {
+            return response()->json([
+                "message" => "User was not found."
+            ], Response::HTTP_NOT_FOUND);
+        }
+
         // if (!$user || !Hash::check($validated['password'], $user->password)) {
         //   return response()->json([
         //     "message" => "Bad Credentials."
