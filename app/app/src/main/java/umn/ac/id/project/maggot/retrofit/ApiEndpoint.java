@@ -4,9 +4,9 @@ import retrofit2.Call;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
-import retrofit2.http.Headers;
+import retrofit2.http.Header;
 import retrofit2.http.POST;
-import umn.ac.id.project.maggot.global.AuthenticatedUser;
+import retrofit2.http.Query;
 import umn.ac.id.project.maggot.model.ApprovalRejectionModel;
 import umn.ac.id.project.maggot.model.AuthenticationModel;
 import umn.ac.id.project.maggot.model.PeternakModel;
@@ -15,8 +15,8 @@ import umn.ac.id.project.maggot.model.TrashManagerModel;
 import umn.ac.id.project.maggot.model.UserModel;
 
 public interface ApiEndpoint {
-    @GET("user")
-    Call<UserModel> getUser();
+    @GET("auth/user")
+    Call<UserModel> getUser(@Header("Authorization") String authorization);
 
     @GET("user/role/farmer")
     Call<PeternakModel> getPeternak();
@@ -44,5 +44,5 @@ public interface ApiEndpoint {
     Call<ApprovalRejectionModel> rejectionUserRegistration(@Field("email") String email);
 
     @GET("transactions")
-    Call<TransactionModel> getAllTransactions();
+    Call<TransactionModel> getTransactions(@Query("email") String email);
 }

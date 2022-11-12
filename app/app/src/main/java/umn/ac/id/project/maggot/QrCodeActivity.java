@@ -14,18 +14,18 @@ import com.google.zxing.WriterException;
 import com.google.zxing.common.BitMatrix;
 import com.journeyapps.barcodescanner.BarcodeEncoder;
 
-import umn.ac.id.project.maggot.R;
-import umn.ac.id.project.maggot.global.AuthenticatedUser;
+import umn.ac.id.project.maggot.global.UserSharedPreference;
 import umn.ac.id.project.maggot.model.UserModel;
 
 public class QrCodeActivity extends AppCompatActivity {
+    UserSharedPreference userSharedPreference = new UserSharedPreference(this);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_qr_code);
 
-        UserModel.User user = AuthenticatedUser.getUser();
+        UserModel.User user = userSharedPreference.getUser();
         TextView title = findViewById(R.id.title);
         title.setText("Hello, " + user.getFull_name() + "! Here is your QR Code.");
 

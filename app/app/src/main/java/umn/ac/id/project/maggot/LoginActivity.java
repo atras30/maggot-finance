@@ -16,16 +16,18 @@ import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.button.MaterialButton;
+import com.google.gson.Gson;
 
+import java.io.IOException;
 import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import umn.ac.id.project.maggot.global.AuthenticatedTrashManager;
-import umn.ac.id.project.maggot.global.AuthenticatedUser;
+import umn.ac.id.project.maggot.global.UserSharedPreference;
+import umn.ac.id.project.maggot.model.AuthenticationModel;
 import umn.ac.id.project.maggot.model.TrashManagerModel;
-import umn.ac.id.project.maggot.model.UserModel;
 import umn.ac.id.project.maggot.retrofit.ApiService;
 
 public class LoginActivity extends AppCompatActivity {
@@ -34,35 +36,42 @@ public class LoginActivity extends AppCompatActivity {
     GoogleSignInAccount acct = null;
 
     MaterialButton googleSignInButton;
-    MaterialButton logoutButton;
+
+    UserSharedPreference userSharedPreference;
+
+    Toast toast = null;
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        //Guest Middleware
+        if(userSharedPreference.getUser() != null) {
+            navigateRegisteredUser();
+            return;
+        }
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
+        userSharedPreference = new UserSharedPreference(this);//Guest Middleware
+        if(userSharedPreference.getUser() != null) {
+            navigateRegisteredUser();
+            return;
+        }
+
         gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN).requestEmail().build();
         gsc = GoogleSignIn.getClient(this, gso);
 
         googleSignInButton = findViewById(R.id.login_with_google_button);
-        logoutButton = findViewById(R.id.logout_button);
 
         googleSignInButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 signIn();
-            }
-        });
-
-        logoutButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                gsc.signOut().addOnCompleteListener(new OnCompleteListener<Void>() {
-                    @Override
-                    public void onComplete(Task<Void> task) {
-                        Log.i("Logout", "Logout Complete!");
-                    }
-                });
             }
         });
     }
@@ -78,44 +87,53 @@ public class LoginActivity extends AppCompatActivity {
 
         if(requestCode == 1000) {
             Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
-            Toast.makeText(this, "Checking account on database, please wait...", Toast.LENGTH_SHORT).show();
+            showToastMessage("Checking account on database, please wait...");
 
             try {
                 task.getResult(ApiException.class);
                 acct = GoogleSignIn.getLastSignedInAccount(this);
 
-                //get all users
-                ApiService.endpoint().getUsers().enqueue(new Callback<UserModel>() {
-                    @Override
-                    public void onResponse(Call<UserModel> call, Response<UserModel> response) {
-                        if(response.isSuccessful()) {
-                            List<UserModel.User> users = response.body().getUsers();
-
-                            //check if user is registered in database
-                            for(UserModel.User user : users) {
-                                Log.i("Checking user", toString());
-                                if(user.getEmail().equals(acct.getEmail())) {
-                                    //user exists in database, navigate to either register success activity or dashboard activity depending on approval status.
-                                    AuthenticatedUser.setUser(user);
-                                    Toast.makeText(LoginActivity.this, "Welcome, " + user.getFull_name(), Toast.LENGTH_SHORT).show();
-                                    navigateRegisteredUser();
-                                    return;
-                                }
-                            }
-
-                            checkForTrashManager();
-                        }
-                    }
-
-                    @Override
-                    public void onFailure(Call<UserModel> call, Throwable t) {
-                        Toast.makeText(LoginActivity.this, "Error : " + t.getMessage(), Toast.LENGTH_SHORT).show();
-                    }
-                });
+                //login with email from retrieved email from gmail account
+                loginWithGmail(acct.getEmail());
             } catch (ApiException e) {
                 Toast.makeText(getApplicationContext(), "Something went wrong...", Toast.LENGTH_SHORT).show();
             }
         }
+    }
+
+    private void loginWithGmail(String email) {
+        ApiService.endpoint().login(email).enqueue(new Callback<AuthenticationModel>() {
+            @Override
+            public void onResponse(Call<AuthenticationModel> call, Response<AuthenticationModel> response) {
+                if(response.isSuccessful()) {
+                    AuthenticationModel.Result result = response.body().login();
+
+                    userSharedPreference.setUser(result);
+
+                    navigateRegisteredUser();
+                } else {
+                    //Error handling for user was not found, etc...
+                    try {
+                        Gson gson = new Gson();
+                        assert response.errorBody() != null;
+                        String errorMessage = gson.fromJson(response.errorBody().string(), AuthenticationModel.ErrorHandler.class).getMessage();
+
+                        if(errorMessage.equalsIgnoreCase("User was not found.")) {
+                            checkForTrashManager();
+                        } else if(errorMessage.equalsIgnoreCase("")) {
+                            //do something
+                        }
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<AuthenticationModel> call, Throwable t) {
+                Toast.makeText(LoginActivity.this, "Error : " + t.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     private void checkForTrashManager() {
@@ -138,8 +156,8 @@ public class LoginActivity extends AppCompatActivity {
                     }
 
                     //User Manager does not exists in database, navigate to register activity
-                    Intent navigateToRegisterActivity = new Intent(LoginActivity.this, RegisterActivity.class);
-                    startActivity(navigateToRegisterActivity);
+                    showToastMessage("Silahkan registrasi terlebih dahulu.");
+                    navigateToRegisterActivity();
                 }
             }
 
@@ -151,24 +169,20 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void navigateRegisteredTrashManager() {
-//        if(AuthenticatedTrashManager.getTrashManager().is_verified() == 1) {
-            Intent navigateToDashboardTrashManagerActivity = new Intent(LoginActivity.this, TrashManagerDashboardActivity.class);
-            startActivity(navigateToDashboardTrashManagerActivity);
-//        } else {
-//            Intent navigateToRegistrationSuccessActivity = new Intent(LoginActivity.this, RegistrationSuccess.class);
-//            startActivity(navigateToRegistrationSuccessActivity);
-//        }
+        Intent navigateToDashboardTrashManagerActivity = new Intent(LoginActivity.this, TrashManagerDashboardActivity.class);
+        startActivity(navigateToDashboardTrashManagerActivity);
     }
 
     private void navigateRegisteredUser() {
-        Log.i("Verified", String.valueOf(AuthenticatedUser.getUser().is_verified()));
-        if(AuthenticatedUser.getUser().is_verified() == 1) {
-            if(AuthenticatedUser.getUser().getRole().equals("farmer")) {
+        if(userSharedPreference.getUser().is_verified() == 1) {
+            if(userSharedPreference.getUser().getRole().equals("farmer")) {
                 Intent navigateToFarmerDashboardActivity = new Intent(LoginActivity.this, FarmerDashboardActivity.class);
                 startActivity(navigateToFarmerDashboardActivity);
-            } else if (AuthenticatedUser.getUser().getRole().equals("shop")) {
+                finish();
+            } else if (userSharedPreference.getUser().getRole().equals("shop")) {
                 Intent navigateToDashboardShopActivity = new Intent(LoginActivity.this, ShopDashboardActivity.class);
                 startActivity(navigateToDashboardShopActivity);
+                finish();
             }
         } else {
             Intent navigateToRegistrationSuccessActivity = new Intent(LoginActivity.this, RegistrationSuccess.class);
@@ -176,15 +190,17 @@ public class LoginActivity extends AppCompatActivity {
         }
     }
 
-    public void navigateToSecondActivity(GoogleSignInAccount acct) {
-        Log.i("name", acct.getDisplayName());
-        Log.i("email", acct.getEmail());
-        Intent intent = new Intent(LoginActivity.this, PengepulActivity.class);
-        startActivity(intent);
-    }
-
     public void navigateToRegisterActivity() {
         Intent intent = new Intent(LoginActivity.this, RegisterActivity.class);
         startActivity(intent);
+    }
+
+    public void showToastMessage(String message) {
+        if(toast != null) {
+            toast.cancel();
+        }
+
+        toast = Toast.makeText(this, message, Toast.LENGTH_LONG);
+        toast.show();
     }
 }

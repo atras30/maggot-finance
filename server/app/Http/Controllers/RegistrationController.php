@@ -20,7 +20,7 @@ class RegistrationController extends Controller
             $weightInKg = fake()->randomFloat(2, 0.5, 10);
             $amountPerKg = fake()->numberBetween(3000, 10000);
 
-            $farmerId = 1004;
+            $farmerId = 504;
 
             $trashmanagers = TrashManager::all();
             $trashManagerId = $trashmanagers[fake()->numberBetween(0, $trashmanagers->count()-1)]->id;

@@ -58,6 +58,11 @@ public class RegisterActivity extends AppCompatActivity implements AdapterView.O
             }
         });
 
+        GoogleSignInAccount acct = GoogleSignIn.getLastSignedInAccount(this);
+        EditText name = findViewById(R.id.editText);
+        String capitalizedName = convertToCapitalizeWord(acct.getDisplayName());
+        name.setText(capitalizedName);
+
         MaterialButton registerButton = findViewById(R.id.register_button);
 
         registerButton.setOnClickListener(new View.OnClickListener() {
@@ -140,5 +145,18 @@ public class RegisterActivity extends AppCompatActivity implements AdapterView.O
     @Override
     public void onNothingSelected(AdapterView<?> adapterView) {
 
+    }
+
+    public String convertToCapitalizeWord(String str){
+        String words[]=str.split("\\s");
+        String capitalizeWord="";
+
+        for(String w:words){
+            String first=w.substring(0,1);
+            String afterfirst=w.substring(1);
+            capitalizeWord+=first.toUpperCase()+afterfirst+" ";
+        }
+
+        return capitalizeWord.trim();
     }
 }

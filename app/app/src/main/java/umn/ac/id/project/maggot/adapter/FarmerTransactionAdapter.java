@@ -13,14 +13,13 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.List;
 
 import umn.ac.id.project.maggot.R;
-import umn.ac.id.project.maggot.model.PeternakModel;
 import umn.ac.id.project.maggot.model.TransactionModel;
 
 public class FarmerTransactionAdapter extends RecyclerView.Adapter<FarmerTransactionAdapter.FarmerTransactionViewHolder> {
     Context context;
-    private List<TransactionModel> transactions;
+    private List<TransactionModel.Transaction> transactions;
 
-    public FarmerTransactionAdapter(Context context, List<TransactionModel> transactions) {
+    public FarmerTransactionAdapter(Context context, List<TransactionModel.Transaction> transactions) {
         this.context = context;
         this.transactions = transactions;
     }
@@ -39,13 +38,18 @@ public class FarmerTransactionAdapter extends RecyclerView.Adapter<FarmerTransac
 
         holder.description.setText(transactions.get(position).getDescription());
         holder.date.setText(transactions.get(position).getCreated_at());
-        holder.amount.setText(String.valueOf(transactions.get(position).getAmount()));
 
         if(type.equalsIgnoreCase("income")) {
+            String totalAmount = "+Rp. " + String.valueOf(transactions.get(position).getTotal_amount());
             holder.type.setText("Dana Masuk");
+            holder.amount.setText(totalAmount);
+            holder.amount.setTextColor(context.getResources().getColor(R.color.success));
             holder.logo.setImageResource(R.drawable.farmer_wallet_icon);
         } else if(type.equalsIgnoreCase("expense")) {
+            String totalAmount = "-" + String.valueOf(transactions.get(position).getTotal_amount());
             holder.type.setText("Dana Keluar");
+            holder.amount.setText(totalAmount);
+            holder.amount.setTextColor(context.getResources().getColor(R.color.success));
             holder.logo.setImageResource(R.drawable.farmer_buy_icon);
         }
     }
