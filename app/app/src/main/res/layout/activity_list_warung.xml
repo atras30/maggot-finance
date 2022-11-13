@@ -8,7 +8,7 @@
     tools:context=".ListPeternakActivity">
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/listPeternakRecyclerView"
+        android:id="@+id/listWarungRecyclerView"
         android:layout_width="385dp"
         android:layout_height="374dp"
         android:layout_marginTop="16dp"
@@ -24,9 +24,9 @@
         android:id="@+id/textView6"
         android:layout_width="142dp"
         android:layout_height="56dp"
-        android:layout_marginStart="80dp"
+        android:layout_marginStart="68dp"
         android:layout_marginTop="16dp"
-        android:text="Daftar Warga"
+        android:text="Daftar Warung"
         android:textSize="20sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
@@ -37,10 +37,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="20dp"
         android:layout_marginEnd="32dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/listPeternakRecyclerView"
+        app:layout_constraintTop_toBottomOf="@+id/listWarungRecyclerView"
         app:srcCompat="@android:drawable/ic_menu_add" />
 
     <ImageView

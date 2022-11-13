@@ -57,7 +57,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="60dp"
-            android:text="Daftar Warga Binaan"
+            android:text="Daftar Warung Mitra"
             android:textSize="25sp"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
@@ -163,7 +163,7 @@
             app:layout_constraintTop_toBottomOf="@+id/listWargaBinaanRecyclerView" />
 
         <Button
-            android:id="@+id/lihatselengkapnya1"
+            android:id="@+id/lihatdaftarwarga"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="12dp"
@@ -174,7 +174,7 @@
             app:layout_constraintTop_toBottomOf="@+id/listWargaBinaanRecyclerView" />
 
         <Button
-            android:id="@+id/lihatselengkapnya"
+            android:id="@+id/lihatdaftarwarung"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"

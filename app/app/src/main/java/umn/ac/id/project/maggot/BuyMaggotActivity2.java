@@ -4,10 +4,11 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 
-public class TrashManagerDashboardActivity extends AppCompatActivity {
+public class BuyMaggotActivity2 extends AppCompatActivity {
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_trash_manager_dashboard);
+        setContentView(R.layout.activity_buy_maggot2);
     }
 }
