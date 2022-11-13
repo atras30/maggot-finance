@@ -28,7 +28,7 @@
         android:layout_marginRight="30dp"
         android:layout_marginTop="150dp"
         android:maxLines="2"
-        android:text="Jl. Alamat Nomor 88 Hahahahasddqdqwqddqrrrqw"
+        android:text="Jl. Alamat Nomor 88 kayanya"
         android:textColor="@color/grey"
         android:textSize="15sp" />
 

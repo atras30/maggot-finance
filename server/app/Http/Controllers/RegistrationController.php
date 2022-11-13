@@ -15,12 +15,14 @@ use Illuminate\Http\Response;
 
 class RegistrationController extends Controller
 {
-    public function createTransactionDummyDataAtras() {
-        for($i = 0; $i < 50; $i++) {
+    public function createTransactionDummyDataForSpecificUser($email, $transactionAmount) {
+        $farmer = User::where("email", $email)->get()->first();
+
+        for($i = 0; $i < $transactionAmount; $i++) {
             $weightInKg = fake()->randomFloat(2, 0.5, 10);
             $amountPerKg = fake()->numberBetween(3000, 10000);
 
-            $farmerId = 504;
+            $farmerId = $farmer->id;
 
             $trashmanagers = TrashManager::all();
             $trashManagerId = $trashmanagers[fake()->numberBetween(0, $trashmanagers->count()-1)]->id;
@@ -51,7 +53,7 @@ class RegistrationController extends Controller
         }
 
         return response()->json([
-            "message" => "200 data was successfully created."
+            "message" => "{$transactionAmount} data was successfully created."
         ]);
     }
 
@@ -60,7 +62,7 @@ class RegistrationController extends Controller
         $trashManagers = TrashManager::all();
         $maxTrashManagerIndex = $trashManagers->count() - 1;
 
-        for ($i = 0; $i < 500; $i++) {
+        for ($i = 0; $i < 200; $i++) {
             User::create([
                 'email' => fake()
                     ->unique()
@@ -78,7 +80,7 @@ class RegistrationController extends Controller
         }
 
         return response()->json([
-            'message' => '1000 user successfully created.',
+            'message' => '200 user successfully created.',
         ]);
     }
 

@@ -101,15 +101,15 @@ Route::post('/send-transaction-bill', [
     'sendTransactionBill',
 ]);
 
-Route::post('/create-dummy-data', [
+Route::post('/dummy-data', [
     RegistrationController::class,
     'createDummyData',
 ]);
-Route::post('/create-transaction-dummy-data', [
+Route::post('/dummy-data/transaction', [
     RegistrationController::class,
     'createTransactionDummyData',
 ]);
-Route::post('/create-transaction-dummy-data-atras', [
+Route::post('/dummy-data/transaction/{email}/{transactionAmount}', [
     RegistrationController::class,
-    'createTransactionDummyDataAtras',
+    'createTransactionDummyDataForSpecificUser',
 ]);
