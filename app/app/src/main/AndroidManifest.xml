@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="umn.ac.id.project.maggot" >
+    package="umn.ac.id.project.maggot">
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.CAMERA" />
@@ -13,11 +13,25 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MaggotProject">
         <activity
+            android:name=".BuyMaggotActivity2"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+
+
+        </activity>
+        <activity
+            android:name=".ListWarungActivity"
+            android:exported="false" />
+        <activity
             android:name=".TransactionWarungActivity"
             android:exported="false" />
         <activity
             android:name=".DashboardWarungActivity"
-            android:exported="false"/>
+            android:exported="false" />
         <activity
             android:name=".ShopDashboardActivity"
             android:exported="false">
@@ -41,59 +55,52 @@
         </activity>
         <activity
             android:name=".TrashManagerDashboardActivity"
-            android:exported="false" >
+            android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
             android:name=".UserDashboardActivity"
-            android:exported="false" >
+            android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
             android:name=".RegistrationSuccess"
-            android:exported="false" >
+            android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
             android:name=".RegisterActivity"
-            android:exported="false" >
+            android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
             android:name=".QrCodeActivity"
-            android:exported="false" >
+            android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
             android:name=".PeternakActivity"
-            android:exported="false" >
+            android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
-        <activity android:name=".BuyMaggotActivity"
-            android:exported="true">
-        </activity>
+        <activity
+            android:name=".BuyMaggotActivity"
+            android:exported="true" />
         <activity
             android:name=".LoginActivity"
-            android:exported="true" >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-
-        </activity>
+            android:exported="true" />
         <activity
             android:name=".ListPeternakActivity"
             android:label="@string/recyclerview_peternak_title" />
@@ -107,7 +114,7 @@
             android:theme="@style/zxing_CaptureTheme" />
         <activity
             android:name=".HomePagePengelolaBankSampah"
-            android:exported="true" >
+            android:exported="true">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />

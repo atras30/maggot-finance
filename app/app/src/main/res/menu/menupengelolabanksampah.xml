@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/beranda"
+        android:icon="@drawable/beranda"
+        android:title="Beranda"/>
+
+    <item
+        android:id="@+id/transaksi"
+        android:icon="@drawable/transaksi"
+        android:title="Transaksi"/>
+
+    <item
+        android:id="@+id/beli"
+        android:icon="@drawable/beli"
+        android:title="Beli"/>
+    <item
+        android:id="@+id/pencairan"
+        android:icon="@drawable/pencairan"
+        android:title="Pencairan"/>
+    <item
+        android:id="@+id/warga"
+        android:icon="@drawable/warga"
+        android:title="Warga"/>
+</menu>

@@ -5,15 +5,17 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
 
 import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import umn.ac.id.project.maggot.adapter.ListPeternakAdapter;
 import umn.ac.id.project.maggot.adapter.ListWargaBinaanAdapter;
 import umn.ac.id.project.maggot.adapter.ListWarungBinaanAdapter;
 import umn.ac.id.project.maggot.model.PeternakModel;
@@ -21,13 +23,30 @@ import umn.ac.id.project.maggot.model.WarungModel;
 import umn.ac.id.project.maggot.retrofit.ApiService;
 
 public class HomePagePengelolaBankSampah extends AppCompatActivity {
-
+    Button detailwarga;
+    Button detailwarung;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home_page_pengelola_bank_sampah);
         getDataPeternak();
         getDataWarung();
+        detailwarga = findViewById(R.id.lihatdaftarwarga);
+        detailwarung = findViewById(R.id.lihatdaftarwarung);
+        detailwarga.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(HomePagePengelolaBankSampah.this, ListPeternakActivity.class);
+                startActivity(intent);
+            }
+        });
+        detailwarung.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(HomePagePengelolaBankSampah.this, ListWarungActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 
     private void getDataWarung() {
