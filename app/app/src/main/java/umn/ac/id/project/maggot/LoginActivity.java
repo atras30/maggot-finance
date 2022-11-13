@@ -36,7 +36,6 @@ public class LoginActivity extends AppCompatActivity {
     GoogleSignInAccount acct = null;
 
     MaterialButton googleSignInButton;
-
     UserSharedPreference userSharedPreference;
 
     Toast toast = null;
@@ -96,7 +95,8 @@ public class LoginActivity extends AppCompatActivity {
                 //login with email from retrieved email from gmail account
                 loginWithGmail(acct.getEmail());
             } catch (ApiException e) {
-                Toast.makeText(getApplicationContext(), "Something went wrong...", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), e.toString(), Toast.LENGTH_SHORT).show();
+                Log.i("Tag", e.toString());
             }
         }
     }
