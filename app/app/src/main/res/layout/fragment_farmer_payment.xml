@@ -39,17 +39,20 @@
             app:layout_constraintTop_toTopOf="parent"
             tools:layout_editor_absoluteX="16dp" />
 
-        <TextView
-            android:id="@+id/farmer_payment_shop_selection_choose"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
-            android:gravity="center_horizontal"
-            android:text="Masukkan Nama Warung"
-            android:textSize="18dp"
-            android:textStyle="bold"
+        <umn.ac.id.project.maggot.InstantAutoComplete
+            android:id="@+id/namawarung"
+            android:layout_width="244dp"
+            android:layout_height="18dp"
+            android:layout_marginTop="16dp"
+            android:background="@drawable/rounded_edittext"
+            android:ems="10"
+            android:inputType="textPersonName"
+            android:textSize="12sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/farmer_payment_shop_selection_title"
-            tools:layout_editor_absoluteX="0dp" />
+            app:layout_constraintVertical_bias="0.0" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <com.google.android.material.button.MaterialButton
