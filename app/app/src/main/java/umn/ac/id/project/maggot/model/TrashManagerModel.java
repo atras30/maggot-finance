@@ -51,10 +51,18 @@ public class TrashManagerModel {
             return Helper.parseDate(updated_at);
         }
 
-        @NonNull
         @Override
         public String toString() {
-            return tempat + " (" + nama_pengelola + ")";
+            return "TrashManagers{" +
+                    "id=" + id +
+                    ", super_admin_id=" + super_admin_id +
+                    ", nama_pengelola='" + nama_pengelola + '\'' +
+                    ", tempat='" + tempat + '\'' +
+                    ", email='" + email + '\'' +
+                    ", role='" + role + '\'' +
+                    ", created_at=" + created_at +
+                    ", updated_at=" + updated_at +
+                    '}';
         }
     }
 }

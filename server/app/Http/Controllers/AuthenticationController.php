@@ -41,18 +41,19 @@ class AuthenticationController extends Controller
             ], Response::HTTP_NOT_FOUND);
         }
 
-        // if (!$user || !Hash::check($validated['password'], $user->password)) {
-        //   return response()->json([
-        //     "message" => "Bad Credentials."
-        //   ], Response::HTTP_OK);
-        // }
-
         $token = $user->createToken("login_token")->plainTextToken;
 
-        return [
-            'token' => $token,
-            "user" => $user,
-        ];
+        if($user->role == "trash_manager") {
+            return response()->json([
+                'token' => $token,
+                "trash_manager" => $user,
+            ]);
+        } else {
+            return response()->json([
+                'token' => $token,
+                "user" => $user,
+            ]);
+        }
     }
 
     public function logout()

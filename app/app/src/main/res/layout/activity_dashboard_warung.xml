@@ -1,146 +1,159 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/gradient_background_2"
-    tools:context=".DashboardWarungActivity">
+    tools:context=".DashboardWarungActivity"
+    android:padding="20dp">
 
-    <TextView
-        android:id="@+id/namaWarung"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:maxLines="2"
-        android:text="Warung"
-        android:textColor="@color/primary"
-        android:textSize="30sp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.1"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.15" />
-
-    <TextView
-        android:id="@+id/alamatWarung"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:maxLines="2"
-        android:text="Jl. Alamat Nomor 88 kayanya"
-        android:textColor="@color/grey"
-        android:textSize="15sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.1"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.225" />
-
-    <androidx.cardview.widget.CardView
-        android:id="@+id/cardView"
+    <ScrollView
+        android:id="@+id/content_container"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="30dp"
-        android:layout_marginRight="30dp"
-        android:layout_marginBottom="100dp"
-        app:cardBackgroundColor="@color/white"
-        app:cardCornerRadius="15sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent">
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:orientation="vertical">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="30dp"
-                android:layout_marginTop="30dp"
-                android:layout_marginRight="30dp"
-                android:text="Saldo Anda"
-                android:textColor="@color/black"
-                android:textSize="15sp"
-                android:textStyle="bold" />
-
+        android:layout_height="match_parent"
+        android:layout_alignBottom="@id/navbarWarung">
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
             <LinearLayout
-                android:layout_width="wrap_content"
+                android:id="@+id/constraintLayout2"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                app:layout_constraintTop_toTopOf="parent">
 
                 <TextView
-                    android:layout_width="wrap_content"
+                    android:id="@+id/namaWarung"
+                    android:layout_width="0dp"
+                    android:layout_weight=".80"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="30dp"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginRight="30dp"
-                    android:text="Rp"
-                    android:textColor="@color/black"
-                    android:textSize="25sp"
-                    android:textStyle="bold" />
+                    android:text="Warung Sukamundur"
+                    android:layout_gravity="center"
+                    android:textColor="@color/primary"
+                    android:textSize="30sp"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/materialButton"
+                    app:layout_constraintHorizontal_bias="0.1"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
-                <TextView
-                    android:id="@+id/saldoWarung"
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/logout_button"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginRight="30dp"
-                    android:text="50.000,00"
-                    android:textColor="@color/black"
-                    android:textSize="35sp"
-                    android:textStyle="bold" />
-
-                <ImageButton
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="20dp"
-                    android:background="@color/white"
-                    android:src="@drawable/ic_show" />
+                    android:backgroundTint="@color/danger"
+                    android:layout_gravity="center"
+                    android:text="Logout"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
             </LinearLayout>
 
+
             <TextView
+                android:id="@+id/alamatWarung"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="30dp"
-                android:layout_marginTop="30dp"
-                android:layout_marginRight="30dp"
-                android:text="Dompet Anda"
-                android:textColor="@color/black"
+                android:layout_marginTop="20dp"
+                android:maxLines="2"
+                android:text="Jatimulya RW 04, Sepatan Timur, Tangerang"
+                android:textColor="@color/grey"
                 android:textSize="15sp"
-                android:textStyle="bold" />
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/constraintLayout2" />
 
-            <ImageView
-                android:layout_width="270dp"
-                android:layout_height="270dp"
-                android:layout_marginLeft="30dp"
-                android:layout_marginRight="30dp"
-                android:src="@drawable/ic_show" />
-        </LinearLayout>
-    </androidx.cardview.widget.CardView>
+            <androidx.cardview.widget.CardView
+                android:layout_marginHorizontal="10dp"
+                android:elevation="10dp"
+                android:id="@+id/cardView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+               android:layout_marginTop="20dp"
+                app:cardBackgroundColor="@color/white"
+                app:cardCornerRadius="15sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/alamatWarung">
 
-    <androidx.cardview.widget.CardView
-        android:id="@+id/cardView2"
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:padding="20dp"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Saldo Anda"
+                        android:textColor="@color/black"
+                        android:textSize="15sp"
+                        android:textStyle="bold" />
+
+                    <LinearLayout
+                        android:layout_marginTop="10dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_weight=".20"
+                            android:layout_height="match_parent"
+                            android:gravity="center"
+                            android:text="Rp"
+                            android:textColor="@color/black"
+                            android:textSize="25sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/saldoWarung"
+                            android:layout_width="0dp"
+                            android:layout_weight=".80"
+                            android:layout_height="wrap_content"
+                            android:text="50.000,00"
+                            android:gravity="center"
+                            android:textColor="@color/black"
+                            android:textSize="35sp"
+                            android:textStyle="bold" />
+
+                        <ImageButton
+                            android:layout_width="0dp"
+                            android:layout_weight=".10"
+                            android:layout_height="match_parent"
+                            android:background="@color/white"
+                            android:src="@drawable/ic_show" />
+                    </LinearLayout>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Dompet Anda"
+                        android:textColor="@color/black"
+                        android:layout_marginTop="20dp"
+                        android:textSize="15sp"
+                        android:textStyle="bold" />
+
+                    <ImageView
+                        android:id="@+id/barcode_image"
+                        android:layout_width="match_parent"
+                        android:layout_height="270dp"
+                        android:src="@drawable/ic_transaction" />
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </ScrollView>
+
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:elevation="10dp"
+        android:id="@+id/navbarWarung"
+        android:background="@drawable/rounded_rectangle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        app:menu="@menu/menuwarung"
         android:layout_alignParentBottom="true"
-        android:layout_marginBottom="10dp"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
-        app:cardCornerRadius="10dp"
-        app:layout_constraintBottom_toBottomOf="parent">
-
-        <com.google.android.material.bottomnavigation.BottomNavigationView
-            android:id="@+id/navbarWarung"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            app:menu="@menu/menuwarung"
-            android:layout_gravity="bottom|center"
-            />
-    </androidx.cardview.widget.CardView>
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+        />
+</RelativeLayout>

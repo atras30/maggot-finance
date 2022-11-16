@@ -5,11 +5,19 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
+
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInClient;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 
 import java.util.List;
 
@@ -18,13 +26,13 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import umn.ac.id.project.maggot.adapter.ListWargaBinaanAdapter;
 import umn.ac.id.project.maggot.adapter.ListWarungBinaanAdapter;
+import umn.ac.id.project.maggot.global.TrashManagerSharedPreference;
 import umn.ac.id.project.maggot.model.PeternakModel;
 import umn.ac.id.project.maggot.model.WarungModel;
 import umn.ac.id.project.maggot.retrofit.ApiService;
 
 public class HomePagePengelolaBankSampah extends AppCompatActivity {
-    Button detailwarga;
-    Button detailwarung;
+    Button detailwarga, detailwarung, logoutButton;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,6 +54,22 @@ public class HomePagePengelolaBankSampah extends AppCompatActivity {
                 Intent intent = new Intent(HomePagePengelolaBankSampah.this, ListWarungActivity.class);
                 startActivity(intent);
             }
+        });
+
+        logoutButton = findViewById(R.id.logout_button);
+        logoutButton.setOnClickListener(v -> {
+            GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN).requestEmail().build();
+            GoogleSignInClient gsc = GoogleSignIn.getClient(this, gso);
+
+            gsc.signOut().addOnCompleteListener(new OnCompleteListener<Void>() {
+                @Override
+                public void onComplete(Task<Void> task) {
+                    new TrashManagerSharedPreference(HomePagePengelolaBankSampah.this).logout();
+                    Toast.makeText(HomePagePengelolaBankSampah.this, "Logout Complete", Toast.LENGTH_SHORT).show();
+                    startActivity(new Intent(HomePagePengelolaBankSampah.this, LoginActivity.class));
+                    finish();
+                }
+            });
         });
     }
 

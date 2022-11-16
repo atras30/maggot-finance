@@ -25,6 +25,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import umn.ac.id.project.maggot.global.AuthenticatedTrashManager;
+import umn.ac.id.project.maggot.global.TrashManagerSharedPreference;
 import umn.ac.id.project.maggot.global.UserSharedPreference;
 import umn.ac.id.project.maggot.model.AuthenticationModel;
 import umn.ac.id.project.maggot.model.TrashManagerModel;
@@ -37,6 +38,7 @@ public class LoginActivity extends AppCompatActivity {
 
     MaterialButton googleSignInButton;
     UserSharedPreference userSharedPreference;
+    TrashManagerSharedPreference trashManagerSharedPreference;
 
     Toast toast = null;
 
@@ -48,6 +50,8 @@ public class LoginActivity extends AppCompatActivity {
         if(userSharedPreference.getUser() != null) {
             navigateRegisteredUser();
             return;
+        } else if(trashManagerSharedPreference.getTrashManager() != null) {
+            navigateRegisteredTrashManager();
         }
     }
 
@@ -57,6 +61,8 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login);
 
         userSharedPreference = new UserSharedPreference(this);//Guest Middleware
+        trashManagerSharedPreference = new TrashManagerSharedPreference(this);
+
         if(userSharedPreference.getUser() != null) {
             navigateRegisteredUser();
             return;
@@ -108,6 +114,12 @@ public class LoginActivity extends AppCompatActivity {
                 if(response.isSuccessful()) {
                     AuthenticationModel.Result result = response.body().login();
 
+                    if(result.getUser() == null) {
+                        loginTrashManager(result);
+
+                        return;
+                    }
+
                     userSharedPreference.setUser(result);
 
                     navigateRegisteredUser();
@@ -119,10 +131,11 @@ public class LoginActivity extends AppCompatActivity {
                         String errorMessage = gson.fromJson(response.errorBody().string(), AuthenticationModel.ErrorHandler.class).getMessage();
 
                         if(errorMessage.equalsIgnoreCase("User was not found.")) {
-                            checkForTrashManager();
+                            Toast.makeText(LoginActivity.this, "User was not found.", Toast.LENGTH_SHORT).show();
                         } else if(errorMessage.equalsIgnoreCase("")) {
                             //do something
                         }
+
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
@@ -136,42 +149,33 @@ public class LoginActivity extends AppCompatActivity {
         });
     }
 
-    private void checkForTrashManager() {
-        ApiService.endpoint().getTrashManager().enqueue(new Callback<TrashManagerModel>() {
+    private void loginTrashManager(AuthenticationModel.Result result) {
+        ApiService.endpoint().loginTrashManager(acct.getEmail()).enqueue(new Callback<AuthenticationModel>() {
             @Override
-            public void onResponse(Call<TrashManagerModel> call, Response<TrashManagerModel> response) {
+            public void onResponse(Call<AuthenticationModel> call, Response<AuthenticationModel> response) {
                 if(response.isSuccessful()) {
-                    List<TrashManagerModel.TrashManagers> trashManagers = response.body().getTrashManager();
-
-                    //check if Trash Manager is registered in database
-                    for(TrashManagerModel.TrashManagers trashManager : trashManagers) {
-                        Log.i("Checking trash manager", toString());
-                        if(trashManager.getEmail().equals(acct.getEmail())) {
-                            //trash manager exists in database, navigate to either register success activity or dashboard activity depending on approval status.
-                            AuthenticatedTrashManager.setTrashManager(trashManager, null);
-                            Toast.makeText(LoginActivity.this, "Welcome, " + trashManager.getNama_pengelola(), Toast.LENGTH_SHORT).show();
-                            navigateRegisteredTrashManager();
-                            return;
-                        }
-                    }
-
-                    //User Manager does not exists in database, navigate to register activity
-                    showToastMessage("Silahkan registrasi terlebih dahulu.");
-                    navigateToRegisterActivity();
+//                    Log.i("Tag", response.body().loginTrashManager().toString());
+                    AuthenticationModel.ResultTrashManager result = response.body().loginTrashManager();
+                    trashManagerSharedPreference.setTrashManager(result);
+                    navigateRegisteredTrashManager();
+//                    Log.i("Setting Trash Manager", trashManagerSharedPreference.getTrashManager() + " " + trashManagerSharedPreference.getToken());
+//                    Log.i("Getting Trash Manager", trashManagerSharedPreference.getTrashManager() + " " + trashManagerSharedPreference.getToken());
                 }
             }
 
             @Override
-            public void onFailure(Call<TrashManagerModel> call, Throwable t) {
-
+            public void onFailure(Call<AuthenticationModel> call, Throwable t) {
+                Toast.makeText(LoginActivity.this, t.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
     }
 
     private void navigateRegisteredTrashManager() {
-        Intent navigateToDashboardTrashManagerActivity = new Intent(LoginActivity.this, TrashManagerDashboardActivity.class);
+        Intent navigateToDashboardTrashManagerActivity = new Intent(LoginActivity.this, HomePagePengelolaBankSampah.class);
         startActivity(navigateToDashboardTrashManagerActivity);
+        finish();
     }
+
 
     private void navigateRegisteredUser() {
         if(userSharedPreference.getUser().is_verified() == 1) {
@@ -180,7 +184,7 @@ public class LoginActivity extends AppCompatActivity {
                 startActivity(navigateToFarmerDashboardActivity);
                 finish();
             } else if (userSharedPreference.getUser().getRole().equals("shop")) {
-                Intent navigateToDashboardShopActivity = new Intent(LoginActivity.this, ShopDashboardActivity.class);
+                Intent navigateToDashboardShopActivity = new Intent(LoginActivity.this, DashboardWarungActivity.class);
                 startActivity(navigateToDashboardShopActivity);
                 finish();
             }
@@ -188,11 +192,6 @@ public class LoginActivity extends AppCompatActivity {
             Intent navigateToRegistrationSuccessActivity = new Intent(LoginActivity.this, RegistrationSuccess.class);
             startActivity(navigateToRegistrationSuccessActivity);
         }
-    }
-
-    public void navigateToRegisterActivity() {
-        Intent intent = new Intent(LoginActivity.this, RegisterActivity.class);
-        startActivity(intent);
     }
 
     public void showToastMessage(String message) {

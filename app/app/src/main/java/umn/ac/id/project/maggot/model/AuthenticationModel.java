@@ -8,9 +8,14 @@ public class AuthenticationModel {
     private String token;
     private String message;
     private UserModel.User user;
+    private TrashManagerModel.TrashManagers trash_manager;
 
     public Result login() {
         return new Result(token, message, user);
+    }
+
+    public ResultTrashManager loginTrashManager() {
+        return new ResultTrashManager(token, message, trash_manager);
     }
 
     public String registerUser() {
@@ -45,6 +50,40 @@ public class AuthenticationModel {
             return "Result{" +
                     "token='" + token + '\'' +
                     ", user=" + user +
+                    ", message='" + message + '\'' +
+                    '}';
+        }
+    }
+
+    //for trash manager login
+    public class ResultTrashManager {
+        private String token;
+        private TrashManagerModel.TrashManagers trashManager;
+        private String message;
+
+        public String getToken() {
+            return token;
+        }
+
+        public TrashManagerModel.TrashManagers getTrashManager() {
+            return trashManager;
+        }
+
+        public String getMessage() {
+            return message;
+        }
+
+        public ResultTrashManager(String token, String message, TrashManagerModel.TrashManagers trashManager) {
+            this.token = token;
+            this.message = message;
+            this.trashManager = trashManager;
+        }
+
+        @Override
+        public String toString() {
+            return "ResultTrashManager{" +
+                    "token='" + token + '\'' +
+                    ", trashManager=" + trashManager +
                     ", message='" + message + '\'' +
                     '}';
         }
