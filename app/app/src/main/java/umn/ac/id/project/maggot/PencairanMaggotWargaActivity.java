@@ -16,13 +16,13 @@ import retrofit2.Response;
 import umn.ac.id.project.maggot.model.PeternakModel;
 import umn.ac.id.project.maggot.retrofit.ApiService;
 
-public class BuyMaggotActivity2 extends AppCompatActivity {
+public class PencairanMaggotWargaActivity extends AppCompatActivity {
     ArrayAdapter<String> nameAdapter;
     List<PeternakModel.Peternak> results;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_buy_maggot2);
+        setContentView(R.layout.activity_pencairan_maggot_warga);
         ApiService.endpoint().getPeternak().enqueue(new Callback<PeternakModel>() {
             @Override
             public void onResponse(Call<PeternakModel> call, Response<PeternakModel> response) {
@@ -32,7 +32,7 @@ public class BuyMaggotActivity2 extends AppCompatActivity {
                     for (int i=0; i<results.size(); i++) {
                         name[i] = results.get(i).getFull_name();
                     }
-                    nameAdapter = new ArrayAdapter<String>(BuyMaggotActivity2.this, android.R.layout.simple_list_item_1, name);
+                    nameAdapter = new ArrayAdapter<String>(PencairanMaggotWargaActivity.this, android.R.layout.simple_list_item_1, name);
                     umn.ac.id.project.maggot.InstantAutoComplete textView = (umn.ac.id.project.maggot.InstantAutoComplete) findViewById(R.id.namawarga);
                     textView.setAdapter(nameAdapter);
                     textView.setOnFocusChangeListener(new View.OnFocusChangeListener() {
@@ -45,9 +45,7 @@ public class BuyMaggotActivity2 extends AppCompatActivity {
                                 textView.dismissDropDown();
                             }
 
-
-                            }
-
+                        }
                     });
 
                     textView.setOnTouchListener(new View.OnTouchListener() {

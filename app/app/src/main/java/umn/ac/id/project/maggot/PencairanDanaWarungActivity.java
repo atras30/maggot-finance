@@ -1,10 +1,10 @@
 package umn.ac.id.project.maggot;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 import android.util.Log;
-import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ArrayAdapter;
 
@@ -14,50 +14,45 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import umn.ac.id.project.maggot.model.PeternakModel;
+import umn.ac.id.project.maggot.model.WarungModel;
 import umn.ac.id.project.maggot.retrofit.ApiService;
 
-public class BuyMaggotActivity2 extends AppCompatActivity {
+public class PencairanDanaWarungActivity extends AppCompatActivity {
     ArrayAdapter<String> nameAdapter;
-    List<PeternakModel.Peternak> results;
+    List<WarungModel.Warung> results;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_buy_maggot2);
-        ApiService.endpoint().getPeternak().enqueue(new Callback<PeternakModel>() {
+        setContentView(R.layout.activity_pencairan_dana_warung);
+        ApiService.endpoint().getWarung().enqueue(new Callback<WarungModel>() {
             @Override
-            public void onResponse(Call<PeternakModel> call, Response<PeternakModel> response) {
+            public void onResponse(@NonNull Call<WarungModel> call, @NonNull Response<WarungModel> response) {
                 if(response.isSuccessful()) {
-                    results = response.body().getPeternak();
+                    results = response.body().getWarung();
                     String name[] = new String[results.size()];
                     for (int i=0; i<results.size(); i++) {
                         name[i] = results.get(i).getFull_name();
                     }
-                    nameAdapter = new ArrayAdapter<String>(BuyMaggotActivity2.this, android.R.layout.simple_list_item_1, name);
-                    umn.ac.id.project.maggot.InstantAutoComplete textView = (umn.ac.id.project.maggot.InstantAutoComplete) findViewById(R.id.namawarga);
+                    nameAdapter = new ArrayAdapter<String>(PencairanDanaWarungActivity.this , android.R.layout.simple_list_item_1, name);
+                    umn.ac.id.project.maggot.InstantAutoComplete textView = (umn.ac.id.project.maggot.InstantAutoComplete) findViewById(R.id.namawarung);
                     textView.setAdapter(nameAdapter);
+
                     textView.setOnFocusChangeListener(new View.OnFocusChangeListener() {
 
                         @Override
                         public void onFocusChange(View v, boolean hasFocus) {
                             if (hasFocus) {
+                                textView.setText("");
                                 textView.showDropDown();
-                            }else {
-                                textView.dismissDropDown();
+                            } else {
+                                textView.showDropDown();
+                                textView.setText("Masukkan nama warung disini...");
+
                             }
-
-
-                            }
-
-                    });
-
-                    textView.setOnTouchListener(new View.OnTouchListener() {
-
-                        @Override
-                        public boolean onTouch(View v, MotionEvent event) {
-                            textView.showDropDown();
-                            return false;
                         }
                     });
+
+
 
 //
 
@@ -67,10 +62,9 @@ public class BuyMaggotActivity2 extends AppCompatActivity {
             }
 
             @Override
-            public void onFailure(Call<PeternakModel> call, Throwable t) {
+            public void onFailure(Call<WarungModel> call, Throwable t) {
                 Log.d("Failure : ", t.toString());
             }
         });
     }
-
 }
