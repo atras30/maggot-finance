@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -8,12 +8,14 @@
     android:background="@drawable/gradient_background_2"
     android:padding="20dp"
     android:paddingVertical="10dp"
+    android:orientation="vertical"
     tools:context=".FarmerDashboardActivity">
 
     <FrameLayout
         android:id="@+id/fragment_container"
-        android:layout_width="366dp"
-        android:layout_height="689dp" />
+        android:layout_width="match_parent"
+        android:layout_weight="1"
+        android:layout_height="wrap_content" />
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottom_navigation_container"
@@ -21,7 +23,6 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
         android:background="@drawable/rounded_edittext"
-        android:layout_alignParentBottom="true"
         app:menu="@menu/bottom_navigation_menu"
-        tools:layout_editor_absoluteX="20dp" />
-</RelativeLayout>
+        />
+</LinearLayout>

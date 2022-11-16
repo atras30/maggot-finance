@@ -26,7 +26,7 @@ class DatabaseSeeder extends Seeder {
     SuperAdmin::create([
       "nama_pengelola" => "Universitas Multimedia Nusantara",
       "tempat" => "Universitas Multimedia Nusantara",
-      "email" => "admin@umn.ac.id",
+      "email" => "magfin@umn.ac.id",
       "password" => bcrypt("adminumn2022")
     ]);
 

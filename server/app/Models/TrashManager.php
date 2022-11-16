@@ -16,6 +16,10 @@ class TrashManager extends Authenticatable {
     "updated_at"
   ];
 
+  protected $with = [
+    "users"
+  ];
+
   public function users() {
     return $this->hasMany(User::class);
   }

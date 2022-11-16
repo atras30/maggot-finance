@@ -1,14 +1,12 @@
 <?php
 
 use App\Http\Controllers\AuthenticationController;
-use App\Http\Controllers\Controller;
 use App\Http\Controllers\MailController;
 use App\Http\Controllers\RegistrationController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\SuperAdminController;
 use App\Http\Controllers\TransactionController;
 use App\Http\Controllers\TrashManagerController;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -25,9 +23,9 @@ use Illuminate\Support\Facades\Route;
 // //Authenticated User
 Route::middleware('auth:sanctum')->group(function () {
     //Super Admin
-    Route::get('/super-admin/trash-managers', [
+    Route::get('/super-admin', [
         SuperAdminController::class,
-        'getTrashManagers',
+        'getAllData',
     ]);
 
     //Transaction List
@@ -70,6 +68,7 @@ Route::get('/user/unauthenticated', [
 //Authentication
 Route::prefix('auth')->group(function () {
     Route::post('/login', [AuthenticationController::class, 'login']);
+    Route::post('/login/super-admin', [AuthenticationController::class, 'loginSuperAdmin']);
 });
 
 //Registration

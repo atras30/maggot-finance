@@ -15,6 +15,10 @@ class SuperAdmin extends Authenticatable {
     "updated_at"
   ];
 
+  protected $with = [
+    "trash_managers"
+  ];
+
   public function trash_managers() {
     return $this->hasMany(TrashManager::class);
   }
