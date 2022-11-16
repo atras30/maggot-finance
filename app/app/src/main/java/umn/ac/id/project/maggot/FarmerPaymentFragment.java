@@ -79,30 +79,20 @@ public class FarmerPaymentFragment extends Fragment {
                     nameAdapter = new ArrayAdapter<String>(context , android.R.layout.simple_list_item_1, name);
                     umn.ac.id.project.maggot.InstantAutoComplete textView = (umn.ac.id.project.maggot.InstantAutoComplete) view.findViewById(R.id.namawarung);
                     textView.setAdapter(nameAdapter);
-
                     textView.setOnFocusChangeListener(new View.OnFocusChangeListener() {
 
                         @Override
                         public void onFocusChange(View v, boolean hasFocus) {
                             if (hasFocus) {
-                                textView.setText("");
                                 textView.showDropDown();
-                            } else {
-                                textView.showDropDown();
-                                textView.setText("Masukkan nama warung disini...");
-
+                            }else {
+                                textView.dismissDropDown();
                             }
+
                         }
                     });
 
-                    textView.setOnTouchListener(new View.OnTouchListener() {
 
-                        @Override
-                        public boolean onTouch(View v, MotionEvent event) {
-                            textView.showDropDown();
-                            return false;
-                        }
-                    });
 
 //
 
