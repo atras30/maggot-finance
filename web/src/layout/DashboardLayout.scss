@@ -8,6 +8,17 @@
   & .dash-link {
     width: 100%;
 
+    .container {
+      transition: all 0.2s ease-in-out;
+    }
+
+    &:hover {
+      .container {
+        background-color: var(--color-secondary);
+        color: var(--color-white);
+      }
+    }
+
     &.active {
       .container {
         background-color: var(--color-white);
