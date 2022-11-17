@@ -18,6 +18,7 @@ import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.material.button.MaterialButton;
 
+import java.io.IOException;
 import java.util.List;
 
 import retrofit2.Call;
@@ -99,9 +100,13 @@ public class RegisterActivity extends AppCompatActivity implements AdapterView.O
                     startActivity(intent);
 
                     finish();
+                } else {
+                    try {
+                        Log.i("Message", response.errorBody().string());
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
                 }
-
-                Log.i("Message", String.valueOf(response.code()));
             }
 
             @Override

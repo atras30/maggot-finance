@@ -131,7 +131,8 @@ public class LoginActivity extends AppCompatActivity {
                         String errorMessage = gson.fromJson(response.errorBody().string(), AuthenticationModel.ErrorHandler.class).getMessage();
 
                         if(errorMessage.equalsIgnoreCase("User was not found.")) {
-                            Toast.makeText(LoginActivity.this, "User was not found.", Toast.LENGTH_SHORT).show();
+                            showToastMessage("Please register to our app first.");
+                            startActivity(new Intent(LoginActivity.this, RegisterActivity.class));
                         } else if(errorMessage.equalsIgnoreCase("")) {
                             //do something
                         }
