@@ -3,10 +3,12 @@ package umn.ac.id.project.maggot;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 
 import java.util.List;
 
@@ -64,6 +66,14 @@ public class PencairanDanaWarungActivity extends AppCompatActivity {
             @Override
             public void onFailure(Call<WarungModel> call, Throwable t) {
                 Log.d("Failure : ", t.toString());
+            }
+        });
+        Button switchwarga = findViewById(R.id.buttonwarga);
+        switchwarga.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(PencairanDanaWarungActivity.this, PencairanMaggotWargaActivity.class);
+                startActivity(intent);
             }
         });
     }

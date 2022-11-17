@@ -10,10 +10,12 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import umn.ac.id.project.maggot.R;
 import umn.ac.id.project.maggot.model.PeternakModel;
+import umn.ac.id.project.maggot.model.UserModel;
 
 public class DetailWargaAdapter extends RecyclerView.Adapter<DetailWargaAdapter.DetailWargaViewHolder> {
     Context context;
@@ -56,6 +58,12 @@ public class DetailWargaAdapter extends RecyclerView.Adapter<DetailWargaAdapter.
             profilePicture = itemView.findViewById(R.id.profilePicture);
             delete = itemView.findViewById(R.id.deletewarga);
         }
+    }
+
+    public void upToDate(List<PeternakModel.Peternak> newList){
+        peternak = new ArrayList<>();
+        peternak.addAll(newList);
+        notifyDataSetChanged();
     }
 
 }

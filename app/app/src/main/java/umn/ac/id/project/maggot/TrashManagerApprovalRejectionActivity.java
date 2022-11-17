@@ -1,10 +1,12 @@
 package umn.ac.id.project.maggot;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.SearchView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -47,6 +49,28 @@ public class TrashManagerApprovalRejectionActivity extends AppCompatActivity {
                     }
                 });
                 recyclerView.setLayoutManager(new LinearLayoutManager(TrashManagerApprovalRejectionActivity.this));
+
+                SearchView searchnamawarung = findViewById(R.id.searchwarung);
+                searchnamawarung.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+                    @Override
+                    public boolean onQueryTextSubmit(String query) {
+                        return false;
+                    }
+
+                    @Override
+                    public boolean onQueryTextChange(String newText) {
+                        String userInput = newText.toLowerCase();
+                        List<UserModel.User> newList = new ArrayList<>();
+                        for (UserModel.User user : notApprovedYetUsers) {
+                            if (user.getFull_name().toLowerCase().contains(userInput) || user.getAddress().toLowerCase().contains(userInput) || user.getEmail().toLowerCase().contains(userInput)) {
+                                newList.add(user);
+                            }
+                        }
+                        approvalRejectionAdapter.upToDate(newList);
+                        return true;
+                    }
+                });
+
             }
 
             @Override

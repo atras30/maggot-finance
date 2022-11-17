@@ -10,6 +10,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import umn.ac.id.project.maggot.R;
@@ -57,6 +58,12 @@ public class DetailWarungAdapter extends RecyclerView.Adapter<DetailWarungAdapte
             profilePicture = itemView.findViewById(R.id.profilePicture);
             delete = itemView.findViewById(R.id.deletewarung);
         }
+    }
+
+    public void upToDate(List<WarungModel.Warung> newList){
+        warung = new ArrayList<>();
+        warung.addAll(newList);
+        notifyDataSetChanged();
     }
 
 }

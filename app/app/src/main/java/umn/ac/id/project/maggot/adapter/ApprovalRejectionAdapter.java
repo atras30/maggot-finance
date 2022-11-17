@@ -12,6 +12,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import retrofit2.Call;
@@ -113,6 +114,12 @@ public class ApprovalRejectionAdapter extends RecyclerView.Adapter<ApprovalRejec
                 listener.onItemClick(getAdapterPosition());
             });
         }
+    }
+
+    public void upToDate(List<UserModel.User> newList){
+        users = new ArrayList<>();
+        users.addAll(newList);
+        notifyDataSetChanged();
     }
 
 }

@@ -2,11 +2,13 @@ package umn.ac.id.project.maggot;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 
 import java.util.List;
 
@@ -67,6 +69,14 @@ public class PencairanMaggotWargaActivity extends AppCompatActivity {
             @Override
             public void onFailure(Call<PeternakModel> call, Throwable t) {
                 Log.d("Failure : ", t.toString());
+            }
+        });
+        Button switchwarung = findViewById(R.id.buttonwarung);
+        switchwarung.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(PencairanMaggotWargaActivity.this, PencairanDanaWarungActivity.class);
+                startActivity(intent);
             }
         });
     }

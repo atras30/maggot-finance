@@ -2,6 +2,7 @@ package umn.ac.id.project.maggot;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.SearchView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -14,6 +15,7 @@ import android.widget.ImageView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import retrofit2.Call;
@@ -21,6 +23,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import umn.ac.id.project.maggot.adapter.DetailWarungAdapter;
 import umn.ac.id.project.maggot.adapter.ListWarungBinaanAdapter;
+import umn.ac.id.project.maggot.model.PeternakModel;
 import umn.ac.id.project.maggot.model.WarungModel;
 import umn.ac.id.project.maggot.retrofit.ApiService;
 
@@ -60,6 +63,27 @@ public class ListWarungActivity extends AppCompatActivity {
                         public void onClick(View view) {
                             Snackbar.make(view, "INI BUAT FAB TAMBAH DI WARUNG!!!", Snackbar.LENGTH_LONG)
                                     .setAction("Action", null).show();
+                        }
+                    });
+
+                    SearchView searchnamawarung = findViewById(R.id.searchwarung);
+                    searchnamawarung.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+                        @Override
+                        public boolean onQueryTextSubmit(String query) {
+                            return false;
+                        }
+
+                        @Override
+                        public boolean onQueryTextChange(String newText) {
+                            String userInput = newText.toLowerCase();
+                            List<WarungModel.Warung> newList = new ArrayList<>();
+                            for (WarungModel.Warung warung : results) {
+                                if (warung.getFull_name().toLowerCase().contains(userInput) || warung.getAddress().toLowerCase().contains(userInput) || warung.getEmail().toLowerCase().contains(userInput)) {
+                                    newList.add(warung);
+                                }
+                            }
+                            detailWarungAdapter.upToDate(newList);
+                            return true;
                         }
                     });
 
