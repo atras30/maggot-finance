@@ -8,6 +8,7 @@ use App\Models\TrashManager;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Hash;
 
 class AuthenticationController extends Controller
 {
@@ -16,6 +17,28 @@ class AuthenticationController extends Controller
         return response()->json([
             "user" => auth()->user()
         ], Response::HTTP_OK);
+    }
+
+    public function loginSuperAdmin(Request $request) {
+        $validated = $request->validate([
+            "email" => "string|required",
+            "password" => "string|required"
+        ]);
+
+        $superAdmin = SuperAdmin::where("email", $validated['email'])->get()->first();
+
+        if(!$superAdmin || !Hash::check($validated['password'], $superAdmin->password)) {
+            return response()->json([
+                "message" => "Incorrect email or password."
+            ], Response::HTTP_NOT_FOUND);
+        }
+
+        $token = $superAdmin->createToken("login_token")->plainTextToken;
+
+        return response()->json([
+            "token" => $token,
+            "super_admin" => $superAdmin
+        ]);
     }
 
     public function login(Request $request)
@@ -31,9 +54,6 @@ class AuthenticationController extends Controller
         if (!$user) {
             $user = TrashManager::where("email", $email)->first();
         }
-        if (!$user) {
-            $user = SuperAdmin::where("email", $email)->first();
-        }
 
         if (!$user) {
             return response()->json([
@@ -41,18 +61,19 @@ class AuthenticationController extends Controller
             ], Response::HTTP_NOT_FOUND);
         }
 
-        // if (!$user || !Hash::check($validated['password'], $user->password)) {
-        //   return response()->json([
-        //     "message" => "Bad Credentials."
-        //   ], Response::HTTP_OK);
-        // }
-
         $token = $user->createToken("login_token")->plainTextToken;
 
-        return [
-            'token' => $token,
-            "user" => $user,
-        ];
+        if($user->role == "trash_manager") {
+            return response()->json([
+                'token' => $token,
+                "trash_manager" => $user,
+            ]);
+        } else {
+            return response()->json([
+                'token' => $token,
+                "user" => $user,
+            ]);
+        }
     }
 
     public function logout()

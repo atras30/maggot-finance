@@ -36,6 +36,10 @@ public interface ApiEndpoint {
     Call<AuthenticationModel> login(@Field("email") String email);
 
     @FormUrlEncoded
+    @POST("auth/login")
+    Call<AuthenticationModel> loginTrashManager(@Field("email") String email);
+
+    @FormUrlEncoded
     @POST("register/user")
     Call<AuthenticationModel> registerUser(@Field("full_name") String fullName, @Field("email") String email, @Field("role") String role, @Field("trash_manager_id") int trashManagerId, @Field("address") String address, @Field("phone_number") String phoneNumber);
 

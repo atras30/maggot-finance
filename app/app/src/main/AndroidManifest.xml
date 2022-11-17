@@ -18,7 +18,10 @@
         <activity
             android:name=".PencairanMaggotWargaActivity"
             android:exported="true">
+<<<<<<< HEAD
 
+=======
+>>>>>>> d98ad4ce5b7c24fcc9810bd412523ec6b980c913
         </activity>
         <activity
             android:name=".InactiveActivity"
@@ -103,7 +106,17 @@
             android:exported="true" />
         <activity
             android:name=".LoginActivity"
+<<<<<<< HEAD
             android:exported="true" />
+=======
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+>>>>>>> d98ad4ce5b7c24fcc9810bd412523ec6b980c913
         <activity
             android:name=".ListPeternakActivity"
             android:label="@string/recyclerview_peternak_title" />
@@ -118,11 +131,15 @@
         <activity
             android:name=".HomePagePengelolaBankSampah"
             android:exported="true">
+<<<<<<< HEAD
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+=======
+
+>>>>>>> d98ad4ce5b7c24fcc9810bd412523ec6b980c913
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />

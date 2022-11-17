@@ -10,6 +10,7 @@
     <LinearLayout
         app:layout_constraintTop_toTopOf="parent"
         android:layout_width="match_parent"
+        android:elevation="8dp"
         android:layout_height="wrap_content">
         <ImageView
             android:id="@+id/transaction_icon"
