@@ -28,12 +28,12 @@ class TransactionController extends Controller {
     }
 
     if (isset($trashManager) && $trashManager->role == "trash_manager") {
-      $transactionHistory = Transaction::where("trash_manager_id", $trashManager->id)->where("transaction_type", "trash_manager_transaction")->get();
+      $transactionHistory = Transaction::where("trash_manager_id", $trashManager->id)->where("transaction_type", "trash_manager_transaction")->orderBy("created_at", "desc")->get();
       return response()->json([
         "data" => $transactionHistory
       ]);
     } else if ($user->role == "farmer") {
-      $transactionHistory = Transaction::where("farmer_id", $user->id)->where("transaction_type", "farmer_transaction")->get();
+      $transactionHistory = Transaction::where("farmer_id", $user->id)->where("transaction_type", "farmer_transaction")->orderBy("created_at", "desc")->get();
       return response()->json([
         "data" => $transactionHistory
       ]);

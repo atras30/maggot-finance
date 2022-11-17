@@ -16,13 +16,13 @@ return new class extends Migration {
       $table->enum('type', ['expense', 'income']);
       $table->enum('transaction_type', ['trash_manager_transaction', 'shop_transaction', 'farmer_transaction']);
       $table->string("description")->default("");
-      $table->unsignedDouble("weight_in_kg")->default(0);
-      $table->unsignedDouble("amount_per_kg")->default(0);
+      $table->unsignedDouble("weight_in_kg")->default(0)->nullable();
+      $table->unsignedDouble("amount_per_kg")->default(0)->nullable();
       $table->unsignedDouble("total_amount")->default(0);
-      $table->foreignId("farmer_id")->constrained("users")->onUpdate("cascade")->onDelete("cascade");
-      $table->foreignId("trash_manager_id")->constrained("trash_managers")->onUpdate("cascade")->onDelete("cascade")->nullable();
+      $table->foreignId("farmer_id")->nullable()->default(null)->constrained("users")->onUpdate("cascade")->onDelete("cascade");
+      $table->foreignId("trash_manager_id")->nullable()->default(null)->constrained("trash_managers")->onUpdate("cascade")->onDelete("cascade");
+      $table->foreignId("shop_id")->nullable()->default(null)->constrained("users")->onUpdate("cascade")->onDelete("cascade");
       $table->timestamps();
-      // $table->foreignId("warung_id")->constrained("shops")->onUpdate("cascade")->onDelete("cascade")->nullable();
     });
   }
 

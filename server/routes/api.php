@@ -35,7 +35,7 @@ Route::middleware('auth:sanctum')->group(function () {
     ]);
 
     //Warga
-    Route::post('/user/warga/buy/shop', [UserController::class, 'sellMaggots']);
+    Route::post('/farmer/buy/shop', [UserController::class, 'buyFromShop']);
 
     //Authentication
     Route::prefix('auth')->group(function () {
@@ -100,14 +100,7 @@ Route::post('/send-transaction-bill', [
     'sendTransactionBill',
 ]);
 
-Route::post('/dummy-data', [
-    RegistrationController::class,
-    'createDummyData',
-]);
-Route::post('/dummy-data/transaction', [
-    RegistrationController::class,
-    'createTransactionDummyData',
-]);
+//Dummy Data Endpoints
 Route::post('/dummy-data/transaction/{email}/{transactionAmount}', [
     RegistrationController::class,
     'createTransactionDummyDataForSpecificUser',
