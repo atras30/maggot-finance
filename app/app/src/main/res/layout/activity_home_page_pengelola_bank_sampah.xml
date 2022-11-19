@@ -1,219 +1,217 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     android:background="@drawable/gradient_background_2"
-    tools:context=".PengepulActivity">
-
-    <androidx.cardview.widget.CardView
-        android:id="@+id/cardView2"
+    tools:context=".HomePagePengelolaBankSampah">
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
-        app:cardCornerRadius="10dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.475"
-        app:layout_constraintStart_toStartOf="parent"
-        android:layout_marginBottom="10dp">
-
-        <com.google.android.material.bottomnavigation.BottomNavigationView
-            android:id="@+id/bottom_navigation_container"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_gravity="bottom|center"
-            android:background="@drawable/rounded_edittext"
-            app:menu="@menu/bottom_navigation_menu" />
-    </androidx.cardview.widget.CardView>
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-        <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_height="0dp"
+        android:layout_weight="1">
+        <ScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@drawable/gradient_background_2"
-            android:padding="20dp"
-            tools:context=".PengepulActivity">
-
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/listWargaBinaanRecyclerView"
-                android:layout_width="match_parent"
-                android:layout_height="300dp"
-                android:layout_marginTop="4dp"
-                android:padding="15dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.333"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/beranda5" />
+            tools:layout_editor_absoluteX="92dp"
+            tools:layout_editor_absoluteY="-173dp">
 
             <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/title_container"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:layout_constraintTop_toTopOf="parent"
-                tools:layout_editor_absoluteX="20dp">
+                android:layout_height="match_parent"
+                android:padding="20dp"
+                tools:context=".PengepulActivity">
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/listWargaBinaanRecyclerView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    tools:listitem="@layout/list_warga_binaan"
+                    tools:itemCount="3"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.333"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/beranda5" />
+
+                <LinearLayout
+                    android:id="@+id/beranda"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_weight="1"
+                        android:text="Beranda"
+                        android:textColor="@color/black"
+                        android:textSize="25sp"
+                        android:textStyle="bold"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.05"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/logout_button"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:backgroundTint="@color/danger"
+                        android:text="Logout" />
+
+                </LinearLayout>
 
                 <TextView
-                    android:id="@+id/beranda"
+                    android:id="@+id/beranda5"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Beranda"
+                    android:layout_marginTop="24dp"
+                    android:text="Daftar Warga Binaan"
+                    android:textColor="@color/black"
                     android:textSize="25sp"
                     android:textStyle="bold"
-                    app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:layout_constraintTop_toBottomOf="@+id/Container" />
+
+                <TextView
+                    android:id="@+id/beranda6"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:text="Daftar Warung Mitra"
+                    android:textColor="@color/black"
+                    android:textSize="25sp"
+                    android:textStyle="bold"
+                    app:layout_constraintTop_toBottomOf="@+id/lihatselengkapnya2" />
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/Container"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:background="@drawable/rounded_rectangle"
+                    android:paddingTop="5dp"
+                    android:paddingBottom="10dp"
+                    android:paddingHorizontal="15dp"
+                    app:layout_constraintTop_toBottomOf="@id/beranda"
+                    android:elevation="5dp">
+
+                    <TextView
+                        android:id="@+id/wargabinaan"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:text="Warga Binaan"
+                        android:textColor="@color/black"
+                        android:textSize="18sp"
+                        android:textStyle="bold"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/wargabinaan2"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="1000 Warga"
+                        android:textColor="@color/secondary"
+                        android:textSize="30sp"
+                        android:textStyle="bold"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/wargabinaan" />
+
+                    <TextView
+                        android:id="@+id/warungbinaan"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="12dp"
+                        android:text="Warung Binaan"
+                        android:textColor="@color/black"
+                        android:textSize="18sp"
+                        android:textStyle="bold"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/wargabinaan2" />
+
+                    <TextView
+                        android:id="@+id/wargabinaan4"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="5 Warung"
+                        android:textColor="@color/secondary"
+                        android:textSize="30sp"
+                        android:textStyle="bold"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/warungbinaan" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/listWarungBinaanRecyclerView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    tools:listitem="@layout/list_warung_binaan"
+                    tools:itemCount="3"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.357"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/beranda6" />
 
                 <com.google.android.material.button.MaterialButton
-                    android:id="@+id/logout_button"
+                    android:id="@+id/lihatselengkapnya2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:backgroundTint="@color/danger"
-                    android:text="Logout"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-            </androidx.constraintlayout.widget.ConstraintLayout>
-
-            <TextView
-                android:id="@+id/beranda5"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="24dp"
-                android:text="Daftar Warga Binaan"
-                android:textSize="25sp"
-                android:textStyle="bold"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.088"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/Container" />
-
-            <TextView
-                android:id="@+id/beranda6"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="60dp"
-                android:text="Daftar Warung Mitra"
-                android:textSize="25sp"
-                android:textStyle="bold"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.111"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/listWargaBinaanRecyclerView" />
-
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/Container"
-                android:layout_width="297dp"
-                android:layout_height="206dp"
-                android:layout_marginTop="20dp"
-                android:background="@drawable/rounded_edittext"
-                android:padding="15dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.491"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/title_container">
-
-                <TextView
-                    android:id="@+id/wargabinaan"
-                    android:layout_width="165dp"
-                    android:layout_height="29dp"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginTop="16dp"
-                    android:text="Warga Binaan"
-                    android:textSize="14sp"
-                    android:textStyle="bold"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <TextView
-                    android:id="@+id/wargabinaan2"
-                    android:layout_width="165dp"
-                    android:layout_height="33dp"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginTop="8dp"
-                    android:text="1000 Warga"
-                    android:textColor="#3CC3D5"
-                    android:textSize="24sp"
-                    android:textStyle="bold"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/wargabinaan" />
-
-                <TextView
-                    android:id="@+id/warungbinaan"
-                    android:layout_width="165dp"
-                    android:layout_height="29dp"
-                    android:layout_marginStart="16dp"
                     android:layout_marginTop="12dp"
-                    android:text="Warung Binaan"
-                    android:textSize="14sp"
-                    android:textStyle="bold"
+                    app:cornerRadius="50dp"
+                    android:text="Lihat Selengkapnya"
+                    android:backgroundTint="@color/primary"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="1.0"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/wargabinaan2" />
+                    app:layout_constraintTop_toBottomOf="@+id/listWargaBinaanRecyclerView" />
 
-                <TextView
-                    android:id="@+id/wargabinaan4"
-                    android:layout_width="171dp"
-                    android:layout_height="37dp"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginTop="8dp"
-                    android:text="5 Warung"
-                    android:textColor="#03A9F4"
-                    android:textSize="24sp"
-                    android:textStyle="bold"
+                <com.google.android.material.button.MaterialButton
+                    app:cornerRadius="50dp"
+                    android:id="@+id/lihatdaftarwarga"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    android:backgroundTint="@color/secondary"
+                    android:text="Lihat Selengkapnya"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="1.0"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/warungbinaan" />
+                    app:layout_constraintTop_toBottomOf="@+id/listWargaBinaanRecyclerView" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/lihatdaftarwarung"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:text="Lihat Selengkapnya"
+                    android:backgroundTint="@color/secondary"
+                    app:cornerRadius="50dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="1.0"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/listWarungBinaanRecyclerView" />
+
+
             </androidx.constraintlayout.widget.ConstraintLayout>
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/listWarungBinaanRecyclerView"
-                android:layout_width="match_parent"
-                android:layout_height="300dp"
-                android:padding="15dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.357"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/beranda6" />
-
-            <Button
-                android:id="@+id/lihatselengkapnya2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="12dp"
-                android:text="Lihat Selengkapnya"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="1.0"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/listWargaBinaanRecyclerView" />
-
-            <Button
-                android:id="@+id/lihatdaftarwarga"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="12dp"
-                android:text="Lihat Selengkapnya"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="1.0"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/listWargaBinaanRecyclerView" />
-
-            <Button
-                android:id="@+id/lihatdaftarwarung"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:text="Lihat Selengkapnya"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="1.0"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/listWarungBinaanRecyclerView" />
+        </ScrollView>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
-    </ScrollView>
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottom_navigation_container"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_gravity="bottom|center"
+        android:background="@drawable/rounded_edittext"
+        app:menu="@menu/menupengelolabanksampah"
+        android:layout_margin="15dp"
+        />
+</LinearLayout>

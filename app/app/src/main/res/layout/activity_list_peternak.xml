@@ -7,18 +7,30 @@
     android:background="@drawable/gradient_background_2"
     tools:context=".ListPeternakActivity">
 
+    <androidx.appcompat.widget.SearchView
+        android:id="@+id/searchwarga"
+        android:layout_width="267dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/rounded_edittext"
+        android:ems="10"
+        android:hint="Masukkan nama warung disini"
+        android:inputType="textPersonName"
+        android:textSize="12sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView6" />
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/listPeternakRecyclerView"
-        android:layout_width="385dp"
-        android:layout_height="374dp"
-        android:layout_marginTop="16dp"
+        android:layout_width="405dp"
+        android:layout_height="338dp"
+        android:layout_marginTop="4dp"
         android:padding="15dp"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.428"
+        app:layout_constraintHorizontal_bias="0.444"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView6"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintTop_toBottomOf="@+id/searchwarga" />
 
     <TextView
         android:id="@+id/textView6"

@@ -80,14 +80,12 @@ public class HomePagePengelolaBankSampah extends AppCompatActivity {
                 if(response.isSuccessful()) {
                     assert response.body() != null;
                     List<WarungModel.Warung> results = response.body().getWarung();
-                    Log.d("Success", results.toString());
+                    results.subList(3, results.size()).clear();
+
                     ListWarungBinaanAdapter listwarungbinaanadapter = new ListWarungBinaanAdapter(HomePagePengelolaBankSampah.this, results);
                     RecyclerView recyclerView2 = findViewById(R.id.listWarungBinaanRecyclerView);
                     recyclerView2.setAdapter(listwarungbinaanadapter);
                     recyclerView2.setLayoutManager(new LinearLayoutManager(HomePagePengelolaBankSampah.this));
-
-
-
                 }
             }
 
@@ -106,16 +104,11 @@ public class HomePagePengelolaBankSampah extends AppCompatActivity {
                 if(response.isSuccessful()) {
                     assert response.body() != null;
                     List<PeternakModel.Peternak> results = response.body().getPeternak();
-                    Log.d("Success", results.toString());
+                    results.subList(3, results.size()).clear();
                     ListWargaBinaanAdapter listwargabinaanadapter = new ListWargaBinaanAdapter(HomePagePengelolaBankSampah.this, results);
                     RecyclerView recyclerView1 = findViewById(R.id.listWargaBinaanRecyclerView);
-                    RecyclerView recyclerView2 = findViewById(R.id.listWarungBinaanRecyclerView);
                     recyclerView1.setAdapter(listwargabinaanadapter);
                     recyclerView1.setLayoutManager(new LinearLayoutManager(HomePagePengelolaBankSampah.this));
-                    recyclerView2.setAdapter(listwargabinaanadapter);
-                    recyclerView2.setLayoutManager(new LinearLayoutManager(HomePagePengelolaBankSampah.this));
-
-
                 }
             }
 

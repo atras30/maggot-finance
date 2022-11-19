@@ -7,18 +7,32 @@
     android:background="@drawable/gradient_background_2"
     tools:context=".ListPeternakActivity">
 
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/listWarungRecyclerView"
-        android:layout_width="385dp"
-        android:layout_height="374dp"
-        android:layout_marginTop="16dp"
+        android:layout_width="391dp"
+        android:layout_height="344dp"
+        android:layout_marginTop="32dp"
         android:padding="15dp"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.428"
+        app:layout_constraintHorizontal_bias="0.2"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView6"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintTop_toBottomOf="@+id/searchwarung" />
+
+    <androidx.appcompat.widget.SearchView
+        android:id="@+id/searchwarung"
+        android:layout_width="267dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="36dp"
+        android:background="@drawable/rounded_edittext"
+        android:ems="10"
+        android:hint="Masukkan nama warung disini"
+        android:inputType="textPersonName"
+        android:textSize="12sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.305"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView6" />
 
     <TextView
         android:id="@+id/textView6"
@@ -37,8 +51,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
-        android:layout_marginTop="20dp"
-        android:layout_marginEnd="32dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="24dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/listWarungRecyclerView"
         app:srcCompat="@android:drawable/ic_menu_add" />
