@@ -7,6 +7,7 @@ import umn.ac.id.project.maggot.global.Helper;
 
 public class TransactionModel {
     private List<Transaction> data;
+    private String message;
 
     public TransactionModel(List<Transaction> data) {
         this.data = data;
@@ -16,8 +17,12 @@ public class TransactionModel {
         return data;
     }
 
+    public String farmerBuyFromShop() {
+        return message;
+    }
+
     public class Transaction {
-        private String type, description, transaction_type, weight_in_kg, amount_per_kg, total_amount;
+        private String type, description, transaction_type, weight_in_kg, amount_per_kg, total_amount, message;
         private Date created_at;
         private double amount;
         private int id,farmer_id, trash_manager_id;

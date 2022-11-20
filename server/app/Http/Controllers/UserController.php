@@ -37,6 +37,7 @@ class UserController extends Controller
         $validated = $request->validate([
             'total_amount' => 'string|required',
             'shop_id' => 'string|required',
+            "description" => "string"
         ]);
 
         if(!isset($validated['description'])) {
@@ -69,7 +70,6 @@ class UserController extends Controller
                 'transaction_type' => 'shop_transaction',
             ]);
         });
-
         return response()->json([
             "message" => "Transaction created."
         ], Response::HTTP_CREATED);

@@ -96,6 +96,7 @@ public class ApprovalRejectionAdapter extends RecyclerView.Adapter<ApprovalRejec
     public class ListApprovalRejectionViewHolder extends RecyclerView.ViewHolder {
         TextView namaUser, alamatUser;
         ImageView approveButton, rejectButton;
+
         public ListApprovalRejectionViewHolder(@NonNull View itemView, OnItemClickListener listener) {
             super(itemView);
 

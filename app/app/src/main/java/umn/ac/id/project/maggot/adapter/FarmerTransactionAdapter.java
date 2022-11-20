@@ -46,10 +46,10 @@ public class FarmerTransactionAdapter extends RecyclerView.Adapter<FarmerTransac
             holder.amount.setTextColor(context.getResources().getColor(R.color.success));
             holder.logo.setImageResource(R.drawable.farmer_wallet_icon);
         } else if(type.equalsIgnoreCase("expense")) {
-            String totalAmount = "-" + String.valueOf(transactions.get(position).getTotal_amount());
+            String totalAmount = "-Rp. " + String.valueOf(transactions.get(position).getTotal_amount());
             holder.type.setText("Dana Keluar");
             holder.amount.setText(totalAmount);
-            holder.amount.setTextColor(context.getResources().getColor(R.color.success));
+            holder.amount.setTextColor(context.getResources().getColor(R.color.danger));
             holder.logo.setImageResource(R.drawable.farmer_buy_icon);
         }
     }
