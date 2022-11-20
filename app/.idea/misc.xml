@@ -64,15 +64,20 @@
         <entry key="..\:/Semester 5/IF570 - Mobile Application Programming/UTS/maggot-project-server/app/app/src/main/res/layout/activity_dashboard_warung.xml" value="0.21403508771929824" />
         <entry key="..\:/Semester 5/IF570 - Mobile Application Programming/UTS/maggot-project-server/app/app/src/main/res/layout/activity_farmer_dashboard.xml" value="0.20863616930312098" />
         <entry key="..\:/Semester 5/IF570 - Mobile Application Programming/UTS/maggot-project-server/app/app/src/main/res/layout/activity_home_page_pengelola_bank_sampah.xml" value="0.11851851851851852" />
-        <entry key="..\:/Semester 5/IF570 - Mobile Application Programming/UTS/maggot-project-server/app/app/src/main/res/layout/activity_inactive.xml" value="0.11759036144578314" />
+        <entry key="..\:/Semester 5/IF570 - Mobile Application Programming/UTS/maggot-project-server/app/app/src/main/res/layout/activity_inactive.xml" value="0.21981981981981982" />
+        <entry key="..\:/Semester 5/IF570 - Mobile Application Programming/UTS/maggot-project-server/app/app/src/main/res/layout/activity_input_warga.xml" value="0.18298418127404875" />
+        <entry key="..\:/Semester 5/IF570 - Mobile Application Programming/UTS/maggot-project-server/app/app/src/main/res/layout/activity_input_warung.xml" value="0.20863616930312098" />
         <entry key="..\:/Semester 5/IF570 - Mobile Application Programming/UTS/maggot-project-server/app/app/src/main/res/layout/activity_list_peternak.xml" value="0.25416666666666665" />
         <entry key="..\:/Semester 5/IF570 - Mobile Application Programming/UTS/maggot-project-server/app/app/src/main/res/layout/activity_list_warung.xml" value="0.20863616930312098" />
         <entry key="..\:/Semester 5/IF570 - Mobile Application Programming/UTS/maggot-project-server/app/app/src/main/res/layout/activity_login.xml" value="0.152" />
+        <entry key="..\:/Semester 5/IF570 - Mobile Application Programming/UTS/maggot-project-server/app/app/src/main/res/layout/activity_pencairan_dana_warung.xml" value="0.1" />
         <entry key="..\:/Semester 5/IF570 - Mobile Application Programming/UTS/maggot-project-server/app/app/src/main/res/layout/activity_pengepul.xml" value="0.25416666666666665" />
         <entry key="..\:/Semester 5/IF570 - Mobile Application Programming/UTS/maggot-project-server/app/app/src/main/res/layout/activity_peternak.xml" value="0.25416666666666665" />
         <entry key="..\:/Semester 5/IF570 - Mobile Application Programming/UTS/maggot-project-server/app/app/src/main/res/layout/activity_qr_code.xml" value="0.25416666666666665" />
-        <entry key="..\:/Semester 5/IF570 - Mobile Application Programming/UTS/maggot-project-server/app/app/src/main/res/layout/activity_register.xml" value="0.25416666666666665" />
+        <entry key="..\:/Semester 5/IF570 - Mobile Application Programming/UTS/maggot-project-server/app/app/src/main/res/layout/activity_register.xml" value="0.1" />
         <entry key="..\:/Semester 5/IF570 - Mobile Application Programming/UTS/maggot-project-server/app/app/src/main/res/layout/activity_registration_success.xml" value="0.25416666666666665" />
+        <entry key="..\:/Semester 5/IF570 - Mobile Application Programming/UTS/maggot-project-server/app/app/src/main/res/layout/fragment_farmer_payment.xml" value="0.20863616930312098" />
+        <entry key="..\:/Semester 5/IF570 - Mobile Application Programming/UTS/maggot-project-server/app/app/src/main/res/layout/fragment_farmer_transaction.xml" value="0.20863616930312098" />
         <entry key="..\:/Semester 5/IF570 - Mobile Application Programming/UTS/maggot-project-server/app/app/src/main/res/layout/list_peternak_row.xml" value="0.25416666666666665" />
         <entry key="..\:/Semester 5/IF570 - Mobile Application Programming/UTS/maggot-project-server/app/app/src/main/res/layout/list_rejection_approval_row.xml" value="0.20863616930312098" />
         <entry key="..\:/Semester 5/IF570 - Mobile Application Programming/UTS/maggot-project-server/app/app/src/main/res/layout/peternak_dropdown.xml" value="0.25416666666666665" />
