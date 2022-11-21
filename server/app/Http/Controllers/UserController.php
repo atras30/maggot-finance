@@ -41,7 +41,7 @@ class UserController extends Controller
         ]);
 
         if(!isset($validated['description'])) {
-            $validated['description'] = "";
+            $validated['description'] = "-";
         }
 
         DB::transaction(function () use($validated) {
