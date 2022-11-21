@@ -14,5 +14,6 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('qr_code');
+    // return view('qr_code');
+    return "TEST";
 });

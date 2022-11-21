@@ -107,24 +107,6 @@ class DatabaseSeeder extends Seeder
             'is_verified' => 1
         ]);
 
-        // Transaction::create([
-        //   "user_id" => "2",
-        //   "related_transaction_user_id" => "1",
-        //   "type" => "expense",
-        //   "weight_in_kg" => 10,
-        //   "amount_per_kg" => 10000,
-        //   "total_amount" => 100000,
-        // ]);
-
-        // Transaction::create([
-        //   "user_id" => "1",
-        //   "related_transaction_user_id" => "2",
-        //   "type" => "income",
-        //   "weight_in_kg" => 10,
-        //   "amount_per_kg" => 10000,
-        //   "total_amount" => 100000,
-        // ]);
-
         //Transaction Dummy Data
         for ($i = 0; $i < 50; $i++) {
             $weightInKg = fake()->randomFloat(2, 0.5, 10);

@@ -1,5 +1,6 @@
 package umn.ac.id.project.maggot.model;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -8,6 +9,8 @@ import umn.ac.id.project.maggot.global.Helper;
 public class TransactionModel {
     private List<Transaction> data;
     private String message;
+    private Transaction transaction1;
+    private Transaction transaction2;
 
     public TransactionModel(List<Transaction> data) {
         this.data = data;
@@ -19,6 +22,43 @@ public class TransactionModel {
 
     public String farmerBuyFromShop() {
         return message;
+    }
+
+    public BuyMaggotResult buyMaggot() {
+        return new BuyMaggotResult(message, transaction1, transaction2);
+    }
+
+    public class BuyMaggotResult {
+        private String message;
+        private Transaction transaction1;
+        private Transaction transaction2;
+
+        public BuyMaggotResult(String message, Transaction transaction1, Transaction transaction2) {
+            this.message = message;
+            this.transaction1 = transaction1;
+            this.transaction2 = transaction2;
+        }
+
+        public String getMessage() {
+            return message;
+        }
+
+        public Transaction getTransaction1() {
+            return transaction1;
+        }
+
+        public Transaction getTransaction2() {
+            return transaction2;
+        }
+
+        @Override
+        public String toString() {
+            return "BuyMaggotResult{" +
+                    "message='" + message + '\'' +
+                    ", transaction1=" + transaction1 +
+                    ", transaction2=" + transaction2 +
+                    '}';
+        }
     }
 
     public class Transaction {

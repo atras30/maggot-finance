@@ -5,6 +5,7 @@ import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
+import retrofit2.http.Headers;
 import retrofit2.http.POST;
 import retrofit2.http.Query;
 import umn.ac.id.project.maggot.model.ApprovalRejectionModel;
@@ -54,6 +55,11 @@ public interface ApiEndpoint {
     @FormUrlEncoded
     @POST("register/user/reject")
     Call<ApprovalRejectionModel> rejectionUserRegistration(@Field("email") String email);
+
+    @FormUrlEncoded
+    @Headers("Accept: application/json")
+    @POST("transaction/trash-manager/buy/maggot")
+    Call<TransactionModel> buyMaggot(@Header("Authorization") String authorizationToken,@Field("weight_in_kg") double weightInKg, @Field("amount_per_kg") double amountPerKg, @Field("farmer_email") String farmerEmail, @Field("description") String description);
 
     @GET("transactions")
     Call<TransactionModel> getTransactions(@Query("email") String email);

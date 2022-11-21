@@ -28,19 +28,21 @@ Route::middleware('auth:sanctum')->group(function () {
         'getAllData',
     ]);
 
-    //Transaction List
-    Route::post('/transaction/trash-manager/buy/maggot', [
-        TrashManagerController::class,
-        'buyMaggot',
-    ]);
-
-    //Warga
-    Route::post('/farmer/buy/shop', [UserController::class, 'buyFromShop']);
-
     //Authentication
     Route::prefix('auth')->group(function () {
         Route::post('/logout', [AuthenticationController::class, 'logout']);
         Route::get('/user', [AuthenticationController::class, 'getUser']);
+    });
+
+    //Transaction List
+    Route::prefix("transaction")->group(function() {
+        Route::post('/trash-manager/buy/maggot', [
+            TrashManagerController::class,
+            'buyMaggot',
+        ]);
+
+        //Warga
+        Route::post('/farmer/buy/shop', [UserController::class, 'buyFromShop']);
     });
 });
 

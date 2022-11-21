@@ -35,7 +35,7 @@ class UserController extends Controller
     public function buyFromShop(Request $request)
     {
         $validated = $request->validate([
-            'total_amount' => 'string|required',
+            'total_amount' => 'numeric|required|min:1',
             'shop_id' => 'string|required',
             "description" => "string"
         ]);
@@ -44,32 +44,47 @@ class UserController extends Controller
             $validated['description'] = "-";
         }
 
-        DB::transaction(function () use($validated) {
-            $user = auth()->user();
+        $user = auth()->user();
+        if((int) $user->balance - (int) $validated['total_amount'] < 0) {
+            return response()->json([
+                "message" => "Transaksi Gagal, Saldo Anda Tidak Cukup!"
+            ], Response::HTTP_UNPROCESSABLE_ENTITY);
+        }
+
+        $user->balance -= $validated['total_amount'];
+        $user->save();
+
+        $data = [
+            "validated" => $validated,
+            "user" => $user
+        ];
+
+        DB::transaction(function () use($data) {
             Transaction::create([
                 'type' => 'expense',
-                'description' => $validated['description'],
+                'description' => $data['validated']['description'],
                 'weight_in_kg' => null,
                 'amount_per_kg' => null,
-                'total_amount' => $validated['total_amount'],
-                'farmer_id' => $user->id,
+                'total_amount' => $data['validated']['total_amount'],
+                'farmer_id' => $data['user']->id,
                 'trash_manager_id' => null,
-                'shop_id' => $validated['shop_id'],
+                'shop_id' => $data['validated']['shop_id'],
                 'transaction_type' => 'farmer_transaction',
             ]);
 
             Transaction::create([
                 'type' => 'income',
-                'description' => $validated['description'],
+                'description' => $data['validated']['description'],
                 'weight_in_kg' => null,
                 'amount_per_kg' => null,
-                'total_amount' => $validated['total_amount'],
-                'farmer_id' => $user->id,
+                'total_amount' => $data['validated']['total_amount'],
+                'farmer_id' => $data['user']->id,
                 'trash_manager_id' => null,
-                'shop_id' => $validated['shop_id'],
+                'shop_id' => $data['validated']['shop_id'],
                 'transaction_type' => 'shop_transaction',
             ]);
         });
+
         return response()->json([
             "message" => "Transaction created."
         ], Response::HTTP_CREATED);

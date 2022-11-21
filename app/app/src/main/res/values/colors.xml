@@ -21,6 +21,7 @@
     <color name="grey">#606975</color>
     <color name="dark">#041A39</color>
     <color name="light">#DAE2FF</color>
+    <color name="text_muted">#9298AC</color>
 
     <color name="back1start">#041A39</color>
     <color name="back1end">#2444A3</color>
