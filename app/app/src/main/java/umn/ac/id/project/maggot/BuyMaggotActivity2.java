@@ -6,18 +6,23 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+import umn.ac.id.project.maggot.adapter.ApprovalRejectionAdapter;
+import umn.ac.id.project.maggot.adapter.PeternakSearchDropDownAdapter;
 import umn.ac.id.project.maggot.model.PeternakModel;
 import umn.ac.id.project.maggot.retrofit.ApiService;
+import umn.ac.id.project.maggot.adapter.DropDownAdapter;
 
 public class BuyMaggotActivity2 extends AppCompatActivity {
-    ArrayAdapter<String> nameAdapter;
+    ArrayAdapter<PeternakModel.Peternak> DropDownAdapter;
     List<PeternakModel.Peternak> results;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,13 +33,21 @@ public class BuyMaggotActivity2 extends AppCompatActivity {
             public void onResponse(Call<PeternakModel> call, Response<PeternakModel> response) {
                 if(response.isSuccessful()) {
                     results = response.body().getPeternak();
-                    String name[] = new String[results.size()];
-                    for (int i=0; i<results.size(); i++) {
-                        name[i] = results.get(i).getFull_name();
-                    }
-                    nameAdapter = new ArrayAdapter<String>(BuyMaggotActivity2.this, android.R.layout.simple_list_item_1, name);
+                    DropDownAdapter = new PeternakSearchDropDownAdapter(BuyMaggotActivity2.this, (ArrayList<PeternakModel.Peternak>) results);
                     umn.ac.id.project.maggot.InstantAutoComplete textView = (umn.ac.id.project.maggot.InstantAutoComplete) findViewById(R.id.namawarga);
-                    textView.setAdapter(nameAdapter);
+                    textView.setAdapter(DropDownAdapter);
+                    textView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+                        @Override
+                        public void onItemClick(AdapterView<?> parent, View arg1, int position, long arg3) {
+                            Object item = parent.getItemAtPosition(position);
+                            if (item instanceof PeternakModel.Peternak){
+                                PeternakModel.Peternak peternak =(PeternakModel.Peternak) item;
+                                textView.setText(peternak.getFull_name());
+                            }
+;                        }
+                    });
+
                     textView.setOnFocusChangeListener(new View.OnFocusChangeListener() {
 
                         @Override

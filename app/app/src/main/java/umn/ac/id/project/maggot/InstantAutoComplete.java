@@ -3,6 +3,7 @@ package umn.ac.id.project.maggot;
 import android.content.Context;
 import android.graphics.Rect;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.widget.AutoCompleteTextView;
 
 public class InstantAutoComplete extends androidx.appcompat.widget.AppCompatAutoCompleteTextView {
@@ -30,7 +31,6 @@ public class InstantAutoComplete extends androidx.appcompat.widget.AppCompatAuto
                                   Rect previouslyFocusedRect) {
         super.onFocusChanged(focused, direction, previouslyFocusedRect);
         if (focused && getFilter()!=null) {
-
             performFiltering(getText(), 0);
         }
     }

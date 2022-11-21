@@ -42,6 +42,8 @@ public class PeternakModel {
             return email;
         }
 
+        public Peternak getSelf() { return this; }
+
         public double getBalance() {
             return balance;
         }
