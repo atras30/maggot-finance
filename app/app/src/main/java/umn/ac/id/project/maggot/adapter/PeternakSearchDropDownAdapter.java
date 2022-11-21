@@ -1,17 +1,13 @@
 package umn.ac.id.project.maggot.adapter;
 
 import android.content.Context;
-import android.graphics.Movie;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Filter;
-import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import androidx.annotation.LayoutRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
@@ -41,7 +37,7 @@ public class PeternakSearchDropDownAdapter extends ArrayAdapter<PeternakModel.Pe
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
         View listItem = convertView;
         if(listItem == null)
-            listItem = LayoutInflater.from(mContext).inflate(R.layout.peternak_dropdown ,parent,false);
+            listItem = LayoutInflater.from(mContext).inflate(R.layout.peternakwarung_dropdown,parent,false);
 
         PeternakModel.Peternak currentPeternak = getItem(position);
 

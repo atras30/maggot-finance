@@ -23,7 +23,9 @@
             android:exported="false" />
         <activity
             android:name=".PencairanMaggotWargaActivity"
-            android:exported="true" />
+            android:exported="true">
+        </activity>
+
         <activity
             android:name=".InactiveActivity"
             android:exported="false" />
@@ -44,7 +46,8 @@
             android:exported="false" />
         <activity
             android:name=".DashboardWarungActivity"
-            android:exported="false" />
+            android:exported="true" >
+        </activity>
         <activity
             android:name=".ShopDashboardActivity"
             android:exported="false">
@@ -115,6 +118,7 @@
         <activity
             android:name=".LoginActivity"
             android:exported="true">
+
         </activity>
         <activity
             android:name=".ListPeternakActivity"
