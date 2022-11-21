@@ -6,21 +6,26 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+import umn.ac.id.project.maggot.adapter.PeternakSearchDropDownAdapter;
+import umn.ac.id.project.maggot.adapter.WarungSearchDropDownAdapter;
 import umn.ac.id.project.maggot.model.PeternakModel;
 import umn.ac.id.project.maggot.model.WarungModel;
 import umn.ac.id.project.maggot.retrofit.ApiService;
 
 public class PencairanDanaWarungActivity extends AppCompatActivity {
-    ArrayAdapter<String> nameAdapter;
+    ArrayAdapter<WarungModel.Warung> DropDownAdapter;
     List<WarungModel.Warung> results;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,29 +36,43 @@ public class PencairanDanaWarungActivity extends AppCompatActivity {
             public void onResponse(@NonNull Call<WarungModel> call, @NonNull Response<WarungModel> response) {
                 if(response.isSuccessful()) {
                     results = response.body().getWarung();
-                    String name[] = new String[results.size()];
-                    for (int i=0; i<results.size(); i++) {
-                        name[i] = results.get(i).getFull_name();
-                    }
-                    nameAdapter = new ArrayAdapter<String>(PencairanDanaWarungActivity.this , android.R.layout.simple_list_item_1, name);
+                    DropDownAdapter = new WarungSearchDropDownAdapter(PencairanDanaWarungActivity.this, (ArrayList<WarungModel.Warung>) results);
                     umn.ac.id.project.maggot.InstantAutoComplete textView = (umn.ac.id.project.maggot.InstantAutoComplete) findViewById(R.id.namawarung);
-                    textView.setAdapter(nameAdapter);
+                    textView.setAdapter(DropDownAdapter);
+                    textView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+                        @Override
+                        public void onItemClick(AdapterView<?> parent, View arg1, int position, long arg3) {
+                            Object item = parent.getItemAtPosition(position);
+                            if (item instanceof WarungModel.Warung){
+                                WarungModel.Warung warung =(WarungModel.Warung) item;
+                                textView.setText(warung.getFull_name());
+                            }
+                                }
+                    });
+
 
                     textView.setOnFocusChangeListener(new View.OnFocusChangeListener() {
 
                         @Override
                         public void onFocusChange(View v, boolean hasFocus) {
                             if (hasFocus) {
-                                textView.setText("");
+
                                 textView.showDropDown();
                             } else {
-                                textView.showDropDown();
-                                textView.setText("Masukkan nama warung disini...");
+                                textView.dismissDropDown();
 
                             }
                         }
                     });
+                    textView.setOnTouchListener(new View.OnTouchListener() {
 
+                        @Override
+                        public boolean onTouch(View v, MotionEvent event) {
+                            textView.showDropDown();
+                            return false;
+                        }
+                    });
 
 
 //

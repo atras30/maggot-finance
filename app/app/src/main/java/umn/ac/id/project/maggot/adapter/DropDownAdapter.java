@@ -7,10 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.view.LayoutInflater;
-import android.widget.ImageView;
 import android.widget.TextView;
-
-import org.w3c.dom.Text;
 
 import java.util.List;
 
@@ -51,7 +48,7 @@ public class DropDownAdapter extends ArrayAdapter<PeternakModel.Peternak> {
         if(rowview == null) {
             holder = new viewHolder();
             flater = (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            rowview = flater.inflate(R.layout.peternak_dropdown, null, false);
+            rowview = flater.inflate(R.layout.peternakwarung_dropdown, null, false);
             rowview.setTag(holder);
         }else{
             holder = (viewHolder) rowview.getTag();
