@@ -37,7 +37,7 @@ class TrashManagerController extends Controller
         $warga = User::where('email', $validated['farmer_email'])
             ->get()
             ->first();
-        $validated['user_id'] = $warga->id;
+        $validated['farmer_id'] = $warga->id;
         $validated['trash_manager_id'] = auth()->user()->id;
         $validated['type'] = 'income';
         $validated['transaction_type'] = 'farmer_transaction';
