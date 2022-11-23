@@ -1,7 +1,7 @@
 {
   "name": "web",
   "private": true,
-  "version": "0.0.0",
+  "version": "1.0.0",
   "type": "module",
   "scripts": {
     "start": "vite --host",
@@ -17,13 +17,14 @@
     "framer-motion": "^7.6.5",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "react-hook-form": "^7.39.1",
+    "react-hook-form": "^7.39.4",
     "react-icons": "^4.6.0",
     "react-router-dom": "^6.4.3",
     "sass": "^1.56.1",
-    "sweetalert2": "^11.6.7"
+    "sweetalert2": "^11.6.10"
   },
   "devDependencies": {
+    "@types/node": "^18.11.9",
     "@types/react": "^18.0.24",
     "@types/react-dom": "^18.0.8",
     "@vitejs/plugin-react": "^2.2.0",

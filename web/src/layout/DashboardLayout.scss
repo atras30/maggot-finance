@@ -16,6 +16,10 @@
       .container {
         background-color: var(--color-secondary);
         color: var(--color-white);
+
+        &.danger {
+          background-color: var(--color-danger);
+        }
       }
     }
 
