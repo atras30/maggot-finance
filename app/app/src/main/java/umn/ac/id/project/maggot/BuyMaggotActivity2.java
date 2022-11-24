@@ -56,7 +56,7 @@ public class BuyMaggotActivity2 extends AppCompatActivity {
                             if (item instanceof PeternakModel.Peternak) {
                                 PeternakModel.Peternak peternak = (PeternakModel.Peternak) item;
                                 textView.setText(peternak.getFull_name());
-                                Log.i("Peternak", peternak.toString());
+//                                Log.i("Peternak", peternak.toString());
                                 selectedFarmerEmail = peternak.getEmail();
                                 ((TextView) findViewById(R.id.edittext_email_warga)).setText(selectedFarmerEmail);
                             }
@@ -140,6 +140,18 @@ public class BuyMaggotActivity2 extends AppCompatActivity {
         }
 
         buttonBuy.setOnClickListener(v -> {
+            if(((TextView)findViewById(R.id.edittext_email_warga)).getText().toString().trim().equalsIgnoreCase("")) {
+                Toast.makeText(this, "Anda harus memilih warga melalui dropdown / Scan QR Code.", Toast.LENGTH_LONG).show();
+                return;
+            }
+
+            if(buttons[0].getText().toString().isEmpty()) {
+                Toast.makeText(this, "Jumlah KG harus diisi", Toast.LENGTH_LONG).show();
+                return;
+            } else if(buttons[1].getText().toString().isEmpty()) {
+                Toast.makeText(this, "Harga Per KG harus diisi", Toast.LENGTH_LONG).show();
+                return;
+            }
             double weightInKg = Double.parseDouble(buttons[0].getText().toString());
             double amountPerKg = Double.parseDouble(buttons[1].getText().toString());
             Log.i("Jumlah KG : ", buttons[0].getText().toString());

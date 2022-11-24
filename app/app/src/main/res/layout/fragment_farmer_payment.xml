@@ -44,16 +44,24 @@
         <umn.ac.id.project.maggot.InstantAutoComplete
             android:id="@+id/namawarung"
             android:layout_width="match_parent"
-            android:layout_height="45dp"
+            android:layout_height="30dp"
             android:layout_marginHorizontal="30dp"
+            android:layout_marginTop="10dp"
             android:background="@drawable/rounded_edittext"
             android:ems="10"
-            android:inputType="textPersonName"
             android:hint="Masukkan nama warung..."
-            app:layout_constraintBottom_toBottomOf="parent"
+            android:inputType="textPersonName"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/farmer_payment_shop_selection_title" />
+        <TextView
+            android:id="@+id/edittext_email_warga"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_constraintTop_toBottomOf="@id/namawarung"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_marginHorizontal="30dp"
+            android:layout_marginBottom="10dp"/>
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <com.google.android.material.button.MaterialButton
