@@ -9,6 +9,8 @@ import androidx.activity.result.ActivityResultLauncher;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -16,10 +18,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.material.button.MaterialButton;
+import com.google.gson.Gson;
 import com.journeyapps.barcodescanner.ScanContract;
 import com.journeyapps.barcodescanner.ScanOptions;
 
@@ -41,6 +45,9 @@ public class FarmerPaymentFragment extends Fragment {
     private Context context;
     ArrayAdapter<WarungModel.Warung> DropDownAdapter;
     List<WarungModel.Warung> results;
+    String selectedEmail = "";
+    View layoutView;
+
     //QR Scanner
     ActivityResultLauncher<ScanOptions> barLauncher = registerForActivityResult(new ScanContract(), result -> {
         if(result.getContents() != null) {
@@ -67,23 +74,31 @@ public class FarmerPaymentFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_farmer_payment, container, false);
+        layoutView = inflater.inflate(R.layout.fragment_farmer_payment, container, false);
 
         //QR Code scanner button logic
-        MaterialButton scanQrCodeButton = view.findViewById(R.id.scan_qr_code_button);
+        MaterialButton scanQrCodeButton = layoutView.findViewById(R.id.scan_qr_code_button);
         scanQrCodeButton.setOnClickListener(v -> {
             //Open QR Scanner activity
             scanCode();
         });
 
         //Payment Logic
-        MaterialButton paymentButton = view.findViewById(R.id.payment_button);
+        MaterialButton paymentButton = layoutView.findViewById(R.id.payment_button);
         paymentButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String token = new UserSharedPreference(context).getToken();
-                Toast.makeText(context, token, Toast.LENGTH_SHORT).show();
-//                pay();
+                EditText totalAmount = layoutView.findViewById(R.id.editText2);
+
+                if(selectedEmail.equalsIgnoreCase("")) {
+                    Toast.makeText(context, "Anda harus memilih warung terlebih dahulu.", Toast.LENGTH_SHORT).show();
+                    return;
+                } else if(totalAmount.getText().toString().equalsIgnoreCase("")) {
+                    Toast.makeText(context, "Jumlah Pembayaran tidak boleh kosong", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                pay(selectedEmail, Double.parseDouble(totalAmount.getText().toString()));
             }
         });
 
@@ -93,8 +108,27 @@ public class FarmerPaymentFragment extends Fragment {
                 if(response.isSuccessful()) {
                     results = response.body().getWarung();
                     DropDownAdapter = new WarungSearchDropDownAdapter(context, (ArrayList<WarungModel.Warung>) results);
-                    umn.ac.id.project.maggot.InstantAutoComplete textView = (umn.ac.id.project.maggot.InstantAutoComplete) view.findViewById(R.id.namawarung);
+                    umn.ac.id.project.maggot.InstantAutoComplete textView = (umn.ac.id.project.maggot.InstantAutoComplete) layoutView.findViewById(R.id.namawarung);
                     textView.setAdapter(DropDownAdapter);
+
+                    textView.addTextChangedListener(new TextWatcher() {
+                        @Override
+                        public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+                        }
+
+                        @Override
+                        public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                            selectedEmail = "";
+                            ((TextView) layoutView.findViewById(R.id.edittext_email_warga)).setText("");
+                        }
+
+                        @Override
+                        public void afterTextChanged(Editable editable) {
+
+                        }
+                    });
+
                     textView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
                         @Override
@@ -103,10 +137,11 @@ public class FarmerPaymentFragment extends Fragment {
                             if (item instanceof WarungModel.Warung){
                                 WarungModel.Warung warung =(WarungModel.Warung) item;
                                 textView.setText(warung.getFull_name());
+                                selectedEmail = warung.getEmail();
+                                ((TextView) layoutView.findViewById(R.id.edittext_email_warga)).setText(selectedEmail);
                             }
                         }
                     });
-
 
                     textView.setOnFocusChangeListener(new View.OnFocusChangeListener() {
 
@@ -129,9 +164,6 @@ public class FarmerPaymentFragment extends Fragment {
                             return false;
                         }
                     });
-
-
-
                 }
             }
 
@@ -141,22 +173,24 @@ public class FarmerPaymentFragment extends Fragment {
             }
         });
         // Inflate the layout for this fragment
-        return view;
+        return layoutView;
     }
 
-    private void pay() {
-        Toast.makeText(context, "berhasil kok", Toast.LENGTH_SHORT).show();
-        ApiService.endpoint().farmerBuyFromShop(new UserSharedPreference(context).getToken(),24.500, 1, "Coba dari android studio").enqueue(new Callback<TransactionModel>() {
+    private void pay(String email, double totalAmount) {
+        String token = "Bearer " + new UserSharedPreference(context).getToken();
+        ApiService.endpoint().farmerBuyFromShop(token, totalAmount, email, "-").enqueue(new Callback<TransactionModel>() {
             @Override
             public void onResponse(Call<TransactionModel> call, Response<TransactionModel> response) {
                 if(response.isSuccessful()) {
                     String message = response.body().farmerBuyFromShop();
 
-                    Toast.makeText(context, message, Toast.LENGTH_SHORT).show();
-                    Toast.makeText(context, "Success", Toast.LENGTH_SHORT).show();
+                    if(message.equalsIgnoreCase("Transaction created.")) {
+                        Toast.makeText(context, "Pembayaran Berhasil!", Toast.LENGTH_SHORT).show();
+                    }
                 } else {
                     try {
-                        Toast.makeText(context, response.errorBody().string(), Toast.LENGTH_SHORT).show();
+                        TransactionModel.ErrorHandler error = new Gson().fromJson(response.errorBody().string(), TransactionModel.ErrorHandler.class);
+                        Toast.makeText(context, error.getMessage(), Toast.LENGTH_SHORT).show();
                     } catch (IOException e) {
                         e.printStackTrace();
                         Toast.makeText(context, e.getMessage(), Toast.LENGTH_SHORT).show();

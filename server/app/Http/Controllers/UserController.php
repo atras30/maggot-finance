@@ -36,7 +36,7 @@ class UserController extends Controller
     {
         $validated = $request->validate([
             'total_amount' => 'numeric|required|min:1',
-            'shop_id' => 'string|required',
+            'shop_email' => 'string|required',
             "description" => "string"
         ]);
 
@@ -52,14 +52,18 @@ class UserController extends Controller
         }
 
         $user->balance -= $validated['total_amount'];
-        $user->save();
+
+        $shop = User::where("email", $validated['shop_email'])->get()->first();
 
         $data = [
             "validated" => $validated,
-            "user" => $user
+            "user" => $user,
+            "shop" => $shop
         ];
 
         DB::transaction(function () use($data) {
+            $data['user']->save();
+
             Transaction::create([
                 'type' => 'expense',
                 'description' => $data['validated']['description'],
@@ -68,7 +72,7 @@ class UserController extends Controller
                 'total_amount' => $data['validated']['total_amount'],
                 'farmer_id' => $data['user']->id,
                 'trash_manager_id' => null,
-                'shop_id' => $data['validated']['shop_id'],
+                'shop_id' => $data['shop']->id,
                 'transaction_type' => 'farmer_transaction',
             ]);
 
@@ -80,7 +84,7 @@ class UserController extends Controller
                 'total_amount' => $data['validated']['total_amount'],
                 'farmer_id' => $data['user']->id,
                 'trash_manager_id' => null,
-                'shop_id' => $data['validated']['shop_id'],
+                'shop_id' => $data['shop']->id,
                 'transaction_type' => 'shop_transaction',
             ]);
         });

@@ -61,6 +61,14 @@ public class TransactionModel {
         }
     }
 
+    public class ErrorHandler {
+        private String message;
+
+        public String getMessage() {
+            return message;
+        }
+    }
+
     public class Transaction {
         private String type, description, transaction_type, weight_in_kg, amount_per_kg, total_amount, message;
         private Date created_at;

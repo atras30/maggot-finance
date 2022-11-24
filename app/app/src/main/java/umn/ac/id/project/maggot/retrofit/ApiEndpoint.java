@@ -33,8 +33,9 @@ public interface ApiEndpoint {
     Call<TrashManagerModel> getTrashManager();
 
     @FormUrlEncoded
-    @POST("farmer/buy/shop")
-    Call<TransactionModel> farmerBuyFromShop(@Header("Authorization") String authorization, @Field("total_amount") double totalAmount, @Field("shop_id") int shopId, @Field("description") String description);
+    @Headers("Accept: application/json")
+    @POST("transaction/farmer/buy/shop")
+    Call<TransactionModel> farmerBuyFromShop(@Header("Authorization") String authorization, @Field("total_amount") double totalAmount, @Field("shop_email") String shopEmail, @Field("description") String description);
 
     @FormUrlEncoded
     @POST("auth/login")
