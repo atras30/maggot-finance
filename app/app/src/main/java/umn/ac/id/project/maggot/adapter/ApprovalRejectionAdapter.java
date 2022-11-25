@@ -73,7 +73,6 @@ public class ApprovalRejectionAdapter extends RecyclerView.Adapter<ApprovalRejec
     }
 
     private void sendApproveRequest(String email) {
-        Log.i("email", email);
         ApiService.endpoint().approvalUserRegistration(email).enqueue(new Callback<ApprovalRejectionModel>() {
             @Override
             public void onResponse(Call<ApprovalRejectionModel> call, Response<ApprovalRejectionModel> response) {

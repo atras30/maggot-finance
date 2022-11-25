@@ -38,6 +38,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import umn.ac.id.project.maggot.adapter.ListWargaBinaanAdapter;
 import umn.ac.id.project.maggot.adapter.ListWarungBinaanAdapter;
+import umn.ac.id.project.maggot.global.TrashManagerSharedPreference;
 import umn.ac.id.project.maggot.global.UserSharedPreference;
 import umn.ac.id.project.maggot.model.PeternakModel;
 import umn.ac.id.project.maggot.model.WarungModel;
@@ -59,9 +60,8 @@ public class DashboardPengelolaBankSampahFragment extends Fragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-         view = inflater.inflate(R.layout.fragment_dashboard_warung, container, false);
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,Bundle savedInstanceState) {
+         view = inflater.inflate(R.layout.fragment_dashboard_pengelola_bank_sampah, container, false);
 
         ImageView barcodeImage = view.findViewById(R.id.barcode_image);
 
@@ -92,25 +92,13 @@ public class DashboardPengelolaBankSampahFragment extends Fragment {
             gsc.signOut().addOnCompleteListener(new OnCompleteListener<Void>() {
                 @Override
                 public void onComplete(Task<Void> task) {
-                    userSharedPreference.logout();
+                    new TrashManagerSharedPreference(context).logout();
                     showToastMessage("Logout Complete!");
                     navigateToLoginPage();
                     ((Activity)context).finish();
                 }
             });
         });
-
-        UserSharedPreference userSharedPreference = new UserSharedPreference(context);
-        try {
-            String email = userSharedPreference.getUser().getEmail();
-            MultiFormatWriter multiFormatWriter = new MultiFormatWriter();
-            BitMatrix bitMatrix = multiFormatWriter.encode(email, BarcodeFormat.QR_CODE, 600, 600);
-            BarcodeEncoder barcodeEncoder = new BarcodeEncoder();
-            Bitmap qrCodeBitmap = barcodeEncoder.createBitmap(bitMatrix);
-            barcodeImage.setImageBitmap(qrCodeBitmap);
-        } catch (WriterException e) {
-            Toast.makeText(context, e.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
-        }
 
         return view;
     }
