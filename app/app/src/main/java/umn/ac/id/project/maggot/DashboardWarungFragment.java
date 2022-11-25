@@ -31,8 +31,6 @@ import umn.ac.id.project.maggot.global.UserSharedPreference;
 public class DashboardWarungFragment extends Fragment {
     private Context context;
     Toast toast = null;
-    UserSharedPreference userSharedPreference;
-
     public DashboardWarungFragment(Context context) {
         this.context = context;
     }
@@ -43,8 +41,7 @@ public class DashboardWarungFragment extends Fragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_dashboard_warung, container, false);
 
         ImageView barcodeImage = view.findViewById(R.id.barcode_image);
@@ -58,7 +55,7 @@ public class DashboardWarungFragment extends Fragment {
             gsc.signOut().addOnCompleteListener(new OnCompleteListener<Void>() {
                 @Override
                 public void onComplete(Task<Void> task) {
-                    userSharedPreference.logout();
+                    new UserSharedPreference(context).logout();
                     showToastMessage("Logout Complete!");
                     navigateToLoginPage();
                     ((Activity)context).finish();
@@ -66,9 +63,8 @@ public class DashboardWarungFragment extends Fragment {
             });
         });
 
-        UserSharedPreference userSharedPreference = new UserSharedPreference(context);
         try {
-            String email = userSharedPreference.getUser().getEmail();
+            String email = new UserSharedPreference(context).getUser().getEmail();
             MultiFormatWriter multiFormatWriter = new MultiFormatWriter();
             BitMatrix bitMatrix = multiFormatWriter.encode(email, BarcodeFormat.QR_CODE, 600, 600);
             BarcodeEncoder barcodeEncoder = new BarcodeEncoder();

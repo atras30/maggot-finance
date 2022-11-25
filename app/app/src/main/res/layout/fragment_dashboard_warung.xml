@@ -6,13 +6,6 @@
     android:layout_height="match_parent"
     tools:context=".DashboardWarungFragment">
 
-    <ScrollView
-        android:id="@+id/content_container"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_alignBottom="@id/navbarWarung"
-        android:layout_weight="1">
-
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
@@ -143,7 +136,5 @@
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
         </androidx.constraintlayout.widget.ConstraintLayout>
-
-    </ScrollView>
 
 </FrameLayout>

@@ -77,4 +77,18 @@ class TrashManagerController extends Controller
             ->get()
             ->first()->users;
     }
+
+    public function store(Request $request) {
+        $validated = $request->validate([
+            "nama_pengelola" => "string|required|",
+            "tempat" => "string|required|",
+            "email" => "string|required|",
+        ]);
+
+        TrashManager::create($validated);
+
+        return response()->json([
+            "message" => "Super admin created successfully"
+        ], Response::HTTP_CREATED);
+    }
 }

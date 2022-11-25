@@ -44,6 +44,9 @@ Route::middleware('auth:sanctum')->group(function () {
         //Warga
         Route::post('/farmer/buy/shop', [UserController::class, 'buyFromShop']);
     });
+
+    //Trash Manager
+    Route::post('/trash-manager', [TrashManagerController::class, 'store']);
 });
 
 // Transactions Endpoints
