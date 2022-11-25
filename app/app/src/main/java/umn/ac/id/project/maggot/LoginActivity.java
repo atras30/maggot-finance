@@ -113,7 +113,6 @@ public class LoginActivity extends AppCompatActivity {
             public void onResponse(Call<AuthenticationModel> call, Response<AuthenticationModel> response) {
                 if(response.isSuccessful()) {
                     AuthenticationModel.Result result = response.body().login();
-
                     if(result.getUser() == null) {
                         loginTrashManager(result);
 
@@ -124,12 +123,10 @@ public class LoginActivity extends AppCompatActivity {
 
                     navigateRegisteredUser();
                 } else {
-                    //Error handling for user was not found, etc...
                     try {
                         Gson gson = new Gson();
                         assert response.errorBody() != null;
                         String errorMessage = gson.fromJson(response.errorBody().string(), AuthenticationModel.ErrorHandler.class).getMessage();
-
                         if(errorMessage.equalsIgnoreCase("User was not found.")) {
                             showToastMessage("Please register to our app first.");
                             startActivity(new Intent(LoginActivity.this, RegisterActivity.class));

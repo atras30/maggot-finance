@@ -4,8 +4,7 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class ApiService {
-    private static String BASE_URL = "https://atras.my.id/api/";
-
+    private static String BASE_URL = "http://atras.my.id/api/";
     private static Retrofit retrofit;
 
     public static ApiEndpoint endpoint() {

@@ -13,6 +13,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -44,6 +45,8 @@ public class FarmerDashboardFragment extends Fragment {
     ImageView qrCodeImage;
     UserSharedPreference userSharedPreference;
     Toast toast = null;
+    ImageButton btnSecret;
+    TextView tvSaldo;
 
     public FarmerDashboardFragment(Context context) {
         this.context = context;
@@ -64,6 +67,7 @@ public class FarmerDashboardFragment extends Fragment {
 
         qrCodeImage = view.findViewById(R.id.barcode_image);
         logoutButton = view.findViewById(R.id.farmer_logout_button);
+        btnSecret = view.findViewById(R.id.buttonSecret);
 
         logoutButton.setOnClickListener(v -> {
             gsc.signOut().addOnCompleteListener(new OnCompleteListener<Void>() {
@@ -75,6 +79,20 @@ public class FarmerDashboardFragment extends Fragment {
                     ((Activity)context).finish();
                 }
             });
+        });
+
+        btnSecret.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                tvSaldo = view.findViewById(R.id.angkaSaldo);
+                if(tvSaldo.getText().toString().contains("*")) {
+                    tvSaldo.setText("100.000,00");
+                }
+                else
+                {
+                    tvSaldo.setText("**********");
+                }
+            }
         });
 
         userSharedPreference = new UserSharedPreference(context);
