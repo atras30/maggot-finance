@@ -10,7 +10,16 @@ class Transaction extends Model {
 
   protected $guarded = [
     "id",
-    "created_at",
     "updated_at"
   ];
+
+  public function farmer()
+  {
+      return $this->belongsTo(User::class);
+  }
+
+  public function trash_manager()
+  {
+      return $this->belongsTo(TrashManager::class);
+  }
 }

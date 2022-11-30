@@ -108,7 +108,7 @@ class DatabaseSeeder extends Seeder
         ]);
 
         //Transaction Dummy Data
-        for ($i = 0; $i < 50; $i++) {
+        for ($i = 0; $i < 100; $i++) {
             $weightInKg = fake()->randomFloat(2, 0.5, 10);
             $amountPerKg = fake()->numberBetween(3000, 10000);
 
@@ -124,6 +124,13 @@ class DatabaseSeeder extends Seeder
 
             $description = fake()->words(3, true);
 
+            if(fake()->boolean()) {
+                $createdAt = now()->subDay(fake()->numberBetween(0,60));
+            } else {
+                $createdAt = now()->addDay(fake()->numberBetween(0,60));
+            }
+
+
             Transaction::create([
                 'type' => 'income',
                 'description' => $description,
@@ -133,6 +140,7 @@ class DatabaseSeeder extends Seeder
                 'farmer_id' => $farmerId,
                 'trash_manager_id' => $trashManagerId,
                 'transaction_type' => 'farmer_transaction',
+                'created_at' => $createdAt
             ]);
 
             Transaction::create([
@@ -144,6 +152,7 @@ class DatabaseSeeder extends Seeder
                 'farmer_id' => $farmerId,
                 'trash_manager_id' => $trashManagerId,
                 'transaction_type' => 'trash_manager_transaction',
+                'created_at' => $createdAt
             ]);
         }
 

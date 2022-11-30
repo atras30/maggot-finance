@@ -1,6 +1,9 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Exports\UsersExport;
+use App\Http\Controllers\ExcelController;
+use Maatwebsite\Excel\Facades\Excel;
 
 /*
 |--------------------------------------------------------------------------
@@ -13,7 +16,8 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    // return view('qr_code');
-    return "TEST";
-});
+// Route::get('/', function () {
+//     return Excel::download(new UsersExport, 'users.xlsx');
+// });
+
+Route::get('/', [ExcelController::class, "allTransactions"]);
