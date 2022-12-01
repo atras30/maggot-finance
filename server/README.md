@@ -1,3 +1,6 @@
+# Requirement
+### install extension php:gd untuk bisa jalanin export excel.
+
 ## API Documentation
 ### Available Endpoints
 

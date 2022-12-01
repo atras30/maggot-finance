@@ -20,7 +20,7 @@ public class UserSharedPreference {
         editor = sharedPreferences.edit();
     }
 
-//    getSharedPreferences(USER_SETTINGS_KEY, Context.MODE_PRIVATE);
+//    getSharedPreferences("foodro", Context.MODE_PRIVATE);
 //    sharedPreferences.getString("authenticated_user", null);
 //    editor = sharedPreferences.edit();
 //    editor.putString("authenticated_user", new Gson().toJson(result.getUser()));
