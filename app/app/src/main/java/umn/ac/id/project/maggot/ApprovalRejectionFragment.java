@@ -1,9 +1,12 @@
 package umn.ac.id.project.maggot;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.widget.SearchView;
+import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -25,6 +28,7 @@ import umn.ac.id.project.maggot.retrofit.ApiService;
 
 public class ApprovalRejectionFragment extends Fragment {
     private Context context;
+    private CardView cvApprove, cvReject;
 
     public ApprovalRejectionFragment(Context context) {
         this.context = context;
@@ -40,6 +44,43 @@ public class ApprovalRejectionFragment extends Fragment {
                              Bundle savedInstanceState) {
             View view = inflater.inflate(R.layout.fragment_approval_rejection, container, false);
 
+            cvApprove = view.findViewById(R.id.approve);
+            cvReject = view.findViewById(R.id.rejection);
+
+            cvApprove.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    AlertDialog.Builder myBuild = new AlertDialog.Builder(context);
+                    View myView = getLayoutInflater().inflate(R.layout.modal_approve, null);
+                    btnSubmit = myView.findViewById(R.id.submitButton);
+
+                    btnSubmit.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            if(!name.getText().toString().isEmpty()) {
+                                Intent gotoLibrary = new Intent(MainActivity.this, ActivityLibrary.class);
+                                gotoLibrary.putExtra("7030202", name.getText().toString());
+                                startActivity(gotoLibrary);
+                            }
+                            else
+                            {
+                                Toast.makeText(MainActivity.this, "Nama harus diisi!", Toast.LENGTH_LONG).show();
+                            }
+                        }
+                    });
+
+                    myBuild.setView(myView);
+                    AlertDialog dialog = myBuild.create();
+                    dialog.show();
+                }
+            });
+
+            cvReject.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                }
+            });
             ApiService.endpoint().getUsers().enqueue(new Callback<UserModel>() {
                 @Override
                 public void onResponse(Call<UserModel> call, Response<UserModel> response) {

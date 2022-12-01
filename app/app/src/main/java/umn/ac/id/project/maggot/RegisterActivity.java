@@ -33,11 +33,21 @@ public class RegisterActivity extends AppCompatActivity implements AdapterView.O
 
     private List<TrashManagerModel.TrashManagers> results;
     private TrashManagerModel.TrashManagers selectedTrashManagerOption = null;
+    private TextView tvKembali;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
+
+        tvKembali = findViewById(R.id.tvBack);
+
+        tvKembali.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(RegisterActivity.this, LoginActivity.class));
+            }
+        });
 
         ApiService.endpoint().getTrashManager().enqueue(new Callback<TrashManagerModel>() {
             @Override
