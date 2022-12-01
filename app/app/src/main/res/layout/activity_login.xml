@@ -5,22 +5,20 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/back1start"
+    android:background="@drawable/gradient_background"
     tools:context=".LoginActivity"
     android:orientation="vertical"
     android:padding="30dp">
 
-    <TextView
+    <ImageView
         android:id="@+id/logo"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_width="100dp"
+        android:layout_height="48dp"
         android:layout_marginTop="32dp"
-        android:text="MagFin"
-        android:textColor="@color/white"
         android:textSize="20sp"
+        android:src="@drawable/maggot_finance_logo"
         app:layout_constraintTop_toTopOf="parent"
-        tools:layout_editor_absoluteX="24dp"
-        android:layout_weight="1"/>
+        tools:layout_editor_absoluteX="24dp" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -61,8 +59,7 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="1">
+        android:layout_height="wrap_content">
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/login_with_google_button"
