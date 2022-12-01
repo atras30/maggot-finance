@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Transaction;
+use App\Models\TrashManager;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use App\Models\User;
@@ -130,6 +131,9 @@ class UserController extends Controller
         }
 
         $users = User::where('role', $role)->get();
+        foreach($users as $user) {
+            $user->nama_pengelola = TrashManager::find($user->trash_manager_id)->nama_pengelola;
+        }
 
         return response()->json(
             [

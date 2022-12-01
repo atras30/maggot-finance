@@ -38,6 +38,7 @@ import java.util.Objects;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+import umn.ac.id.project.maggot.global.GoogleAccount;
 import umn.ac.id.project.maggot.global.UserSharedPreference;
 import umn.ac.id.project.maggot.model.UserModel;
 import umn.ac.id.project.maggot.retrofit.ApiService;
@@ -86,27 +87,24 @@ public class FarmerDashboardFragment extends Fragment {
         logoutButton = view.findViewById(R.id.farmer_logout_button);
         btnSecret = view.findViewById(R.id.buttonSecret);
 
+        populateLastData(view);
+
         logoutButton.setOnClickListener(v -> {
-            gsc.signOut().addOnCompleteListener(new OnCompleteListener<Void>() {
-                @Override
-                public void onComplete(Task<Void> task) {
-                    userSharedPreference.logout();
-                    showToastMessage("Logout Complete!");
-                    navigateToLoginPage();
-                    ((Activity)context).finish();
-                }
-            });
+            GoogleAccount account = new GoogleAccount(context);
+            account.signOut();
         });
 
         btnSecret.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 tvSaldo = view.findViewById(R.id.angkaSaldo);
-                if(tvSaldo.getText().toString().contains("*")) {
-                    tvSaldo.setText(df.format(new UserSharedPreference(context).getUser().getBalance()));
-                }
-                else
-                {
+                if (tvSaldo.getText().toString().contains("*")) {
+                    if(userSharedPreference.getUser() == null) {
+                        tvSaldo.setText("Fetching Data...");
+                    } else {
+                        tvSaldo.setText(String.valueOf(userSharedPreference.getUser().getBalance()));
+                    }
+                } else {
                     tvSaldo.setText("**********");
                 }
             }
@@ -118,7 +116,7 @@ public class FarmerDashboardFragment extends Fragment {
         ApiService.endpoint().getUser(authorization).enqueue(new Callback<UserModel>() {
             @Override
             public void onResponse(Call<UserModel> call, Response<UserModel> response) {
-                if(response.isSuccessful()) {
+                if (response.isSuccessful()) {
                     UserModel.User user = response.body().getUser();
                     try {
                         TextView name = view.findViewById(R.id.name);
@@ -152,8 +150,20 @@ public class FarmerDashboardFragment extends Fragment {
         return view;
     }
 
+    private void populateLastData(View view) {
+        TextView name = view.findViewById(R.id.name);
+        TextView address = view.findViewById(R.id.address);
+        TextView balance = view.findViewById(R.id.angkaSaldo);
+        UserSharedPreference userSharedPreference = new UserSharedPreference(context);
+        if (userSharedPreference.getUser() != null) {
+            name.setText(userSharedPreference.getUser().getFull_name());
+            address.setText(userSharedPreference.getUser().getAddress());
+            balance.setText(String.valueOf(userSharedPreference.getUser().getBalance()));
+        }
+    }
+
     public void showToastMessage(String message) {
-        if(toast != null) {
+        if (toast != null) {
             toast.cancel();
         }
 

@@ -133,9 +133,9 @@ class RegistrationController extends Controller
                 ->first();
             $user->is_verified = 1;
             $user->save();
-            Mail::to($user->email)->send(
-                new ApprovalUserRegistrationMail($user->full_name)
-            );
+            // Mail::to($user->email)->send(
+            //     new ApprovalUserRegistrationMail($user->full_name)
+            // );
             return response()->json([
                 'message' => 'Approval request success.',
             ]);
