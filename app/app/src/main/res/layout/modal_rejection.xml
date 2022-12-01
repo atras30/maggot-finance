@@ -24,7 +24,7 @@
         android:layout_marginTop="10dp"
         android:layout_marginRight="30dp"
         android:gravity="center_horizontal"
-        android:text="Apakah Anda yakin ingin menerima warga ini sebagai warga penerima manfaat di bank sampah Anda?"
+        android:text="Apakah Anda yakin ingin menolak warga ini sebagai warga penerima manfaat di bank sampah Anda?"
         android:textSize="20dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

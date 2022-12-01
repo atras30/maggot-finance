@@ -16,12 +16,13 @@
         android:layout_height="wrap_content" />
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
-        android:id="@+id/navbarWarung"
-        android:layout_width="match_parent"
+        android:id="@+id/bottom_navigation_container"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:layout_marginTop="15dp"
+        android:layout_gravity="bottom|center"
         android:background="@drawable/rounded_edittext"
-        android:elevation="10dp"
-        app:menu="@menu/menuwarung" />
+        app:menu="@menu/menuwarung"
+        android:layout_margin="15dp"
+        />
 </LinearLayout>
