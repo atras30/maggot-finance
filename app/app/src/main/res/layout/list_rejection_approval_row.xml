@@ -12,15 +12,16 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="5dp">
 
             <ImageView
                 android:id="@+id/profilePicture"
-                android:layout_width="45dp"
+                android:layout_width="40dp"
                 android:layout_height="40dp"
+                android:layout_gravity="center"
                 android:src="@drawable/profile"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@id/constraintLayout"
@@ -29,10 +30,11 @@
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/constraintLayout"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_marginLeft="10dp"
                 android:layout_height="wrap_content"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/approve"
                 app:layout_constraintStart_toEndOf="@id/profilePicture"
                 app:layout_constraintTop_toTopOf="parent">
 
@@ -63,29 +65,43 @@
                     app:layout_constraintTop_toBottomOf="@id/nama_user" />
             </androidx.constraintlayout.widget.ConstraintLayout>
 
-            <ImageView
+            <androidx.cardview.widget.CardView
                 android:id="@+id/approve"
-                android:layout_width="43dp"
-                android:layout_height="47dp"
-                android:src="@drawable/ic_baseline_check_circle_24"
+                android:layout_width="30dp"
+                android:layout_marginRight="20dp"
+                android:layout_gravity="center"
+                android:layout_height="30dp"
+                android:backgroundTint="@color/success"
+                app:cardCornerRadius="30dp"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/reject"
-                app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toEndOf="@+id/constraintLayout"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.0" />
+                app:layout_constraintTop_toTopOf="parent">
 
-            <ImageView
-                android:id="@+id/reject"
-                android:layout_width="47dp"
-                android:layout_height="46dp"
-                android:src="@drawable/ic_baseline_delete_forever_24"
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_gravity="center"
+                    android:src="@drawable/check" />
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/rejection"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_gravity="center"
+                app:cardCornerRadius="30dp"
+                android:backgroundTint="@color/danger"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toEndOf="@id/approve"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="1.0" />
-        </androidx.constraintlayout.widget.ConstraintLayout>
+                app:layout_constraintTop_toTopOf="parent">
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_gravity="center"
+                    android:src="@drawable/cross" />
+            </androidx.cardview.widget.CardView>
+        </LinearLayout>
 
     </androidx.cardview.widget.CardView>
 

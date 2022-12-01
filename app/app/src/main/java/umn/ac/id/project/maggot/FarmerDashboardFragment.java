@@ -30,6 +30,8 @@ import com.google.zxing.WriterException;
 import com.google.zxing.common.BitMatrix;
 import com.journeyapps.barcodescanner.BarcodeEncoder;
 
+import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
 import java.util.Objects;
 
 import retrofit2.Call;
@@ -62,6 +64,20 @@ public class FarmerDashboardFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_farmer_dashboard, container, false);
 
+        btnSecret = view.findViewById(R.id.buttonSecret);
+
+        tvSaldo = view.findViewById(R.id.angkaSaldo);
+        tvSaldo.setText("**********");
+
+        DecimalFormatSymbols formatid = new DecimalFormatSymbols();
+
+        formatid.setMonetaryDecimalSeparator(',');
+        formatid.setGroupingSeparator('.');
+
+        DecimalFormat df = new DecimalFormat("#,###.00", formatid);
+
+        df.setDecimalFormatSymbols(formatid);
+
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN).requestEmail().build();
         GoogleSignInClient gsc = GoogleSignIn.getClient(context, gso);
 
@@ -86,7 +102,7 @@ public class FarmerDashboardFragment extends Fragment {
             public void onClick(View v) {
                 tvSaldo = view.findViewById(R.id.angkaSaldo);
                 if(tvSaldo.getText().toString().contains("*")) {
-                    tvSaldo.setText("100.000,00");
+                    tvSaldo.setText(df.format(new UserSharedPreference(context).getUser().getBalance()));
                 }
                 else
                 {
