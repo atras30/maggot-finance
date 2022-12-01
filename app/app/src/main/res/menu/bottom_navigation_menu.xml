@@ -14,4 +14,9 @@
         android:id="@+id/bayar"
         android:icon="@drawable/bayar"
         android:title="Bayar"/>
+
+    <item
+        android:id="@+id/notif"
+        android:icon="@drawable/ic_confirmation"
+        android:title="Konfirmasi" />
 </menu>

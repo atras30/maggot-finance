@@ -37,7 +37,7 @@ public class DashboardWarungActivity extends AppCompatActivity {
 
         getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new DashboardWarungFragment(this)).commit();
 
-        BottomNavigationView bottomNavigation = findViewById(R.id.navbarWarung);
+        BottomNavigationView bottomNavigation = findViewById(R.id.bottom_navigation_container);
         bottomNavigation.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
