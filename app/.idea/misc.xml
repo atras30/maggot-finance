@@ -4,13 +4,50 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/AndroidProject/DARIPC/maggot-project-server/app/app/src/main/res/layout/activity_buy_maggot.xml" value="0.22826086956521738" />
+        <entry key="..\:/AndroidProject/maggot-project-server/app/app/src/main/res/drawable/gradient_background.xml" value="0.2045" />
+        <entry key="..\:/AndroidProject/maggot-project-server/app/app/src/main/res/drawable/gradient_background_2.xml" value="0.2045" />
         <entry key="..\:/AndroidProject/maggot-project-server/app/app/src/main/res/layout/activity_buy_maggot.xml" value="0.264" />
+        <entry key="..\:/AndroidProject/maggot-project-server/app/app/src/main/res/layout/activity_dashboard_warung.xml" value="0.20863616930312098" />
+        <entry key="..\:/AndroidProject/maggot-project-server/app/app/src/main/res/layout/activity_farmer_dashboard.xml" value="0.20863616930312098" />
+        <entry key="..\:/AndroidProject/maggot-project-server/app/app/src/main/res/layout/activity_home_page_pengelola_bank_sampah.xml" value="0.215929203539823" />
+        <entry key="..\:/AndroidProject/maggot-project-server/app/app/src/main/res/layout/activity_inactive.xml" value="0.20863616930312098" />
+        <entry key="..\:/AndroidProject/maggot-project-server/app/app/src/main/res/layout/activity_input_warga.xml" value="0.20863616930312098" />
+        <entry key="..\:/AndroidProject/maggot-project-server/app/app/src/main/res/layout/activity_input_warung.xml" value="0.20863616930312098" />
         <entry key="..\:/AndroidProject/maggot-project-server/app/app/src/main/res/layout/activity_list_peternak.xml" value="0.25416666666666665" />
+        <entry key="..\:/AndroidProject/maggot-project-server/app/app/src/main/res/layout/activity_list_warung.xml" value="0.20863616930312098" />
+        <entry key="..\:/AndroidProject/maggot-project-server/app/app/src/main/res/layout/activity_login.xml" value="0.20863616930312098" />
+        <entry key="..\:/AndroidProject/maggot-project-server/app/app/src/main/res/layout/activity_pencairan_dana_warung.xml" value="0.1" />
+        <entry key="..\:/AndroidProject/maggot-project-server/app/app/src/main/res/layout/activity_pencairan_maggot_warga.xml" value="0.1" />
         <entry key="..\:/AndroidProject/maggot-project-server/app/app/src/main/res/layout/activity_pengepul.xml" value="0.25416666666666665" />
+        <entry key="..\:/AndroidProject/maggot-project-server/app/app/src/main/res/layout/activity_peternak.xml" value="0.20863616930312098" />
         <entry key="..\:/AndroidProject/maggot-project-server/app/app/src/main/res/layout/activity_qr_code.xml" value="0.12360688956433637" />
+        <entry key="..\:/AndroidProject/maggot-project-server/app/app/src/main/res/layout/activity_register.xml" value="0.10196406184705391" />
+        <entry key="..\:/AndroidProject/maggot-project-server/app/app/src/main/res/layout/activity_registration_success.xml" value="0.20863616930312098" />
         <entry key="..\:/AndroidProject/maggot-project-server/app/app/src/main/res/layout/activity_searchable.xml" value="0.25416666666666665" />
+        <entry key="..\:/AndroidProject/maggot-project-server/app/app/src/main/res/layout/activity_shop_dashboard.xml" value="0.10196406184705391" />
+        <entry key="..\:/AndroidProject/maggot-project-server/app/app/src/main/res/layout/activity_transaction_warung.xml" value="0.1" />
+        <entry key="..\:/AndroidProject/maggot-project-server/app/app/src/main/res/layout/activity_trash_manager_approval_rejection.xml" value="0.10196406184705391" />
+        <entry key="..\:/AndroidProject/maggot-project-server/app/app/src/main/res/layout/activity_user_dashboard.xml" value="0.20863616930312098" />
+        <entry key="..\:/AndroidProject/maggot-project-server/app/app/src/main/res/layout/fragment_approval_rejection.xml" value="0.20863616930312098" />
+        <entry key="..\:/AndroidProject/maggot-project-server/app/app/src/main/res/layout/fragment_buy_maggot.xml" value="0.20863616930312098" />
+        <entry key="..\:/AndroidProject/maggot-project-server/app/app/src/main/res/layout/fragment_dashboard_pengelola_bank_sampah.xml" value="0.20863616930312098" />
+        <entry key="..\:/AndroidProject/maggot-project-server/app/app/src/main/res/layout/fragment_dashboard_warung.xml" value="0.20863616930312098" />
+        <entry key="..\:/AndroidProject/maggot-project-server/app/app/src/main/res/layout/fragment_farmer_dashboard.xml" value="0.20863616930312098" />
+        <entry key="..\:/AndroidProject/maggot-project-server/app/app/src/main/res/layout/fragment_farmer_payment.xml" value="0.20863616930312098" />
+        <entry key="..\:/AndroidProject/maggot-project-server/app/app/src/main/res/layout/fragment_farmer_transaction.xml" value="0.20863616930312098" />
+        <entry key="..\:/AndroidProject/maggot-project-server/app/app/src/main/res/layout/fragment_pencairan_dana_warung.xml" value="0.20863616930312098" />
+        <entry key="..\:/AndroidProject/maggot-project-server/app/app/src/main/res/layout/fragment_pencairan_maggot_warga.xml" value="0.20863616930312098" />
+        <entry key="..\:/AndroidProject/maggot-project-server/app/app/src/main/res/layout/fragment_pengelolabanksampah_transaction.xml" value="0.20778110303548525" />
+        <entry key="..\:/AndroidProject/maggot-project-server/app/app/src/main/res/layout/fragment_shop_transaction.xml" value="0.1" />
+        <entry key="..\:/AndroidProject/maggot-project-server/app/app/src/main/res/layout/list_detail_warga.xml" value="0.20863616930312098" />
+        <entry key="..\:/AndroidProject/maggot-project-server/app/app/src/main/res/layout/list_detail_warung.xml" value="0.20863616930312098" />
         <entry key="..\:/AndroidProject/maggot-project-server/app/app/src/main/res/layout/list_peternak_row.xml" value="0.25416666666666665" />
+        <entry key="..\:/AndroidProject/maggot-project-server/app/app/src/main/res/layout/list_rejection_approval_row.xml" value="0.20863616930312098" />
+        <entry key="..\:/AndroidProject/maggot-project-server/app/app/src/main/res/layout/list_warga_binaan.xml" value="0.17452402538531278" />
+        <entry key="..\:/AndroidProject/maggot-project-server/app/app/src/main/res/layout/list_warung_binaan.xml" value="0.17452402538531278" />
         <entry key="..\:/AndroidProject/maggot-project-server/app/app/src/main/res/layout/peternak_dropdown.xml" value="0.264" />
+        <entry key="..\:/AndroidProject/maggot-project-server/app/app/src/main/res/layout/peternakwarung_dropdown.xml" value="0.17452402538531278" />
+        <entry key="..\:/AndroidProject/maggot-project-server/app/app/src/main/res/layout/transaction_row.xml" value="0.17452402538531278" />
         <entry key="..\:/AndroidProject/maggot-project-server/app/app/src/main/res/menu/menu.xml" value="0.1398148148148148" />
         <entry key="..\:/MobileApps/UAS/maggot-project-server/app/app/src/main/res/drawable/back.xml" value="0.252" />
         <entry key="..\:/MobileApps/UAS/maggot-project-server/app/app/src/main/res/drawable/rectangle.xml" value="0.124" />
@@ -84,18 +121,14 @@
         <entry key="..\:/Semester 5/IF570 - Mobile Application Programming/UTS/maggot-project-server/app/app/src/main/res/layout/activity_user_dashboard.xml" value="0.20863616930312098" />
         <entry key="..\:/Semester 5/IF570 - Mobile Application Programming/UTS/maggot-project-server/app/app/src/main/res/layout/fragment_approval_rejection.xml" value="0.20863616930312098" />
         <entry key="..\:/Semester 5/IF570 - Mobile Application Programming/UTS/maggot-project-server/app/app/src/main/res/layout/fragment_buy_maggot.xml" value="0.20863616930312098" />
-        <entry key="..\:/Semester 5/IF570 - Mobile Application Programming/UTS/maggot-project-server/app/app/src/main/res/layout/fragment_dashboard_pengelola_bank_sampah.xml" value="0.20863616930312098" />
         <entry key="..\:/Semester 5/IF570 - Mobile Application Programming/UTS/maggot-project-server/app/app/src/main/res/layout/fragment_dashboard_warung.xml" value="0.20863616930312098" />
         <entry key="..\:/Semester 5/IF570 - Mobile Application Programming/UTS/maggot-project-server/app/app/src/main/res/layout/fragment_farmer_dashboard.xml" value="0.20863616930312098" />
         <entry key="..\:/Semester 5/IF570 - Mobile Application Programming/UTS/maggot-project-server/app/app/src/main/res/layout/fragment_farmer_payment.xml" value="0.20863616930312098" />
-        <entry key="..\:/Semester 5/IF570 - Mobile Application Programming/UTS/maggot-project-server/app/app/src/main/res/layout/fragment_pencairan_dana_warung.xml" value="0.20863616930312098" />
-        <entry key="..\:/Semester 5/IF570 - Mobile Application Programming/UTS/maggot-project-server/app/app/src/main/res/layout/fragment_pencairan_maggot_warga.xml" value="0.20863616930312098" />
         <entry key="..\:/Semester 5/IF570 - Mobile Application Programming/UTS/maggot-project-server/app/app/src/main/res/layout/fragment_shop_transaction.xml" value="0.20863616930312098" />
         <entry key="..\:/Semester 5/IF570 - Mobile Application Programming/UTS/maggot-project-server/app/app/src/main/res/layout/list_detail_warga.xml" value="0.20863616930312098" />
         <entry key="..\:/Semester 5/IF570 - Mobile Application Programming/UTS/maggot-project-server/app/app/src/main/res/layout/list_detail_warung.xml" value="0.10196406184705391" />
         <entry key="..\:/Semester 5/IF570 - Mobile Application Programming/UTS/maggot-project-server/app/app/src/main/res/layout/list_peternak_row.xml" value="0.25416666666666665" />
         <entry key="..\:/Semester 5/IF570 - Mobile Application Programming/UTS/maggot-project-server/app/app/src/main/res/layout/list_rejection_approval_row.xml" value="0.20863616930312098" />
-        <entry key="..\:/Semester 5/IF570 - Mobile Application Programming/UTS/maggot-project-server/app/app/src/main/res/layout/list_warga_binaan.xml" value="0.20863616930312098" />
         <entry key="..\:/Semester 5/IF570 - Mobile Application Programming/UTS/maggot-project-server/app/app/src/main/res/layout/list_warung_binaan.xml" value="0.20863616930312098" />
         <entry key="..\:/Semester 5/IF570 - Mobile Application Programming/UTS/maggot-project-server/app/app/src/main/res/layout/peternak_dropdown.xml" value="0.25416666666666665" />
         <entry key="..\:/Semester 5/IF570 - Mobile Application Programming/UTS/maggot-project-server/app/app/src/main/res/layout/peternakwarung_dropdown.xml" value="0.20863616930312098" />

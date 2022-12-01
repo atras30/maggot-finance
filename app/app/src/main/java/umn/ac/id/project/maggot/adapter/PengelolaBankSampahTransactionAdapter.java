@@ -14,27 +14,28 @@ import java.util.ArrayList;
 import java.util.List;
 
 import umn.ac.id.project.maggot.R;
+import umn.ac.id.project.maggot.model.PeternakModel;
 import umn.ac.id.project.maggot.model.TransactionModel;
 
-public class FarmerTransactionAdapter extends RecyclerView.Adapter<FarmerTransactionAdapter.FarmerTransactionViewHolder> {
+public class PengelolaBankSampahTransactionAdapter extends RecyclerView.Adapter<PengelolaBankSampahTransactionAdapter.PengelolaBankSampahTransactionViewHolder> {
     Context context;
     private List<TransactionModel.Transaction> transactions;
 
-    public FarmerTransactionAdapter(Context context, List<TransactionModel.Transaction> transactions) {
+    public PengelolaBankSampahTransactionAdapter(Context context, List<TransactionModel.Transaction> transactions) {
         this.context = context;
         this.transactions = transactions;
     }
 
     @NonNull
     @Override
-    public FarmerTransactionAdapter.FarmerTransactionViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public PengelolaBankSampahTransactionAdapter.PengelolaBankSampahTransactionViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(context);
         View view = inflater.inflate(R.layout.transaction_row, parent, false);
-        return new FarmerTransactionAdapter.FarmerTransactionViewHolder(view);
+        return new PengelolaBankSampahTransactionAdapter.PengelolaBankSampahTransactionViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull FarmerTransactionAdapter.FarmerTransactionViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull PengelolaBankSampahTransactionAdapter.PengelolaBankSampahTransactionViewHolder holder, int position) {
         String type = transactions.get(position).getType();
 
         holder.description.setText(transactions.get(position).getDescription());
@@ -60,10 +61,10 @@ public class FarmerTransactionAdapter extends RecyclerView.Adapter<FarmerTransac
         return transactions.size();
     }
 
-    public class FarmerTransactionViewHolder extends RecyclerView.ViewHolder {
+    public class PengelolaBankSampahTransactionViewHolder extends RecyclerView.ViewHolder {
         TextView type, description, date, amount;
         ImageView logo;
-        public FarmerTransactionViewHolder(@NonNull View itemView) {
+        public PengelolaBankSampahTransactionViewHolder(@NonNull View itemView) {
             super(itemView);
 
             type = itemView.findViewById(R.id.transaction_type);
@@ -74,10 +75,10 @@ public class FarmerTransactionAdapter extends RecyclerView.Adapter<FarmerTransac
         }
     }
 
-
     public void upToDate(List<TransactionModel.Transaction> newList){
         transactions = new ArrayList<>();
         transactions.addAll(newList);
         notifyDataSetChanged();
     }
 }
+

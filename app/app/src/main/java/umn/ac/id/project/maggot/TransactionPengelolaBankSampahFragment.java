@@ -2,21 +2,17 @@ package umn.ac.id.project.maggot;
 
 import android.content.Context;
 import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import androidx.appcompat.widget.SearchView;
-import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
+import androidx.annotation.NonNull;
+import androidx.appcompat.widget.SearchView;
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -25,17 +21,17 @@ import java.util.List;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import umn.ac.id.project.maggot.adapter.DetailWargaAdapter;
+import umn.ac.id.project.maggot.adapter.PengelolaBankSampahTransactionAdapter;
 import umn.ac.id.project.maggot.adapter.ShopTransactionAdapter;
+import umn.ac.id.project.maggot.global.TrashManagerSharedPreference;
 import umn.ac.id.project.maggot.global.UserSharedPreference;
-import umn.ac.id.project.maggot.model.PeternakModel;
 import umn.ac.id.project.maggot.model.TransactionModel;
 import umn.ac.id.project.maggot.retrofit.ApiService;
 
-public class ShopTransactionFragment extends Fragment {
+public class TransactionPengelolaBankSampahFragment extends Fragment {
     private Context context;
 
-    public ShopTransactionFragment(Context context) {
+    public TransactionPengelolaBankSampahFragment(Context context) {
         this.context = context;
     }
 
@@ -49,18 +45,18 @@ public class ShopTransactionFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
 
-        View view = inflater.inflate(R.layout.fragment_shop_transaction, container, false);
-        ApiService.endpoint().getTransactions(new UserSharedPreference(context).getUser().getEmail()).enqueue(new Callback<TransactionModel>() {
+        View view = inflater.inflate(R.layout.fragment_pengelolabanksampah_transaction, container, false);
+        ApiService.endpoint().getTransactions(new TrashManagerSharedPreference(context).getTrashManager().getEmail()).enqueue(new Callback<TransactionModel>() {
             @Override
             public void onResponse(@NonNull Call<TransactionModel> call, @NonNull Response<TransactionModel> response) {
                 if(response.isSuccessful()) {
                     assert response.body() != null;
                     List<TransactionModel.Transaction> results = response.body().getTransactions();
 
-                    try {
-                    ShopTransactionAdapter shoptransactionadapter = new ShopTransactionAdapter(context, results);
+                    try{
+                    PengelolaBankSampahTransactionAdapter pengelolabanksampahtransactionadapter = new PengelolaBankSampahTransactionAdapter(context, results);
                     RecyclerView recyclerView = view.findViewById(R.id.listTransaction);
-                    recyclerView.setAdapter(shoptransactionadapter);
+                    recyclerView.setAdapter(pengelolabanksampahtransactionadapter);
                     recyclerView.setLayoutManager(new LinearLayoutManager(context));
 
                     SearchView searchtransaction = view.findViewById(R.id.searchtransaksi);
@@ -79,16 +75,14 @@ public class ShopTransactionFragment extends Fragment {
                                     newList.add(transaction);
                                 }
                             }
-                            shoptransactionadapter.upToDate(newList);
+                            pengelolabanksampahtransactionadapter.upToDate(newList);
                             return true;
                         }
-
                     });
 
-                } catch (Exception e) {
+                }catch (Exception e) {
                         call.cancel();
                     }
-
 
                 } else {
                     try {
