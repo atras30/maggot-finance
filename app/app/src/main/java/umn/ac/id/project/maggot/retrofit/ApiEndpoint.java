@@ -64,6 +64,4 @@ public interface ApiEndpoint {
 
     @GET("transactions")
     Call<TransactionModel> getTransactions(@Query("email") String email);
-
-    @
 }

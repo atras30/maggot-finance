@@ -13,9 +13,6 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MaggotProject">
         <activity
-            android:name=".NotificationActivity"
-            android:exported="false" />
-        <activity
             android:name=".InputWargaActivity"
             android:exported="true"></activity>
         <activity
