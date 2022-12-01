@@ -13,8 +13,11 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MaggotProject">
         <activity
-            android:name=".InputWargaActivity"
+            android:name=".NotificationActivity"
             android:exported="false" />
+        <activity
+            android:name=".InputWargaActivity"
+            android:exported="true"></activity>
         <activity
             android:name=".InputWarungActivity"
             android:exported="false" />
@@ -23,26 +26,22 @@
             android:exported="false" />
         <activity
             android:name=".PencairanMaggotWargaActivity"
-            android:exported="true">
-        </activity>
-
+            android:exported="true"></activity>
         <activity
             android:name=".InactiveActivity"
             android:exported="false" />
         <activity
             android:name=".BuyMaggotActivity2"
-            android:exported="true" >
-        </activity>
+            android:exported="true"></activity>
         <activity
             android:name=".ListWarungActivity"
             android:exported="false" />
         <activity
             android:name=".TransactionWarungActivity"
-            android:exported="false" />
+            android:exported="true" />
         <activity
             android:name=".DashboardWarungActivity"
-            android:exported="true" >
-        </activity>
+            android:exported="true"></activity>
         <activity
             android:name=".ShopDashboardActivity"
             android:exported="false">

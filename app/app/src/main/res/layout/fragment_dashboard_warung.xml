@@ -22,7 +22,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_weight=".80"
-                    android:text="Warung Sukamundur"
+                    android:text="Nama"
                     android:textColor="@color/primary"
                     android:textSize="30sp"
                     android:textStyle="bold"
@@ -51,7 +51,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
                 android:maxLines="2"
-                android:text="Jatimulya RW 04, Sepatan Timur, Tangerang"
+                android:text="Alamat"
                 android:textColor="@color/grey"
                 android:textSize="15sp"
                 app:layout_constraintStart_toStartOf="parent"
@@ -112,6 +112,7 @@
                             android:textStyle="bold" />
 
                         <ImageButton
+                            android:id="@+id/buttonSecret"
                             android:layout_width="0dp"
                             android:layout_height="match_parent"
                             android:layout_weight=".10"

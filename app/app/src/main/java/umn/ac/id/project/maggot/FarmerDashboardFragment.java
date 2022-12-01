@@ -30,6 +30,8 @@ import com.google.zxing.WriterException;
 import com.google.zxing.common.BitMatrix;
 import com.journeyapps.barcodescanner.BarcodeEncoder;
 
+import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
 import java.util.Objects;
 
 import retrofit2.Call;
@@ -62,6 +64,23 @@ public class FarmerDashboardFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_farmer_dashboard, container, false);
+
+        btnSecret = view.findViewById(R.id.buttonSecret);
+
+        tvSaldo = view.findViewById(R.id.angkaSaldo);
+        tvSaldo.setText("**********");
+
+        DecimalFormatSymbols formatid = new DecimalFormatSymbols();
+
+        formatid.setMonetaryDecimalSeparator(',');
+        formatid.setGroupingSeparator('.');
+
+        DecimalFormat df = new DecimalFormat("#,###.00", formatid);
+
+        df.setDecimalFormatSymbols(formatid);
+
+        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN).requestEmail().build();
+        GoogleSignInClient gsc = GoogleSignIn.getClient(context, gso);
 
         qrCodeImage = view.findViewById(R.id.barcode_image);
         logoutButton = view.findViewById(R.id.farmer_logout_button);

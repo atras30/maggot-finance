@@ -1,16 +1,24 @@
 package umn.ac.id.project.maggot;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.widget.SearchView;
+import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -59,8 +67,9 @@ public class ApprovalRejectionFragment extends Fragment {
                     approvalRejectionAdapter.setOnItemClickListener(new ApprovalRejectionAdapter.OnItemClickListener() {
                         @Override
                         public void onItemClick(int position) {
-                            notApprovedYetUsers.remove(position);
                             approvalRejectionAdapter.notifyItemRemoved(position);
+                            users.remove(position);
+                            approvalRejectionAdapter.upToDate(users);
                         }
                     });
                     recyclerView.setLayoutManager(new LinearLayoutManager(context));

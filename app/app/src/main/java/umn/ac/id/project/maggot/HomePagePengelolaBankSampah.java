@@ -56,8 +56,8 @@ public class HomePagePengelolaBankSampah extends AppCompatActivity {
                         selectedFragment = new DashboardPengelolaBankSampahFragment(HomePagePengelolaBankSampah.this);
                         break;
                     case R.id.transaksi:
-                        Toast.makeText(HomePagePengelolaBankSampah.this, "Belum ada pagenya, jangan lupa dibikin ya jo / rey :D", Toast.LENGTH_LONG).show();
-                        return true;
+                        selectedFragment = new TransactionPengelolaBankSampahFragment(HomePagePengelolaBankSampah.this);
+                        break;
                     case R.id.beli:
                         selectedFragment = new BuyMaggotFragment(HomePagePengelolaBankSampah.this);
                         break;
