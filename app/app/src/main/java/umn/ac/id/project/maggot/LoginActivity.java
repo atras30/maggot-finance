@@ -147,7 +147,8 @@ public class LoginActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<AuthenticationModel> call, Throwable t) {
-                Toast.makeText(LoginActivity.this, "Error : " + t.getMessage(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(LoginActivity.this, t.getMessage(), Toast.LENGTH_SHORT).show();
+                Log.i("Error", t.getMessage());
             }
         });
     }
@@ -157,18 +158,15 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<AuthenticationModel> call, Response<AuthenticationModel> response) {
                 if(response.isSuccessful()) {
-//                    Log.i("Tag", response.body().loginTrashManager().toString());
                     AuthenticationModel.ResultTrashManager result = response.body().loginTrashManager();
                     trashManagerSharedPreference.setTrashManager(result);
                     navigateRegisteredTrashManager();
-//                    Log.i("Setting Trash Manager", trashManagerSharedPreference.getTrashManager() + " " + trashManagerSharedPreference.getToken());
-//                    Log.i("Getting Trash Manager", trashManagerSharedPreference.getTrashManager() + " " + trashManagerSharedPreference.getToken());
                 }
             }
 
             @Override
             public void onFailure(Call<AuthenticationModel> call, Throwable t) {
-                Toast.makeText(LoginActivity.this, t.getMessage(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(LoginActivity.this, t.getMessage(), Toast.LENGTH_LONG).show();
             }
         });
     }
