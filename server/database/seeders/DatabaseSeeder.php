@@ -4,10 +4,12 @@ namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
+use App\Models\Notification;
 use App\Models\SuperAdmin;
 use App\Models\Transaction;
 use App\Models\TrashManager;
 use Illuminate\Database\Seeder;
+use Ramsey\Uuid\Uuid;
 use App\Models\User;
 
 class DatabaseSeeder extends Seeder
@@ -41,6 +43,13 @@ class DatabaseSeeder extends Seeder
         ]);
 
         TrashManager::create([
+            'nama_pengelola' => 'Reynard',
+            'tempat' => 'Bebas',
+            'email' => 'reynard.yaputra@student.umn.ac.id',
+            'super_admin_id' => 1,
+        ]);
+
+        TrashManager::create([
             'nama_pengelola' => 'Rajeg Corps',
             'tempat' => 'Kecamatan Rajeg',
             'email' => 'rajeg@gmail.com',
@@ -68,20 +77,31 @@ class DatabaseSeeder extends Seeder
             'balance' => 500000,
             'address' => 'VMP c5/14',
             'trash_manager_id' => 3,
-            'is_verified' => 1
+            'is_verified' => 1,
         ]);
         User::create([
             'full_name' => 'Reynard Matthew Yaputra',
-            'email' => 'reynard@gmail.com',
+            'email' => 'reynard.rmy@gmail.com',
             'role' => 'farmer',
             'balance' => 500000,
             'address' => 'VMP c5/14',
             'trash_manager_id' => 1,
+            'is_verified' => 1,
+        ]);
+        User::create([
+            'full_name' => 'Reynard Matthew Yaputra',
+            'shop_name' => 'Warung Sukamundur',
+            'email' => 'reynard7896@gmail.com',
+            'role' => 'shop',
+            'balance' => 15000000.234,
+            'address' => 'VMP c5/14',
+            'trash_manager_id' => 1,
+            'is_verified' => 1,
         ]);
 
         User::create([
             'full_name' => 'Jonathan Putra',
-            'email' => 'jojo@gmail.com',
+            'email' => 'jonathanputra134@gmail.com',
             'role' => 'farmer',
             'balance' => 50000,
             'address' => 'Jakarta Barat, blablabla',
@@ -92,6 +112,7 @@ class DatabaseSeeder extends Seeder
             'full_name' => 'Bonifasius',
             'email' => 'boni@gmail.com',
             'role' => 'shop',
+            'shop_name' => 'Warung Sukamaju',
             'balance' => 50000,
             'address' => 'Jalan gatau bwang',
             'trash_manager_id' => 1,
@@ -101,10 +122,22 @@ class DatabaseSeeder extends Seeder
             'full_name' => 'Maggot Finance',
             'email' => 'magfin@umn.ac.id',
             'role' => 'shop',
+            'shop_name' => 'Warung Warungan',
             'balance' => 50000,
             'address' => 'Universitas Multimedia Nusantara',
             'trash_manager_id' => 1,
-            'is_verified' => 1
+            'is_verified' => 1,
+        ]);
+
+        Notification::create([
+            "type" => "payment_confirmation",
+            "farmer_id" => 2,
+            "weight_in_kg" => 3.14,
+            "amount_per_kg" => 3000,
+            "description" => "Description testing doang...",
+            "trash_manager_id" => 4,
+            "token" => Uuid::uuid4()->toString(),
+            "expired_at" => now()->addMinutes(15)
         ]);
 
         //Transaction Dummy Data
@@ -124,12 +157,11 @@ class DatabaseSeeder extends Seeder
 
             $description = fake()->words(3, true);
 
-            if(fake()->boolean()) {
-                $createdAt = now()->subDay(fake()->numberBetween(0,60));
+            if (fake()->boolean()) {
+                $createdAt = now()->subDay(fake()->numberBetween(0, 60));
             } else {
-                $createdAt = now()->addDay(fake()->numberBetween(0,60));
+                $createdAt = now()->addDay(fake()->numberBetween(0, 60));
             }
-
 
             Transaction::create([
                 'type' => 'income',
@@ -140,7 +172,7 @@ class DatabaseSeeder extends Seeder
                 'farmer_id' => $farmerId,
                 'trash_manager_id' => $trashManagerId,
                 'transaction_type' => 'farmer_transaction',
-                'created_at' => $createdAt
+                'created_at' => $createdAt,
             ]);
 
             Transaction::create([
@@ -152,7 +184,7 @@ class DatabaseSeeder extends Seeder
                 'farmer_id' => $farmerId,
                 'trash_manager_id' => $trashManagerId,
                 'transaction_type' => 'trash_manager_transaction',
-                'created_at' => $createdAt
+                'created_at' => $createdAt,
             ]);
         }
 
@@ -161,20 +193,42 @@ class DatabaseSeeder extends Seeder
         $maxTrashManagerIndex = $trashManagers->count() - 1;
 
         for ($i = 0; $i < 50; $i++) {
-            User::create([
-                'email' => fake()
-                    ->unique()
-                    ->safeEmail(),
-                'full_name' => fake()->name(),
-                'role' => fake()->randomElement(['farmer', 'shop']),
-                'balance' => fake()->randomNumber(5, true),
-                'phone_number' => fake()->phoneNumber(),
-                'address' => fake()->address(),
-                'trash_manager_id' =>
-                    $trashManagers[
-                        fake()->numberBetween(0, $maxTrashManagerIndex)
-                    ]->id,
-            ]);
+            $role = fake()->randomElement(['farmer', 'shop']);
+
+            if ($role == 'shop') {
+                $validated = [
+                    'email' => fake()
+                        ->unique()
+                        ->safeEmail(),
+                    'full_name' => fake()->name(),
+                    'role' => $role,
+                    "shop_name" => fake()->company(),
+                    'balance' => fake()->randomNumber(5, true),
+                    'phone_number' => fake()->phoneNumber(),
+                    'address' => fake()->address(),
+                    'trash_manager_id' =>
+                        $trashManagers[
+                            fake()->numberBetween(0, $maxTrashManagerIndex)
+                        ]->id,
+                ];
+            } else {
+                $validated = [
+                    'email' => fake()
+                        ->unique()
+                        ->safeEmail(),
+                    'full_name' => fake()->name(),
+                    'role' => $role,
+                    'balance' => fake()->randomNumber(5, true),
+                    'phone_number' => fake()->phoneNumber(),
+                    'address' => fake()->address(),
+                    'trash_manager_id' =>
+                        $trashManagers[
+                            fake()->numberBetween(0, $maxTrashManagerIndex)
+                        ]->id,
+                ];
+            }
+
+            User::create($validated);
         }
     }
 }

@@ -23,7 +23,13 @@ class User extends Authenticatable {
     "updated_at"
   ];
 
-  public function transactions() {
+  public
+
+  function transactions() {
+    return $this->hasMany(Transaction::class);
+  }
+
+  function shop_transactions() {
     return $this->hasMany(Transaction::class);
   }
 
@@ -33,5 +39,9 @@ class User extends Authenticatable {
 
   public function trash_manager() {
     return $this->belongsTo(TrashManager::class);
+  }
+
+  public function getTrashManagerNameAttribute() {
+    return $this->trash_manager->nama_pengelola;
   }
 }

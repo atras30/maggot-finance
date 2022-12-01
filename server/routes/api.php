@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AuthenticationController;
 use App\Http\Controllers\MailController;
+use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\RegistrationController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\SuperAdminController;
@@ -33,6 +34,10 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::post('/logout', [AuthenticationController::class, 'logout']);
         Route::get('/user', [AuthenticationController::class, 'getUser']);
     });
+
+    //Notifications
+    Route::post('/notifications/create', [NotificationController::class, 'create'])->name("notifications.delete");
+    Route::post('/notifications/delete', [NotificationController::class, 'delete'])->name("notifications.delete");
 
     //Transaction List
     Route::prefix("transaction")->group(function() {
