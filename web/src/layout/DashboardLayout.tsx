@@ -1,31 +1,22 @@
-import {
-  Heading,
-  Box,
-  VStack,
-  Button,
-  Divider,
-  Flex,
-  Input,
-  Image,
-  Text,
-  Icon,
-  Center,
-  InputGroup,
-  InputLeftElement,
-} from "@chakra-ui/react";
+import { Heading, Box, VStack, Button, Divider, Flex, Input, Image, Text, Icon, Center } from "@chakra-ui/react";
 import React, { useContext, useEffect } from "react";
-import { Navigate, NavLink, Outlet } from "react-router-dom";
+import { Navigate, NavLink, Outlet, useNavigate } from "react-router-dom";
 import "./DashboardLayout.scss";
-import { FaHome, FaSearch } from "react-icons/fa";
 import { AuthContext } from "../context/AuthContext";
 import { getDashboardData } from "../services/service";
 
+// Import assets
+import { FaHome, FaSearch } from "react-icons/fa";
+import { MdOutlineRecycling } from "react-icons/md";
+import { IoPeople, IoLogOut } from "react-icons/io5";
+import { AiFillShop } from "react-icons/ai";
+
 const NavButton = (props: any) => {
   return (
-    <NavLink to={props.to} className="dash-link" end>
+    <NavLink to={props.to} className="dash-link">
       <Flex w="100%" className={`container ${props.type == "logout" && "danger"}`} alignItems="center" gap="1rem">
         <Center boxSize="3rem" className="icon">
-          <Icon as={FaHome} boxSize="1.2rem" />
+          <Icon as={props.icon || FaHome} boxSize="1.2rem" />
         </Center>
         <Text fontWeight="bold" fontSize="md">
           {props.children}
@@ -54,7 +45,7 @@ const DashboardLayout: React.FC = () => {
     }
   }, []);
 
-  if (auth.isLoggedIn)
+  if (window.sessionStorage.getItem("token") !== null)
     return (
       <Flex bgColor="var(--color-light)" minH="100vh" w="100%" p="2rem" className="dashboard">
         <Flex as="aside" flexDir="column" w="20rem" pos="fixed" gap="0.5rem">
@@ -65,12 +56,18 @@ const DashboardLayout: React.FC = () => {
             </Heading>
           </Flex>
           <Divider h="2px" bgColor="var(--color-primary)" my="1rem" />
-          <NavButton to="/dashboard">Ringkasan</NavButton>
-          <NavButton to="/dashboard/bank-sampah">Pengelola Bank Sampah</NavButton>
-          <NavButton to="/dashboard/warga">Warga</NavButton>
-          <NavButton to="/dashboard/warung">Warung</NavButton>
+          <NavButton to="/dashboard/ringkasan">Ringkasan</NavButton>
+          <NavButton to="/dashboard/bank-sampah" icon={MdOutlineRecycling}>
+            Pengelola Bank Sampah
+          </NavButton>
+          <NavButton to="/dashboard/warga" icon={IoPeople}>
+            Warga
+          </NavButton>
+          <NavButton to="/dashboard/warung" icon={AiFillShop}>
+            Warung
+          </NavButton>
           <Divider h="2px" bgColor="var(--color-primary)" my="1rem" />
-          <NavButton to="/logout" type="logout">
+          <NavButton to="/logout" type="logout" icon={IoLogOut}>
             Logout
           </NavButton>
         </Flex>

@@ -1,4 +1,5 @@
 import React, { createContext, useEffect, useState } from "react";
+import { getDashboardData } from "../services/service";
 import { authProviderValueType, resApiAuth } from "../types/type";
 
 export const AuthContext = createContext<authProviderValueType>({
@@ -33,17 +34,24 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     clearSession: handleClearSession,
   };
 
+  const fetchUserData = async (token: string) => {
+    try {
+      const res = await getDashboardData(token);
+      const userData = res.trash_managers;
+      delete userData.trash_managers;
+      setAuthData({ token: token, userData: userData });
+    } catch (error: any) {
+      console.log(error);
+    }
+  };
+
   useEffect(() => {
     const token = window.sessionStorage.getItem("token");
     if (token) {
-      setAuthData({ token, userData: {} });
+      fetchUserData(token);
       setIsLoggedIn(true);
     }
   }, []);
-
-  useEffect(() => {
-    console.log(authData);
-  }, [authData]);
 
   return <AuthContext.Provider value={providerValue}>{children}</AuthContext.Provider>;
 };

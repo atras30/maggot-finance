@@ -33,7 +33,7 @@ const Login = () => {
 
   useEffect(() => {
     if (auth.isLoggedIn) {
-      navigate("/dashboard");
+      navigate("/dashboard/ringkasan");
     }
   }, [auth]);
 
@@ -107,7 +107,7 @@ const Login = () => {
             )}
           </FormControl>
           <Box pt="1.5rem" w="100%">
-            <Button w="100%" colorScheme="teal" type="submit">
+            <Button w="100%" colorScheme="blue" type="submit">
               Login
             </Button>
           </Box>
