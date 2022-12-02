@@ -36,8 +36,9 @@ Route::middleware('auth:sanctum')->group(function () {
     });
 
     //Notifications
-    Route::post('/notifications/create', [NotificationController::class, 'create'])->name("notifications.delete");
-    Route::post('/notifications/delete', [NotificationController::class, 'delete'])->name("notifications.delete");
+    Route::get('/notifications', [NotificationController::class, 'getNotificationQueue']);
+    Route::post('/notifications/create', [NotificationController::class, 'create']);
+    Route::post('/notifications/delete', [NotificationController::class, 'delete']);
 
     //Transaction List
     Route::prefix("transaction")->group(function() {
