@@ -80,6 +80,25 @@ class TransactionController extends Controller
 
         try {
             $farmer->balance += $notification->withdrawal_amount;
+
+            $farmerTransactions = Transaction::create([
+                'type' => "income",
+                'transaction_type' => 'farmer_transaction',
+                "description" => "Pencairan Uang",
+                'total_amount' => $notification->withdrawal_amount,
+                'farmer_id' => $farmer->id,
+                'trash_manager_id' => $notification->trash_manager->id,
+            ]);
+
+            $trashManagerTransaction = Transaction::create([
+                'type' => "expense",
+                'transaction_type' => 'trash_manager_transaction',
+                "description" => "Pencairan Uang Peternak",
+                'total_amount' => $notification->withdrawal_amount,
+                'farmer_id' => $farmer->id,
+                'trash_manager_id' => $notification->trash_manager->id,
+            ]);
+
             $notification->delete();
             $farmer->save();
         } catch (\Exception $e) {
@@ -130,10 +149,8 @@ class TransactionController extends Controller
 
     public function deleteExpiredTokens()
     {
-        foreach (
-            Notification::where('expired_at', '<', now())->get()
-            as $expiredNotification
-        ) {
+        foreach (Notification::where('expired_at', '<', now())->get()
+            as $expiredNotification) {
             $expiredNotification->delete();
         }
     }

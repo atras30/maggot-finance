@@ -51,7 +51,7 @@ class NotificationController extends Controller
     {
         $this->deleteExpiredTokens();
 
-        if(auth()->user()->role != "trash_manager") {
+        if (auth()->user()->role != "trash_manager") {
             return response()->json([
                 "message" => ucfirst(auth()->user()->role) . " have no access to this feature."
             ], Response::HTTP_UNAUTHORIZED);
@@ -66,7 +66,7 @@ class NotificationController extends Controller
 
         try {
             $validated['farmer_id'] = User::firstWhere("email", $validated['farmer_email'])->id;
-        } catch(\Exception $e) {
+        } catch (\Exception $e) {
             return response()->json([
                 "message" => "Failed to create payment request. User was not found"
             ]);
@@ -94,7 +94,7 @@ class NotificationController extends Controller
 
     public function createBuyMaggotNotification(Request $request)
     {
-        if(auth()->user()->role != "trash_manager") {
+        if (auth()->user()->role != "trash_manager") {
             return response()->json([
                 "message" => ucfirst(auth()->user()->role) . " have no access to this feature."
             ], Response::HTTP_UNAUTHORIZED);
@@ -111,7 +111,7 @@ class NotificationController extends Controller
 
         try {
             User::findOrFail($validated['farmer_id']);
-        } catch(\Exception $e) {
+        } catch (\Exception $e) {
             return response()->json([
                 "message" => "Failed to fetch User was not found"
             ]);
@@ -203,11 +203,10 @@ class NotificationController extends Controller
         );
     }
 
-    public function deleteExpiredTokens() {
-        foreach (
-            Notification::where('expired_at', '<', now())->get()
-            as $expiredNotification
-        ) {
+    public function deleteExpiredTokens()
+    {
+        foreach (Notification::where('expired_at', '<', now())->get()
+            as $expiredNotification) {
             $expiredNotification->delete();
         }
     }

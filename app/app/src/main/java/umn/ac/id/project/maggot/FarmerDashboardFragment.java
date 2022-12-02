@@ -142,7 +142,7 @@ public class FarmerDashboardFragment extends Fragment {
             Log.i("Shared Preference", new UserSharedPreference(context).toString());
             String email = new UserSharedPreference(context).getUser().getEmail();
             MultiFormatWriter multiFormatWriter = new MultiFormatWriter();
-            BitMatrix bitMatrix = multiFormatWriter.encode(email, BarcodeFormat.QR_CODE, 400, 400);
+            BitMatrix bitMatrix = multiFormatWriter.encode(email, BarcodeFormat.QR_CODE, 700, 700);
             BarcodeEncoder barcodeEncoder = new BarcodeEncoder();
             Bitmap qrCodeBitmap = barcodeEncoder.createBitmap(bitMatrix);
             qrCodeImage.setImageBitmap(qrCodeBitmap);

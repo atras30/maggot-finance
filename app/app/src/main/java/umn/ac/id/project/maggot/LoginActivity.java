@@ -97,7 +97,7 @@ public class LoginActivity extends AppCompatActivity {
 
         if(requestCode == 1000) {
             Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
-            showToastMessage("Checking account on database, please wait...");
+            showToastMessage("Checking account on database");
 
             try {
                 task.getResult(ApiException.class);
@@ -200,7 +200,7 @@ public class LoginActivity extends AppCompatActivity {
             toast.cancel();
         }
 
-        toast = Toast.makeText(this, message, Toast.LENGTH_LONG);
+        toast = Toast.makeText(this, message, Toast.LENGTH_SHORT);
         toast.show();
     }
 }

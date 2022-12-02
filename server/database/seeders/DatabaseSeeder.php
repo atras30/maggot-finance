@@ -74,7 +74,7 @@ class DatabaseSeeder extends Seeder
             'full_name' => 'Atras Shalhan',
             'email' => 'atras.shalhan@student.umn.ac.id',
             'role' => 'farmer',
-            'balance' => 500000,
+            'balance' => 0,
             'address' => 'VMP c5/14',
             'trash_manager_id' => 3,
             'is_verified' => 1,
