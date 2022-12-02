@@ -15,17 +15,18 @@ use Illuminate\Http\Response;
 
 class RegistrationController extends Controller
 {
-    public function createTransactionDummyDataForSpecificUser($email, $transactionAmount) {
+    public function createTransactionDummyDataForSpecificUser($email, $transactionAmount)
+    {
         $farmer = User::where("email", $email)->get()->first();
 
-        for($i = 0; $i < $transactionAmount; $i++) {
+        for ($i = 0; $i < $transactionAmount; $i++) {
             $weightInKg = fake()->randomFloat(2, 0.5, 10);
             $amountPerKg = fake()->numberBetween(3000, 10000);
 
             $farmerId = $farmer->id;
 
             $trashmanagers = TrashManager::all();
-            $trashManagerId = $trashmanagers[fake()->numberBetween(0, $trashmanagers->count()-1)]->id;
+            $trashManagerId = $trashmanagers[fake()->numberBetween(0, $trashmanagers->count() - 1)]->id;
 
             $description = fake()->words(3, true);
 
@@ -95,15 +96,15 @@ class RegistrationController extends Controller
             $trashManager = TrashManager::findOrFail(
                 $validated['trash_manager_id']
             );
-            Mail::to($trashManager->email)->send(
-                new RequestUserRegistrationMail(
-                    $createdUser->full_name,
-                    $createdUser->role
-                )
-            );
-            Mail::to($validated['email'])->send(
-                new SendUserRegistrationMail($createdUser, $trashManager)
-            );
+            // Mail::to($trashManager->email)->send(
+            //     new RequestUserRegistrationMail(
+            //         $createdUser->full_name,
+            //         $createdUser->role
+            //     )
+            // );
+            // Mail::to($validated['email'])->send(
+            //     new SendUserRegistrationMail($createdUser, $trashManager)
+            // );
         } catch (\Exception $e) {
             return response()->json(
                 [
@@ -159,9 +160,9 @@ class RegistrationController extends Controller
             $user = User::where('email', $validated['email'])
                 ->get()
                 ->first();
-            Mail::to($user->email)->send(
-                new RejectUserRegistrationMail($user->full_name)
-            );
+            // Mail::to($user->email)->send(
+            //     new RejectUserRegistrationMail($user->full_name)
+            // );
             $user->delete();
             return response()->json([
                 'message' => 'Reject request success.',
