@@ -17,6 +17,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
@@ -50,6 +51,7 @@ public class DashboardPengelolaBankSampahFragment extends Fragment {
     UserSharedPreference userSharedPreference;
     Button detailwarga, detailwarung;
     View view;
+    TextView wargaBinaan, warungBinaan;
     public DashboardPengelolaBankSampahFragment(Context context) {
         this.context = context;
     }
@@ -61,13 +63,14 @@ public class DashboardPengelolaBankSampahFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,Bundle savedInstanceState) {
-         view = inflater.inflate(R.layout.fragment_dashboard_pengelola_bank_sampah, container, false);
+        view = inflater.inflate(R.layout.fragment_dashboard_pengelola_bank_sampah, container, false);
 
         ImageView barcodeImage = view.findViewById(R.id.barcode_image);
 
         MaterialButton logoutButton = view.findViewById(R.id.logout_button);
-        getDataPeternak();
-        getDataWarung();
+        getDataPeternak(view);
+        getDataWarung(view);
+//        populateLastData();
         detailwarga = view.findViewById(R.id.lihatdaftarwarga);
         detailwarung = view.findViewById(R.id.lihatdaftarwarung);
         detailwarga.setOnClickListener(new View.OnClickListener() {
@@ -117,13 +120,17 @@ public class DashboardPengelolaBankSampahFragment extends Fragment {
         startActivity(intent);
     }
 
-    private void getDataWarung() {
+    private void getDataWarung(View view) {
         ApiService.endpoint().getWarung().enqueue(new Callback<WarungModel>() {
             @Override
             public void onResponse(@NonNull Call<WarungModel> call, @NonNull Response<WarungModel> response) {
                 if(response.isSuccessful()) {
                     assert response.body() != null;
                     List<WarungModel.Warung> results = response.body().getWarung();
+
+                    warungBinaan = view.findViewById(R.id.wargabinaan4);
+                    warungBinaan.setText(results.size() + " Warung");
+
                     results.subList(3, results.size()).clear();
 
                     ListWarungBinaanAdapter listwarungbinaanadapter = new ListWarungBinaanAdapter(context, results);
@@ -141,13 +148,17 @@ public class DashboardPengelolaBankSampahFragment extends Fragment {
     }
 
 
-    private void getDataPeternak() {
+    private void getDataPeternak(View view) {
         ApiService.endpoint().getPeternak().enqueue(new Callback<PeternakModel>() {
             @Override
             public void onResponse(@NonNull Call<PeternakModel> call, @NonNull Response<PeternakModel> response) {
                 if(response.isSuccessful()) {
                     assert response.body() != null;
                     List<PeternakModel.Peternak> results = response.body().getPeternak();
+
+                    wargaBinaan = view.findViewById(R.id.wargabinaan2);
+                    wargaBinaan.setText(String.valueOf(results.size()) + " Warga");
+
                     results.subList(3, results.size()).clear();
                     ListWargaBinaanAdapter listwargabinaanadapter = new ListWargaBinaanAdapter(context, results);
                     RecyclerView recyclerView1 = view.findViewById(R.id.listWargaBinaanRecyclerView);
@@ -161,5 +172,17 @@ public class DashboardPengelolaBankSampahFragment extends Fragment {
                 Log.d("Fail", t.toString());
             }
         });
+    }
+
+    private void populateLastData(View view) {
+        TextView wargaBinaan = view.findViewById(R.id.wargabinaan2);
+        TextView warungBinaan = view.findViewById(R.id.wargabinaan4);
+
+        TrashManagerSharedPreference trashManagerSharedPreference = new TrashManagerSharedPreference(context);
+
+//        if (trashManagerSharedPreference.getTrashManager() != null) {
+//            wargaBinaan.setText(trashManagerSharedPreference.getTrashManager().get());
+//            warungBinaan.setText(trashManagerSharedPreference.getTrashManager().getAddress());
+//        }
     }
 }

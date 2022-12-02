@@ -18,7 +18,7 @@
 
     <androidx.appcompat.widget.SearchView
         android:id="@+id/searchtransaksi"
-        android:layout_width="267dp"
+        android:layout_width="match_parent"
         android:layout_height="40dp"
         android:layout_marginTop="12dp"
         android:background="@drawable/rounded_edittext"
@@ -36,7 +36,4 @@
         android:layout_height="wrap_content"
         android:background="@drawable/rounded_recyclerview_transparent_background"
         tools:listitem="@layout/transaction_row"/>
-
-
-
 </LinearLayout>
