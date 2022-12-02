@@ -1,6 +1,8 @@
 name: Publish Website to CPanel
 on:
   push:
+    path:
+      - 'server/**'
     branches:
       - production
 jobs:
