@@ -1,0 +1,46 @@
+.dashboard {
+  & footer {
+    b {
+      color: var(--color-secondary);
+    }
+  }
+
+  & .dash-link {
+    width: 100%;
+
+    .container {
+      transition: all 0.2s ease-in-out;
+    }
+
+    &:hover {
+      .container {
+        background-color: var(--color-secondary);
+        color: var(--color-white);
+      }
+    }
+
+    &.active {
+      .container {
+        background-color: var(--color-white);
+        color: var(--color-dark);
+      }
+
+      .icon {
+        background-color: var(--color-secondary);
+        color: var(--color-white);
+      }
+    }
+
+    .container {
+      padding: 1rem;
+      border-radius: 15px;
+      color: var(--color-grey);
+    }
+
+    .icon {
+      background-color: var(--color-white);
+      color: var(--color-secondary);
+      border-radius: 20px;
+    }
+  }
+}
