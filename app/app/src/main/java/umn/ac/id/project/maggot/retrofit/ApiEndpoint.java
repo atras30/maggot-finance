@@ -10,6 +10,7 @@ import retrofit2.http.POST;
 import retrofit2.http.Query;
 import umn.ac.id.project.maggot.model.ApprovalRejectionModel;
 import umn.ac.id.project.maggot.model.AuthenticationModel;
+import umn.ac.id.project.maggot.model.NotificationUserModel;
 import umn.ac.id.project.maggot.model.PeternakModel;
 import umn.ac.id.project.maggot.model.TransactionModel;
 import umn.ac.id.project.maggot.model.TrashManagerModel;
@@ -31,6 +32,9 @@ public interface ApiEndpoint {
 
     @GET("trash-manager")
     Call<TrashManagerModel> getTrashManager();
+
+    @GET("notifications")
+    Call<NotificationUserModel> getAllNotification();
 
     @FormUrlEncoded
     @Headers("Accept: application/json")
