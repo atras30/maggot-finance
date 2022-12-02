@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Notification;
 use App\Models\Transaction;
 use App\Models\TrashManager;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 
 class TransactionController extends Controller {
   public function index(Request $request) {
@@ -38,5 +40,35 @@ class TransactionController extends Controller {
         "data" => $transactionHistory
       ]);
     }
+  }
+
+  public function approveFarmerWithdrawal(Request $request) {
+    $validated = $request->validate([
+        "token" => "string|required"
+    ]);
+
+    $notification = Notification::firstWhere("token", $validated['token']);
+
+    if(!$notification) {
+        return response()->json([
+            "message" => "Notification was not found."
+        ], Response::HTTP_NOT_FOUND);
+    }
+
+    $farmer = User::findOrFail($notification->farmer_id);
+
+    try {
+        $farmer->balance += $notification->withdrawal_amount;
+        $notification->delete();
+        $farmer->save();
+    } catch (\Exception $e) {
+        return response()->json([
+            "message" => $e->getMessage()
+        ], Response::HTTP_INTERNAL_SERVER_ERROR);
+    }
+
+    return response()->json([
+        "message" => "Withdrawal Success."
+    ], Response::HTTP_OK);
   }
 }

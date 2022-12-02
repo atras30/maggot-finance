@@ -129,16 +129,18 @@ class DatabaseSeeder extends Seeder
             'is_verified' => 1,
         ]);
 
-        Notification::create([
-            "type" => "payment_confirmation",
-            "farmer_id" => 2,
-            "weight_in_kg" => 3.14,
-            "amount_per_kg" => 3000,
-            "description" => "Description testing doang...",
-            "trash_manager_id" => 4,
-            "token" => Uuid::uuid4()->toString(),
-            "expired_at" => now()->addMinutes(15)
-        ]);
+        //Create Notifications
+
+        // Notification::create([
+        //     "type" => "payment_confirmation",
+        //     "farmer_id" => 2,
+        //     "weight_in_kg" => 3.14,
+        //     "amount_per_kg" => 3000,
+        //     "description" => "Description testing doang...",
+        //     "trash_manager_id" => 4,
+        //     "token" => Uuid::uuid4()->toString(),
+        //     "expired_at" => now()->addMinutes(15)
+        // ]);
 
         //Transaction Dummy Data
         for ($i = 0; $i < 100; $i++) {
@@ -156,12 +158,7 @@ class DatabaseSeeder extends Seeder
                 ]->id;
 
             $description = fake()->words(3, true);
-
-            if (fake()->boolean()) {
-                $createdAt = now()->subDay(fake()->numberBetween(0, 60));
-            } else {
-                $createdAt = now()->addDay(fake()->numberBetween(0, 60));
-            }
+            $createdAt = now()->subDay(fake()->numberBetween(0, 60));
 
             Transaction::create([
                 'type' => 'income',
