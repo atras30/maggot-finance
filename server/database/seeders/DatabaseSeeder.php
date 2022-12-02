@@ -44,7 +44,7 @@ class DatabaseSeeder extends Seeder
 
         TrashManager::create([
             'nama_pengelola' => 'Reynard',
-            'tempat' => 'Bebas',
+            'tempat' => fake()->address(),
             'email' => 'reynard.yaputra@student.umn.ac.id',
             'super_admin_id' => 1,
         ]);
@@ -90,7 +90,7 @@ class DatabaseSeeder extends Seeder
         ]);
         User::create([
             'full_name' => 'Reynard Matthew Yaputra',
-            'shop_name' => 'Warung Sukamundur',
+            'shop_name' => fake()->company(),
             'email' => 'reynard7896@gmail.com',
             'role' => 'shop',
             'balance' => 15000000.234,
@@ -104,7 +104,7 @@ class DatabaseSeeder extends Seeder
             'email' => 'jonathanputra134@gmail.com',
             'role' => 'farmer',
             'balance' => 50000,
-            'address' => 'Jakarta Barat, blablabla',
+            'address' => fake()->address(),
             'trash_manager_id' => 1,
         ]);
 
@@ -112,9 +112,9 @@ class DatabaseSeeder extends Seeder
             'full_name' => 'Bonifasius',
             'email' => 'boni@gmail.com',
             'role' => 'shop',
-            'shop_name' => 'Warung Sukamaju',
+            'shop_name' => fake()->company(),
             'balance' => 50000,
-            'address' => 'Jalan gatau bwang',
+            'address' => fake()->address(),
             'trash_manager_id' => 1,
         ]);
 
@@ -122,25 +122,12 @@ class DatabaseSeeder extends Seeder
             'full_name' => 'Maggot Finance',
             'email' => 'magfin@umn.ac.id',
             'role' => 'shop',
-            'shop_name' => 'Warung Warungan',
+            'shop_name' => fake()->company(),
             'balance' => 50000,
             'address' => 'Universitas Multimedia Nusantara',
             'trash_manager_id' => 1,
             'is_verified' => 1,
         ]);
-
-        //Create Notifications
-
-        // Notification::create([
-        //     "type" => "payment_confirmation",
-        //     "farmer_id" => 2,
-        //     "weight_in_kg" => 3.14,
-        //     "amount_per_kg" => 3000,
-        //     "description" => "Description testing doang...",
-        //     "trash_manager_id" => 4,
-        //     "token" => Uuid::uuid4()->toString(),
-        //     "expired_at" => now()->addMinutes(15)
-        // ]);
 
         //Transaction Dummy Data
         for ($i = 0; $i < 100; $i++) {

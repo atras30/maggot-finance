@@ -33,6 +33,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::prefix('auth')->group(function () {
         Route::post('/logout', [AuthenticationController::class, 'logout']);
         Route::get('/user', [AuthenticationController::class, 'getUser']);
+        Route::post('/token/refresh', [AuthenticationController::class, "refreshToken"]);
     });
 
     //Notifications

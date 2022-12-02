@@ -12,6 +12,18 @@ use Illuminate\Support\Facades\Hash;
 
 class AuthenticationController extends Controller
 {
+    public function refreshToken(Request $request) {
+        $user = auth()->user();
+        auth()->user()->tokens()->delete();
+
+        $token = $user->createToken("login_token")->plainTextToken;
+
+        return response()->json([
+            'token' => $token,
+            "user" => $user,
+        ], Response::HTTP_OK);
+    }
+
     public function getUser()
     {
         return response()->json([

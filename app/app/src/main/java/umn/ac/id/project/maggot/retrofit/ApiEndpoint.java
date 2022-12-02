@@ -36,6 +36,10 @@ public interface ApiEndpoint {
     @GET("notifications")
     Call<NotificationUserModel> getAllNotification();
 
+    @Headers("Accept: application/json")
+    @POST("auth/token/refresh")
+    Call<AuthenticationModel> refreshToken(@Header("Authorization") String authorization);
+
     @FormUrlEncoded
     @Headers("Accept: application/json")
     @POST("transaction/farmer/buy/shop")

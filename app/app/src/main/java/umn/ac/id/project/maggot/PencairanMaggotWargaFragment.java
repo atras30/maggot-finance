@@ -152,10 +152,14 @@ public class PencairanMaggotWargaFragment extends Fragment {
             public void onResponse(Call<NotificationUserModel> call, Response<NotificationUserModel> response) {
                 if(response.isSuccessful()) {
                     String message = response.body().createFarmerWithdrawalRequest();
-                    Toast.makeText(context, message, Toast.LENGTH_SHORT).show();
+                    if(message.trim().equalsIgnoreCase("Farmer's Withdrawal Notification Successfully Created.")) {
+                        message = "Permintaan pencairan berhasil, silahkan konfirmasi dari pihak peternak.";
+                    }
+
+                    Toast.makeText(context, message, Toast.LENGTH_LONG).show();
                 } else {
                     try {
-                        Toast.makeText(context, response.errorBody().string(), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(context, response.errorBody().string(), Toast.LENGTH_LONG).show();
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
