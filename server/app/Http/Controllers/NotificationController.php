@@ -66,7 +66,7 @@ class NotificationController extends Controller
         }
 
         $validated['trash_manager_id'] = auth()->user()->id;
-        $validated['expired_at'] = now()->addMinutes();
+        $validated['expired_at'] = now()->addMinutes(5);
         $validated['token'] = Uuid::uuid4();
 
         try {
