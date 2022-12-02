@@ -1,17 +1,29 @@
 package umn.ac.id.project.maggot.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class NotificationUserModel {
+    private String message;
 
-    private List<NotificationUserModel.Notification> notifications;
+    private ArrayList<NotificationUserModel.Notification> notifications;
 
-    public List<NotificationUserModel.Notification> getAllNotification() {
+    public ArrayList<NotificationUserModel.Notification> getAllNotifications() {
         return notifications;
+    }
+
+    public String approveWithdrawalRequest() {
+        return message;
+    }
+
+    public String rejectWithdrawalRequest() {
+        return message;
     }
 
     public class Notification {
         private String token;
+        private String type;
+        private int withdrawal_amount;
         private String description;
         private double weight_in_kg;
         private double amount_per_kg;
@@ -19,6 +31,14 @@ public class NotificationUserModel {
         private String nama_pengelola_bank_sampah;
 
         public String getToken() {return token;}
+
+        public String getType() {
+            return type;
+        }
+
+        public int getWithdrawal_amount() {
+            return withdrawal_amount;
+        }
 
         public String getDescription() {return description;}
 
@@ -35,6 +55,23 @@ public class NotificationUserModel {
         public String getNama_pengelola_bank_sampah() {
             return nama_pengelola_bank_sampah;
         }
+
+        @Override
+        public String toString() {
+            return "Notification{" +
+                    "token='" + token + '\'' +
+                    ", type='" + type + '\'' +
+                    ", withdrawal_amount=" + withdrawal_amount +
+                    ", description='" + description + '\'' +
+                    ", weight_in_kg=" + weight_in_kg +
+                    ", amount_per_kg=" + amount_per_kg +
+                    ", nama_peternak='" + nama_peternak + '\'' +
+                    ", nama_pengelola_bank_sampah='" + nama_pengelola_bank_sampah + '\'' +
+                    '}';
+        }
     }
-    
+
+    public String createFarmerWithdrawalRequest() {
+        return message;
+    }
 }

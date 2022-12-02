@@ -40,11 +40,8 @@ Route::middleware('auth:sanctum')->group(function () {
 
     // Notifications endpoint for Farmer Withdrawal
     Route::post('/notifications/trash-manager/withdrawal/farmer', [NotificationController::class, 'createFarmerWithdrawalNotification']);
-    Route::post('/notifications/trash-manager/withdrawal/farmer/approve', [TransactionController::class, 'approveFarmerWithdrawal']);
-
-    // Notifications endpoint
-    Route::post('/notifications/create', [NotificationController::class, 'create']);
-    Route::post('/notifications/delete', [NotificationController::class, 'delete']);
+    Route::post('/notifications/farmer/withdrawal/approve', [TransactionController::class, 'approveFarmerWithdrawal']);
+    Route::post('/notifications/farmer/withdrawal/reject', [TransactionController::class, 'rejectFarmerWithdrawal']);
 
     //Transaction List
     Route::prefix("transaction")->group(function() {

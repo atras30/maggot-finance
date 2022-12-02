@@ -68,4 +68,22 @@ public interface ApiEndpoint {
 
     @GET("transactions")
     Call<TransactionModel> getTransactions(@Query("email") String email);
+
+    @GET("notifications")
+    Call<NotificationUserModel> getAllNotifications(@Header("Authorization") String authorizationToken);
+
+    @FormUrlEncoded
+    @Headers("Accept: application/json")
+    @POST("notifications/farmer/withdrawal/approve")
+    Call<NotificationUserModel> approveWithdrawalRequest(@Field("token") String token, @Header("Authorization") String authorizationToken);
+
+    @FormUrlEncoded
+    @Headers("Accept: application/json")
+    @POST("notifications/farmer/withdrawal/reject")
+    Call<NotificationUserModel> rejectWithdrawalRequest(@Field("token") String token, @Header("Authorization") String authorizationToken);
+
+    @FormUrlEncoded
+    @Headers("Accept: application/json")
+    @POST("notifications/trash-manager/withdrawal/farmer")
+    Call<NotificationUserModel> createFarmerWithdrawalRequest(@Field("farmer_email") String farmerEmail, @Field("withdrawal_amount") double withdrawalAmount,@Header("Authorization") String token);
 }

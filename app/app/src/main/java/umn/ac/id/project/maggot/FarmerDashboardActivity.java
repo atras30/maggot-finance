@@ -39,6 +39,9 @@ public class FarmerDashboardActivity extends AppCompatActivity {
                     case R.id.bayar:
                         selectedFragment = new FarmerPaymentFragment(FarmerDashboardActivity.this);
                         break;
+                    case R.id.notif:
+                        selectedFragment = new FarmerNotificationFragment(FarmerDashboardActivity.this);
+                        break;
                 }
 
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,selectedFragment).commit();

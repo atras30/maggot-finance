@@ -25,6 +25,13 @@ class NotificationController extends Controller
                 'farmer_id',
                 auth()->user()->id
             )->where("type", "farmer_withdrawal")->get();
+
+            foreach ($notifications as $notification) {
+                $notification->nama_peternak = $notification->farmer->full_name;
+                $notification->nama_pengelola = $notification->trash_manager->nama_pengelola;
+                unset($notification->farmer);
+                unset($notification->trash_manager);
+            }
         } else if (auth()->user()->role == 'shop') {
             $notifications = Notification::where(
                 'farmer_id',
@@ -51,14 +58,14 @@ class NotificationController extends Controller
         }
 
         $validated = $request->validate([
-            'farmer_id' => 'numeric|required',
+            'farmer_email' => 'string|required',
             "withdrawal_amount" => "numeric|required"
         ]);
 
         $validated['type'] = "farmer_withdrawal";
 
         try {
-            User::findOrFail($validated['farmer_id']);
+            $validated['farmer_id'] = User::firstWhere("email", $validated['farmer_email'])->id;
         } catch(\Exception $e) {
             return response()->json([
                 "message" => "Failed to create payment request. User was not found"

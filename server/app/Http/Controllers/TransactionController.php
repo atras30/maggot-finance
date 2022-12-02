@@ -9,66 +9,132 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
-class TransactionController extends Controller {
-  public function index(Request $request) {
-    $request->validate([
-      "email" => "string|required"
-    ]);
-
-    $email = $request->email;
-
-    $user = User::where("email", $email)->get()->first();
-
-    $trashManager = null;
-    if(!$user) {
-      $trashManager = TrashManager::where("email", $email)->get()->first();
-      if(!$trashManager) {
-        return response()->json([
-          "message" => "User was not found"
+class TransactionController extends Controller
+{
+    public function index(Request $request)
+    {
+        $request->validate([
+            'email' => 'string|required',
         ]);
-      }
+
+        $email = $request->email;
+
+        $user = User::where('email', $email)
+            ->get()
+            ->first();
+
+        $trashManager = null;
+        if (!$user) {
+            $trashManager = TrashManager::where('email', $email)
+                ->get()
+                ->first();
+            if (!$trashManager) {
+                return response()->json([
+                    'message' => 'User was not found',
+                ]);
+            }
+        }
+
+        if (isset($trashManager) && $trashManager->role == 'trash_manager') {
+            $transactionHistory = Transaction::where(
+                'trash_manager_id',
+                $trashManager->id
+            )
+                ->where('transaction_type', 'trash_manager_transaction')
+                ->orderBy('created_at', 'desc')
+                ->get();
+            return response()->json([
+                'data' => $transactionHistory,
+            ]);
+        } elseif ($user->role == 'farmer') {
+            $transactionHistory = Transaction::where('farmer_id', $user->id)
+                ->where('transaction_type', 'farmer_transaction')
+                ->orderBy('created_at', 'desc')
+                ->get();
+            return response()->json([
+                'data' => $transactionHistory,
+            ]);
+        }
     }
 
-    if (isset($trashManager) && $trashManager->role == "trash_manager") {
-      $transactionHistory = Transaction::where("trash_manager_id", $trashManager->id)->where("transaction_type", "trash_manager_transaction")->orderBy("created_at", "desc")->get();
-      return response()->json([
-        "data" => $transactionHistory
-      ]);
-    } else if ($user->role == "farmer") {
-      $transactionHistory = Transaction::where("farmer_id", $user->id)->where("transaction_type", "farmer_transaction")->orderBy("created_at", "desc")->get();
-      return response()->json([
-        "data" => $transactionHistory
-      ]);
+    public function approveFarmerWithdrawal(Request $request)
+    {
+        $this->deleteExpiredTokens();
+
+        $validated = $request->validate([
+            'token' => 'string|required',
+        ]);
+
+        $notification = Notification::firstWhere('token', $validated['token']);
+
+        if (!$notification) {
+            return response()->json(
+                [
+                    'message' => 'Token Expired.',
+                ],
+                Response::HTTP_NOT_FOUND
+            );
+        }
+
+        $farmer = User::findOrFail($notification->farmer_id);
+
+        try {
+            $farmer->balance += $notification->withdrawal_amount;
+            $notification->delete();
+            $farmer->save();
+        } catch (\Exception $e) {
+            return response()->json(
+                [
+                    'message' => $e->getMessage(),
+                ],
+                Response::HTTP_INTERNAL_SERVER_ERROR
+            );
+        }
+
+        return response()->json(
+            [
+                'message' => 'Withdrawal Success.',
+            ],
+            Response::HTTP_OK
+        );
     }
-  }
 
-  public function approveFarmerWithdrawal(Request $request) {
-    $validated = $request->validate([
-        "token" => "string|required"
-    ]);
+    public function rejectFarmerWithdrawal(Request $request)
+    {
+        $this->deleteExpiredTokens();
 
-    $notification = Notification::firstWhere("token", $validated['token']);
+        $validated = $request->validate([
+            'token' => 'string|required',
+        ]);
 
-    if(!$notification) {
-        return response()->json([
-            "message" => "Notification was not found."
-        ], Response::HTTP_NOT_FOUND);
-    }
+        $notification = Notification::firstWhere('token', $validated['token']);
 
-    $farmer = User::findOrFail($notification->farmer_id);
+        if (!$notification) {
+            return response()->json(
+                [
+                    'message' => 'Token Expired.',
+                ],
+                Response::HTTP_NOT_FOUND
+            );
+        }
 
-    try {
-        $farmer->balance += $notification->withdrawal_amount;
         $notification->delete();
-        $farmer->save();
-    } catch (\Exception $e) {
-        return response()->json([
-            "message" => $e->getMessage()
-        ], Response::HTTP_INTERNAL_SERVER_ERROR);
+
+        return response()->json(
+            [
+                'message' => 'Withdrawal Deletion Success.',
+            ],
+            Response::HTTP_OK
+        );
     }
 
-    return response()->json([
-        "message" => "Withdrawal Success."
-    ], Response::HTTP_OK);
-  }
+    public function deleteExpiredTokens()
+    {
+        foreach (
+            Notification::where('expired_at', '<', now())->get()
+            as $expiredNotification
+        ) {
+            $expiredNotification->delete();
+        }
+    }
 }

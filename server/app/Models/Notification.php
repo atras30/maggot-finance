@@ -19,4 +19,9 @@ class Notification extends Model
     {
         return $this->belongsTo(User::class);
     }
+
+    public function trash_manager()
+    {
+        return $this->belongsTo(TrashManager::class);
+    }
 }
