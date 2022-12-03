@@ -55,26 +55,6 @@ public class NotificationUserFragment extends Fragment {
                         RecyclerView recyclerView = ((Activity)context).findViewById(R.id.farmer_transaction_recycler_view);
                         recyclerView.setAdapter(farmerTransactionAdapter);
                         recyclerView.setLayoutManager(new LinearLayoutManager(context));
-                        SearchView searchtransaction = view.findViewById(R.id.searchtransaksi);
-                        searchtransaction.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-                            @Override
-                            public boolean onQueryTextSubmit(String query) {
-                                return false;
-                            }
-
-                            @Override
-                            public boolean onQueryTextChange(String newText) {
-                                String userInput = newText.toLowerCase();
-                                List<TransactionModel.Transaction> newList = new ArrayList<>();
-                                for (TransactionModel.Transaction transaction : transactions) {
-                                    if (transaction.getDescription().toLowerCase().contains(userInput)) {
-                                        newList.add(transaction);
-                                    }
-                                }
-                                farmerTransactionAdapter.upToDate(newList);
-                                return true;
-                            }
-                        });
                     } catch (Exception e) {
                         call.cancel();
                     }

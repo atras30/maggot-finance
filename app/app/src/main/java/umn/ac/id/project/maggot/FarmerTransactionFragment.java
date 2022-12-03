@@ -1,6 +1,7 @@
 package umn.ac.id.project.maggot;
 
 import android.app.Activity;
+import android.app.DatePickerDialog;
 import android.content.Context;
 import android.os.Bundle;
 
@@ -13,10 +14,16 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.DatePicker;
+import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 import retrofit2.Call;
@@ -30,7 +37,15 @@ import umn.ac.id.project.maggot.retrofit.ApiService;
 
 public class FarmerTransactionFragment extends Fragment {
     private Context context;
-
+    TextView dateTimeDisplay;
+    TextView dateTimeDisplay2;
+    private Calendar calendar;
+    private Calendar tanggalawal;
+    private Calendar tanggalakhir;
+    private Calendar currentDate;
+    EditText searchPeternak;
+    private SimpleDateFormat dateFormat;
+    private String date;
     public FarmerTransactionFragment(Context context) {
         this.context = context;
     }
@@ -55,26 +70,6 @@ public class FarmerTransactionFragment extends Fragment {
                         RecyclerView recyclerView = ((Activity)context).findViewById(R.id.farmer_transaction_recycler_view);
                         recyclerView.setAdapter(farmerTransactionAdapter);
                         recyclerView.setLayoutManager(new LinearLayoutManager(context));
-                        SearchView searchtransaction = view.findViewById(R.id.searchtransaksi);
-                        searchtransaction.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-                            @Override
-                            public boolean onQueryTextSubmit(String query) {
-                                return false;
-                            }
-
-                            @Override
-                            public boolean onQueryTextChange(String newText) {
-                                String userInput = newText.toLowerCase();
-                                List<TransactionModel.Transaction> newList = new ArrayList<>();
-                                for (TransactionModel.Transaction transaction : transactions) {
-                                    if (transaction.getDescription().toLowerCase().contains(userInput)) {
-                                        newList.add(transaction);
-                                    }
-                                }
-                                farmerTransactionAdapter.upToDate(newList);
-                                return true;
-                            }
-                        });
                     } catch (Exception e) {
                         call.cancel();
                     }
@@ -93,6 +88,69 @@ public class FarmerTransactionFragment extends Fragment {
             @Override
             public void onFailure(Call<TransactionModel> call, Throwable t) {
                 Toast.makeText(context, "Error : " + t.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        //INI BUAT NGESET CURRENT VALUE DI TEXTVIEW DATE PADA XML
+        dateTimeDisplay = (TextView) view.findViewById(R.id.tanggalawal);
+        calendar = Calendar.getInstance();
+        tanggalawal = Calendar.getInstance();
+        int currentYear = calendar.get(Calendar.YEAR);
+        int currentMonth = calendar.get(Calendar.MONTH);
+        int currentDay = calendar.get(Calendar.DAY_OF_MONTH);
+
+        currentDate = Calendar.getInstance();
+        currentDate.set(currentYear, currentMonth, currentDay);
+
+        ImageView selectDate1 = view.findViewById(R.id.pilihtanggalawal);
+        selectDate1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view){
+
+                DatePickerDialog datePickerDialog = new DatePickerDialog(context,
+                        new DatePickerDialog.OnDateSetListener() {
+                            @Override
+                            public void onDateSet(DatePicker datePicker, int year, int month, int day) {
+                                tanggalawal.set(year, month, day);
+                                if(calendar.after(tanggalawal) || tanggalawal.equals(calendar) || tanggalawal.equals(tanggalakhir))
+                                {
+                                    dateTimeDisplay.setText(day + "/" + (month + 1) + "/" + year);
+                                }else {
+                                    Toast.makeText(context,"Tanggal awal tidak boleh melebihi tanggal sekarang",Toast.LENGTH_SHORT).show();
+
+                                }
+
+
+                            }
+                        }, currentYear, currentMonth, currentDay);
+                datePickerDialog.show();
+            }
+        });
+
+        tanggalakhir = Calendar.getInstance();
+        dateTimeDisplay2 = (TextView) view.findViewById(R.id.tanggalakhir);
+        ImageView selectDate2 = view.findViewById(R.id.pilihtanggalakhir);
+        selectDate2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view){
+
+                DatePickerDialog datePickerDialog = new DatePickerDialog(context,
+                        new DatePickerDialog.OnDateSetListener() {
+                            @Override
+                            public void onDateSet(DatePicker datePicker, int year, int month, int day) {
+                                tanggalakhir.set(year, month, day);
+                                if(tanggalakhir.after(tanggalawal) || tanggalakhir.equals(tanggalawal))
+                                {
+                                    dateTimeDisplay2.setText(day + "/" + (month + 1) + "/" + year);
+
+
+                                }else {
+                                    Toast.makeText(context,"Tanggal Akhir harus lebih dari tanggal awal",Toast.LENGTH_SHORT).show();
+                                }
+
+                            }
+                        }, currentYear, currentMonth, currentDay);
+                datePickerDialog.show();
             }
         });
 
