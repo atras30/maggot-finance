@@ -34,7 +34,7 @@ class NotificationController extends Controller
             }
         } else if (auth()->user()->role == 'shop') {
             $notifications = Notification::where(
-                'farmer_id',
+                'shop_id',
                 auth()->user()->id
             )->get();
         }
