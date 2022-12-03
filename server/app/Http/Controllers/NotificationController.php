@@ -92,6 +92,51 @@ class NotificationController extends Controller
         ]);
     }
 
+    public function createFarmerPaymentToShopNotification(Request $request)
+    {
+        $this->deleteExpiredTokens();
+
+        if (auth()->user()->role != "farmer") {
+            return response()->json([
+                "message" => ucfirst(auth()->user()->role) . " have no access to this feature."
+            ], Response::HTTP_UNAUTHORIZED);
+        }
+
+        $validated = $request->validate([
+            'shop_email' => 'string|required',
+            "total_amount" => "numeric|required"
+        ]);
+
+        $validated['type'] = "farmer_purchase";
+
+        try {
+            $validated['shop_id'] = User::firstWhere("email", $validated['shop_email'])->id;
+        } catch (\Exception $e) {
+            return response()->json([
+                "message" => "Failed to create payment request. User was not found"
+            ]);
+        }
+
+        $validated['farmer_id'] = auth()->user()->id;
+        $validated['expired_at'] = now()->addMinutes(5);
+        $validated['token'] = Uuid::uuid4();
+
+        try {
+            Notification::create($validated);
+        } catch (\Exception $e) {
+            return response()->json(
+                [
+                    'message' => $e->getMessage(),
+                ],
+                Response::HTTP_NOT_ACCEPTABLE
+            );
+        }
+
+        return response()->json([
+            'message' => 'Farmer\'s Purchase Notification Successfully Created.',
+        ]);
+    }
+
     public function createBuyMaggotNotification(Request $request)
     {
         if (auth()->user()->role != "trash_manager") {
