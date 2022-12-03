@@ -131,10 +131,11 @@
         android:layout_marginHorizontal="20dp"
         android:layout_marginTop="20dp"
         android:drawableLeft="@drawable/farmer_payment_wallet"
+        android:drawableTint="@color/white"
         android:text="Bayar Sekarang!"
-        android:textColor="@color/black"
+        android:textColor="@color/white"
         android:textStyle="bold"
-        app:backgroundTint="@color/light"
+        app:backgroundTint="@color/secondary"
         app:cornerRadius="50dp"
         app:layout_constraintTop_toBottomOf="@+id/linearLayout4" />
 </androidx.constraintlayout.widget.ConstraintLayout>

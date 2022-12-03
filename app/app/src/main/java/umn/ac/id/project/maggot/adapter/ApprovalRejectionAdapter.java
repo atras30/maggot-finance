@@ -122,11 +122,11 @@ public class ApprovalRejectionAdapter extends RecyclerView.Adapter<ApprovalRejec
                     @Override
                     public void onClick(View v) {
                         Log.d("Debug", position+"");
-                        ApiService.endpoint().approvalUserRegistration(users.get(position).getEmail()).enqueue(new Callback<ApprovalRejectionModel>() {
+                        ApiService.endpoint().rejectionUserRegistration(users.get(position).getEmail()).enqueue(new Callback<ApprovalRejectionModel>() {
                             @Override
                             public void onResponse(Call<ApprovalRejectionModel> call, Response<ApprovalRejectionModel> response) {
                                 Log.d("Debug2", position+"");
-                                String message = response.body().approvalUserRegistration();
+                                String message = response.body().rejectionUserRegistration();
                                 Toast.makeText(context, message, Toast.LENGTH_LONG).show();
                                 listener.onItemClick(position);
                             }
@@ -146,21 +146,6 @@ public class ApprovalRejectionAdapter extends RecyclerView.Adapter<ApprovalRejec
                         dialog.hide();
                     }
                 });
-            }
-        });
-    }
-
-    private void sendRejectRequest(String email) {
-        ApiService.endpoint().rejectionUserRegistration(email).enqueue(new Callback<ApprovalRejectionModel>() {
-            @Override
-            public void onResponse(Call<ApprovalRejectionModel> call, Response<ApprovalRejectionModel> response) {
-                String message = response.body().rejectionUserRegistration();
-                Toast.makeText(context, message, Toast.LENGTH_LONG).show();
-            }
-
-            @Override
-            public void onFailure(Call<ApprovalRejectionModel> call, Throwable t) {
-                Toast.makeText(context, "Error : " + t.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
     }

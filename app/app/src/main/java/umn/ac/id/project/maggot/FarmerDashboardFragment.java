@@ -71,9 +71,6 @@ public class FarmerDashboardFragment extends Fragment {
 
         btnSecret = view.findViewById(R.id.buttonSecret);
 
-        tvSaldo = view.findViewById(R.id.angkaSaldo);
-        tvSaldo.setText("**********");
-
         DecimalFormatSymbols formatid = new DecimalFormatSymbols();
 
         formatid.setMonetaryDecimalSeparator(',');
@@ -102,11 +99,7 @@ public class FarmerDashboardFragment extends Fragment {
             public void onClick(View v) {
                 tvSaldo = view.findViewById(R.id.angkaSaldo);
                 if (tvSaldo.getText().toString().contains("*")) {
-                    if(userSharedPreference.getUser() == null) {
-                        tvSaldo.setText("Fetching Data...");
-                    } else {
-                        tvSaldo.setText(String.valueOf(userSharedPreference.getUser().getBalance()));
-                    }
+                    tvSaldo.setText(df.format(new UserSharedPreference(context).getUser().getBalance()));
                 } else {
                     tvSaldo.setText("**********");
                 }
@@ -124,8 +117,10 @@ public class FarmerDashboardFragment extends Fragment {
                     try {
                         TextView name = view.findViewById(R.id.name);
                         TextView address = view.findViewById(R.id.address);
+                        tvSaldo = view.findViewById(R.id.angkaSaldo);
                         name.setText(user.getFull_name());
                         address.setText(user.getAddress());
+                        tvSaldo.setText("**********");
                     } catch (Exception e) {
                         call.cancel();
                     }
@@ -156,12 +151,12 @@ public class FarmerDashboardFragment extends Fragment {
     private void populateLastData(View view) {
         TextView name = view.findViewById(R.id.name);
         TextView address = view.findViewById(R.id.address);
-        TextView balance = view.findViewById(R.id.angkaSaldo);
+        tvSaldo = view.findViewById(R.id.angkaSaldo);
         UserSharedPreference userSharedPreference = new UserSharedPreference(context);
         if (userSharedPreference.getUser() != null) {
             name.setText(userSharedPreference.getUser().getFull_name());
             address.setText(userSharedPreference.getUser().getAddress());
-            balance.setText(String.valueOf(userSharedPreference.getUser().getBalance()));
+            tvSaldo.setText("**********");
         }
     }
 

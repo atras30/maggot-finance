@@ -65,8 +65,6 @@ public class DashboardPengelolaBankSampahFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_dashboard_pengelola_bank_sampah, container, false);
 
-        ImageView barcodeImage = view.findViewById(R.id.barcode_image);
-
         MaterialButton logoutButton = view.findViewById(R.id.logout_button);
         getDataPeternak(view);
         getDataWarung(view);
@@ -83,8 +81,8 @@ public class DashboardPengelolaBankSampahFragment extends Fragment {
         detailwarung.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(context, ListWarungActivity.class);
-                startActivity(intent);
+                Intent intent2 = new Intent(context, ListWarungActivity.class);
+                startActivity(intent2);
             }
         });
 

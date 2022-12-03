@@ -11,7 +11,7 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:padding="5dp"
-        android:text="Notifications (5 Menit Terakhir)"
+        android:text="Notifikasi (5 Menit Terakhir)"
         android:textColor="@color/black"
         android:textSize="22sp"
         android:textStyle="bold" />

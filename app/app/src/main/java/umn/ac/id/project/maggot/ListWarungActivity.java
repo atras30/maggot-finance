@@ -61,8 +61,8 @@ public class ListWarungActivity extends AppCompatActivity {
                     fab.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
-                            Snackbar.make(view, "INI BUAT FAB TAMBAH DI WARUNG!!!", Snackbar.LENGTH_LONG)
-                                    .setAction("Action", null).show();
+                            Intent intent = new Intent(ListWarungActivity.this, InputWarungActivity.class);
+                            startActivity(intent);
                         }
                     });
 

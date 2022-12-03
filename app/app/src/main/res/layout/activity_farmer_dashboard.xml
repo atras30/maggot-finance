@@ -24,6 +24,7 @@
         android:layout_alignParentBottom="true"
         android:layout_gravity="bottom|center"
         android:background="@drawable/rounded_edittext"
+        app:labelVisibilityMode="labeled"
         app:menu="@menu/bottom_navigation_menu"
         android:layout_margin="15dp"
         />

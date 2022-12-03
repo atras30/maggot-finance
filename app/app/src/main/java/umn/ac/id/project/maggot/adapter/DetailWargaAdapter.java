@@ -8,6 +8,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
@@ -49,7 +50,7 @@ public class DetailWargaAdapter extends RecyclerView.Adapter<DetailWargaAdapter.
     public class DetailWargaViewHolder extends RecyclerView.ViewHolder {
         TextView namaPeternak, alamatPeternak;
         ImageView profilePicture;
-        ImageView delete;
+        CardView delete;
         public DetailWargaViewHolder(@NonNull View itemView) {
             super(itemView);
 

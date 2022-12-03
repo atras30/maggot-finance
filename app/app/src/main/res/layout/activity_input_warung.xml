@@ -7,7 +7,7 @@
     tools:context=".InputWarungActivity"
     android:background="@drawable/gradient_background_2">
     <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/textView"
+        android:id="@+id/back"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="30dp"
@@ -38,7 +38,7 @@
         android:layout_marginTop="35dp"
         android:text="Nama"
         android:textColor="@color/primary"
-        android:textSize="25dp"
+        android:textSize="20sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView2" />
@@ -63,7 +63,7 @@
         android:layout_marginTop="10dp"
         android:text="Email"
         android:textColor="@color/primary"
-        android:textSize="25dp"
+        android:textSize="20sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/etNamaWarung" />
@@ -88,7 +88,7 @@
         android:layout_marginTop="10dp"
         android:text="Alamat"
         android:textColor="@color/primary"
-        android:textSize="25dp"
+        android:textSize="20sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/etEmailWarung" />
@@ -113,7 +113,7 @@
         android:layout_marginTop="10dp"
         android:text="Nomor Telepon"
         android:textColor="@color/primary"
-        android:textSize="25dp"
+        android:textSize="20sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/etAlamatWarung" />
