@@ -38,6 +38,7 @@ import umn.ac.id.project.maggot.adapter.WarungSearchDropDownAdapter;
 import umn.ac.id.project.maggot.global.UserSharedPreference;
 import umn.ac.id.project.maggot.model.PeternakModel;
 import umn.ac.id.project.maggot.model.TransactionModel;
+import umn.ac.id.project.maggot.model.UserModel;
 import umn.ac.id.project.maggot.model.WarungModel;
 import umn.ac.id.project.maggot.retrofit.ApiService;
 
@@ -51,15 +52,41 @@ public class FarmerPaymentFragment extends Fragment {
     //QR Scanner
     ActivityResultLauncher<ScanOptions> barLauncher = registerForActivityResult(new ScanContract(), result -> {
         if(result.getContents() != null) {
-            AlertDialog.Builder builder = new AlertDialog.Builder(context);
-            builder.setTitle("Result");
-            builder.setMessage(result.getContents());
-            builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+            String scannedEmail = result.getContents();
+            InstantAutoComplete namaWarung = layoutView.findViewById(R.id.namawarung);
+            namaWarung.setText("Fetching Data...");
+
+            Log.i("Email", scannedEmail);
+            ApiService.endpoint().getUserByEmail(scannedEmail).enqueue(new Callback<UserModel>() {
                 @Override
-                public void onClick(DialogInterface dialog, int which) {
-                    dialog.dismiss();
+                public void onResponse(Call<UserModel> call, Response<UserModel> response) {
+                    if(response.isSuccessful()) {
+//                        List<UserModel.User> users = response.body().getUserByEmail();
+//                        Log.i("Users", users.toString());
+//                        UserModel.User user = users.get(0);
+//
+//                        Log.i("User", user.toString());
+//
+//                        InstantAutoComplete namaWarung = layoutView.findViewById(R.id.namawarung);
+//                        TextView emailWarung = layoutView.findViewById(R.id.edittext_email_warga);
+//                        namaWarung.setText(user.getFull_name());
+//                        emailWarung.setText(user.getEmail());
+                    } else {
+                        try {
+                            Toast.makeText(context, response.errorBody().string(), Toast.LENGTH_SHORT).show();
+                            Log.i("Error", response.errorBody().string());
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    }
                 }
-            }).show();
+
+                @Override
+                public void onFailure(Call<UserModel> call, Throwable t) {
+                    Toast.makeText(context, t.getMessage(), Toast.LENGTH_SHORT).show();
+                    Log.i("Error", t.getMessage());
+                }
+            });
         }
     });
 

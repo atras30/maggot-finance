@@ -97,7 +97,7 @@ class UserController extends Controller
 
     public function getUserByEmail($email)
     {
-        $user = User::where('email', $email)->get();
+        $user = User::where('email', $email)->get()->first;
 
         if (!$user->count()) {
             return response()->json(

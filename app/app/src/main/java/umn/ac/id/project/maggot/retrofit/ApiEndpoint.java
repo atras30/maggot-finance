@@ -7,6 +7,7 @@ import retrofit2.http.GET;
 import retrofit2.http.Header;
 import retrofit2.http.Headers;
 import retrofit2.http.POST;
+import retrofit2.http.Path;
 import retrofit2.http.Query;
 import umn.ac.id.project.maggot.model.ApprovalRejectionModel;
 import umn.ac.id.project.maggot.model.AuthenticationModel;
@@ -26,6 +27,9 @@ public interface ApiEndpoint {
 
     @GET("user/role/farmer")
     Call<UserModel> getUsers();
+
+    @GET("user/email/{email}")
+    Call<UserModel> getUserByEmail(@Path("email") String email);
 
     @GET("user/role/shop")
     Call<WarungModel> getWarung();

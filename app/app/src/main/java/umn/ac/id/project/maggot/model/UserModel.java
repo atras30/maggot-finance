@@ -19,6 +19,10 @@ public class UserModel {
         return user;
     }
 
+    public List<User> getUserByEmail() {
+        return users;
+    }
+
     public class User {
         private int id;
         private String full_name;
