@@ -20,6 +20,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.navigation.NavigationBarView;
+import com.google.android.material.snackbar.Snackbar;
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.MultiFormatWriter;
 import com.google.zxing.WriterException;
@@ -49,6 +50,9 @@ public class DashboardWarungActivity extends AppCompatActivity {
                         break;
                     case R.id.transaksiwarung:
                         selectedFragment = new ShopTransactionFragment(DashboardWarungActivity.this);
+                        break;
+                    case R.id.notifikasiwarung:
+                        selectedFragment = new NotifikasiWarungPengelolaFragment(DashboardWarungActivity.this);
                         break;
                 }
 

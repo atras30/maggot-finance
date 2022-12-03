@@ -8,4 +8,8 @@
         android:id="@+id/transaksiwarung"
         android:icon="@drawable/ic_transaction"
         android:title="Transaksi"/>
+    <item
+        android:id="@+id/notifikasiwarung"
+        android:icon="@drawable/ic_confirmation"
+        android:title="Konfirmasi"/>
 </menu>

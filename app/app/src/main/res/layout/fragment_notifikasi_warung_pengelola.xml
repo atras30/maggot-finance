@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".NotificationUserFragment">
+    tools:context=".NotifikasiWarungPengelolaFragment">
 
     <TextView
         android:id="@+id/farmer_transaction_title"
@@ -19,7 +19,7 @@
 
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/farmer_confirmation_recycler_view"
+        android:id="@+id/warung_confirmation_recycler_view"
         android:layout_marginTop="10dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

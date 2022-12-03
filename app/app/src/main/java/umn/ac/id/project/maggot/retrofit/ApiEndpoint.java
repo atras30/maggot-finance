@@ -90,4 +90,9 @@ public interface ApiEndpoint {
     @Headers("Accept: application/json")
     @POST("notifications/trash-manager/withdrawal/farmer")
     Call<NotificationUserModel> createFarmerWithdrawalRequest(@Field("farmer_email") String farmerEmail, @Field("withdrawal_amount") double withdrawalAmount,@Header("Authorization") String token);
+
+    @FormUrlEncoded
+    @Headers("Accept: application/json")
+    @POST("notifications/trash-manager/withdrawal/shop")
+    Call<NotificationUserModel> createWarungWithdrawalRequest(@Field("farmer_email") String farmerEmail, @Field("withdrawal_amount") double withdrawalAmount,@Header("Authorization") String token);
 }

@@ -158,7 +158,7 @@
         </LinearLayout>
 
         <com.google.android.material.button.MaterialButton
-            android:id="@+id/materialButton4"
+            android:id="@+id/bayarSekarang"
             android:layout_width="match_parent"
             android:layout_height="55dp"
             android:layout_marginHorizontal="5dp"
