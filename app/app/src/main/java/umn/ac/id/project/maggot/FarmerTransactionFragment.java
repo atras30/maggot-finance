@@ -2,7 +2,10 @@ package umn.ac.id.project.maggot;
 
 import android.app.Activity;
 import android.app.DatePickerDialog;
+import android.app.DownloadManager;
 import android.content.Context;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.appcompat.widget.SearchView;
@@ -14,6 +17,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -152,6 +156,18 @@ public class FarmerTransactionFragment extends Fragment {
                         }, currentYear, currentMonth, currentDay);
                 datePickerDialog.show();
             }
+        });
+
+        Button exportButton = view.findViewById(R.id.export_button);
+        exportButton.setOnClickListener(v -> {
+            Intent implicit = new Intent(Intent.ACTION_VIEW, Uri.parse("https://atras.my.id/"));
+            startActivity(implicit);
+
+//            DownloadManager manager = (DownloadManager) context.getSystemService(Context.DOWNLOAD_SERVICE);
+//            Uri uri = Uri.parse("https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf");
+//            DownloadManager.Request request = new DownloadManager.Request(uri);
+//            request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE);
+//            long reference = manager.enqueue(request);
         });
 
         return view;

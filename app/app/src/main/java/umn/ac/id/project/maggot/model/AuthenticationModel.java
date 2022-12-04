@@ -22,6 +22,10 @@ public class AuthenticationModel {
         return new Result(token, message, user);
     }
 
+    public ResultTrashManager refreshTokenTrashManager() {
+        return new ResultTrashManager(token, message, trash_manager);
+    }
+
     public String registerUser() {
         return message;
     }

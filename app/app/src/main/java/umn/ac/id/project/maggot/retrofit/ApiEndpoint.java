@@ -23,6 +23,9 @@ public interface ApiEndpoint {
     @GET("auth/user")
     Call<UserModel> getUser(@Header("Authorization") String authorization);
 
+    @GET("auth/user")
+    Call<TrashManagerModel> updateTrashManagerData(@Header("Authorization") String authorization);
+
     @GET("user/role/farmer")
     Call<PeternakModel> getPeternak();
 

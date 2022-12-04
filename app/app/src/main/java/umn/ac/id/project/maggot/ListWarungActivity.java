@@ -65,8 +65,8 @@ public class ListWarungActivity extends AppCompatActivity {
             @Override
             public void onItemClick(int position) {
                 detailWarungAdapter.notifyItemRemoved(position);
-                results.remove(position);
-                detailWarungAdapter.upToDate(results);
+                daftarWarungBinaan.remove(position);
+                detailWarungAdapter.upToDate(daftarWarungBinaan);
             }
         });
         recyclerView2.setLayoutManager(new LinearLayoutManager(ListWarungActivity.this));

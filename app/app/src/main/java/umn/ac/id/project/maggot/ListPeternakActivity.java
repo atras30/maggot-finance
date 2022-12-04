@@ -65,8 +65,8 @@ public class ListPeternakActivity extends AppCompatActivity {
             @Override
             public void onItemClick(int position) {
                 detailWargaAdapter.notifyItemRemoved(position);
-                results.remove(position);
-                detailWargaAdapter.upToDate(results);
+                daftarPeternak.remove(position);
+                detailWargaAdapter.upToDate(daftarPeternak);
             }
         });
         recyclerView.setLayoutManager(new LinearLayoutManager(ListPeternakActivity.this));

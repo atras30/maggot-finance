@@ -33,6 +33,11 @@ public class TrashManagerSharedPreference {
         editor.commit();
     }
 
+    public void updateTrashManager(TrashManagerModel.TrashManagers trashManager) {
+        editor.putString("authenticated_trash_manager", new Gson().toJson(trashManager));
+        editor.commit();
+    }
+
     public void logout() {
         editor.remove("authenticated_trash_manager");
         editor.remove("authenticated_trash_manager_token");

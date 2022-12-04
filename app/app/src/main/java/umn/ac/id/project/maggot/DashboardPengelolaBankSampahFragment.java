@@ -32,6 +32,7 @@ import com.google.zxing.WriterException;
 import com.google.zxing.common.BitMatrix;
 import com.journeyapps.barcodescanner.BarcodeEncoder;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -40,9 +41,11 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import umn.ac.id.project.maggot.adapter.ListWargaBinaanAdapter;
 import umn.ac.id.project.maggot.adapter.ListWarungBinaanAdapter;
+import umn.ac.id.project.maggot.global.Helper;
 import umn.ac.id.project.maggot.global.TrashManagerSharedPreference;
 import umn.ac.id.project.maggot.global.UserSharedPreference;
 import umn.ac.id.project.maggot.model.PeternakModel;
+import umn.ac.id.project.maggot.model.TrashManagerModel;
 import umn.ac.id.project.maggot.model.UserModel;
 import umn.ac.id.project.maggot.model.WarungModel;
 import umn.ac.id.project.maggot.retrofit.ApiService;
@@ -64,41 +67,68 @@ public class DashboardPengelolaBankSampahFragment extends Fragment {
     }
 
     @Override
+    public void onResume() {
+        super.onResume();
+
+        ApiService.endpoint().updateTrashManagerData("Bearer " + new TrashManagerSharedPreference(context).getToken()).enqueue(new Callback<TrashManagerModel>() {
+            @Override
+            public void onResponse(Call<TrashManagerModel> call, Response<TrashManagerModel> response) {
+                if(response.isSuccessful()) {
+                    TrashManagerModel.TrashManagers trashManager = response.body().updateTrashManagerData();
+                    new TrashManagerSharedPreference(context).updateTrashManager(trashManager);
+
+                    List<UserModel.User> allUsers = new TrashManagerSharedPreference(context).getTrashManager().getUsers();
+                    ArrayList<UserModel.User> daftarWargaBinaan = new ArrayList<>();
+                    ArrayList<UserModel.User> daftarWarungBinaan = new ArrayList<>();
+
+                    for (UserModel.User user : allUsers) {
+                        if(user.getRole().equalsIgnoreCase("farmer") && user.is_verified() == 1) {
+                            daftarWargaBinaan.add(user);
+                        } else if(user.getRole().equalsIgnoreCase("shop") && user.is_verified() == 1) {
+                            daftarWarungBinaan.add(user);
+                        }
+                    }
+
+                    getDataPeternak(view, daftarWargaBinaan);
+                    getDataWarung(view, daftarWarungBinaan);
+
+                    detailwarga = view.findViewById(R.id.lihatdaftarwarga);
+                    detailwarung = view.findViewById(R.id.lihatdaftarwarung);
+                    detailwarga.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            Intent intent = new Intent(context, ListPeternakActivity.class);
+                            startActivity(intent);
+                        }
+                    });
+                    detailwarung.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            Intent intent2 = new Intent(context, ListWarungActivity.class);
+                            startActivity(intent2);
+                        }
+                    });
+                } else {
+                    try {
+                        Toast.makeText(context, response.errorBody().string(), Toast.LENGTH_SHORT).show();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<TrashManagerModel> call, Throwable t) {
+                Toast.makeText(context, t.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_dashboard_pengelola_bank_sampah, container, false);
 
-        List<UserModel.User> allUsers = new TrashManagerSharedPreference(context).getTrashManager().getUsers();
-        ArrayList<UserModel.User> daftarWargaBinaan = new ArrayList<>();
-        ArrayList<UserModel.User> daftarWarungBinaan = new ArrayList<>();
-
-        for (UserModel.User user : allUsers) {
-            if(user.getRole().equalsIgnoreCase("farmer") && user.is_verified() == 1) {
-                daftarWargaBinaan.add(user);
-            } else if(user.getRole().equalsIgnoreCase("shop") && user.is_verified() == 1) {
-                daftarWarungBinaan.add(user);
-            }
-        }
-
         MaterialButton logoutButton = view.findViewById(R.id.logout_button);
-        getDataPeternak(view, daftarWargaBinaan);
-        getDataWarung(view, daftarWarungBinaan);
-//        populateLastData();
-        detailwarga = view.findViewById(R.id.lihatdaftarwarga);
-        detailwarung = view.findViewById(R.id.lihatdaftarwarung);
-        detailwarga.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(context, ListPeternakActivity.class);
-                startActivity(intent);
-            }
-        });
-        detailwarung.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent2 = new Intent(context, ListWarungActivity.class);
-                startActivity(intent2);
-            }
-        });
 
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN).requestEmail().build();
         GoogleSignInClient gsc = GoogleSignIn.getClient(context, gso);

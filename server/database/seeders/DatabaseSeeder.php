@@ -194,6 +194,7 @@ class DatabaseSeeder extends Seeder
                         $trashManagers[
                             fake()->numberBetween(0, $maxTrashManagerIndex)
                         ]->id,
+                    'is_verified' => 1
                 ];
             } else {
                 $validated = [
@@ -209,6 +210,7 @@ class DatabaseSeeder extends Seeder
                         $trashManagers[
                             fake()->numberBetween(0, $maxTrashManagerIndex)
                         ]->id,
+                    'is_verified' => 1
                 ];
             }
 

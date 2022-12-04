@@ -10,9 +10,14 @@ import umn.ac.id.project.maggot.global.Helper;
 
 public class TrashManagerModel {
     private List<TrashManagers> trash_managers;
+    private TrashManagers user;
 
     public List<TrashManagers> getTrashManager() {
         return trash_managers;
+    }
+
+    public TrashManagers updateTrashManagerData() {
+        return user;
     }
 
     public static class TrashManagers {
