@@ -61,6 +61,14 @@ public class ListWarungActivity extends AppCompatActivity {
         DetailWarungAdapter detailWarungAdapter = new DetailWarungAdapter(ListWarungActivity.this, daftarWarungBinaan);
         RecyclerView recyclerView2 = findViewById(R.id.listWarungRecyclerView);
         recyclerView2.setAdapter(detailWarungAdapter);
+        detailWarungAdapter.setOnItemClickListener(new DetailWarungAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(int position) {
+                detailWarungAdapter.notifyItemRemoved(position);
+                results.remove(position);
+                detailWarungAdapter.upToDate(results);
+            }
+        });
         recyclerView2.setLayoutManager(new LinearLayoutManager(ListWarungActivity.this));
 
         fab.setOnClickListener(new View.OnClickListener() {

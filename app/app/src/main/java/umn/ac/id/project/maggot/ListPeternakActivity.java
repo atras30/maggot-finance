@@ -61,6 +61,14 @@ public class ListPeternakActivity extends AppCompatActivity {
         DetailWargaAdapter detailWargaAdapter = new DetailWargaAdapter(ListPeternakActivity.this, daftarPeternak);
         RecyclerView recyclerView = findViewById(R.id.listPeternakRecyclerView);
         recyclerView.setAdapter(detailWargaAdapter);
+        detailWargaAdapter.setOnItemClickListener(new DetailWargaAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(int position) {
+                detailWargaAdapter.notifyItemRemoved(position);
+                results.remove(position);
+                detailWargaAdapter.upToDate(results);
+            }
+        });
         recyclerView.setLayoutManager(new LinearLayoutManager(ListPeternakActivity.this));
 
         fab.setOnClickListener(new View.OnClickListener() {
