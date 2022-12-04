@@ -122,7 +122,6 @@ public class RegisterActivity extends AppCompatActivity implements AdapterView.O
             @Override
             public void onFailure(Call<AuthenticationModel> call, Throwable t) {
                 Log.i("Failure", t.getMessage().toString());
-                Log.i("Failure", "Gagal Cuk");
             }
         });
     }

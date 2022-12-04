@@ -177,8 +177,7 @@
         <Button
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:text="Export"
-            android:textSize="10sp"></Button>
+            android:text="Ekspor"></Button>
     </LinearLayout>
 
     <androidx.recyclerview.widget.RecyclerView

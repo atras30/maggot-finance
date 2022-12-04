@@ -42,7 +42,6 @@ public class HomePagePengelolaBankSampah extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home_page_pengelola_bank_sampah);
 
-
         getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new DashboardPengelolaBankSampahFragment(this)).commit();
 
         BottomNavigationView bottomNavigation = findViewById(R.id.bottom_navigation_container);

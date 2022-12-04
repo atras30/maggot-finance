@@ -21,6 +21,8 @@ import android.widget.Toast;
 import com.google.android.material.button.MaterialButton;
 
 import java.io.IOException;
+import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -141,7 +143,14 @@ public class BuyMaggotFragment extends Fragment {
                         return;
                     }
                     TextView totalHarga = view.findViewById(R.id.textView5);
-                    totalHarga.setText("Rp. " + String.valueOf(Double.parseDouble(buttons[0].getText().toString()) * Double.parseDouble(buttons[1].getText().toString())));
+                    DecimalFormatSymbols formatid = new DecimalFormatSymbols();
+
+                    formatid.setMonetaryDecimalSeparator(',');
+                    formatid.setGroupingSeparator('.');
+
+                    DecimalFormat df = new DecimalFormat("#,###.00", formatid);
+
+                    totalHarga.setText("Rp " + df.format(Double.parseDouble(buttons[0].getText().toString()) * Double.parseDouble(buttons[1].getText().toString())));
                 }
 
                 @Override

@@ -80,7 +80,6 @@ public class ApprovalRejectionAdapter extends RecyclerView.Adapter<ApprovalRejec
                         ApiService.endpoint().approvalUserRegistration(users.get(position).getEmail()).enqueue(new Callback<ApprovalRejectionModel>() {
                             @Override
                             public void onResponse(Call<ApprovalRejectionModel> call, Response<ApprovalRejectionModel> response) {
-                                Log.d("Debug2", position+"");
                                 String message = response.body().approvalUserRegistration();
                                 Toast.makeText(context, message, Toast.LENGTH_LONG).show();
                                 listener.onItemClick(position);

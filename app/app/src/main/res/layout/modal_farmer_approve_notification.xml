@@ -11,10 +11,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:text="Konfirmasi Terima Uang"
+        android:layout_marginTop="20dp"
+        android:text="Konfirmasi"
         android:textSize="30dp"
-        android:textStyle="bold"
-        android:layout_marginTop="20dp" />
+        android:textStyle="bold" />
 
     <TextView
         android:id="@+id/tvPanjang"

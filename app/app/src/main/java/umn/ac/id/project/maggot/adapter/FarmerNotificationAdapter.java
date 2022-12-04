@@ -62,7 +62,7 @@ public class FarmerNotificationAdapter extends RecyclerView.Adapter<FarmerNotifi
 
     @Override
     public void onBindViewHolder(@NonNull ListApprovalRejectionViewHolder holder, @SuppressLint("RecyclerView") int position) {
-        holder.type.setText(notifications.get(position).getType());
+        holder.type.setText("Penarikan dana");
         holder.totalAmount.setText("Rp. " + notifications.get(position).getWithdrawal_amount());
 
 //        Modal Dialog On CLick Listener
@@ -72,7 +72,7 @@ public class FarmerNotificationAdapter extends RecyclerView.Adapter<FarmerNotifi
                 AlertDialog.Builder myBuild = new AlertDialog.Builder(context);
                 View myView = ((Activity)context).getLayoutInflater().inflate(R.layout.modal_farmer_approve_notification, null);
                 TextView tvNama = myView.findViewById(R.id.tvPanjang);
-                tvNama.setText("Anda yakin ingin melakukan konfirmasi pengambilan uang sebesar Rp. " + notifications.get(position).getWithdrawal_amount() + " ?");
+                tvNama.setText("Apakah Anda yakin ingin melakukan konfirmasi pengambilan uang sebesar Rp. " + notifications.get(position).getWithdrawal_amount() + "?");
                 Button btnSubmit = myView.findViewById(R.id.btnkonf);
                 Button btnBatal = myView.findViewById(R.id.btnbatal);
 
@@ -111,7 +111,6 @@ public class FarmerNotificationAdapter extends RecyclerView.Adapter<FarmerNotifi
                 btnBatal.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Toast.makeText(context, "Cancel Button", Toast.LENGTH_SHORT).show();
                         dialog.hide();
                     }
                 });
@@ -124,7 +123,7 @@ public class FarmerNotificationAdapter extends RecyclerView.Adapter<FarmerNotifi
                 AlertDialog.Builder myBuild = new AlertDialog.Builder(context);
                 View myView = ((Activity)context).getLayoutInflater().inflate(R.layout.modal_farmer_reject_notification, null);
                 TextView tvNama = myView.findViewById(R.id.tvPanjang);
-                tvNama.setText("Anda yakin ingin melakukan pembatalan request pengambilan uang sebesar Rp. "+ notifications.get(position).getWithdrawal_amount() +" ?");
+                tvNama.setText("Apakah Anda yakin ingin melakukan pembatalan pengambilan uang sebesar Rp. "+ notifications.get(position).getWithdrawal_amount() +"?");
                 Button btnSubmit = myView.findViewById(R.id.btnkonf);
                 Button btnBatal = myView.findViewById(R.id.btnbatal);
 

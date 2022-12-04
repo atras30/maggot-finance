@@ -93,7 +93,7 @@ public class FarmerDashboardFragment extends Fragment {
         DecimalFormat df = new DecimalFormat("#,###.00", formatid);
 
         df.setDecimalFormatSymbols(formatid);
-        
+
         btnSecret.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
