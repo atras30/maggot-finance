@@ -229,7 +229,7 @@ public class FarmerPaymentFragment extends Fragment {
 
     private void scanCode() {
         ScanOptions options = new ScanOptions();
-        options.setPrompt("Tekan Volume atas untuk menyalakan flash");
+        options.setPrompt(" Tekan tombol volume atas untuk menyalakan flash\nTekan tombol volume bawah untuk mematikan flash\n\n");
         options.setBeepEnabled(true);
         options.setOrientationLocked(true);
         options.setCaptureActivity(CaptureAct.class);

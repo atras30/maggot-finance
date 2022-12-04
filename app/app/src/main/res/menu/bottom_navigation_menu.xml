@@ -18,5 +18,5 @@
     <item
         android:id="@+id/notif"
         android:icon="@drawable/ic_confirmation"
-        android:title="Konfirmasi" />
+        android:title="Notifikasi" />
 </menu>
