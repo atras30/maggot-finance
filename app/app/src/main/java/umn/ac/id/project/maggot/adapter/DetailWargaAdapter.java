@@ -30,6 +30,7 @@ import umn.ac.id.project.maggot.retrofit.ApiService;
 public class DetailWargaAdapter extends RecyclerView.Adapter<DetailWargaAdapter.DetailWargaViewHolder> {
     Context context;
     private ArrayList<UserModel.User> peternak;
+    private OnItemClickListener listener;
 
     public DetailWargaAdapter(Context context, ArrayList<UserModel.User> peternak) {
         this.context = context;

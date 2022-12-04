@@ -41,6 +41,7 @@ public class UserModel {
             return is_verified;
         }
 
+        public int getId() {return id;}
         public String getFull_name() {
             return full_name;
         }

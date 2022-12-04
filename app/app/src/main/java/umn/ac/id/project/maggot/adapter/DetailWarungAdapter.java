@@ -32,7 +32,8 @@ import umn.ac.id.project.maggot.retrofit.ApiService;
 public class DetailWarungAdapter extends RecyclerView.Adapter<DetailWarungAdapter.DetailWarungViewHolder> {
     Context context;
     private ArrayList<UserModel.User> warung;
-
+    private OnItemClickListener listener;
+    
     public DetailWarungAdapter(Context context, ArrayList<UserModel.User> warung) {
         this.context = context;
         this.warung = warung;
