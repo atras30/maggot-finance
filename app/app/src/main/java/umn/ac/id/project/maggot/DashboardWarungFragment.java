@@ -30,6 +30,7 @@ import com.journeyapps.barcodescanner.BarcodeEncoder;
 
 import org.w3c.dom.Text;
 
+import java.io.IOException;
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
 import java.util.Formatter;
@@ -37,14 +38,15 @@ import java.util.Formatter;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+import umn.ac.id.project.maggot.global.Helper;
 import umn.ac.id.project.maggot.global.UserSharedPreference;
+import umn.ac.id.project.maggot.model.AuthenticationModel;
 import umn.ac.id.project.maggot.model.UserModel;
 import umn.ac.id.project.maggot.retrofit.ApiService;
 
 public class DashboardWarungFragment extends Fragment {
     private Context context;
     UserSharedPreference userSharedPreference;
-    ImageButton btnSecret;
     TextView tvSaldo;
 
     Toast toast = null;
@@ -61,9 +63,55 @@ public class DashboardWarungFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_dashboard_warung, container, false);
 
-        ImageView barcodeImage = view.findViewById(R.id.barcode_image);
+        UserSharedPreference userSharedPreference = new UserSharedPreference(context);
+        String authorizationToken = "Bearer " + userSharedPreference.getToken();
 
-        btnSecret = view.findViewById(R.id.buttonSecret);
+        ApiService.endpoint().refreshToken(authorizationToken).enqueue(new Callback<AuthenticationModel>() {
+            @Override
+            public void onResponse(Call<AuthenticationModel> call, Response<AuthenticationModel> response) {
+                if(response.isSuccessful()) {
+                    AuthenticationModel.Result result = response.body().refreshToken();
+                    userSharedPreference.setUser(result);
+
+                    UserModel.User user = result.getUser();
+
+                    try {
+                        TextView name = view.findViewById(R.id.namaWarung);
+                        TextView address = view.findViewById(R.id.alamatWarung);
+                        name.setText(user.getFull_name());
+                        address.setText(user.getAddress());
+                        ImageButton btnSecret = view.findViewById(R.id.buttonSecret);
+                        btnSecret.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                TextView tvSaldo = view.findViewById(R.id.saldoWarung);
+
+                                if(tvSaldo.getText().toString().contains("*")) {
+                                    tvSaldo.setText(Helper.formatRupiah(new UserSharedPreference(context).getUser().getBalance()));
+                                } else {
+                                    tvSaldo.setText("**********");
+                                }
+                            }
+                        });
+                    } catch (Exception e) {
+                        call.cancel();
+                    }
+                } else {
+                    try {
+                        Toast.makeText(context, response.errorBody().string(), Toast.LENGTH_SHORT).show();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<AuthenticationModel> call, Throwable t) {
+                Toast.makeText(context, t.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        ImageView barcodeImage = view.findViewById(R.id.barcode_image);
 
         tvSaldo = view.findViewById(R.id.saldoWarung);
         tvSaldo.setText("**********");
@@ -90,44 +138,6 @@ public class DashboardWarungFragment extends Fragment {
                     ((Activity)context).finish();
                 }
             });
-        });
-
-        btnSecret.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if(tvSaldo.getText().toString().contains("*")) {
-                    tvSaldo.setText(df.format(new UserSharedPreference(context).getUser().getBalance()));
-                }
-                else
-                {
-                    tvSaldo.setText("**********");
-                }
-            }
-        });
-
-        userSharedPreference = new UserSharedPreference(context);
-
-        String authorization = "Bearer " + userSharedPreference.getToken();
-        ApiService.endpoint().getUser(authorization).enqueue(new Callback<UserModel>() {
-            @Override
-            public void onResponse(Call<UserModel> call, Response<UserModel> response) {
-                if(response.isSuccessful()) {
-                    UserModel.User user = response.body().getUser();
-                    try {
-                        TextView name = view.findViewById(R.id.namaWarung);
-                        TextView address = view.findViewById(R.id.alamatWarung);
-                        name.setText(user.getFull_name());
-                        address.setText(user.getAddress());
-                    } catch (Exception e) {
-                        call.cancel();
-                    }
-                }
-            }
-
-            @Override
-            public void onFailure(Call<UserModel> call, Throwable t) {
-                Toast.makeText(context, t.getMessage(), Toast.LENGTH_SHORT).show();
-            }
         });
 
         try {

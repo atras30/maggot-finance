@@ -22,13 +22,13 @@
             android:id="@+id/type"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Konfirmasi Pengambilan Uang"
+            android:text="Type"
             android:maxLines="1"/>
         <TextView
             android:id="@+id/total_amount"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Total : Rp. 200000,00"/>
+            android:text="Total : Rp. 0,00"/>
     </LinearLayout>
 
 
@@ -39,7 +39,7 @@
         <com.google.android.material.button.MaterialButton
             android:id="@+id/confirm_button"
             android:layout_width="0dp"
-            android:layout_weight=".05"
+            android:layout_weight=".5"
             android:layout_height="40dp"
             android:text="Terima"
             android:textSize="10sp"
@@ -49,7 +49,7 @@
         <com.google.android.material.button.MaterialButton
             android:id="@+id/reject_button"
             android:layout_width="0dp"
-            android:layout_weight=".05"
+            android:layout_weight=".5"
             android:layout_height="40dp"
             android:backgroundTint="@color/danger"
             android:text="Tolak"

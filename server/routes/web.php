@@ -3,7 +3,11 @@
 use Illuminate\Support\Facades\Route;
 use App\Exports\UsersExport;
 use App\Http\Controllers\ExcelController;
+use App\Models\Transaction;
+use App\Models\User;
+use Illuminate\Support\Facades\Http;
 use Maatwebsite\Excel\Facades\Excel;
+use Carbon\Carbon;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,8 +20,5 @@ use Maatwebsite\Excel\Facades\Excel;
 |
 */
 
-// Route::get('/', function () {
-//     return Excel::download(new UsersExport, 'users.xlsx');
-// });
-
-Route::get('/', [ExcelController::class, "allTransactions"]);
+Route::get('/', );
+Route::get('/excel/export/{email}/{beginDate}/{endDate}', [ExcelController::class, "downloadReport"]);

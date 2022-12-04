@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('notifications', function (Blueprint $table) {
             $table->id();
-            $table->enum('type', ["farmer_withdrawal", "farmer_purchase"]);
+            $table->enum('type', ["farmer_withdrawal", "shop_withdrawal", "farmer_purchase"]);
             $table->string('token');
             $table->string('description')->default("");
             $table->double('weight_in_kg')->default(0);

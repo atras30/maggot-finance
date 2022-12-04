@@ -208,7 +208,7 @@ public class FarmerPaymentFragment extends Fragment {
             public void onResponse(Call<NotificationUserModel> call, Response<NotificationUserModel> response) {
                 if(response.isSuccessful()) {
                     String message = response.body().createShopBuyRequest();
-                    Toast.makeText(context, "Pembayaran Berhasil!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(context, "Request berhasil dibuat. Silahkan konfirmasi dari pihak Warung.", Toast.LENGTH_SHORT).show();
                 } else {
                     try {
                         TransactionModel.ErrorHandler error = new Gson().fromJson(response.errorBody().string(), TransactionModel.ErrorHandler.class);

@@ -67,7 +67,7 @@ public class FarmerDashboardFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_farmer_dashboard, container, false);
 
-//        Helper.refreshToken(context, view);
+        Helper.refreshToken(context, view);
 
         btnSecret = view.findViewById(R.id.buttonSecret);
 
@@ -83,15 +83,6 @@ public class FarmerDashboardFragment extends Fragment {
         tvSaldo = view.findViewById(R.id.angkaSaldo);
         tvSaldo.setText("**********");
 
-        DecimalFormatSymbols formatid = new DecimalFormatSymbols();
-
-        formatid.setMonetaryDecimalSeparator(',');
-        formatid.setGroupingSeparator('.');
-
-        DecimalFormat df = new DecimalFormat("#,###.00", formatid);
-
-        df.setDecimalFormatSymbols(formatid);
-
         logoutButton.setOnClickListener(v -> {
             GoogleAccount account = new GoogleAccount(context);
             account.signOut();
@@ -104,7 +95,7 @@ public class FarmerDashboardFragment extends Fragment {
             public void onClick(View v) {
                 tvSaldo = view.findViewById(R.id.angkaSaldo);
                 if (tvSaldo.getText().toString().contains("*")) {
-                    tvSaldo.setText(df.format(new UserSharedPreference(context).getUser().getBalance()));
+                    tvSaldo.setText(Helper.formatRupiah(new UserSharedPreference(context).getUser().getBalance()));
                 } else {
                     tvSaldo.setText("**********");
                 }

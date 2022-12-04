@@ -98,6 +98,16 @@ public interface ApiEndpoint {
     @FormUrlEncoded
     @Headers("Accept: application/json")
     @POST("notifications/farmer/withdrawal/reject")
+    Call<NotificationUserModel> rejectFarmerWithdrawalRequest(@Field("token") String token, @Header("Authorization") String authorizationToken);
+
+    @FormUrlEncoded
+    @Headers("Accept: application/json")
+    @POST("('/notifications/shop/farmer/purchase/reject")
+    Call<NotificationUserModel> rejectFarmerPurchaseRequest(@Field("token") String token, @Header("Authorization") String authorizationToken);
+
+    @FormUrlEncoded
+    @Headers("Accept: application/json")
+    @POST("notifications/farmer/withdrawal/reject")
     Call<NotificationUserModel> rejectWithdrawalRequest(@Field("token") String token, @Header("Authorization") String authorizationToken);
 
     @FormUrlEncoded
@@ -107,8 +117,23 @@ public interface ApiEndpoint {
 
     @FormUrlEncoded
     @Headers("Accept: application/json")
+    @POST("notifications/trash-manager/withdrawal/shop")
+    Call<NotificationUserModel> createShopWithdrawalRequest(@Field("shop_email") String farmerEmail, @Field("withdrawal_amount") double withdrawalAmount,@Header("Authorization") String token);
+
+    @FormUrlEncoded
+    @Headers("Accept: application/json")
     @POST("notifications/shop/farmer/purchase/approve")
     Call<NotificationUserModel> approveShopBuyRequest(@Field("token") String token, @Header("Authorization") String authorizationToken);
+
+    @FormUrlEncoded
+    @Headers("Accept: application/json")
+    @POST("notifications/shop/withdrawal/approve")
+    Call<NotificationUserModel> approveShopWithdrawalRequest(@Field("token") String token, @Header("Authorization") String authorizationToken);
+
+    @FormUrlEncoded
+    @Headers("Accept: application/json")
+    @POST("notifications/shop/withdrawal/reject")
+    Call<NotificationUserModel> rejectShopWithdrawalRequest(@Field("token") String token, @Header("Authorization") String authorizationToken);
 
     @FormUrlEncoded
     @Headers("Accept: application/json")

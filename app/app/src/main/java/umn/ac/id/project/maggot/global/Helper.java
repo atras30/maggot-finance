@@ -3,10 +3,13 @@ package umn.ac.id.project.maggot.global;
 import android.content.Context;
 import android.util.Log;
 import android.view.View;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.IOException;
+import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -16,6 +19,7 @@ import retrofit2.Response;
 import umn.ac.id.project.maggot.R;
 import umn.ac.id.project.maggot.model.AuthenticationModel;
 import umn.ac.id.project.maggot.model.TrashManagerModel;
+import umn.ac.id.project.maggot.model.UserModel;
 import umn.ac.id.project.maggot.retrofit.ApiService;
 
 public class Helper {
@@ -50,7 +54,7 @@ public class Helper {
                     if (userSharedPreference.getUser() != null) {
                         name.setText(userSharedPreference.getUser().getFull_name());
                         address.setText(userSharedPreference.getUser().getAddress());
-                        balance.setText(String.valueOf(userSharedPreference.getUser().getBalance()));
+                        balance.setText("**********");
                     }
                 } else {
                     try {
@@ -66,5 +70,18 @@ public class Helper {
                 Toast.makeText(context, t.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
+    }
+
+    public static String formatRupiah(double number) {
+        DecimalFormatSymbols formatid = new DecimalFormatSymbols();
+
+        formatid.setMonetaryDecimalSeparator(',');
+        formatid.setGroupingSeparator('.');
+
+        DecimalFormat df = new DecimalFormat("#,###.00", formatid);
+
+        df.setDecimalFormatSymbols(formatid);
+
+        return df.format(number);
     }
 }

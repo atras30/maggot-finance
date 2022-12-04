@@ -46,9 +46,17 @@ class TransactionController extends Controller
             return response()->json([
                 'data' => $transactionHistory,
             ]);
-        } elseif ($user->role == 'farmer') {
+        } else if ($user->role == 'farmer') {
             $transactionHistory = Transaction::where('farmer_id', $user->id)
                 ->where('transaction_type', 'farmer_transaction')
+                ->orderBy('created_at', 'desc')
+                ->get();
+            return response()->json([
+                'data' => $transactionHistory,
+            ]);
+        } else if ($user->role == 'shop') {
+            $transactionHistory = Transaction::where('shop_id', $user->id)
+                ->where('transaction_type', 'shop_transaction')
                 ->orderBy('created_at', 'desc')
                 ->get();
             return response()->json([
@@ -78,11 +86,17 @@ class TransactionController extends Controller
 
         $farmer = User::findOrFail($notification->farmer_id);
 
+        if($farmer->balance - $notification->withdrawal_amount < 0) {
+            return response()->json([
+                "message" => "Insufficent Balance."
+            ], Response::HTTP_NOT_ACCEPTABLE);
+        }
+
         try {
             $farmer->balance -= $notification->withdrawal_amount;
 
             $farmerTransactions = Transaction::create([
-                'type' => "income",
+                'type' => "expense",
                 'transaction_type' => 'farmer_transaction',
                 "description" => "Pencairan Uang",
                 'total_amount' => $notification->withdrawal_amount,
@@ -212,6 +226,34 @@ class TransactionController extends Controller
         return response()->json(
             [
                 'message' => 'Purchase Success.',
+            ],
+            Response::HTTP_OK
+        );
+    }
+
+    public function rejectFarmerPurchase(Request $request) {
+        $this->deleteExpiredTokens();
+
+        $validated = $request->validate([
+            'token' => 'string|required',
+        ]);
+
+        $notification = Notification::firstWhere('token', $validated['token']);
+
+        if (!$notification) {
+            return response()->json(
+                [
+                    'message' => 'Token Expired.',
+                ],
+                Response::HTTP_NOT_FOUND
+            );
+        }
+
+        $notification->delete();
+
+        return response()->json(
+            [
+                'message' => 'Request Successfully Deleted.',
             ],
             Response::HTTP_OK
         );

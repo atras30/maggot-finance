@@ -68,10 +68,8 @@ public class FarmerNotificationFragment extends Fragment {
                     recyclerView.setLayoutManager(new LinearLayoutManager(context));
                 } else {
                     try {
-                        Log.i("Error 2", response.errorBody().string());
                         Toast.makeText(context, response.errorBody().string(), Toast.LENGTH_SHORT).show();
                     } catch (IOException e) {
-                        Log.i("Error 2", e.getMessage());
                         e.printStackTrace();
                     }
                 }

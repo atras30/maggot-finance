@@ -57,7 +57,7 @@ public class WarungNotificationAdapter extends RecyclerView.Adapter<WarungNotifi
 
     @Override
     public void onBindViewHolder(@NonNull ListApprovalRejectionViewHolder holder, @SuppressLint("RecyclerView") int position) {
-        if(notifications.get(position).getType() == "shop_withdrawal") {
+        if(notifications.get(position).getType().equalsIgnoreCase("shop_withdrawal")) {
             holder.type.setText("Penarikan dana");
             holder.totalAmount.setText("Rp. " + notifications.get(position).getWithdrawal_amount());
             holder.approveButton.setOnClickListener(new View.OnClickListener() {
@@ -79,11 +79,11 @@ public class WarungNotificationAdapter extends RecyclerView.Adapter<WarungNotifi
                     btnSubmit.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            ApiService.endpoint().approveShopBuyRequest(notifications.get(position).getToken(), "Bearer " + new UserSharedPreference(context).getToken()).enqueue(new Callback<NotificationUserModel>() {
+                            ApiService.endpoint().approveShopWithdrawalRequest(notifications.get(position).getToken(), "Bearer " + new UserSharedPreference(context).getToken()).enqueue(new Callback<NotificationUserModel>() {
                                 @Override
                                 public void onResponse(Call<NotificationUserModel> call, Response<NotificationUserModel> response) {
                                     if(response.isSuccessful()) {
-                                        String message = response.body().approveShopBuyRequest();
+                                        String message = response.body().approveShopWithdrawalRequest();
                                         Toast.makeText(context, message, Toast.LENGTH_LONG).show();
                                         listener.onItemClick(position);
                                     } else {
@@ -130,11 +130,11 @@ public class WarungNotificationAdapter extends RecyclerView.Adapter<WarungNotifi
                     btnSubmit.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            ApiService.endpoint().rejectShopBuyRequest(notifications.get(position).getToken(), "Bearer " + new UserSharedPreference(context).getToken()).enqueue(new Callback<NotificationUserModel>() {
+                            ApiService.endpoint().rejectShopWithdrawalRequest(notifications.get(position).getToken(), "Bearer " + new UserSharedPreference(context).getToken()).enqueue(new Callback<NotificationUserModel>() {
                                 @Override
                                 public void onResponse(Call<NotificationUserModel> call, Response<NotificationUserModel> response) {
                                     if(response.isSuccessful()) {
-                                        String message = response.body().rejectShopBuyRequest();
+                                        String message = response.body().rejectShopWithdrawalRequest();
                                         Toast.makeText(context, message, Toast.LENGTH_LONG).show();
                                         listener.onItemClick(position);
                                     } else {
@@ -165,7 +165,7 @@ public class WarungNotificationAdapter extends RecyclerView.Adapter<WarungNotifi
                 }
             });
         }
-        else if(notifications.get(position).getType() == "farmer_purchase") {
+        else if(notifications.get(position).getType().equalsIgnoreCase("farmer_purchase")) {
             holder.type.setText("Pembelian sembako");
             holder.totalAmount.setText("Rp. " + notifications.get(position).getTotal_amount());
             holder.approveButton.setOnClickListener(new View.OnClickListener() {

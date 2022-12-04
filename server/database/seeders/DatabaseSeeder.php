@@ -76,7 +76,7 @@ class DatabaseSeeder extends Seeder
             'role' => 'farmer',
             'balance' => 0,
             'address' => 'VMP c5/14',
-            'trash_manager_id' => 3,
+            'trash_manager_id' => 4,
             'is_verified' => 1,
         ]);
         User::create([
@@ -85,7 +85,7 @@ class DatabaseSeeder extends Seeder
             'role' => 'farmer',
             'balance' => 500000,
             'address' => 'VMP c5/14',
-            'trash_manager_id' => 1,
+            'trash_manager_id' => 4,
             'is_verified' => 1,
         ]);
         User::create([
@@ -95,7 +95,7 @@ class DatabaseSeeder extends Seeder
             'role' => 'shop',
             'balance' => 15000000.234,
             'address' => 'VMP c5/14',
-            'trash_manager_id' => 1,
+            'trash_manager_id' => 4,
             'is_verified' => 1,
         ]);
 
@@ -105,7 +105,7 @@ class DatabaseSeeder extends Seeder
             'role' => 'farmer',
             'balance' => 50000,
             'address' => fake()->address(),
-            'trash_manager_id' => 1,
+            'trash_manager_id' => 4,
         ]);
 
         User::create([
@@ -115,7 +115,7 @@ class DatabaseSeeder extends Seeder
             'shop_name' => fake()->company(),
             'balance' => 50000,
             'address' => fake()->address(),
-            'trash_manager_id' => 1,
+            'trash_manager_id' => 4,
         ]);
 
         User::create([
@@ -125,7 +125,7 @@ class DatabaseSeeder extends Seeder
             'shop_name' => fake()->company(),
             'balance' => 50000,
             'address' => 'Universitas Multimedia Nusantara',
-            'trash_manager_id' => 1,
+            'trash_manager_id' => 4,
             'is_verified' => 1,
         ]);
 
@@ -140,9 +140,7 @@ class DatabaseSeeder extends Seeder
 
             $trashmanagers = TrashManager::all();
             $trashManagerId =
-                $trashmanagers[
-                    fake()->numberBetween(0, $trashmanagers->count() - 1)
-                ]->id;
+                $trashmanagers[fake()->numberBetween(0, $trashmanagers->count() - 1)]->id;
 
             $description = fake()->words(3, true);
             $createdAt = now()->subDay(fake()->numberBetween(0, 60));
@@ -191,9 +189,8 @@ class DatabaseSeeder extends Seeder
                     'phone_number' => fake()->phoneNumber(),
                     'address' => fake()->address(),
                     'trash_manager_id' =>
-                        $trashManagers[
-                            fake()->numberBetween(0, $maxTrashManagerIndex)
-                        ]->id,
+                    $trashManagers[fake()->numberBetween(0, $maxTrashManagerIndex)]->id,
+                    'is_verified' => 1
                 ];
             } else {
                 $validated = [
@@ -206,9 +203,8 @@ class DatabaseSeeder extends Seeder
                     'phone_number' => fake()->phoneNumber(),
                     'address' => fake()->address(),
                     'trash_manager_id' =>
-                        $trashManagers[
-                            fake()->numberBetween(0, $maxTrashManagerIndex)
-                        ]->id,
+                    $trashManagers[fake()->numberBetween(0, $maxTrashManagerIndex)]->id,
+                    'is_verified' => 1
                 ];
             }
 

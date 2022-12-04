@@ -65,7 +65,7 @@ public class TransactionPengelolaBankSampahFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_pengelolabanksampah_transaction, container, false);
         Button exportButton = view.findViewById(R.id.export_button);
         exportButton.setOnClickListener(v -> {
-            Intent implicit = new Intent(Intent.ACTION_VIEW, Uri.parse("https://atras.my.id/"));
+            Intent implicit = new Intent(Intent.ACTION_VIEW, Uri.parse("https://atras.my.id/excel/export/" + new TrashManagerSharedPreference(context).getTrashManager().getEmail() + "/" + tanggalawal.getTime() + "/" + tanggalakhir.getTime()));
             startActivity(implicit);
         });
         ApiService.endpoint().getTransactions(new TrashManagerSharedPreference(context).getTrashManager().getEmail()).enqueue(new Callback<TransactionModel>() {
@@ -118,7 +118,6 @@ public class TransactionPengelolaBankSampahFragment extends Fragment {
         selectDate1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view){
-
                 DatePickerDialog datePickerDialog = new DatePickerDialog(context,
                         new DatePickerDialog.OnDateSetListener() {
                             @Override
@@ -165,7 +164,6 @@ public class TransactionPengelolaBankSampahFragment extends Fragment {
                 datePickerDialog.show();
             }
         });
-
 
         return view;
     }

@@ -178,7 +178,7 @@
             android:id="@+id/export_button"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:text="Ekspor"></Button>
+            android:text="Download Transaksi"/>
     </LinearLayout>
 
     <androidx.recyclerview.widget.RecyclerView

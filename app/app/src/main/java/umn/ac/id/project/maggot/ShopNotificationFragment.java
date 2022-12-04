@@ -21,13 +21,9 @@ import java.util.ArrayList;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import umn.ac.id.project.maggot.adapter.ApprovalRejectionAdapter;
 import umn.ac.id.project.maggot.adapter.WarungNotificationAdapter;
-import umn.ac.id.project.maggot.adapter.WarungSearchDropDownAdapter;
 import umn.ac.id.project.maggot.global.UserSharedPreference;
 import umn.ac.id.project.maggot.model.NotificationUserModel;
-import umn.ac.id.project.maggot.model.WarungModel;
-import umn.ac.id.project.maggot.retrofit.ApiEndpoint;
 import umn.ac.id.project.maggot.retrofit.ApiService;
 
 public class ShopNotificationFragment extends Fragment {
@@ -51,8 +47,6 @@ public class ShopNotificationFragment extends Fragment {
             public void onResponse(Call<NotificationUserModel> call, Response<NotificationUserModel> response) {
                 if(response.isSuccessful()) {
                     ArrayList<NotificationUserModel.Notification> results = response.body().getAllNotifications();
-
-                    Log.i("Notifications", results.toString());
 
                     RecyclerView recyclerView = view.findViewById(R.id.rvNotifWarung);
                     WarungNotificationAdapter warungNotificationAdapter = new WarungNotificationAdapter(context, results);

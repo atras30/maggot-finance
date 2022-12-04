@@ -134,16 +134,15 @@ public class FarmerNotificationAdapter extends RecyclerView.Adapter<FarmerNotifi
                 btnSubmit.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        ApiService.endpoint().rejectWithdrawalRequest(notifications.get(position).getToken(), "Bearer " + new UserSharedPreference(context).getToken()).enqueue(new Callback<NotificationUserModel>() {
+                        ApiService.endpoint().rejectFarmerWithdrawalRequest(notifications.get(position).getToken(), "Bearer " + new UserSharedPreference(context).getToken()).enqueue(new Callback<NotificationUserModel>() {
                             @Override
                             public void onResponse(Call<NotificationUserModel> call, Response<NotificationUserModel> response) {
                                 if(response.isSuccessful()) {
-                                    String message = response.body().rejectWithdrawalRequest();
+                                    String message = response.body().rejectFarmerWithdrawalRequest();
                                     Toast.makeText(context, message, Toast.LENGTH_LONG).show();
                                     listener.onItemClick(position);
                                 } else {
                                     try {
-                                        Log.i("Error", response.errorBody().string());
                                         Toast.makeText(context, response.errorBody().string(), Toast.LENGTH_SHORT).show();
                                     } catch (IOException e) {
                                         e.printStackTrace();

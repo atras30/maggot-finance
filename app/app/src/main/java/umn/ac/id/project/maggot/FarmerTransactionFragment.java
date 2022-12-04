@@ -35,6 +35,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import umn.ac.id.project.maggot.adapter.FarmerTransactionAdapter;
 import umn.ac.id.project.maggot.adapter.ShopTransactionAdapter;
+import umn.ac.id.project.maggot.global.TrashManagerSharedPreference;
 import umn.ac.id.project.maggot.global.UserSharedPreference;
 import umn.ac.id.project.maggot.model.TransactionModel;
 import umn.ac.id.project.maggot.retrofit.ApiService;
@@ -68,6 +69,10 @@ public class FarmerTransactionFragment extends Fragment {
             public void onResponse(Call<TransactionModel> call, Response<TransactionModel> response) {
                 if(response.isSuccessful()) {
                     List<TransactionModel.Transaction> transactions = response.body().getTransactions();
+
+                    if(transactions == null) {
+                        return;
+                    }
 
                     try {
                         FarmerTransactionAdapter farmerTransactionAdapter = new FarmerTransactionAdapter(context, transactions);
@@ -160,14 +165,8 @@ public class FarmerTransactionFragment extends Fragment {
 
         Button exportButton = view.findViewById(R.id.export_button);
         exportButton.setOnClickListener(v -> {
-            Intent implicit = new Intent(Intent.ACTION_VIEW, Uri.parse("https://atras.my.id/"));
+            Intent implicit = new Intent(Intent.ACTION_VIEW, Uri.parse("https://atras.my.id/excel/export/" + new UserSharedPreference(context).getUser().getEmail() + "/" + tanggalawal.getTime() + "/" + tanggalakhir.getTime()));
             startActivity(implicit);
-
-//            DownloadManager manager = (DownloadManager) context.getSystemService(Context.DOWNLOAD_SERVICE);
-//            Uri uri = Uri.parse("https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf");
-//            DownloadManager.Request request = new DownloadManager.Request(uri);
-//            request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE);
-//            long reference = manager.enqueue(request);
         });
 
         return view;

@@ -34,6 +34,11 @@ public class UserSharedPreference {
         editor.commit();
     }
 
+    public void updateUser(UserModel.User user) {
+        editor.putString("authenticated_user", new Gson().toJson(user));
+        editor.commit();
+    }
+
     public void logout() {
         editor.remove("authenticated_user");
         editor.remove("authenticated_user_token");

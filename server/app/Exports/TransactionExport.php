@@ -11,10 +11,16 @@ use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 
 class TransactionExport implements FromView, ShouldAutoSize
 {
+    private $transactions;
+
+    public function __construct($transactions) {
+        $this->transactions = $transactions;
+    }
+
     public function view(): View
     {
         return view('export.trash_manaer_transaction', [
-            'transactions' => Transaction::all()->sortByDesc('created_at'),
+            'transactions' => $this->transactions
         ]);
     }
 }

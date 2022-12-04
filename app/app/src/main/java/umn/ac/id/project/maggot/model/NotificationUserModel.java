@@ -12,7 +12,23 @@ public class NotificationUserModel {
         return notifications;
     }
 
+    public String rejectFarmerPurchaseRequest() {
+        return message;
+    }
+
+    public String rejectFarmerWithdrawalRequest() {
+        return message;
+    }
+
     public String approveWithdrawalRequest() {
+        return message;
+    }
+
+    public String approveShopWithdrawalRequest() {
+        return message;
+    }
+
+    public String rejectShopWithdrawalRequest() {
         return message;
     }
 
@@ -86,6 +102,11 @@ public class NotificationUserModel {
     public String createFarmerWithdrawalRequest() {
         return message;
     }
+
+    public String createShoprWithdrawalRequest() {
+        return message;
+    }
+
     public String createShopBuyRequest() {
         return message;
     }
