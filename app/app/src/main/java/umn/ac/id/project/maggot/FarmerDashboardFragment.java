@@ -80,11 +80,6 @@ public class FarmerDashboardFragment extends Fragment {
 
         populateLastData(view);
 
-        logoutButton.setOnClickListener(v -> {
-            GoogleAccount account = new GoogleAccount(context);
-            account.signOut();
-        });
-
         DecimalFormatSymbols formatid = new DecimalFormatSymbols();
 
         formatid.setMonetaryDecimalSeparator(',');
@@ -93,6 +88,11 @@ public class FarmerDashboardFragment extends Fragment {
         DecimalFormat df = new DecimalFormat("#,###.00", formatid);
 
         df.setDecimalFormatSymbols(formatid);
+
+        logoutButton.setOnClickListener(v -> {
+            GoogleAccount account = new GoogleAccount(context);
+            account.signOut();
+        });
 
         btnSecret.setOnClickListener(new View.OnClickListener() {
             @Override

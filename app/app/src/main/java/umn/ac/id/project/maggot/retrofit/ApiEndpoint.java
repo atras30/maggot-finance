@@ -1,6 +1,7 @@
 package umn.ac.id.project.maggot.retrofit;
 
 import retrofit2.Call;
+import retrofit2.http.DELETE;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
@@ -30,6 +31,9 @@ public interface ApiEndpoint {
 
     @GET("user/email/{email}")
     Call<UserModel> getUserByEmail(@Path("email") String email);
+
+    @DELETE("user/{id}")
+    Call<UserModel> deleteUser(@Path("id") int id);
 
     @GET("user/role/shop")
     Call<WarungModel> getWarung();
@@ -94,4 +98,19 @@ public interface ApiEndpoint {
     @Headers("Accept: application/json")
     @POST("notifications/trash-manager/withdrawal/farmer")
     Call<NotificationUserModel> createFarmerWithdrawalRequest(@Field("farmer_email") String farmerEmail, @Field("withdrawal_amount") double withdrawalAmount,@Header("Authorization") String token);
+
+    @FormUrlEncoded
+    @Headers("Accept: application/json")
+    @POST("notifications/shop/farmer/purchase/approve")
+    Call<NotificationUserModel> approveShopBuyRequest(@Field("token") String token, @Header("Authorization") String authorizationToken);
+
+    @FormUrlEncoded
+    @Headers("Accept: application/json")
+    @POST("notifications/shop/farmer/purchase/reject")
+    Call<NotificationUserModel> rejectShopBuyRequest(@Field("token") String token, @Header("Authorization") String authorizationToken);
+
+    @FormUrlEncoded
+    @Headers("Accept: application/json")
+    @POST("notifications/farmer/buy/shop")
+    Call<NotificationUserModel> createShopBuyRequest(@Field("shop_email") String shopEmail, @Field("total_amount") double totalAmount,@Header("Authorization") String token);
 }

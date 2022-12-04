@@ -22,6 +22,7 @@ import java.util.List;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+import umn.ac.id.project.maggot.adapter.ApprovalRejectionAdapter;
 import umn.ac.id.project.maggot.adapter.DetailWargaAdapter;
 import umn.ac.id.project.maggot.model.PeternakModel;
 import umn.ac.id.project.maggot.model.UserModel;
@@ -58,6 +59,14 @@ public class ListPeternakActivity extends AppCompatActivity {
                     DetailWargaAdapter detailWargaAdapter = new DetailWargaAdapter(ListPeternakActivity.this, results);
                     RecyclerView recyclerView = findViewById(R.id.listPeternakRecyclerView);
                     recyclerView.setAdapter(detailWargaAdapter);
+                    detailWargaAdapter.setOnItemClickListener(new DetailWargaAdapter.OnItemClickListener() {
+                        @Override
+                        public void onItemClick(int position) {
+                            detailWargaAdapter.notifyItemRemoved(position);
+                            results.remove(position);
+                            detailWargaAdapter.upToDate(results);
+                        }
+                    });
                     recyclerView.setLayoutManager(new LinearLayoutManager(ListPeternakActivity.this));
 
                     fab.setOnClickListener(new View.OnClickListener() {
@@ -88,7 +97,6 @@ public class ListPeternakActivity extends AppCompatActivity {
                             return true;
                         }
                     });
-
                 }
             }
 

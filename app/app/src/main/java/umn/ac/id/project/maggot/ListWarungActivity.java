@@ -21,6 +21,7 @@ import java.util.List;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+import umn.ac.id.project.maggot.adapter.DetailWargaAdapter;
 import umn.ac.id.project.maggot.adapter.DetailWarungAdapter;
 import umn.ac.id.project.maggot.adapter.ListWarungBinaanAdapter;
 import umn.ac.id.project.maggot.model.PeternakModel;
@@ -56,6 +57,14 @@ public class ListWarungActivity extends AppCompatActivity {
                     DetailWarungAdapter detailWarungAdapter = new DetailWarungAdapter(ListWarungActivity.this, results);
                     RecyclerView recyclerView2 = findViewById(R.id.listWarungRecyclerView);
                     recyclerView2.setAdapter(detailWarungAdapter);
+                    detailWarungAdapter.setOnItemClickListener(new DetailWarungAdapter.OnItemClickListener() {
+                        @Override
+                        public void onItemClick(int position) {
+                            detailWarungAdapter.notifyItemRemoved(position);
+                            results.remove(position);
+                            detailWarungAdapter.upToDate(results);
+                        }
+                    });
                     recyclerView2.setLayoutManager(new LinearLayoutManager(ListWarungActivity.this));
 
                     fab.setOnClickListener(new View.OnClickListener() {
