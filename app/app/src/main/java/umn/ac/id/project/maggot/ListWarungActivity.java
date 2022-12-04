@@ -23,7 +23,9 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import umn.ac.id.project.maggot.adapter.DetailWarungAdapter;
 import umn.ac.id.project.maggot.adapter.ListWarungBinaanAdapter;
+import umn.ac.id.project.maggot.global.TrashManagerSharedPreference;
 import umn.ac.id.project.maggot.model.PeternakModel;
+import umn.ac.id.project.maggot.model.UserModel;
 import umn.ac.id.project.maggot.model.WarungModel;
 import umn.ac.id.project.maggot.retrofit.ApiService;
 
@@ -45,55 +47,47 @@ public class ListWarungActivity extends AppCompatActivity {
     }
 
     private void getDataWarung() {
-        ApiService.endpoint().getWarung().enqueue(new Callback<WarungModel>() {
+        FloatingActionButton fab = findViewById(R.id.fab);
+        ArrayList<UserModel.User> results = new TrashManagerSharedPreference(ListWarungActivity.this).getTrashManager().getUsers();
+        ArrayList<UserModel.User> daftarWarungBinaan = new ArrayList<>();
+
+        for (UserModel.User user : results) {
+            if(user.getRole().equalsIgnoreCase("shop") && user.is_verified() == 1) {
+                daftarWarungBinaan.add(user);
+            }
+        }
+
+        DetailWarungAdapter detailWarungAdapter = new DetailWarungAdapter(ListWarungActivity.this, daftarWarungBinaan);
+        RecyclerView recyclerView2 = findViewById(R.id.listWarungRecyclerView);
+        recyclerView2.setAdapter(detailWarungAdapter);
+        recyclerView2.setLayoutManager(new LinearLayoutManager(ListWarungActivity.this));
+
+        fab.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onResponse(@NonNull Call<WarungModel> call, @NonNull Response<WarungModel> response) {
-                if (response.isSuccessful()) {
-                    assert response.body() != null;
-                    FloatingActionButton fab = findViewById(R.id.fab);
-                    List<WarungModel.Warung> results = response.body().getWarung();
-                    Log.d("Success", results.toString());
-                    DetailWarungAdapter detailWarungAdapter = new DetailWarungAdapter(ListWarungActivity.this, results);
-                    RecyclerView recyclerView2 = findViewById(R.id.listWarungRecyclerView);
-                    recyclerView2.setAdapter(detailWarungAdapter);
-                    recyclerView2.setLayoutManager(new LinearLayoutManager(ListWarungActivity.this));
+            public void onClick(View view) {
+                Intent intent = new Intent(ListWarungActivity.this, InputWarungActivity.class);
+                startActivity(intent);
+            }
+        });
 
-                    fab.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View view) {
-                            Intent intent = new Intent(ListWarungActivity.this, InputWarungActivity.class);
-                            startActivity(intent);
-                        }
-                    });
-
-                    SearchView searchnamawarung = findViewById(R.id.searchwarung);
-                    searchnamawarung.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-                        @Override
-                        public boolean onQueryTextSubmit(String query) {
-                            return false;
-                        }
-
-                        @Override
-                        public boolean onQueryTextChange(String newText) {
-                            String userInput = newText.toLowerCase();
-                            List<WarungModel.Warung> newList = new ArrayList<>();
-                            for (WarungModel.Warung warung : results) {
-                                if (warung.getFull_name().toLowerCase().contains(userInput) || warung.getAddress().toLowerCase().contains(userInput) || warung.getEmail().toLowerCase().contains(userInput)) {
-                                    newList.add(warung);
-                                }
-                            }
-                            detailWarungAdapter.upToDate(newList);
-                            return true;
-                        }
-                    });
-
-
-                }
+        SearchView searchnamawarung = findViewById(R.id.searchwarung);
+        searchnamawarung.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
             }
 
             @Override
-            public void onFailure(Call<WarungModel> call, Throwable t) {
-                Log.d("Fail", t.toString());
+            public boolean onQueryTextChange(String newText) {
+                String userInput = newText.toLowerCase();
+                ArrayList<UserModel.User> newList = new ArrayList<>();
+                for (UserModel.User warung : results) {
+                    if (warung.getFull_name().toLowerCase().contains(userInput) || warung.getAddress().toLowerCase().contains(userInput) || warung.getEmail().toLowerCase().contains(userInput)) {
+                        newList.add(warung);
+                    }
+                }
+                detailWarungAdapter.upToDate(newList);
+                return true;
             }
         });
     }

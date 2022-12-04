@@ -10,17 +10,19 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import umn.ac.id.project.maggot.R;
 import umn.ac.id.project.maggot.model.PeternakModel;
+import umn.ac.id.project.maggot.model.UserModel;
 import umn.ac.id.project.maggot.model.WarungModel;
 
 public class ListWarungBinaanAdapter extends RecyclerView.Adapter<ListWarungBinaanAdapter.ListWarungBinaanViewHolder> {
     Context context;
-    private List<WarungModel.Warung> warung;
+    private ArrayList<UserModel.User> warung;
 
-    public ListWarungBinaanAdapter(Context context, List<WarungModel.Warung> warung) {
+    public ListWarungBinaanAdapter(Context context, ArrayList<UserModel.User> warung) {
         this.context = context;
         this.warung = warung;
     }

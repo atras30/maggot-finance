@@ -11,18 +11,20 @@ import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 
 import umn.ac.id.project.maggot.R;
 import umn.ac.id.project.maggot.model.PeternakModel;
+import umn.ac.id.project.maggot.model.UserModel;
 import umn.ac.id.project.maggot.model.WarungModel;
 
 public class DetailWarungAdapter extends RecyclerView.Adapter<DetailWarungAdapter.DetailWarungViewHolder> {
     Context context;
-    private List<WarungModel.Warung> warung;
+    private ArrayList<UserModel.User> warung;
 
-    public DetailWarungAdapter(Context context, List<WarungModel.Warung> warung) {
+    public DetailWarungAdapter(Context context, ArrayList<UserModel.User> warung) {
         this.context = context;
         this.warung = warung;
     }
@@ -61,7 +63,7 @@ public class DetailWarungAdapter extends RecyclerView.Adapter<DetailWarungAdapte
         }
     }
 
-    public void upToDate(List<WarungModel.Warung> newList){
+    public void upToDate(ArrayList<UserModel.User> newList){
         warung = new ArrayList<>();
         warung.addAll(newList);
         notifyDataSetChanged();

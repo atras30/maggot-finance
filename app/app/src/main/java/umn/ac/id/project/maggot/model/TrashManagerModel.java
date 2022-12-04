@@ -2,6 +2,7 @@ package umn.ac.id.project.maggot.model;
 
 import androidx.annotation.NonNull;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -18,6 +19,11 @@ public class TrashManagerModel {
         private int id, super_admin_id;
         private String nama_pengelola, tempat, email, role;
         Date created_at, updated_at;
+        ArrayList<UserModel.User> users;
+
+        public ArrayList<UserModel.User> getUsers() {
+            return users;
+        }
 
         public int getId() {
             return id;
@@ -62,6 +68,7 @@ public class TrashManagerModel {
                     ", role='" + role + '\'' +
                     ", created_at=" + created_at +
                     ", updated_at=" + updated_at +
+                    ", users=" + users +
                     '}';
         }
     }

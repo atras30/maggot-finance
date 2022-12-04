@@ -32,6 +32,7 @@ import com.google.zxing.WriterException;
 import com.google.zxing.common.BitMatrix;
 import com.journeyapps.barcodescanner.BarcodeEncoder;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import retrofit2.Call;
@@ -42,6 +43,7 @@ import umn.ac.id.project.maggot.adapter.ListWarungBinaanAdapter;
 import umn.ac.id.project.maggot.global.TrashManagerSharedPreference;
 import umn.ac.id.project.maggot.global.UserSharedPreference;
 import umn.ac.id.project.maggot.model.PeternakModel;
+import umn.ac.id.project.maggot.model.UserModel;
 import umn.ac.id.project.maggot.model.WarungModel;
 import umn.ac.id.project.maggot.retrofit.ApiService;
 
@@ -65,9 +67,21 @@ public class DashboardPengelolaBankSampahFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_dashboard_pengelola_bank_sampah, container, false);
 
+        List<UserModel.User> allUsers = new TrashManagerSharedPreference(context).getTrashManager().getUsers();
+        ArrayList<UserModel.User> daftarWargaBinaan = new ArrayList<>();
+        ArrayList<UserModel.User> daftarWarungBinaan = new ArrayList<>();
+
+        for (UserModel.User user : allUsers) {
+            if(user.getRole().equalsIgnoreCase("farmer") && user.is_verified() == 1) {
+                daftarWargaBinaan.add(user);
+            } else if(user.getRole().equalsIgnoreCase("shop") && user.is_verified() == 1) {
+                daftarWarungBinaan.add(user);
+            }
+        }
+
         MaterialButton logoutButton = view.findViewById(R.id.logout_button);
-        getDataPeternak(view);
-        getDataWarung(view);
+        getDataPeternak(view, daftarWargaBinaan);
+        getDataWarung(view, daftarWarungBinaan);
 //        populateLastData();
         detailwarga = view.findViewById(R.id.lihatdaftarwarga);
         detailwarung = view.findViewById(R.id.lihatdaftarwarung);
@@ -118,58 +132,32 @@ public class DashboardPengelolaBankSampahFragment extends Fragment {
         startActivity(intent);
     }
 
-    private void getDataWarung(View view) {
-        ApiService.endpoint().getWarung().enqueue(new Callback<WarungModel>() {
-            @Override
-            public void onResponse(@NonNull Call<WarungModel> call, @NonNull Response<WarungModel> response) {
-                if(response.isSuccessful()) {
-                    assert response.body() != null;
-                    List<WarungModel.Warung> results = response.body().getWarung();
+    private void getDataWarung(View view, ArrayList<UserModel.User> daftarWarungBinaan) {
+        warungBinaan = view.findViewById(R.id.wargabinaan4);
+        warungBinaan.setText(daftarWarungBinaan.size() + " Warung");
 
-                    warungBinaan = view.findViewById(R.id.wargabinaan4);
-                    warungBinaan.setText(results.size() + " Warung");
+        if(daftarWarungBinaan.size() > 3) {
+            daftarWarungBinaan.subList(3, daftarWarungBinaan.size()).clear();
+        }
 
-                    results.subList(3, results.size()).clear();
-
-                    ListWarungBinaanAdapter listwarungbinaanadapter = new ListWarungBinaanAdapter(context, results);
-                    RecyclerView recyclerView2 = view.findViewById(R.id.listWarungBinaanRecyclerView);
-                    recyclerView2.setAdapter(listwarungbinaanadapter);
-                    recyclerView2.setLayoutManager(new LinearLayoutManager(context));
-                }
-            }
-
-            @Override
-            public void onFailure(Call<WarungModel> call, Throwable t) {
-                Log.d("Fail", t.toString());
-            }
-        });
+        ListWarungBinaanAdapter listwarungbinaanadapter = new ListWarungBinaanAdapter(context, daftarWarungBinaan);
+        RecyclerView recyclerView2 = view.findViewById(R.id.listWarungBinaanRecyclerView);
+        recyclerView2.setAdapter(listwarungbinaanadapter);
+        recyclerView2.setLayoutManager(new LinearLayoutManager(context));
     }
 
 
-    private void getDataPeternak(View view) {
-        ApiService.endpoint().getPeternak().enqueue(new Callback<PeternakModel>() {
-            @Override
-            public void onResponse(@NonNull Call<PeternakModel> call, @NonNull Response<PeternakModel> response) {
-                if(response.isSuccessful()) {
-                    assert response.body() != null;
-                    List<PeternakModel.Peternak> results = response.body().getPeternak();
+    private void getDataPeternak(View view, ArrayList<UserModel.User> daftarWargaBinaan) {
+        wargaBinaan = view.findViewById(R.id.wargabinaan2);
+        wargaBinaan.setText(daftarWargaBinaan.size() + " Warga");
 
-                    wargaBinaan = view.findViewById(R.id.wargabinaan2);
-                    wargaBinaan.setText(String.valueOf(results.size()) + " Warga");
-
-                    results.subList(3, results.size()).clear();
-                    ListWargaBinaanAdapter listwargabinaanadapter = new ListWargaBinaanAdapter(context, results);
-                    RecyclerView recyclerView1 = view.findViewById(R.id.listWargaBinaanRecyclerView);
-                    recyclerView1.setAdapter(listwargabinaanadapter);
-                    recyclerView1.setLayoutManager(new LinearLayoutManager(context));
-                }
-            }
-
-            @Override
-            public void onFailure(Call<PeternakModel> call, Throwable t) {
-                Log.d("Fail", t.toString());
-            }
-        });
+        if(daftarWargaBinaan.size() > 3) {
+            daftarWargaBinaan.subList(3, daftarWargaBinaan.size()).clear();
+        }
+        ListWargaBinaanAdapter listwargabinaanadapter = new ListWargaBinaanAdapter(context, daftarWargaBinaan);
+        RecyclerView recyclerView1 = view.findViewById(R.id.listWargaBinaanRecyclerView);
+        recyclerView1.setAdapter(listwargabinaanadapter);
+        recyclerView1.setLayoutManager(new LinearLayoutManager(context));
     }
 
     private void populateLastData(View view) {

@@ -20,9 +20,9 @@ import umn.ac.id.project.maggot.model.UserModel;
 
 public class DetailWargaAdapter extends RecyclerView.Adapter<DetailWargaAdapter.DetailWargaViewHolder> {
     Context context;
-    private List<PeternakModel.Peternak> peternak;
+    private ArrayList<UserModel.User> peternak;
 
-    public DetailWargaAdapter(Context context, List<PeternakModel.Peternak> peternak) {
+    public DetailWargaAdapter(Context context, ArrayList<UserModel.User> peternak) {
         this.context = context;
         this.peternak = peternak;
     }
@@ -61,7 +61,7 @@ public class DetailWargaAdapter extends RecyclerView.Adapter<DetailWargaAdapter.
         }
     }
 
-    public void upToDate(List<PeternakModel.Peternak> newList){
+    public void upToDate(ArrayList<UserModel.User> newList){
         peternak = new ArrayList<>();
         peternak.addAll(newList);
         notifyDataSetChanged();
