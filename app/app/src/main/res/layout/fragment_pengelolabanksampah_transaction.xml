@@ -178,7 +178,8 @@
             android:id="@+id/export_button"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:text="Download Transaksi"/>
+            android:text="Unduh Transaksi"
+            android:backgroundTint="@color/secondary"/>
     </LinearLayout>
 
     <androidx.recyclerview.widget.RecyclerView

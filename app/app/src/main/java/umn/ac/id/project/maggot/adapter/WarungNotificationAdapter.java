@@ -67,7 +67,7 @@ public class WarungNotificationAdapter extends RecyclerView.Adapter<WarungNotifi
                     View myView = ((Activity)context).getLayoutInflater().inflate(R.layout.modal_farmer_approve_notification, null);
                     TextView tvNama = myView.findViewById(R.id.tvPanjang);
 
-                    tvNama.setText("Apakah Anda yakin ingin melakukan konfirmasi pengambilan uang sebesar Rp. " + notifications.get(position).getWithdrawal_amount() + "?");
+                    tvNama.setText("Apakah Anda yakin ingin melakukan konfirmasi pengambilan uang sebesar Rp " + notifications.get(position).getWithdrawal_amount() + "?");
 
                     Button btnSubmit = myView.findViewById(R.id.btnkonf);
                     Button btnBatal = myView.findViewById(R.id.btnbatal);
@@ -119,7 +119,7 @@ public class WarungNotificationAdapter extends RecyclerView.Adapter<WarungNotifi
                     AlertDialog.Builder myBuild = new AlertDialog.Builder(context);
                     View myView = ((Activity)context).getLayoutInflater().inflate(R.layout.modal_farmer_reject_notification, null);
                     TextView tvNama = myView.findViewById(R.id.tvPanjang);
-                    tvNama.setText("Apakah Anda yakin ingin melakukan pembatalan pengambilan uang sebesar Rp. "+ notifications.get(position).getWithdrawal_amount() +"?");
+                    tvNama.setText("Apakah Anda yakin ingin melakukan pembatalan pengambilan uang sebesar Rp "+ notifications.get(position).getWithdrawal_amount() +"?");
                     Button btnSubmit = myView.findViewById(R.id.btnkonf);
                     Button btnBatal = myView.findViewById(R.id.btnbatal);
 
