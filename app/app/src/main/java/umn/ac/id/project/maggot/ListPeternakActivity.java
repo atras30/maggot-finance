@@ -22,6 +22,7 @@ import java.util.List;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+import umn.ac.id.project.maggot.adapter.ApprovalRejectionAdapter;
 import umn.ac.id.project.maggot.adapter.DetailWargaAdapter;
 import umn.ac.id.project.maggot.global.TrashManagerSharedPreference;
 import umn.ac.id.project.maggot.model.PeternakModel;

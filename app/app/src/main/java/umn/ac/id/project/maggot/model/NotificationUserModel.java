@@ -20,6 +20,14 @@ public class NotificationUserModel {
         return message;
     }
 
+    public String approveShopBuyRequest() {
+        return message;
+    }
+
+    public String rejectShopBuyRequest() {
+        return message;
+    }
+
     public class Notification {
         private String token;
         private String type;
@@ -27,6 +35,7 @@ public class NotificationUserModel {
         private String description;
         private double weight_in_kg;
         private double amount_per_kg;
+        private int total_amount;
         private String nama_peternak;
         private String nama_pengelola_bank_sampah;
 
@@ -56,6 +65,9 @@ public class NotificationUserModel {
             return nama_pengelola_bank_sampah;
         }
 
+        public int getTotal_amount() {
+            return total_amount;
+        }
         @Override
         public String toString() {
             return "Notification{" +
@@ -72,6 +84,9 @@ public class NotificationUserModel {
     }
 
     public String createFarmerWithdrawalRequest() {
+        return message;
+    }
+    public String createShopBuyRequest() {
         return message;
     }
 }

@@ -21,6 +21,7 @@ import java.util.List;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+import umn.ac.id.project.maggot.adapter.DetailWargaAdapter;
 import umn.ac.id.project.maggot.adapter.DetailWarungAdapter;
 import umn.ac.id.project.maggot.adapter.ListWarungBinaanAdapter;
 import umn.ac.id.project.maggot.global.TrashManagerSharedPreference;

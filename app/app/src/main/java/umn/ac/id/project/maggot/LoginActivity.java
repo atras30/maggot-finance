@@ -21,6 +21,8 @@ import com.google.gson.Gson;
 
 import java.io.IOException;
 import java.sql.Array;
+import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
 import java.util.ArrayList;
 import java.util.List;
 
