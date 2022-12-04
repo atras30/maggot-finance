@@ -23,6 +23,8 @@ public class UserModel {
         return user;
     }
 
+    public String deleteUser() {return message;}
+
     public class User {
         private int id;
         private String full_name;

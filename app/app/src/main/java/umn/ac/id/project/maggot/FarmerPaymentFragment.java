@@ -36,6 +36,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import umn.ac.id.project.maggot.adapter.WarungSearchDropDownAdapter;
 import umn.ac.id.project.maggot.global.UserSharedPreference;
+import umn.ac.id.project.maggot.model.NotificationUserModel;
 import umn.ac.id.project.maggot.model.PeternakModel;
 import umn.ac.id.project.maggot.model.TransactionModel;
 import umn.ac.id.project.maggot.model.UserModel;
@@ -202,15 +203,12 @@ public class FarmerPaymentFragment extends Fragment {
 
     private void pay(String email, double totalAmount) {
         String token = "Bearer " + new UserSharedPreference(context).getToken();
-        ApiService.endpoint().farmerBuyFromShop(token, totalAmount, email, "-").enqueue(new Callback<TransactionModel>() {
+        ApiService.endpoint().createShopBuyRequest(email, totalAmount, token).enqueue(new Callback<NotificationUserModel>() {
             @Override
-            public void onResponse(Call<TransactionModel> call, Response<TransactionModel> response) {
+            public void onResponse(Call<NotificationUserModel> call, Response<NotificationUserModel> response) {
                 if(response.isSuccessful()) {
-                    String message = response.body().farmerBuyFromShop();
-
-                    if(message.equalsIgnoreCase("Transaction created.")) {
-                        Toast.makeText(context, "Pembayaran Berhasil!", Toast.LENGTH_SHORT).show();
-                    }
+                    String message = response.body().createShopBuyRequest();
+                    Toast.makeText(context, "Pembayaran Berhasil!", Toast.LENGTH_SHORT).show();
                 } else {
                     try {
                         TransactionModel.ErrorHandler error = new Gson().fromJson(response.errorBody().string(), TransactionModel.ErrorHandler.class);
@@ -223,7 +221,7 @@ public class FarmerPaymentFragment extends Fragment {
             }
 
             @Override
-            public void onFailure(Call<TransactionModel> call, Throwable t) {
+            public void onFailure(Call<NotificationUserModel> call, Throwable t) {
                 Toast.makeText(context, t.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
