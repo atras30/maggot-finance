@@ -15,14 +15,16 @@ return new class extends Migration
     {
         Schema::create('notifications', function (Blueprint $table) {
             $table->id();
-            $table->enum('type', ["farmer_withdrawal"]);
+            $table->enum('type', ["farmer_withdrawal", "farmer_purchase"]);
             $table->string('token');
             $table->string('description')->default("");
             $table->double('weight_in_kg')->default(0);
             $table->double('amount_per_kg')->default(0);
             $table->unsignedBigInteger('withdrawal_amount')->default(0);
-            $table->foreignId("farmer_id")->constrained("users", "id")->onUpdate("cascade")->onDelete("cascade");
-            $table->foreignId("trash_manager_id")->constrained()->onUpdate("cascade")->onDelete("cascade");
+            $table->unsignedBigInteger('total_amount')->default(0);
+            $table->foreignId("farmer_id")->nullable()->constrained("users", "id")->onUpdate("cascade")->onDelete("cascade");
+            $table->foreignId("shop_id")->nullable()->constrained("users", "id")->onUpdate("cascade")->onDelete("cascade");
+            $table->foreignId("trash_manager_id")->nullable()->constrained()->onUpdate("cascade")->onDelete("cascade");
             $table->timestamp('expired_at');
             $table->timestamps();
         });

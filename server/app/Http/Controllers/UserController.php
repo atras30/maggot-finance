@@ -11,6 +11,28 @@ use Illuminate\Support\Facades\DB;
 
 class UserController extends Controller
 {
+    public function destroy($id) {
+        $user = User::findOrFail($id);
+
+        try {
+            $user->delete();
+        } catch(\Exception $e) {
+            return response()->json(
+                [
+                    'message' => $e->getMessage(),
+                ],
+                Response::HTTP_OK
+            );
+        }
+
+        return response()->json(
+            [
+                'message' => "User successfully deleted.",
+            ],
+            Response::HTTP_OK
+        );
+    }
+
     public function index()
     {
         return response()->json(

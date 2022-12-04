@@ -19,8 +19,8 @@ public class UserModel {
         return user;
     }
 
-    public List<User> getUserByEmail() {
-        return users;
+    public User getUserByEmail() {
+        return user;
     }
 
     public class User {

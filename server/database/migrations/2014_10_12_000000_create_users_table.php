@@ -25,6 +25,7 @@ return new class extends Migration {
       $table->foreignId("trash_manager_id")->constrained("trash_managers", "id")->onUpdate("cascade")->onDelete("cascade");
       $table->timestamps();
       $table->boolean('is_verified')->default(0);
+      $table->softDeletes();
       // $table->rememberToken();
     });
   }

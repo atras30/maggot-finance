@@ -79,7 +79,7 @@ class TransactionController extends Controller
         $farmer = User::findOrFail($notification->farmer_id);
 
         try {
-            $farmer->balance += $notification->withdrawal_amount;
+            $farmer->balance -= $notification->withdrawal_amount;
 
             $farmerTransactions = Transaction::create([
                 'type' => "income",
@@ -142,6 +142,76 @@ class TransactionController extends Controller
         return response()->json(
             [
                 'message' => 'Withdrawal Deletion Success.',
+            ],
+            Response::HTTP_OK
+        );
+    }
+
+    public function approveFarmerPurchase(Request $request) {
+        $this->deleteExpiredTokens();
+
+        $validated = $request->validate([
+            'token' => 'string|required',
+        ]);
+
+        $notification = Notification::firstWhere('token', $validated['token']);
+
+        if (!$notification) {
+            return response()->json(
+                [
+                    'message' => 'Token Expired.',
+                ],
+                Response::HTTP_NOT_FOUND
+            );
+        }
+
+        $shop = User::findOrFail($notification->shop_id);
+
+        try {
+            $farmer = $notification->farmer;
+
+            if($farmer->balance - $notification->total_amount < 0) {
+                return response()->json([
+                    "message" => "Farmer balance is insufficent."
+                ], Response::HTTP_NOT_ACCEPTABLE);
+            }
+
+            $farmer->balance -= $notification->total_amount;
+            $shop->balance += $notification->total_amount;
+
+            $shopTransaction = Transaction::create([
+                'type' => "income",
+                'transaction_type' => 'shop_transaction',
+                "description" => "Pembelian di Warung",
+                'total_amount' => $notification->total_amount,
+                'shop_id' => $shop->id,
+                'farmer_id' => $notification->farmer_id,
+            ]);
+
+            $farmerTransaction = Transaction::create([
+                'type' => "expense",
+                'transaction_type' => 'farmer_transaction',
+                "description" => "Pembelian di Warung",
+                'total_amount' => $notification->total_amount,
+                'farmer_id' => $notification->farmer_id,
+                'shop_id' => $shop->id,
+            ]);
+
+            $notification->delete();
+            $shop->save();
+            $farmer->save();
+        } catch (\Exception $e) {
+            return response()->json(
+                [
+                    'message' => $e->getMessage(),
+                ],
+                Response::HTTP_INTERNAL_SERVER_ERROR
+            );
+        }
+
+        return response()->json(
+            [
+                'message' => 'Purchase Success.',
             ],
             Response::HTTP_OK
         );

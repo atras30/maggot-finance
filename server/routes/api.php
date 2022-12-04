@@ -44,6 +44,10 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('/notifications/farmer/withdrawal/approve', [TransactionController::class, 'approveFarmerWithdrawal']);
     Route::post('/notifications/farmer/withdrawal/reject', [TransactionController::class, 'rejectFarmerWithdrawal']);
 
+    Route::post('/notifications/farmer/buy/shop', [NotificationController::class, 'createFarmerPaymentToShopNotification']);
+    Route::post('/notifications/shop/farmer/purchase/approve', [TransactionController::class, 'approveFarmerPurchase']);
+    Route::post('/notifications/shop/farmer/purchase/reject', [TransactionController::class, 'rejectFarmerPurchase']);
+
     //Transaction List
     Route::prefix("transaction")->group(function() {
         Route::post('/trash-manager/buy/maggot', [
@@ -71,6 +75,7 @@ Route::get('/trash-manager/list/user', [
 
 //User Endpoints
 Route::get('/user', [UserController::class, 'index']);
+Route::delete('/user/{id}', [UserController::class, 'destroy']);
 Route::get('/user/role/{role}', [UserController::class, 'getUserByRole']);
 Route::get('/user/email/{email}', [UserController::class, 'getUserByEmail']);
 Route::post('/user', [UserController::class, 'store']);

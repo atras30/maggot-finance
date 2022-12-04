@@ -56,21 +56,17 @@ public class FarmerPaymentFragment extends Fragment {
             InstantAutoComplete namaWarung = layoutView.findViewById(R.id.namawarung);
             namaWarung.setText("Fetching Data...");
 
-            Log.i("Email", scannedEmail);
             ApiService.endpoint().getUserByEmail(scannedEmail).enqueue(new Callback<UserModel>() {
                 @Override
                 public void onResponse(Call<UserModel> call, Response<UserModel> response) {
                     if(response.isSuccessful()) {
-//                        List<UserModel.User> users = response.body().getUserByEmail();
-//                        Log.i("Users", users.toString());
-//                        UserModel.User user = users.get(0);
-//
-//                        Log.i("User", user.toString());
-//
-//                        InstantAutoComplete namaWarung = layoutView.findViewById(R.id.namawarung);
-//                        TextView emailWarung = layoutView.findViewById(R.id.edittext_email_warga);
-//                        namaWarung.setText(user.getFull_name());
-//                        emailWarung.setText(user.getEmail());
+                        UserModel.User user = response.body().getUserByEmail();
+
+                        InstantAutoComplete namaWarung = layoutView.findViewById(R.id.namawarung);
+                        TextView emailWarung = layoutView.findViewById(R.id.edittext_email_warga);
+                        namaWarung.setText(user.getFull_name());
+                        emailWarung.setText(user.getEmail());
+                        selectedEmail = user.getEmail();
                     } else {
                         try {
                             Toast.makeText(context, response.errorBody().string(), Toast.LENGTH_SHORT).show();
@@ -117,6 +113,7 @@ public class FarmerPaymentFragment extends Fragment {
             public void onClick(View view) {
                 EditText totalAmount = layoutView.findViewById(R.id.editText2);
 
+                Log.i("Selected Email", selectedEmail);
                 if(selectedEmail.equalsIgnoreCase("")) {
                     Toast.makeText(context, "Anda harus memilih warung terlebih dahulu.", Toast.LENGTH_SHORT).show();
                     return;
