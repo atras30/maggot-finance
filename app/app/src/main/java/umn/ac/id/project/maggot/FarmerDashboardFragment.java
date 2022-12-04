@@ -71,15 +71,6 @@ public class FarmerDashboardFragment extends Fragment {
 
         btnSecret = view.findViewById(R.id.buttonSecret);
 
-        DecimalFormatSymbols formatid = new DecimalFormatSymbols();
-
-        formatid.setMonetaryDecimalSeparator(',');
-        formatid.setGroupingSeparator('.');
-
-        DecimalFormat df = new DecimalFormat("#,###.00", formatid);
-
-        df.setDecimalFormatSymbols(formatid);
-
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN).requestEmail().build();
         GoogleSignInClient gsc = GoogleSignIn.getClient(context, gso);
 
@@ -94,6 +85,15 @@ public class FarmerDashboardFragment extends Fragment {
             account.signOut();
         });
 
+        DecimalFormatSymbols formatid = new DecimalFormatSymbols();
+
+        formatid.setMonetaryDecimalSeparator(',');
+        formatid.setGroupingSeparator('.');
+
+        DecimalFormat df = new DecimalFormat("#,###.00", formatid);
+
+        df.setDecimalFormatSymbols(formatid);
+        
         btnSecret.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

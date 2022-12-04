@@ -51,8 +51,8 @@ public class DashboardWarungActivity extends AppCompatActivity {
                         selectedFragment = new ShopTransactionFragment(DashboardWarungActivity.this);
                         break;
                     case R.id.notification:
-                        selectedFragment = new ShopNotificationFragment(DashboardWarungActivity.this);
-                        break;
+//                        selectedFragment = new ShopNotificationFragment(DashboardWarungActivity.this);
+//                        break;
                 }
 
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,selectedFragment).commit();
