@@ -47,6 +47,12 @@ public class ListWarungActivity extends AppCompatActivity {
         });
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        getDataWarung();
+    }
+
     private void getDataWarung() {
         FloatingActionButton fab = findViewById(R.id.fab);
         ArrayList<UserModel.User> results = new TrashManagerSharedPreference(ListWarungActivity.this).getTrashManager().getUsers();

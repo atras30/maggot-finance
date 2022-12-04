@@ -47,6 +47,12 @@ public class ListPeternakActivity extends AppCompatActivity {
         });
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        getDataPeternak();
+    }
+
     private void getDataPeternak() {
         FloatingActionButton fab = findViewById(R.id.fab);
         ArrayList<UserModel.User> results = new TrashManagerSharedPreference(ListPeternakActivity.this).getTrashManager().getUsers();

@@ -58,9 +58,20 @@ public class InputWargaActivity extends AppCompatActivity {
                     public void onResponse(Call<AuthenticationModel> call, Response<AuthenticationModel> response) {
                         if (response.isSuccessful()) {
                             String responseMessage = response.body().registerUser();
-                            Log.i("Message", responseMessage);
                             approveRegisteredUser(email);
                             Toast.makeText(InputWargaActivity.this, responseMessage, Toast.LENGTH_SHORT).show();
+                            ApiService.endpoint().approvalUserRegistration(email).enqueue(new Callback<ApprovalRejectionModel>() {
+                                @Override
+                                public void onResponse(Call<ApprovalRejectionModel> call, Response<ApprovalRejectionModel> response) {
+                                    String message = response.body().approvalUserRegistration();
+                                    Toast.makeText(InputWargaActivity.this, message, Toast.LENGTH_LONG).show();
+                                }
+
+                                @Override
+                                public void onFailure(Call<ApprovalRejectionModel> call, Throwable t) {
+                                    Toast.makeText(InputWargaActivity.this, "Error : " + t.getMessage(), Toast.LENGTH_SHORT).show();
+                                }
+                            });
                         } else {
                             try {
                                 Log.i("Message", response.errorBody().string());
