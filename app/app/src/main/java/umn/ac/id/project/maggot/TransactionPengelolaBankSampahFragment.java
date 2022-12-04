@@ -2,6 +2,8 @@ package umn.ac.id.project.maggot;
 
 import android.app.DatePickerDialog;
 import android.content.Context;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -58,11 +60,14 @@ public class TransactionPengelolaBankSampahFragment extends Fragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-
         View view = inflater.inflate(R.layout.fragment_pengelolabanksampah_transaction, container, false);
+        Button exportButton = view.findViewById(R.id.export_button);
+        exportButton.setOnClickListener(v -> {
+            Intent implicit = new Intent(Intent.ACTION_VIEW, Uri.parse("https://atras.my.id/"));
+            startActivity(implicit);
+        });
         ApiService.endpoint().getTransactions(new TrashManagerSharedPreference(context).getTrashManager().getEmail()).enqueue(new Callback<TransactionModel>() {
             @Override
             public void onResponse(@NonNull Call<TransactionModel> call, @NonNull Response<TransactionModel> response) {

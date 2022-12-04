@@ -24,6 +24,7 @@ public interface ApiEndpoint {
     Call<UserModel> getUser(@Header("Authorization") String authorization);
 
     @GET("auth/user")
+    @Headers("Accept: application/json")
     Call<TrashManagerModel> updateTrashManagerData(@Header("Authorization") String authorization);
 
     @GET("user/role/farmer")

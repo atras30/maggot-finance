@@ -21,6 +21,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.Toast;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -28,11 +29,14 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import umn.ac.id.project.maggot.adapter.ApprovalRejectionAdapter;
+import umn.ac.id.project.maggot.global.TrashManagerSharedPreference;
+import umn.ac.id.project.maggot.model.TrashManagerModel;
 import umn.ac.id.project.maggot.model.UserModel;
 import umn.ac.id.project.maggot.retrofit.ApiService;
 
 public class ApprovalRejectionFragment extends Fragment {
     private Context context;
+    private View view;
 
     public ApprovalRejectionFragment(Context context) {
         this.context = context;
@@ -44,14 +48,17 @@ public class ApprovalRejectionFragment extends Fragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-            View view = inflater.inflate(R.layout.fragment_approval_rejection, container, false);
+    public void onResume() {
+        super.onResume();
 
-            ApiService.endpoint().getUsers().enqueue(new Callback<UserModel>() {
-                @Override
-                public void onResponse(Call<UserModel> call, Response<UserModel> response) {
-                    List<UserModel.User> users = response.body().getUsers();
+        ApiService.endpoint().updateTrashManagerData("Bearer " + new TrashManagerSharedPreference(context).getToken()).enqueue(new Callback<TrashManagerModel>() {
+            @Override
+            public void onResponse(Call<TrashManagerModel> call, Response<TrashManagerModel> response) {
+                if(response.isSuccessful()) {
+                    Log.i("tag", response.body().updateTrashManagerData().toString());
+                    TrashManagerModel.TrashManagers trashManager = response.body().updateTrashManagerData();
+
+                    List<UserModel.User> users = trashManager.getUsers();
 
                     ArrayList<UserModel.User> notApprovedYetUsers = new ArrayList<>();
 
@@ -68,8 +75,8 @@ public class ApprovalRejectionFragment extends Fragment {
                         @Override
                         public void onItemClick(int position) {
                             approvalRejectionAdapter.notifyItemRemoved(position);
-                            users.remove(position);
-                            approvalRejectionAdapter.upToDate(users);
+                            notApprovedYetUsers.remove(position);
+                            approvalRejectionAdapter.upToDate(notApprovedYetUsers);
                         }
                     });
                     recyclerView.setLayoutManager(new LinearLayoutManager(context));
@@ -94,14 +101,26 @@ public class ApprovalRejectionFragment extends Fragment {
                             return true;
                         }
                     });
-
+                } else {
+                    try {
+                        Log.i("Error", response.errorBody().string());
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
                 }
+            }
 
-                @Override
-                public void onFailure(Call<UserModel> call, Throwable t) {
-                    Toast.makeText(context, "Error : " + t.getMessage(), Toast.LENGTH_SHORT).show();
-                }
-            });
+            @Override
+            public void onFailure(Call<TrashManagerModel> call, Throwable t) {
+                Toast.makeText(context, "Error : " + t.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        view = inflater.inflate(R.layout.fragment_approval_rejection, container, false);
+
         return view;
     }
 }
