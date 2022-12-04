@@ -67,7 +67,7 @@ public class FarmerDashboardFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_farmer_dashboard, container, false);
 
-        Helper.refreshToken(context, view);
+//        Helper.refreshToken(context, view);
 
         btnSecret = view.findViewById(R.id.buttonSecret);
 
@@ -79,6 +79,9 @@ public class FarmerDashboardFragment extends Fragment {
         btnSecret = view.findViewById(R.id.buttonSecret);
 
         populateLastData(view);
+
+        tvSaldo = view.findViewById(R.id.angkaSaldo);
+        tvSaldo.setText("**********");
 
         DecimalFormatSymbols formatid = new DecimalFormatSymbols();
 
@@ -92,6 +95,8 @@ public class FarmerDashboardFragment extends Fragment {
         logoutButton.setOnClickListener(v -> {
             GoogleAccount account = new GoogleAccount(context);
             account.signOut();
+            navigateToLoginPage();
+            ((Activity)context).finish();
         });
 
         btnSecret.setOnClickListener(new View.OnClickListener() {
@@ -117,10 +122,8 @@ public class FarmerDashboardFragment extends Fragment {
                     try {
                         TextView name = view.findViewById(R.id.name);
                         TextView address = view.findViewById(R.id.address);
-                        tvSaldo = view.findViewById(R.id.angkaSaldo);
                         name.setText(user.getFull_name());
                         address.setText(user.getAddress());
-                        tvSaldo.setText("**********");
                     } catch (Exception e) {
                         call.cancel();
                     }
