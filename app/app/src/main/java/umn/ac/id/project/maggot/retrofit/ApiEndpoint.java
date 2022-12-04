@@ -65,10 +65,12 @@ public interface ApiEndpoint {
     Call<AuthenticationModel> loginTrashManager(@Field("email") String email);
 
     @FormUrlEncoded
+    @Headers("Accept: application/json")
     @POST("register/user")
     Call<AuthenticationModel> registerUser(@Field("full_name") String fullName, @Field("email") String email, @Field("role") String role, @Field("trash_manager_id") int trashManagerId, @Field("address") String address, @Field("phone_number") String phoneNumber);
 
     @FormUrlEncoded
+    @Headers("Accept: application/json")
     @POST("register/user/approve")
     Call<ApprovalRejectionModel> approvalUserRegistration(@Field("email") String email);
 

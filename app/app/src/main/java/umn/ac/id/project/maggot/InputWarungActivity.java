@@ -11,6 +11,8 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.gson.Gson;
+
 import java.io.IOException;
 
 import retrofit2.Call;
@@ -57,11 +59,21 @@ public class InputWarungActivity extends AppCompatActivity {
                         if (response.isSuccessful()) {
                             String responseMessage = response.body().registerUser();
                             Toast.makeText(InputWarungActivity.this, responseMessage, Toast.LENGTH_SHORT).show();
+
                             ApiService.endpoint().approvalUserRegistration(email).enqueue(new Callback<ApprovalRejectionModel>() {
                                 @Override
                                 public void onResponse(Call<ApprovalRejectionModel> call, Response<ApprovalRejectionModel> response) {
-                                    String message = response.body().approvalUserRegistration();
-                                    Toast.makeText(InputWarungActivity.this, message, Toast.LENGTH_LONG).show();
+                                    if(response.isSuccessful()) {
+                                        String message = response.body().approvalUserRegistration();
+                                        Toast.makeText(InputWarungActivity.this, message, Toast.LENGTH_LONG).show();
+                                        finish();
+                                    } else {
+                                        try {
+                                            Toast.makeText(InputWarungActivity.this, new Gson().fromJson(response.errorBody().string(), AuthenticationModel.ErrorHandler.class).getMessage(), Toast.LENGTH_SHORT).show();
+                                        } catch (IOException e) {
+                                            e.printStackTrace();
+                                        }
+                                    }
                                 }
 
                                 @Override
@@ -71,7 +83,7 @@ public class InputWarungActivity extends AppCompatActivity {
                             });
                         } else {
                             try {
-                                Log.i("Message", response.errorBody().string());
+                                Toast.makeText(InputWarungActivity.this, new Gson().fromJson(response.errorBody().string(), AuthenticationModel.ErrorHandler.class).getMessage(), Toast.LENGTH_SHORT).show();
                             } catch (IOException e) {
                                 e.printStackTrace();
                             }
@@ -83,11 +95,6 @@ public class InputWarungActivity extends AppCompatActivity {
                         Log.i("Failure", t.getMessage().toString());
                     }
                 });
-
-                Intent intent = new Intent(InputWarungActivity.this, ListWarungActivity.class);
-                startActivity(intent);
-
-                finish();
             }
         });
     }

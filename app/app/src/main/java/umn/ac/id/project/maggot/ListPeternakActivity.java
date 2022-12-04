@@ -82,6 +82,7 @@ public class ListPeternakActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intent = new Intent(ListPeternakActivity.this, InputWargaActivity.class);
                 startActivity(intent);
+                finish();
             }
         });
 

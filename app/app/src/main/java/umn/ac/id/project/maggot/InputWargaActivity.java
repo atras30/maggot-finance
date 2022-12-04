@@ -12,6 +12,8 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.gson.Gson;
+
 import java.io.IOException;
 
 import retrofit2.Call;
@@ -25,6 +27,7 @@ import umn.ac.id.project.maggot.model.TrashManagerModel;
 import umn.ac.id.project.maggot.retrofit.ApiService;
 
 public class InputWargaActivity extends AppCompatActivity {
+    Toast toast = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,22 +62,12 @@ public class InputWargaActivity extends AppCompatActivity {
                         if (response.isSuccessful()) {
                             String responseMessage = response.body().registerUser();
                             approveRegisteredUser(email);
-                            Toast.makeText(InputWargaActivity.this, responseMessage, Toast.LENGTH_SHORT).show();
-                            ApiService.endpoint().approvalUserRegistration(email).enqueue(new Callback<ApprovalRejectionModel>() {
-                                @Override
-                                public void onResponse(Call<ApprovalRejectionModel> call, Response<ApprovalRejectionModel> response) {
-                                    String message = response.body().approvalUserRegistration();
-                                    Toast.makeText(InputWargaActivity.this, message, Toast.LENGTH_LONG).show();
-                                }
-
-                                @Override
-                                public void onFailure(Call<ApprovalRejectionModel> call, Throwable t) {
-                                    Toast.makeText(InputWargaActivity.this, "Error : " + t.getMessage(), Toast.LENGTH_SHORT).show();
-                                }
-                            });
+                            toast = Toast.makeText(InputWargaActivity.this, "Approving...", Toast.LENGTH_SHORT);
+                            toast.show();
                         } else {
                             try {
-                                Log.i("Message", response.errorBody().string());
+                                String error = response.errorBody().string();
+                                Toast.makeText(InputWargaActivity.this, new Gson().fromJson(error, AuthenticationModel.ErrorHandler.class).getMessage(), Toast.LENGTH_SHORT).show();
                             } catch (IOException e) {
                                 e.printStackTrace();
                             }
@@ -84,13 +77,9 @@ public class InputWargaActivity extends AppCompatActivity {
                     @Override
                     public void onFailure(Call<AuthenticationModel> call, Throwable t) {
                         Log.i("Failure", t.getMessage().toString());
+                        Toast.makeText(InputWargaActivity.this, t.getMessage(), Toast.LENGTH_SHORT).show();
                     }
                 });
-
-                Intent intent = new Intent(InputWargaActivity.this, ListPeternakActivity.class);
-                startActivity(intent);
-
-                finish();
             }
         });
     }
@@ -100,7 +89,10 @@ public class InputWargaActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<ApprovalRejectionModel> call, Response<ApprovalRejectionModel> response) {
                 String message = response.body().approvalUserRegistration();
-                Toast.makeText(InputWargaActivity.this, message, Toast.LENGTH_LONG).show();
+                if(toast != null) toast.cancel();
+                toast = Toast.makeText(InputWargaActivity.this, message, Toast.LENGTH_LONG);
+                toast.show();
+                finish();
             }
 
             @Override

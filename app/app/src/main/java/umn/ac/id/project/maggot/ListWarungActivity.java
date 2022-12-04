@@ -82,6 +82,7 @@ public class ListWarungActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intent = new Intent(ListWarungActivity.this, InputWarungActivity.class);
                 startActivity(intent);
+                finish();
             }
         });
 
