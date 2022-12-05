@@ -182,13 +182,21 @@ public class LoginActivity extends AppCompatActivity {
 
     private void navigateRegisteredUser() {
         if(userSharedPreference.getUser().is_verified() == 1) {
-            if(userSharedPreference.getUser().getRole().equals("farmer")) {
-                Intent navigateToFarmerDashboardActivity = new Intent(LoginActivity.this, FarmerDashboardActivity.class);
-                startActivity(navigateToFarmerDashboardActivity);
-                finish();
-            } else if (userSharedPreference.getUser().getRole().equals("shop")) {
-                Intent navigateToDashboardShopActivity = new Intent(LoginActivity.this, DashboardWarungActivity.class);
-                startActivity(navigateToDashboardShopActivity);
+            if(userSharedPreference.getUser().getDeleted_at_date_time() == null) {
+                if(userSharedPreference.getUser().getRole().equals("farmer")) {
+                    Intent navigateToFarmerDashboardActivity = new Intent(LoginActivity.this, FarmerDashboardActivity.class);
+                    startActivity(navigateToFarmerDashboardActivity);
+                    finish();
+                } else if (userSharedPreference.getUser().getRole().equals("shop")) {
+                    Intent navigateToDashboardShopActivity = new Intent(LoginActivity.this, DashboardWarungActivity.class);
+                    startActivity(navigateToDashboardShopActivity);
+                    finish();
+                }
+            }
+            else
+            {
+                Intent navigateToInactive = new Intent(LoginActivity.this, InactiveActivity.class);
+                startActivity(navigateToInactive);
                 finish();
             }
         } else {

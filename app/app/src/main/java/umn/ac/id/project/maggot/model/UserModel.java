@@ -35,6 +35,7 @@ public class UserModel {
         private String role;
         private Date created_at;
         private Date updated_at;
+        private Date deleted_at;
         private int is_verified;
 
         public int is_verified() {
@@ -89,6 +90,8 @@ public class UserModel {
         public Date getUpdated_at_date_time() {
             return this.updated_at;
         }
+
+        public Date getDeleted_at_date_time() { return this.deleted_at; }
 
         @Override
         public String toString() {
