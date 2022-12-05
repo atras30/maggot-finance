@@ -1,10 +1,10 @@
 <resources>
-    <string name="app_name">Maggot Finance</string>
-    <string name="pengepul_title_activity">Maggot Finance (Pengepul)</string>
-    <string name="peternak_title_activity">Maggot Finance (Peternak)</string>
-    <string name="warung_title_activity">Maggot Finance (Warung)</string>
+    <string name="app_name">MagFin</string>
+    <string name="pengepul_title_activity">MagFin (Pengelola Bank Sampah)</string>
+    <string name="peternak_title_activity">MagFin (Warga)</string>
+    <string name="warung_title_activity">MagFin (Warung)</string>
 
-    <string name="recyclerview_peternak_title">Maggot Finance (List Peternak)</string>
+    <string name="recyclerview_peternak_title">MagFin (List Warga)</string>
 
     <string name="lorem_ipsum">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla malesuada dapibus quam, sed volutpat ex feugiat sed. Aliquam finibus metus eget tortor cursus suscipit. Aliquam finibus metus eget tortor cursus suscipit. Aliquam finibus metus eget tortor cursus suscipit. Aliquam finibus metus eget tortor cursus suscipit.Aliquam finibus metus eget tortor cursus suscipit.Aliquam finibus metus </string>
 
