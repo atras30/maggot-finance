@@ -4,7 +4,12 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
+import android.text.SpannableString;
+import android.text.Spanned;
+import android.text.method.LinkMovementMethod;
+import android.text.style.ClickableSpan;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
@@ -34,6 +39,7 @@ public class RegisterActivity extends AppCompatActivity implements AdapterView.O
     private List<TrashManagerModel.TrashManagers> results;
     private TrashManagerModel.TrashManagers selectedTrashManagerOption = null;
     private TextView tvKembali;
+    private TextView tvSnK;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,6 +47,22 @@ public class RegisterActivity extends AppCompatActivity implements AdapterView.O
         setContentView(R.layout.activity_register);
 
         tvKembali = findViewById(R.id.tvBack);
+        tvSnK = findViewById(R.id.syaratdanketentuan);
+        tvSnK.setMovementMethod(LinkMovementMethod.getInstance());
+
+        SpannableString ss = new SpannableString("Dengan mendaftar, saya menyetujui syarat dan ketentuan yang berlaku pada aplikasi ini.");
+        ClickableSpan clickableSpan1 = new ClickableSpan() {
+            @Override
+            public void onClick(View widget) {
+                String url = "https://www.termsfeed.com/live/9f36a58b-8b91-4538-ba03-581d69156513";
+                Intent goToSyarat = new Intent(Intent.ACTION_VIEW);
+                goToSyarat.setData(Uri.parse(url));
+                startActivity(goToSyarat);
+            }
+        };
+
+        ss.setSpan(clickableSpan1, 34, 54, Spanned.SPAN_COMPOSING);
+        tvSnK.setText(ss);
 
         tvKembali.setOnClickListener(new View.OnClickListener() {
             @Override
