@@ -11,6 +11,7 @@
         android:label="@string/app_name"
         android:roundIcon="@drawable/iconmagfin"
         android:supportsRtl="true"
+        android:screenOrientation="portrait"
         android:theme="@style/Theme.MaggotProject">
         <activity
             android:name=".InputWargaActivity"

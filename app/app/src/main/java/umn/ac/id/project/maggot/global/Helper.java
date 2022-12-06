@@ -78,7 +78,7 @@ public class Helper {
         formatid.setMonetaryDecimalSeparator(',');
         formatid.setGroupingSeparator('.');
 
-        DecimalFormat df = new DecimalFormat("#,###.00", formatid);
+        DecimalFormat df = new DecimalFormat("#,##0.00", formatid);
 
         df.setDecimalFormatSymbols(formatid);
 

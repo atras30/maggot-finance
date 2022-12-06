@@ -116,13 +116,6 @@ public class DashboardWarungFragment extends Fragment {
         tvSaldo = view.findViewById(R.id.saldoWarung);
         tvSaldo.setText("**********");
 
-        DecimalFormatSymbols formatid = new DecimalFormatSymbols();
-
-        formatid.setMonetaryDecimalSeparator(',');
-        formatid.setGroupingSeparator('.');
-
-        DecimalFormat df = new DecimalFormat("#,###.00", formatid);
-
         MaterialButton logoutButton = view.findViewById(R.id.logout_button);
 
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN).requestEmail().build();
