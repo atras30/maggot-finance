@@ -1,8 +1,8 @@
 package umn.ac.id.project.maggot;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.os.Bundle;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 public class InactiveActivity extends AppCompatActivity {
 

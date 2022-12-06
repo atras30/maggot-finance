@@ -1,7 +1,6 @@
 package umn.ac.id.project.maggot.model;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class NotificationUserModel {
     private String message;

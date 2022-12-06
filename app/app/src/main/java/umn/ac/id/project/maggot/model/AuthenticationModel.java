@@ -1,9 +1,5 @@
 package umn.ac.id.project.maggot.model;
 
-import android.util.Log;
-
-import umn.ac.id.project.maggot.model.UserModel;
-
 public class AuthenticationModel {
     private String token;
     private String message;
