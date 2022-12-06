@@ -11,10 +11,8 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import umn.ac.id.project.maggot.R;
-import umn.ac.id.project.maggot.model.PeternakModel;
 import umn.ac.id.project.maggot.model.UserModel;
 
 public class ListWargaBinaanAdapter extends RecyclerView.Adapter<ListWargaBinaanAdapter.ListWargaBinaanViewHolder> {

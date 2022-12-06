@@ -2,9 +2,7 @@ package umn.ac.id.project.maggot.adapter;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
-import android.app.Notification;
 import android.content.Context;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,23 +12,19 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
-import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.button.MaterialButton;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import umn.ac.id.project.maggot.R;
 import umn.ac.id.project.maggot.global.UserSharedPreference;
-import umn.ac.id.project.maggot.model.ApprovalRejectionModel;
 import umn.ac.id.project.maggot.model.NotificationUserModel;
-import umn.ac.id.project.maggot.model.UserModel;
 import umn.ac.id.project.maggot.retrofit.ApiService;
 
 public class FarmerNotificationAdapter extends RecyclerView.Adapter<FarmerNotificationAdapter.ListApprovalRejectionViewHolder> {

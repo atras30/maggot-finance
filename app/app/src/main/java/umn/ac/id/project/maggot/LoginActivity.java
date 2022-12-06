@@ -1,40 +1,30 @@
 package umn.ac.id.project.maggot;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.api.ApiException;
-import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.button.MaterialButton;
 import com.google.gson.Gson;
 
 import java.io.IOException;
-import java.sql.Array;
-import java.text.DecimalFormat;
-import java.text.DecimalFormatSymbols;
-import java.util.ArrayList;
-import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import umn.ac.id.project.maggot.global.AuthenticatedTrashManager;
 import umn.ac.id.project.maggot.global.TrashManagerSharedPreference;
 import umn.ac.id.project.maggot.global.UserSharedPreference;
 import umn.ac.id.project.maggot.model.AuthenticationModel;
-import umn.ac.id.project.maggot.model.TrashManagerModel;
-import umn.ac.id.project.maggot.model.UserModel;
 import umn.ac.id.project.maggot.retrofit.ApiService;
 
 public class LoginActivity extends AppCompatActivity {

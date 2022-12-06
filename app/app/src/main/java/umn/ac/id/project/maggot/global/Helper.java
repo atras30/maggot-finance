@@ -1,9 +1,7 @@
 package umn.ac.id.project.maggot.global;
 
 import android.content.Context;
-import android.util.Log;
 import android.view.View;
-import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -18,8 +16,6 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import umn.ac.id.project.maggot.R;
 import umn.ac.id.project.maggot.model.AuthenticationModel;
-import umn.ac.id.project.maggot.model.TrashManagerModel;
-import umn.ac.id.project.maggot.model.UserModel;
 import umn.ac.id.project.maggot.retrofit.ApiService;
 
 public class Helper {

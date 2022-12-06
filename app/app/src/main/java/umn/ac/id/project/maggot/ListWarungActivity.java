@@ -1,34 +1,22 @@
 package umn.ac.id.project.maggot;
 
-import androidx.annotation.NonNull;
+import android.content.Intent;
+import android.os.Bundle;
+import android.view.View;
+import android.widget.ImageView;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.content.Intent;
-import android.os.Bundle;
-import android.util.Log;
-import android.view.View;
-import android.widget.ImageView;
-
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
 
 import java.util.ArrayList;
-import java.util.List;
 
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
-import umn.ac.id.project.maggot.adapter.DetailWargaAdapter;
 import umn.ac.id.project.maggot.adapter.DetailWarungAdapter;
-import umn.ac.id.project.maggot.adapter.ListWarungBinaanAdapter;
 import umn.ac.id.project.maggot.global.TrashManagerSharedPreference;
-import umn.ac.id.project.maggot.model.PeternakModel;
 import umn.ac.id.project.maggot.model.UserModel;
-import umn.ac.id.project.maggot.model.WarungModel;
-import umn.ac.id.project.maggot.retrofit.ApiService;
 
 public class ListWarungActivity extends AppCompatActivity {
 

@@ -4,8 +4,6 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
-import umn.ac.id.project.maggot.global.Helper;
-
 public class UserModel {
     private List<User> users;
     private User user;

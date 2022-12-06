@@ -14,7 +14,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import umn.ac.id.project.maggot.R;
-import umn.ac.id.project.maggot.model.PeternakModel;
 import umn.ac.id.project.maggot.model.TransactionModel;
 
 public class PengelolaBankSampahTransactionAdapter extends RecyclerView.Adapter<PengelolaBankSampahTransactionAdapter.PengelolaBankSampahTransactionViewHolder> {

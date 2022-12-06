@@ -2,17 +2,10 @@ package umn.ac.id.project.maggot;
 
 import android.app.Activity;
 import android.app.DatePickerDialog;
-import android.app.DownloadManager;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-
-import androidx.appcompat.widget.SearchView;
-import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -24,9 +17,12 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import java.io.IOException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
@@ -34,8 +30,6 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import umn.ac.id.project.maggot.adapter.FarmerTransactionAdapter;
-import umn.ac.id.project.maggot.adapter.ShopTransactionAdapter;
-import umn.ac.id.project.maggot.global.TrashManagerSharedPreference;
 import umn.ac.id.project.maggot.global.UserSharedPreference;
 import umn.ac.id.project.maggot.model.TransactionModel;
 import umn.ac.id.project.maggot.retrofit.ApiService;

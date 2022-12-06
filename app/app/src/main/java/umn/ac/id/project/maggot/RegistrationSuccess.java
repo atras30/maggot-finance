@@ -1,11 +1,10 @@
 package umn.ac.id.project.maggot;
 
-import androidx.appcompat.app.AppCompatActivity;
-
-import android.app.Activity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;

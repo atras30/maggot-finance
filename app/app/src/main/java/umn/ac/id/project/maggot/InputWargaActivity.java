@@ -1,8 +1,5 @@
 package umn.ac.id.project.maggot;
 
-import androidx.appcompat.app.AppCompatActivity;
-
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -12,6 +9,8 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.google.gson.Gson;
 
 import java.io.IOException;
@@ -20,10 +19,8 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import umn.ac.id.project.maggot.global.TrashManagerSharedPreference;
-import umn.ac.id.project.maggot.global.UserSharedPreference;
 import umn.ac.id.project.maggot.model.ApprovalRejectionModel;
 import umn.ac.id.project.maggot.model.AuthenticationModel;
-import umn.ac.id.project.maggot.model.TrashManagerModel;
 import umn.ac.id.project.maggot.retrofit.ApiService;
 
 public class InputWargaActivity extends AppCompatActivity {

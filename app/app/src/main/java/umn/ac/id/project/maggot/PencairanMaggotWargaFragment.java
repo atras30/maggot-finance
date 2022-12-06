@@ -1,11 +1,7 @@
 package umn.ac.id.project.maggot;
 
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
@@ -19,6 +15,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.fragment.app.Fragment;
 
 import com.google.android.material.button.MaterialButton;
 
@@ -34,7 +32,6 @@ import umn.ac.id.project.maggot.global.TrashManagerSharedPreference;
 import umn.ac.id.project.maggot.global.UserSharedPreference;
 import umn.ac.id.project.maggot.model.NotificationUserModel;
 import umn.ac.id.project.maggot.model.PeternakModel;
-import umn.ac.id.project.maggot.model.TransactionModel;
 import umn.ac.id.project.maggot.retrofit.ApiService;
 
 public class PencairanMaggotWargaFragment extends Fragment {
