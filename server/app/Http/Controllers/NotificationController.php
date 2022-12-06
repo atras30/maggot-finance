@@ -19,7 +19,7 @@ class NotificationController extends Controller
 
         if (auth()->user()->role == 'trash_manager') {
             return response()->json([
-                "message" => "Trash Manager dont have any use for this feature."
+                "message" => "Pengelola bank sampah tidak punya akses ke fitur ini."
             ], Response::HTTP_OK);
         } else if (auth()->user()->role == 'farmer') {
             $notifications = Notification::where(
@@ -99,7 +99,7 @@ class NotificationController extends Controller
 
         if (auth()->user()->role != "trash_manager") {
             return response()->json([
-                "message" => ucfirst(auth()->user()->role) . " have no access to this feature."
+                "message" => ucfirst(auth()->user()->role) . " tidak punya akses ke fitur ini."
             ], Response::HTTP_UNAUTHORIZED);
         }
 
@@ -114,7 +114,7 @@ class NotificationController extends Controller
             $validated['farmer_id'] = User::firstWhere("email", $validated['farmer_email'])->id;
         } catch (\Exception $e) {
             return response()->json([
-                "message" => "Failed to create payment request. User was not found"
+                "message" => "User tidak ditemukan"
             ]);
         }
 
@@ -144,7 +144,7 @@ class NotificationController extends Controller
 
         if (auth()->user()->role != "trash_manager") {
             return response()->json([
-                "message" => ucfirst(auth()->user()->role) . " have no access to this feature."
+                "message" => ucfirst(auth()->user()->role) . " tidak punya akses ke fitur ini."
             ], Response::HTTP_UNAUTHORIZED);
         }
 
@@ -159,7 +159,7 @@ class NotificationController extends Controller
             $validated['shop_id'] = User::firstWhere("email", $validated['shop_email'])->id;
         } catch (\Exception $e) {
             return response()->json([
-                "message" => "Failed to create payment request. User was not found"
+                "message" => "User tidak ditemukan."
             ]);
         }
 
@@ -179,7 +179,7 @@ class NotificationController extends Controller
         }
 
         return response()->json([
-            'message' => 'Shop\'s Withdrawal Notification Successfully Created.',
+            'message' => 'Permintaan penarikan uang warung berhasil dibuat.',
         ]);
     }
 
@@ -196,7 +196,7 @@ class NotificationController extends Controller
         if (!$notification) {
             return response()->json(
                 [
-                    'message' => 'Token Expired.',
+                    'message' => 'Token kadaluarsa.',
                 ],
                 Response::HTTP_NOT_FOUND
             );
@@ -206,7 +206,7 @@ class NotificationController extends Controller
 
         if($shop->balance - $notification->withdrawal_amount < 0) {
             return response()->json([
-                "message" => "Insufficent Balance."
+                "message" => "Saldo tidak cukup"
             ], Response::HTTP_NOT_ACCEPTABLE);
         }
 
@@ -244,7 +244,7 @@ class NotificationController extends Controller
 
         return response()->json(
             [
-                'message' => 'Withdrawal Success.',
+                'message' => 'Penarikan Uang Berhasil.',
             ],
             Response::HTTP_OK
         );
@@ -263,7 +263,7 @@ class NotificationController extends Controller
         if (!$notification) {
             return response()->json(
                 [
-                    'message' => 'Token Expired.',
+                    'message' => 'Token Kadaluarsa.',
                 ],
                 Response::HTTP_NOT_FOUND
             );
@@ -273,7 +273,7 @@ class NotificationController extends Controller
 
         return response()->json(
             [
-                'message' => 'Withdrawal Deletion Success.',
+                'message' => 'Penghapusan permintaan penarikan uang berhasil.',
             ],
             Response::HTTP_OK
         );
@@ -283,7 +283,7 @@ class NotificationController extends Controller
     {
         if (auth()->user()->role != "trash_manager") {
             return response()->json([
-                "message" => ucfirst(auth()->user()->role) . " have no access to this feature."
+                "message" => ucfirst(auth()->user()->role) . " tidak punya akses ke fitur ini."
             ], Response::HTTP_UNAUTHORIZED);
         }
 
@@ -300,7 +300,7 @@ class NotificationController extends Controller
             User::findOrFail($validated['farmer_id']);
         } catch (\Exception $e) {
             return response()->json([
-                "message" => "Failed to fetch User was not found"
+                "message" => "User tidak ditemukan."
             ]);
         }
 
@@ -323,7 +323,7 @@ class NotificationController extends Controller
         }
 
         return response()->json([
-            'message' => 'Farmer\'s Withdrawal Notification Successfully Created.',
+            'message' => 'Notifikasi permintaan penarikan uang peternak berhasil dibuat.',
         ]);
     }
 
@@ -342,7 +342,7 @@ class NotificationController extends Controller
 
         if ($validated['status'] == 'cancel') {
             return response()->json([
-                'message' => 'Payment Cancelled.',
+                'message' => 'Pembayaran dibatalkan',
             ]);
         }
 
@@ -358,7 +358,7 @@ class NotificationController extends Controller
         if (!$notification) {
             return response()->json(
                 [
-                    'message' => 'Token was not found.',
+                    'message' => 'Token tidak ditemukan.',
                 ],
                 Response::HTTP_OK
             );
@@ -376,7 +376,7 @@ class NotificationController extends Controller
         if ($result['message'] != 'Transaksi Berhasil') {
             return response()->json(
                 [
-                    'message' => 'Payment Failed.',
+                    'message' => 'Transaksi gagal.',
                 ],
                 Response::HTTP_NOT_ACCEPTABLE
             );
@@ -384,7 +384,7 @@ class NotificationController extends Controller
 
         return response()->json(
             [
-                'message' => 'Payment successfull',
+                'message' => 'Pembayaran berhasil',
             ],
             Response::HTTP_OK
         );

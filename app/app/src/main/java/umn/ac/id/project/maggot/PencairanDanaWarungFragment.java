@@ -16,10 +16,13 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.activity.result.ActivityResultLauncher;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
 import com.google.android.material.button.MaterialButton;
+import com.journeyapps.barcodescanner.ScanContract;
+import com.journeyapps.barcodescanner.ScanOptions;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -31,11 +34,12 @@ import retrofit2.Response;
 import umn.ac.id.project.maggot.adapter.WarungSearchDropDownAdapter;
 import umn.ac.id.project.maggot.global.TrashManagerSharedPreference;
 import umn.ac.id.project.maggot.model.NotificationUserModel;
+import umn.ac.id.project.maggot.model.UserModel;
 import umn.ac.id.project.maggot.model.WarungModel;
 import umn.ac.id.project.maggot.retrofit.ApiService;
 
 public class PencairanDanaWarungFragment extends Fragment {
-
+    View view = null;
     ArrayAdapter<WarungModel.Warung> DropDownAdapter;
     List<WarungModel.Warung> results;
     private Context context;
@@ -54,7 +58,7 @@ public class PencairanDanaWarungFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_pencairan_dana_warung, container, false);
+        view = inflater.inflate(R.layout.fragment_pencairan_dana_warung, container, false);
         selectedEmailTextView = view.findViewById(R.id.selected_email);
         selectedEmailTextView.setVisibility(View.GONE);
 
@@ -149,7 +153,63 @@ public class PencairanDanaWarungFragment extends Fragment {
 
             createShopWithdrawalRequest();
         });
+
+        MaterialButton scanQrCodeButton = view.findViewById(R.id.scan_qr_code_button);
+        scanQrCodeButton.setOnClickListener(v -> {
+            scanCode();
+        });
         return view;
+    }
+    //QR Scanner
+    ActivityResultLauncher<ScanOptions> barLauncher = registerForActivityResult(new ScanContract(), result -> {
+        if(result.getContents() != null) {
+            String scannedEmail = result.getContents();
+            InstantAutoComplete namaWarung = view.findViewById(R.id.namawarung);
+            namaWarung.setText("Fetching Data...");
+
+            ApiService.endpoint().getUserByEmail(scannedEmail).enqueue(new Callback<UserModel>() {
+                @Override
+                public void onResponse(Call<UserModel> call, Response<UserModel> response) {
+                    if(response.isSuccessful()) {
+                        UserModel.User user = response.body().getUserByEmail();
+                        InstantAutoComplete namaWarung = view.findViewById(R.id.namawarung);
+
+                        if(!user.getRole().equalsIgnoreCase("shop")) {
+                            Toast.makeText(context, "Warga tidak ditemukan", Toast.LENGTH_SHORT).show();
+                            namaWarung.setText("");
+                            return;
+                        }
+                        TextView emailWarung = view.findViewById(R.id.selected_email);
+                        namaWarung.setText(user.getFull_name());
+                        emailWarung.setText(user.getEmail());
+                        emailWarung.setVisibility(View.VISIBLE);
+                        selectedEmail = user.getEmail();
+                    } else {
+                        try {
+                            Toast.makeText(context, response.errorBody().string(), Toast.LENGTH_SHORT).show();
+                            Log.i("Error", response.errorBody().string());
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<UserModel> call, Throwable t) {
+                    Toast.makeText(context, t.getMessage(), Toast.LENGTH_SHORT).show();
+                    Log.i("Error", t.getMessage());
+                }
+            });
+        }
+    });
+
+    private void scanCode() {
+        ScanOptions options = new ScanOptions();
+        options.setPrompt("Tekan tombol volume atas untuk menyalakan flash\nTekan tombol volume bawah untuk mematikan flash\n\n");
+        options.setBeepEnabled(true);
+        options.setOrientationLocked(true);
+        options.setCaptureActivity(CaptureAct.class);
+        barLauncher.launch(options);
     }
 
     private void createShopWithdrawalRequest() {
