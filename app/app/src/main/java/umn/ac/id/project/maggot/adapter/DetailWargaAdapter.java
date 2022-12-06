@@ -76,20 +76,19 @@ public class DetailWargaAdapter extends RecyclerView.Adapter<DetailWargaAdapter.
                             ApiService.endpoint().deleteUser(peternak.get(position).getId()).enqueue(new Callback<UserModel>() {
                                 @Override
                                 public void onResponse(Call<UserModel> call, Response<UserModel> response) {
-                                    String message = response.body().deleteUser();
-                                    Toast.makeText(context, message, Toast.LENGTH_LONG).show();
+                                    Toast.makeText(context, "Warga berhasil dihapus!", Toast.LENGTH_LONG).show();
                                     listener.onItemClick(position);
                                 }
 
                                 @Override
                                 public void onFailure(Call<UserModel> call, Throwable t) {
-                                    Toast.makeText(context, "Error : " + t.getMessage(), Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(context, "Sedang ada masalah di jaringan kami. Coba lagi.", Toast.LENGTH_SHORT).show();
                                 }
                             });
                         }
                         else
                         {
-                            Toast.makeText(context.getApplicationContext(), "Saldo warga belum 0!", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(context.getApplicationContext(), "Tidak dapat menghapus warga karena saldo belum habis.", Toast.LENGTH_LONG).show();
                         }
                         dialog.hide();
                     }

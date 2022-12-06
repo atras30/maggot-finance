@@ -29,7 +29,6 @@ public class RegistrationSuccess extends AppCompatActivity {
             public void onComplete(Task<Void> task) {
                 new UserSharedPreference(RegistrationSuccess.this).logout();
                 finish();
-                Toast.makeText(RegistrationSuccess.this, "Logout Complete", Toast.LENGTH_SHORT).show();
             }
         });
     }

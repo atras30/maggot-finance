@@ -205,7 +205,7 @@ public class BuyMaggotFragment extends Fragment {
 
                 @Override
                 public void onFailure(Call<TransactionModel> call, Throwable t) {
-                    Toast.makeText(context, t.getMessage(), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(context, "Sedang ada masalah di jaringan kami. Coba lagi.", Toast.LENGTH_SHORT).show();
                 }
             });
         });

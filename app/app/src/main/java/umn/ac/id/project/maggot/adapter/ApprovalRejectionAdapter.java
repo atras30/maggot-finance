@@ -80,14 +80,13 @@ public class ApprovalRejectionAdapter extends RecyclerView.Adapter<ApprovalRejec
                         ApiService.endpoint().approvalUserRegistration(users.get(position).getEmail()).enqueue(new Callback<ApprovalRejectionModel>() {
                             @Override
                             public void onResponse(Call<ApprovalRejectionModel> call, Response<ApprovalRejectionModel> response) {
-                                String message = response.body().approvalUserRegistration();
-                                Toast.makeText(context, message, Toast.LENGTH_LONG).show();
+                                Toast.makeText(context, "Pengguna berhasil ditambahkan!", Toast.LENGTH_LONG).show();
                                 listener.onItemClick(position);
                             }
 
                             @Override
                             public void onFailure(Call<ApprovalRejectionModel> call, Throwable t) {
-                                Toast.makeText(context, "Error : " + t.getMessage(), Toast.LENGTH_SHORT).show();
+                                Toast.makeText(context, "Sedang ada masalah di jaringan kami. Coba lagi.", Toast.LENGTH_SHORT).show();
                             }
                         });
                         dialog.hide();
@@ -124,15 +123,13 @@ public class ApprovalRejectionAdapter extends RecyclerView.Adapter<ApprovalRejec
                         ApiService.endpoint().rejectionUserRegistration(users.get(position).getEmail()).enqueue(new Callback<ApprovalRejectionModel>() {
                             @Override
                             public void onResponse(Call<ApprovalRejectionModel> call, Response<ApprovalRejectionModel> response) {
-                                Log.d("Debug2", position+"");
-                                String message = response.body().rejectionUserRegistration();
-                                Toast.makeText(context, message, Toast.LENGTH_LONG).show();
+                                Toast.makeText(context, "Pengguna berhasil ditolak!", Toast.LENGTH_LONG).show();
                                 listener.onItemClick(position);
                             }
 
                             @Override
                             public void onFailure(Call<ApprovalRejectionModel> call, Throwable t) {
-                                Toast.makeText(context, "Error : " + t.getMessage(), Toast.LENGTH_SHORT).show();
+                                Toast.makeText(context, "Sedang ada masalah di jaringan kami. Coba lagi.", Toast.LENGTH_SHORT).show();
                             }
                         });
                         dialog.hide();

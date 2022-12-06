@@ -57,19 +57,15 @@ public class InputWarungActivity extends AppCompatActivity {
                     @Override
                     public void onResponse(Call<AuthenticationModel> call, Response<AuthenticationModel> response) {
                         if (response.isSuccessful()) {
-                            String responseMessage = response.body().registerUser();
-                            Toast.makeText(InputWarungActivity.this, responseMessage, Toast.LENGTH_SHORT).show();
-
                             ApiService.endpoint().approvalUserRegistration(email).enqueue(new Callback<ApprovalRejectionModel>() {
                                 @Override
                                 public void onResponse(Call<ApprovalRejectionModel> call, Response<ApprovalRejectionModel> response) {
                                     if(response.isSuccessful()) {
-                                        String message = response.body().approvalUserRegistration();
-                                        Toast.makeText(InputWarungActivity.this, message, Toast.LENGTH_LONG).show();
+                                        Toast.makeText(InputWarungActivity.this, "Warung berhasil didaftarkan!", Toast.LENGTH_LONG).show();
                                         finish();
                                     } else {
                                         try {
-                                            Toast.makeText(InputWarungActivity.this, new Gson().fromJson(response.errorBody().string(), AuthenticationModel.ErrorHandler.class).getMessage(), Toast.LENGTH_SHORT).show();
+                                            Toast.makeText(InputWarungActivity.this, "Masalah: " + new Gson().fromJson(response.errorBody().string(), AuthenticationModel.ErrorHandler.class).getMessage(), Toast.LENGTH_SHORT).show();
                                         } catch (IOException e) {
                                             e.printStackTrace();
                                         }
@@ -78,12 +74,12 @@ public class InputWarungActivity extends AppCompatActivity {
 
                                 @Override
                                 public void onFailure(Call<ApprovalRejectionModel> call, Throwable t) {
-                                    Toast.makeText(InputWarungActivity.this, "Error : " + t.getMessage(), Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(InputWarungActivity.this, "Sedang ada masalah di jaringan kami. Coba lagi.", Toast.LENGTH_SHORT).show();
                                 }
                             });
                         } else {
                             try {
-                                Toast.makeText(InputWarungActivity.this, new Gson().fromJson(response.errorBody().string(), AuthenticationModel.ErrorHandler.class).getMessage(), Toast.LENGTH_SHORT).show();
+                                Toast.makeText(InputWarungActivity.this, "Masalah: " + new Gson().fromJson(response.errorBody().string(), AuthenticationModel.ErrorHandler.class).getMessage(), Toast.LENGTH_SHORT).show();
                             } catch (IOException e) {
                                 e.printStackTrace();
                             }

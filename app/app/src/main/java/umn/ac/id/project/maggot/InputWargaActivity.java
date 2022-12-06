@@ -57,14 +57,11 @@ public class InputWargaActivity extends AppCompatActivity {
                     @Override
                     public void onResponse(Call<AuthenticationModel> call, Response<AuthenticationModel> response) {
                         if (response.isSuccessful()) {
-                            String responseMessage = response.body().registerUser();
                             approveRegisteredUser(email);
-                            toast = Toast.makeText(InputWargaActivity.this, "Approving...", Toast.LENGTH_SHORT);
-                            toast.show();
                         } else {
                             try {
                                 String error = response.errorBody().string();
-                                Toast.makeText(InputWargaActivity.this, new Gson().fromJson(error, AuthenticationModel.ErrorHandler.class).getMessage(), Toast.LENGTH_SHORT).show();
+                                Toast.makeText(InputWargaActivity.this, "Masalah: " + new Gson().fromJson(error, AuthenticationModel.ErrorHandler.class).getMessage(), Toast.LENGTH_SHORT).show();
                             } catch (IOException e) {
                                 e.printStackTrace();
                             }
@@ -74,7 +71,7 @@ public class InputWargaActivity extends AppCompatActivity {
                     @Override
                     public void onFailure(Call<AuthenticationModel> call, Throwable t) {
                         Log.i("Failure", t.getMessage().toString());
-                        Toast.makeText(InputWargaActivity.this, t.getMessage(), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(InputWargaActivity.this, "Sedang ada masalah di jaringan kami. Coba lagi.", Toast.LENGTH_SHORT).show();
                     }
                 });
             }
@@ -85,16 +82,15 @@ public class InputWargaActivity extends AppCompatActivity {
         ApiService.endpoint().approvalUserRegistration(email).enqueue(new Callback<ApprovalRejectionModel>() {
             @Override
             public void onResponse(Call<ApprovalRejectionModel> call, Response<ApprovalRejectionModel> response) {
-                String message = response.body().approvalUserRegistration();
                 if(toast != null) toast.cancel();
-                toast = Toast.makeText(InputWargaActivity.this, message, Toast.LENGTH_LONG);
+                toast = Toast.makeText(InputWargaActivity.this, "Warga berhasil ditambahkan!", Toast.LENGTH_LONG);
                 toast.show();
                 finish();
             }
 
             @Override
             public void onFailure(Call<ApprovalRejectionModel> call, Throwable t) {
-                Toast.makeText(InputWargaActivity.this, "Error : " + t.getMessage(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(InputWargaActivity.this, "Sedang ada masalah di jaringan kami. Coba lagi.", Toast.LENGTH_SHORT).show();
             }
         });
     }

@@ -97,7 +97,7 @@ public class DashboardPengelolaBankSampahFragment extends Fragment {
                     });
                 } else {
                     try {
-                        Toast.makeText(context, response.errorBody().string(), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(context, "Masalah: " + response.errorBody().string(), Toast.LENGTH_SHORT).show();
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
@@ -106,7 +106,7 @@ public class DashboardPengelolaBankSampahFragment extends Fragment {
 
             @Override
             public void onFailure(Call<TrashManagerModel> call, Throwable t) {
-                Toast.makeText(context, t.getMessage(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, "Sedang ada masalah di jaringan kami. Coba lagi.", Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -125,7 +125,7 @@ public class DashboardPengelolaBankSampahFragment extends Fragment {
                 @Override
                 public void onComplete(Task<Void> task) {
                     new TrashManagerSharedPreference(context).logout();
-                    showToastMessage("Logout Complete!");
+                    showToastMessage("Anda telah keluar!");
                     navigateToLoginPage();
                     ((Activity)context).finish();
                 }
