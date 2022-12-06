@@ -84,7 +84,7 @@ public class ShopTransactionFragment extends Fragment {
                 } else {
                     try {
                         Log.i("Failed", response.errorBody().string());
-                        Toast.makeText(context, response.errorBody().string(), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(context, "Masalah: " + response.errorBody().string(), Toast.LENGTH_SHORT).show();
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
@@ -149,7 +149,7 @@ public class ShopTransactionFragment extends Fragment {
 
 
                                 } else {
-                                    Toast.makeText(context, "Tanggal Akhir harus lebih dari tanggal awal", Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(context, "Tanggal akhir harus lebih dari tanggal awal", Toast.LENGTH_SHORT).show();
                                 }
 
                             }

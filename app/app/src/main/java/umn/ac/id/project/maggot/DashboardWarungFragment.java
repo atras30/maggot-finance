@@ -92,7 +92,7 @@ public class DashboardWarungFragment extends Fragment {
                     }
                 } else {
                     try {
-                        Toast.makeText(context, response.errorBody().string(), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(context, "Masalah: " + response.errorBody().string(), Toast.LENGTH_SHORT).show();
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
@@ -101,7 +101,7 @@ public class DashboardWarungFragment extends Fragment {
 
             @Override
             public void onFailure(Call<AuthenticationModel> call, Throwable t) {
-                Toast.makeText(context, t.getMessage(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, "Sedang ada masalah di jaringan kami. Coba lagi.", Toast.LENGTH_LONG).show();
             }
         });
 
@@ -120,7 +120,7 @@ public class DashboardWarungFragment extends Fragment {
                 @Override
                 public void onComplete(Task<Void> task) {
                     new UserSharedPreference(context).logout();
-                    showToastMessage("Logout Complete!");
+                    showToastMessage("Anda telah keluar!");
                     navigateToLoginPage();
                     ((Activity)context).finish();
                 }
@@ -135,7 +135,7 @@ public class DashboardWarungFragment extends Fragment {
             Bitmap qrCodeBitmap = barcodeEncoder.createBitmap(bitMatrix);
             barcodeImage.setImageBitmap(qrCodeBitmap);
         } catch (WriterException e) {
-            Toast.makeText(context, e.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+            Toast.makeText(context, "Masalah: " + e.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
         }
 
         return view;

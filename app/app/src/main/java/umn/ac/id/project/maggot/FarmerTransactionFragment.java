@@ -78,7 +78,7 @@ public class FarmerTransactionFragment extends Fragment {
                     }
                 } else {
                     try {
-                        Toast.makeText(context, response.errorBody().string(), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(context, "Masalah: " + response.errorBody().string(), Toast.LENGTH_SHORT).show();
                         Log.i("Failed", response.errorBody().string());
                     } catch (IOException e) {
                         e.printStackTrace();
@@ -90,7 +90,7 @@ public class FarmerTransactionFragment extends Fragment {
 
             @Override
             public void onFailure(Call<TransactionModel> call, Throwable t) {
-                Toast.makeText(context, "Error : " + t.getMessage(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, "Sedang ada masalah di jaringan kami. Coba lagi.", Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -148,7 +148,7 @@ public class FarmerTransactionFragment extends Fragment {
 
 
                                 }else {
-                                    Toast.makeText(context,"Tanggal Akhir harus lebih dari tanggal awal",Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(context,"Tanggal akhir harus lebih dari tanggal awal",Toast.LENGTH_SHORT).show();
                                 }
 
                             }

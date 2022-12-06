@@ -60,7 +60,7 @@ public class ShopNotificationFragment extends Fragment {
                 } else {
                     try {
                         Log.i("Error 2", response.errorBody().string());
-                        Toast.makeText(context, response.errorBody().string(), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(context, "Masalah: " + response.errorBody().string(), Toast.LENGTH_SHORT).show();
                     } catch (IOException e) {
                         Log.i("Error 2", e.getMessage());
                         e.printStackTrace();
@@ -71,7 +71,7 @@ public class ShopNotificationFragment extends Fragment {
             @Override
             public void onFailure(Call<NotificationUserModel> call, Throwable t) {
                 Log.i("Error 3", "Error 3");
-                Toast.makeText(context, t.getMessage(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, "Sedang ada masalah di jaringan kami. Coba lagi.", Toast.LENGTH_LONG).show();
             }
         });
 

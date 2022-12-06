@@ -76,20 +76,19 @@ public class DetailWarungAdapter extends RecyclerView.Adapter<DetailWarungAdapte
                             ApiService.endpoint().deleteUser(warung.get(position).getId()).enqueue(new Callback<UserModel>() {
                                 @Override
                                 public void onResponse(Call<UserModel> call, Response<UserModel> response) {
-                                    String message = response.body().deleteUser();
-                                    Toast.makeText(context, message, Toast.LENGTH_LONG).show();
+                                    Toast.makeText(context, "Warung berhasil dihapus!", Toast.LENGTH_LONG).show();
                                     listener.onItemClick(position);
                                 }
 
                                 @Override
                                 public void onFailure(Call<UserModel> call, Throwable t) {
-                                    Toast.makeText(context, "Error : " + t.getMessage(), Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(context, "Sedang ada masalah di jaringan kami. Coba lagi.", Toast.LENGTH_SHORT).show();
                                 }
                             });
                         }
                         else
                         {
-                            Toast.makeText(context.getApplicationContext(), "Saldo warung belum 0!", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(context.getApplicationContext(), "Tidak dapat menghapus warung karena saldo belum habis.", Toast.LENGTH_SHORT).show();
                         }
                         dialog.hide();
                     }

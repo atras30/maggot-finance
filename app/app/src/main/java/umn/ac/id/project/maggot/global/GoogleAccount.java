@@ -28,7 +28,7 @@ public class GoogleAccount {
             @Override
             public void onComplete(Task<Void> task) {
                 new UserSharedPreference(context).logout();
-                Toast.makeText(context, "Logout Complete", Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, "Anda telah keluar!", Toast.LENGTH_SHORT).show();
                 context.startActivity(new Intent(context, LoginActivity.class));
                 ((Activity)context).finish();
             }

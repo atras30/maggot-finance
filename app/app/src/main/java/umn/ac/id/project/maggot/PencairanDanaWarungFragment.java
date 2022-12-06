@@ -142,8 +142,8 @@ public class PencairanDanaWarungFragment extends Fragment {
             if(selectedEmail.isEmpty()) {
                 Toast.makeText(context, "Silahkan pilih warga terlebih dahulu.", Toast.LENGTH_SHORT).show();
                 return;
-            } else if(jumlahBayar.getText().toString().trim().isEmpty()) {
-                Toast.makeText(context, "Jumlah Bayar Harus Diisi.", Toast.LENGTH_SHORT).show();
+            } else if(jumlahBayar.getText().toString().trim().isEmpty() || jumlahBayar.getText().toString().equals("0")) {
+                Toast.makeText(context, "Jumlah pencairan harus diisi.", Toast.LENGTH_SHORT).show();
                 return;
             }
 
@@ -159,13 +159,13 @@ public class PencairanDanaWarungFragment extends Fragment {
                 if(response.isSuccessful()) {
                     String message = response.body().createShoprWithdrawalRequest();
                     if(message.trim().equalsIgnoreCase("Shop's Withdrawal Notification Successfully Created.")) {
-                        message = "Permintaan pencairan berhasil, silahkan konfirmasi dari pihak warung.";
+                        message = "Silakan minta konfirmasi dari pihak warung.";
                     }
 
                     Toast.makeText(context, message, Toast.LENGTH_LONG).show();
                 } else {
                     try {
-                        Toast.makeText(context, response.errorBody().string(), Toast.LENGTH_LONG).show();
+                        Toast.makeText(context, "Masalah: " + response.errorBody().string(), Toast.LENGTH_LONG).show();
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
@@ -174,7 +174,7 @@ public class PencairanDanaWarungFragment extends Fragment {
 
             @Override
             public void onFailure(Call<NotificationUserModel> call, Throwable t) {
-                Toast.makeText(context, t.getMessage(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, "Sedang ada masalah di jaringan kami. Coba lagi.", Toast.LENGTH_SHORT).show();
             }
         });
     }

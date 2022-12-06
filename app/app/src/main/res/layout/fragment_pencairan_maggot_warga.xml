@@ -167,7 +167,7 @@
             android:layout_marginTop="20dp"
             android:drawableLeft="@drawable/farmer_payment_wallet"
             android:drawableTint="@color/white"
-            android:text="Buat Permintaan"
+            android:text="Cairkan Dana!"
             android:textColor="@color/white"
             android:textStyle="bold"
             app:backgroundTint="@color/secondary"

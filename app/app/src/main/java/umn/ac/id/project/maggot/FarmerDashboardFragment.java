@@ -114,7 +114,7 @@ public class FarmerDashboardFragment extends Fragment {
 
             @Override
             public void onFailure(Call<UserModel> call, Throwable t) {
-                Toast.makeText(context, t.getMessage(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, "Sedang ada masalah di jaringan kami. Coba lagi.", Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -127,7 +127,7 @@ public class FarmerDashboardFragment extends Fragment {
             Bitmap qrCodeBitmap = barcodeEncoder.createBitmap(bitMatrix);
             qrCodeImage.setImageBitmap(qrCodeBitmap);
         } catch (WriterException e) {
-            Toast.makeText(context, e.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+            Toast.makeText(context, "Masalah: " + e.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
         }
 
         return view;

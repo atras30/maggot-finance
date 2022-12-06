@@ -95,7 +95,7 @@ public class ApprovalRejectionFragment extends Fragment {
                     });
                 } else {
                     try {
-                        Log.i("Error", response.errorBody().string());
+                        Log.i("Masalah: ", response.errorBody().string());
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
@@ -104,7 +104,7 @@ public class ApprovalRejectionFragment extends Fragment {
 
             @Override
             public void onFailure(Call<TrashManagerModel> call, Throwable t) {
-                Toast.makeText(context, "Error : " + t.getMessage(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, "Sedang ada masalah di jaringan kami. Coba lagi.", Toast.LENGTH_LONG).show();
             }
         });
     }
