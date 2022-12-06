@@ -15,9 +15,12 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.activity.result.ActivityResultLauncher;
 import androidx.fragment.app.Fragment;
 
 import com.google.android.material.button.MaterialButton;
+import com.journeyapps.barcodescanner.ScanContract;
+import com.journeyapps.barcodescanner.ScanOptions;
 
 import java.io.IOException;
 import java.text.DecimalFormat;
@@ -32,6 +35,7 @@ import umn.ac.id.project.maggot.adapter.PeternakSearchDropDownAdapter;
 import umn.ac.id.project.maggot.global.TrashManagerSharedPreference;
 import umn.ac.id.project.maggot.model.PeternakModel;
 import umn.ac.id.project.maggot.model.TransactionModel;
+import umn.ac.id.project.maggot.model.UserModel;
 import umn.ac.id.project.maggot.retrofit.ApiService;
 
 public class BuyMaggotFragment extends Fragment {
@@ -40,6 +44,7 @@ public class BuyMaggotFragment extends Fragment {
     List<PeternakModel.Peternak> results;
     String selectedFarmerEmail = "";
     String description = "-";
+    View view = null;
 
     public BuyMaggotFragment(Context context) {
         this.context = context;
@@ -51,9 +56,12 @@ public class BuyMaggotFragment extends Fragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_buy_maggot, container, false);
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        view = inflater.inflate(R.layout.fragment_buy_maggot, container, false);
+        MaterialButton scanWithQrButton = view.findViewById(R.id.scanqrwarga);
+        scanWithQrButton.setOnClickListener(v -> {
+            scanWithQr();
+        });
         ApiService.endpoint().getPeternak().enqueue(new Callback<PeternakModel>() {
             @Override
             public void onResponse(Call<PeternakModel> call, Response<PeternakModel> response) {
@@ -160,6 +168,16 @@ public class BuyMaggotFragment extends Fragment {
         }
 
         buttonBuy.setOnClickListener(v -> {
+            if(selectedFarmerEmail.isEmpty()) {
+                Toast.makeText(context, "Anda belum memilih warga.", Toast.LENGTH_SHORT).show();
+                return;
+            } else if(buttons[0].getText().toString().isEmpty()) {
+                Toast.makeText(context, "Jumlah KG harus diisi.", Toast.LENGTH_SHORT).show();
+                return;
+            } else if(buttons[1].getText().toString().isEmpty()) {
+                Toast.makeText(context, "Harga per KG harus diisi.", Toast.LENGTH_SHORT).show();
+                return;
+            }
             double weightInKg = Double.parseDouble(buttons[0].getText().toString());
             double amountPerKg = Double.parseDouble(buttons[1].getText().toString());
             Log.i("Jumlah KG : ", buttons[0].getText().toString());
@@ -192,5 +210,51 @@ public class BuyMaggotFragment extends Fragment {
             });
         });
         return view;
+    }
+
+    //QR Scanner
+    ActivityResultLauncher<ScanOptions> barLauncher = registerForActivityResult(new ScanContract(), result -> {
+        if(result.getContents() != null) {
+            String scannedEmail = result.getContents();
+            InstantAutoComplete namaWarga = view.findViewById(R.id.namawarga);
+            namaWarga.setText("Fetching Data...");
+
+            ApiService.endpoint().getUserByEmail(scannedEmail).enqueue(new Callback<UserModel>() {
+                @Override
+                public void onResponse(Call<UserModel> call, Response<UserModel> response) {
+                    if(response.isSuccessful()) {
+                        UserModel.User user = response.body().getUserByEmail();
+
+                        InstantAutoComplete namaWarga = view.findViewById(R.id.namawarga);
+                        TextView emailWarga = view.findViewById(R.id.edittext_email_warga);
+                        namaWarga.setText(user.getFull_name());
+                        emailWarga.setText(user.getEmail());
+                        selectedFarmerEmail = user.getEmail();
+                    } else {
+                        try {
+                            Toast.makeText(context, response.errorBody().string(), Toast.LENGTH_SHORT).show();
+                            Log.i("Error", response.errorBody().string());
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<UserModel> call, Throwable t) {
+                    Toast.makeText(context, t.getMessage(), Toast.LENGTH_SHORT).show();
+                    Log.i("Error", t.getMessage());
+                }
+            });
+        }
+    });
+
+    private void scanWithQr() {
+        ScanOptions options = new ScanOptions();
+        options.setPrompt(" Tekan tombol volume atas untuk menyalakan flash\nTekan tombol volume bawah untuk mematikan flash\n\n");
+        options.setBeepEnabled(true);
+        options.setOrientationLocked(true);
+        options.setCaptureActivity(CaptureAct.class);
+        barLauncher.launch(options);
     }
 }

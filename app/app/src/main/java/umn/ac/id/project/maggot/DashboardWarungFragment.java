@@ -32,6 +32,7 @@ import java.io.IOException;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+import umn.ac.id.project.maggot.global.GoogleAccount;
 import umn.ac.id.project.maggot.global.Helper;
 import umn.ac.id.project.maggot.global.UserSharedPreference;
 import umn.ac.id.project.maggot.model.AuthenticationModel;
@@ -111,20 +112,8 @@ public class DashboardWarungFragment extends Fragment {
         tvSaldo.setText("**********");
 
         MaterialButton logoutButton = view.findViewById(R.id.logout_button);
-
-        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN).requestEmail().build();
-        GoogleSignInClient gsc = GoogleSignIn.getClient(context, gso);
-
         logoutButton.setOnClickListener(v -> {
-            gsc.signOut().addOnCompleteListener(new OnCompleteListener<Void>() {
-                @Override
-                public void onComplete(Task<Void> task) {
-                    new UserSharedPreference(context).logout();
-                    showToastMessage("Anda telah keluar!");
-                    navigateToLoginPage();
-                    ((Activity)context).finish();
-                }
-            });
+            new GoogleAccount(context).signOut();
         });
 
         try {

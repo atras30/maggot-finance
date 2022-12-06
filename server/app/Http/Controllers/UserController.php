@@ -27,7 +27,7 @@ class UserController extends Controller
 
         return response()->json(
             [
-                'message' => "User successfully deleted.",
+                'message' => "User berhasil dihapus.",
             ],
             Response::HTTP_OK
         );
@@ -113,7 +113,7 @@ class UserController extends Controller
         });
 
         return response()->json([
-            "message" => "Transaction created."
+            "message" => "Transaction berhasil dibuat."
         ], Response::HTTP_CREATED);
     }
 
@@ -124,7 +124,7 @@ class UserController extends Controller
         if (!$user->count()) {
             return response()->json(
                 [
-                    'message' => "User {$email} was not found.",
+                    'message' => "User {$email} tidak ditemukan.",
                 ],
                 Response::HTTP_OK
             );
@@ -145,8 +145,7 @@ class UserController extends Controller
         if (!in_array($role, $validRoles)) {
             return response()->json(
                 [
-                    'message' =>
-                        "Invalid Role! Role must be either 'farmer', or 'shop'",
+                    'message' => "Invalid Role! Role must be either 'farmer', or 'shop'",
                 ],
                 Response::HTTP_NOT_ACCEPTABLE
             );
@@ -195,7 +194,7 @@ class UserController extends Controller
 
         return response()->json(
             [
-                'message' => 'User was successfully updated.',
+                'message' => 'User berhasil dibuat.',
             ],
             Response::HTTP_INTERNAL_SERVER_ERROR
         );

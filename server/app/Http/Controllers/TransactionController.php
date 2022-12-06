@@ -30,7 +30,7 @@ class TransactionController extends Controller
                 ->first();
             if (!$trashManager) {
                 return response()->json([
-                    'message' => 'User was not found',
+                    'message' => 'User tidak ditemukan',
                 ]);
             }
         }
@@ -78,7 +78,7 @@ class TransactionController extends Controller
         if (!$notification) {
             return response()->json(
                 [
-                    'message' => 'Token Expired.',
+                    'message' => 'Token kadaluarsa.',
                 ],
                 Response::HTTP_NOT_FOUND
             );
@@ -88,7 +88,7 @@ class TransactionController extends Controller
 
         if($farmer->balance - $notification->withdrawal_amount < 0) {
             return response()->json([
-                "message" => "Insufficent Balance."
+                "message" => "Saldo tidak cukup."
             ], Response::HTTP_NOT_ACCEPTABLE);
         }
 
@@ -126,7 +126,7 @@ class TransactionController extends Controller
 
         return response()->json(
             [
-                'message' => 'Withdrawal Success.',
+                'message' => 'Penarikan uang berhasil.',
             ],
             Response::HTTP_OK
         );
@@ -145,7 +145,7 @@ class TransactionController extends Controller
         if (!$notification) {
             return response()->json(
                 [
-                    'message' => 'Token Expired.',
+                    'message' => 'Token kadaluarsa.',
                 ],
                 Response::HTTP_NOT_FOUND
             );
@@ -155,7 +155,7 @@ class TransactionController extends Controller
 
         return response()->json(
             [
-                'message' => 'Withdrawal Deletion Success.',
+                'message' => 'Penghapusan permintaan uang berhasil.',
             ],
             Response::HTTP_OK
         );
@@ -173,7 +173,7 @@ class TransactionController extends Controller
         if (!$notification) {
             return response()->json(
                 [
-                    'message' => 'Token Expired.',
+                    'message' => 'Token kadaluarsa.',
                 ],
                 Response::HTTP_NOT_FOUND
             );
@@ -186,7 +186,7 @@ class TransactionController extends Controller
 
             if($farmer->balance - $notification->total_amount < 0) {
                 return response()->json([
-                    "message" => "Farmer balance is insufficent."
+                    "message" => "Uang peternak tidak cukup."
                 ], Response::HTTP_NOT_ACCEPTABLE);
             }
 
@@ -243,7 +243,7 @@ class TransactionController extends Controller
         if (!$notification) {
             return response()->json(
                 [
-                    'message' => 'Token Expired.',
+                    'message' => 'Token kadaluarsa.',
                 ],
                 Response::HTTP_NOT_FOUND
             );
@@ -253,7 +253,7 @@ class TransactionController extends Controller
 
         return response()->json(
             [
-                'message' => 'Request Successfully Deleted.',
+                'message' => 'Permintaan berhasil dihapus.',
             ],
             Response::HTTP_OK
         );
