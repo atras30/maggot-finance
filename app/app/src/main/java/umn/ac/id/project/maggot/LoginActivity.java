@@ -1,40 +1,30 @@
 package umn.ac.id.project.maggot;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.api.ApiException;
-import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.button.MaterialButton;
 import com.google.gson.Gson;
 
 import java.io.IOException;
-import java.sql.Array;
-import java.text.DecimalFormat;
-import java.text.DecimalFormatSymbols;
-import java.util.ArrayList;
-import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import umn.ac.id.project.maggot.global.AuthenticatedTrashManager;
 import umn.ac.id.project.maggot.global.TrashManagerSharedPreference;
 import umn.ac.id.project.maggot.global.UserSharedPreference;
 import umn.ac.id.project.maggot.model.AuthenticationModel;
-import umn.ac.id.project.maggot.model.TrashManagerModel;
-import umn.ac.id.project.maggot.model.UserModel;
 import umn.ac.id.project.maggot.retrofit.ApiService;
 
 public class LoginActivity extends AppCompatActivity {
@@ -99,7 +89,7 @@ public class LoginActivity extends AppCompatActivity {
 
         if(requestCode == 1000) {
             Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
-            showToastMessage("Checking account on database");
+            showToastMessage("Mencari data pengguna...");
 
             try {
                 task.getResult(ApiException.class);
@@ -108,7 +98,7 @@ public class LoginActivity extends AppCompatActivity {
                 //login with email from retrieved email from gmail account
                 loginWithGmail(acct.getEmail());
             } catch (ApiException e) {
-                Toast.makeText(getApplicationContext(), e.toString(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), "Masalah: " + e.toString(), Toast.LENGTH_SHORT).show();
                 Log.i("Tag", e.toString());
             }
         }
@@ -135,7 +125,7 @@ public class LoginActivity extends AppCompatActivity {
                         assert response.errorBody() != null;
                         String errorMessage = gson.fromJson(response.errorBody().string(), AuthenticationModel.ErrorHandler.class).getMessage();
                         if(errorMessage.equalsIgnoreCase("User was not found.")) {
-                            showToastMessage("Please register to our app first.");
+                            showToastMessage("Silakan registrasi di aplikasi kami.");
                             startActivity(new Intent(LoginActivity.this, RegisterActivity.class));
                         } else if(errorMessage.equalsIgnoreCase("")) {
                             //do something
@@ -149,7 +139,7 @@ public class LoginActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<AuthenticationModel> call, Throwable t) {
-                Toast.makeText(LoginActivity.this, t.getMessage(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(LoginActivity.this, "Sedang ada masalah di jaringan kami. Coba lagi.", Toast.LENGTH_SHORT).show();
                 Log.i("Error", t.getMessage());
             }
         });
@@ -168,7 +158,7 @@ public class LoginActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<AuthenticationModel> call, Throwable t) {
-                Toast.makeText(LoginActivity.this, t.getMessage(), Toast.LENGTH_LONG).show();
+                Toast.makeText(LoginActivity.this, "Sedang ada masalah di jaringan kami. Coba lagi.", Toast.LENGTH_LONG).show();
             }
         });
     }

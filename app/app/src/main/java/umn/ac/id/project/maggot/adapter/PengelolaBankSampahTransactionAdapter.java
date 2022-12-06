@@ -14,7 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import umn.ac.id.project.maggot.R;
-import umn.ac.id.project.maggot.model.PeternakModel;
+import umn.ac.id.project.maggot.global.Helper;
 import umn.ac.id.project.maggot.model.TransactionModel;
 
 public class PengelolaBankSampahTransactionAdapter extends RecyclerView.Adapter<PengelolaBankSampahTransactionAdapter.PengelolaBankSampahTransactionViewHolder> {
@@ -42,13 +42,13 @@ public class PengelolaBankSampahTransactionAdapter extends RecyclerView.Adapter<
         holder.date.setText(transactions.get(position).getCreated_at());
 
         if(type.equalsIgnoreCase("income")) {
-            String totalAmount = "+Rp. " + String.valueOf(transactions.get(position).getTotal_amount());
+            String totalAmount = "+Rp " + Helper.formatRupiah(Double.parseDouble(transactions.get(position).getTotal_amount()));
             holder.type.setText("Dana Masuk");
             holder.amount.setText(totalAmount);
             holder.amount.setTextColor(context.getResources().getColor(R.color.success));
             holder.logo.setImageResource(R.drawable.farmer_wallet_icon);
         } else if(type.equalsIgnoreCase("expense")) {
-            String totalAmount = "-Rp. " + String.valueOf(transactions.get(position).getTotal_amount());
+            String totalAmount = "-Rp " + Helper.formatRupiah(Double.parseDouble(transactions.get(position).getTotal_amount()));
             holder.type.setText("Dana Keluar");
             holder.amount.setText(totalAmount);
             holder.amount.setTextColor(context.getResources().getColor(R.color.danger));

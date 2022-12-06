@@ -5,8 +5,9 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class ApiService {
 //    Localhost : http://10.0.2.2:8000/api/
-//    Internet : https://atras.my.id
-    private static String BASE_URL = "https://atras.my.id/api/";
+//    Internet : https://atras.my.id/api/
+//    Production : https://magfin-api.lppmumn.id/public/api/
+    private static String BASE_URL = "https://magfin-api.lppmumn.id/public/api/";
     private static Retrofit retrofit;
 
     public static ApiEndpoint endpoint() {

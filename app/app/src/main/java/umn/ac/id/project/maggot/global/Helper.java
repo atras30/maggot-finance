@@ -1,9 +1,7 @@
 package umn.ac.id.project.maggot.global;
 
 import android.content.Context;
-import android.util.Log;
 import android.view.View;
-import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -18,8 +16,6 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import umn.ac.id.project.maggot.R;
 import umn.ac.id.project.maggot.model.AuthenticationModel;
-import umn.ac.id.project.maggot.model.TrashManagerModel;
-import umn.ac.id.project.maggot.model.UserModel;
 import umn.ac.id.project.maggot.retrofit.ApiService;
 
 public class Helper {
@@ -58,7 +54,7 @@ public class Helper {
                     }
                 } else {
                     try {
-                        Toast.makeText(context, response.errorBody().string(), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(context, "Masalah: " + response.errorBody().string(), Toast.LENGTH_SHORT).show();
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
@@ -67,7 +63,7 @@ public class Helper {
 
             @Override
             public void onFailure(Call<AuthenticationModel> call, Throwable t) {
-                Toast.makeText(context, t.getMessage(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, "Sedang ada masalah di jaringan kami. Coba lagi.", Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -78,7 +74,7 @@ public class Helper {
         formatid.setMonetaryDecimalSeparator(',');
         formatid.setGroupingSeparator('.');
 
-        DecimalFormat df = new DecimalFormat("#,###.00", formatid);
+        DecimalFormat df = new DecimalFormat("#,##0.00", formatid);
 
         df.setDecimalFormatSymbols(formatid);
 

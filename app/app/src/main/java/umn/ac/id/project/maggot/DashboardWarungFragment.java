@@ -5,9 +5,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,6 +12,8 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.fragment.app.Fragment;
 
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
@@ -28,12 +27,7 @@ import com.google.zxing.WriterException;
 import com.google.zxing.common.BitMatrix;
 import com.journeyapps.barcodescanner.BarcodeEncoder;
 
-import org.w3c.dom.Text;
-
 import java.io.IOException;
-import java.text.DecimalFormat;
-import java.text.DecimalFormatSymbols;
-import java.util.Formatter;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -98,7 +92,7 @@ public class DashboardWarungFragment extends Fragment {
                     }
                 } else {
                     try {
-                        Toast.makeText(context, response.errorBody().string(), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(context, "Masalah: " + response.errorBody().string(), Toast.LENGTH_SHORT).show();
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
@@ -107,7 +101,7 @@ public class DashboardWarungFragment extends Fragment {
 
             @Override
             public void onFailure(Call<AuthenticationModel> call, Throwable t) {
-                Toast.makeText(context, t.getMessage(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, "Sedang ada masalah di jaringan kami. Coba lagi.", Toast.LENGTH_LONG).show();
             }
         });
 
@@ -115,13 +109,6 @@ public class DashboardWarungFragment extends Fragment {
 
         tvSaldo = view.findViewById(R.id.saldoWarung);
         tvSaldo.setText("**********");
-
-        DecimalFormatSymbols formatid = new DecimalFormatSymbols();
-
-        formatid.setMonetaryDecimalSeparator(',');
-        formatid.setGroupingSeparator('.');
-
-        DecimalFormat df = new DecimalFormat("#,###.00", formatid);
 
         MaterialButton logoutButton = view.findViewById(R.id.logout_button);
 
@@ -133,7 +120,7 @@ public class DashboardWarungFragment extends Fragment {
                 @Override
                 public void onComplete(Task<Void> task) {
                     new UserSharedPreference(context).logout();
-                    showToastMessage("Logout Complete!");
+                    showToastMessage("Anda telah keluar!");
                     navigateToLoginPage();
                     ((Activity)context).finish();
                 }
@@ -148,7 +135,7 @@ public class DashboardWarungFragment extends Fragment {
             Bitmap qrCodeBitmap = barcodeEncoder.createBitmap(bitMatrix);
             barcodeImage.setImageBitmap(qrCodeBitmap);
         } catch (WriterException e) {
-            Toast.makeText(context, e.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+            Toast.makeText(context, "Masalah: " + e.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
         }
 
         return view;

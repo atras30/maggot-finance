@@ -7,7 +7,6 @@ import com.google.gson.Gson;
 
 import umn.ac.id.project.maggot.model.AuthenticationModel;
 import umn.ac.id.project.maggot.model.TrashManagerModel;
-import umn.ac.id.project.maggot.model.UserModel;
 
 public class TrashManagerSharedPreference {
     private final String USER_SETTINGS_KEY = "umn.ac.id.project.maggot.USER_SETTINGS_KEY";

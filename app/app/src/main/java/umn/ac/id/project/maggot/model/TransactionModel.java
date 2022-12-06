@@ -1,6 +1,5 @@
 package umn.ac.id.project.maggot.model;
 
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 

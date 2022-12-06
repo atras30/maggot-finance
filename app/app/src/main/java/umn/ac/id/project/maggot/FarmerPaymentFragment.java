@@ -1,14 +1,7 @@
 package umn.ac.id.project.maggot;
 
-import android.app.AlertDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.os.Bundle;
-
-import androidx.activity.result.ActivityResultLauncher;
-import androidx.annotation.NonNull;
-import androidx.fragment.app.Fragment;
-
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
@@ -21,6 +14,10 @@ import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
 
 import com.google.android.material.button.MaterialButton;
 import com.google.gson.Gson;
@@ -37,7 +34,6 @@ import retrofit2.Response;
 import umn.ac.id.project.maggot.adapter.WarungSearchDropDownAdapter;
 import umn.ac.id.project.maggot.global.UserSharedPreference;
 import umn.ac.id.project.maggot.model.NotificationUserModel;
-import umn.ac.id.project.maggot.model.PeternakModel;
 import umn.ac.id.project.maggot.model.TransactionModel;
 import umn.ac.id.project.maggot.model.UserModel;
 import umn.ac.id.project.maggot.model.WarungModel;
@@ -70,7 +66,7 @@ public class FarmerPaymentFragment extends Fragment {
                         selectedEmail = user.getEmail();
                     } else {
                         try {
-                            Toast.makeText(context, response.errorBody().string(), Toast.LENGTH_SHORT).show();
+                            Toast.makeText(context, "Masalah: " + response.errorBody().string(), Toast.LENGTH_SHORT).show();
                             Log.i("Error", response.errorBody().string());
                         } catch (IOException e) {
                             e.printStackTrace();
@@ -80,7 +76,7 @@ public class FarmerPaymentFragment extends Fragment {
 
                 @Override
                 public void onFailure(Call<UserModel> call, Throwable t) {
-                    Toast.makeText(context, t.getMessage(), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(context, "Sedang ada masalah di jaringan kami. Coba lagi.", Toast.LENGTH_SHORT).show();
                     Log.i("Error", t.getMessage());
                 }
             });
@@ -118,7 +114,7 @@ public class FarmerPaymentFragment extends Fragment {
                 if(selectedEmail.equalsIgnoreCase("")) {
                     Toast.makeText(context, "Anda harus memilih warung terlebih dahulu.", Toast.LENGTH_SHORT).show();
                     return;
-                } else if(totalAmount.getText().toString().equalsIgnoreCase("")) {
+                } else if(totalAmount.getText().toString().equalsIgnoreCase("") || totalAmount.getText().toString().equals("0")) {
                     Toast.makeText(context, "Jumlah Pembayaran tidak boleh kosong", Toast.LENGTH_SHORT).show();
                     return;
                 }
@@ -207,22 +203,21 @@ public class FarmerPaymentFragment extends Fragment {
             @Override
             public void onResponse(Call<NotificationUserModel> call, Response<NotificationUserModel> response) {
                 if(response.isSuccessful()) {
-                    String message = response.body().createShopBuyRequest();
-                    Toast.makeText(context, "Request berhasil dibuat. Silahkan konfirmasi dari pihak Warung.", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(context, "Silakan minta konfirmasi dari pihak warung.", Toast.LENGTH_LONG).show();
                 } else {
                     try {
                         TransactionModel.ErrorHandler error = new Gson().fromJson(response.errorBody().string(), TransactionModel.ErrorHandler.class);
-                        Toast.makeText(context, error.getMessage(), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(context, "Masalah: " + error.getMessage(), Toast.LENGTH_SHORT).show();
                     } catch (IOException e) {
                         e.printStackTrace();
-                        Toast.makeText(context, e.getMessage(), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(context, "Masalah: " + e.getMessage(), Toast.LENGTH_SHORT).show();
                     }
                 }
             }
 
             @Override
             public void onFailure(Call<NotificationUserModel> call, Throwable t) {
-                Toast.makeText(context, t.getMessage(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, "Sedang ada masalah di jaringan kami. Coba lagi.", Toast.LENGTH_SHORT).show();
             }
         });
     }

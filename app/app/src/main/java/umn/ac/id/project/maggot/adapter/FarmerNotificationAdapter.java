@@ -2,9 +2,7 @@ package umn.ac.id.project.maggot.adapter;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
-import android.app.Notification;
 import android.content.Context;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,23 +12,20 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
-import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.button.MaterialButton;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import umn.ac.id.project.maggot.R;
+import umn.ac.id.project.maggot.global.Helper;
 import umn.ac.id.project.maggot.global.UserSharedPreference;
-import umn.ac.id.project.maggot.model.ApprovalRejectionModel;
 import umn.ac.id.project.maggot.model.NotificationUserModel;
-import umn.ac.id.project.maggot.model.UserModel;
 import umn.ac.id.project.maggot.retrofit.ApiService;
 
 public class FarmerNotificationAdapter extends RecyclerView.Adapter<FarmerNotificationAdapter.ListApprovalRejectionViewHolder> {
@@ -63,7 +58,7 @@ public class FarmerNotificationAdapter extends RecyclerView.Adapter<FarmerNotifi
     @Override
     public void onBindViewHolder(@NonNull ListApprovalRejectionViewHolder holder, @SuppressLint("RecyclerView") int position) {
         holder.type.setText("Penarikan dana");
-        holder.totalAmount.setText("Rp. " + notifications.get(position).getWithdrawal_amount());
+        holder.totalAmount.setText("Rp " + Helper.formatRupiah(notifications.get(position).getWithdrawal_amount()));
 
 //        Modal Dialog On CLick Listener
         holder.approveButton.setOnClickListener(new View.OnClickListener() {
@@ -72,7 +67,7 @@ public class FarmerNotificationAdapter extends RecyclerView.Adapter<FarmerNotifi
                 AlertDialog.Builder myBuild = new AlertDialog.Builder(context);
                 View myView = ((Activity)context).getLayoutInflater().inflate(R.layout.modal_farmer_approve_notification, null);
                 TextView tvNama = myView.findViewById(R.id.tvPanjang);
-                tvNama.setText("Apakah Anda yakin ingin melakukan konfirmasi pengambilan uang sebesar Rp. " + notifications.get(position).getWithdrawal_amount() + "?");
+                tvNama.setText("Apakah Anda yakin ingin melakukan konfirmasi pengambilan uang sebesar Rp " + Helper.formatRupiah(notifications.get(position).getWithdrawal_amount()) + "?");
                 Button btnSubmit = myView.findViewById(R.id.btnkonf);
                 Button btnBatal = myView.findViewById(R.id.btnbatal);
 
@@ -87,12 +82,11 @@ public class FarmerNotificationAdapter extends RecyclerView.Adapter<FarmerNotifi
                             @Override
                             public void onResponse(Call<NotificationUserModel> call, Response<NotificationUserModel> response) {
                                 if(response.isSuccessful()) {
-                                    String message = response.body().approveWithdrawalRequest();
-                                    Toast.makeText(context, message, Toast.LENGTH_LONG).show();
+                                    Toast.makeText(context, "Pencairan berhasil dikonfirmasi!", Toast.LENGTH_LONG).show();
                                     listener.onItemClick(position);
                                 } else {
                                     try {
-                                        Toast.makeText(context, response.errorBody().string(), Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(context, "Masalah: " + response.errorBody().string(), Toast.LENGTH_SHORT).show();
                                     } catch (IOException e) {
                                         e.printStackTrace();
                                     }
@@ -101,7 +95,7 @@ public class FarmerNotificationAdapter extends RecyclerView.Adapter<FarmerNotifi
 
                             @Override
                             public void onFailure(Call<NotificationUserModel> call, Throwable t) {
-                                Toast.makeText(context, "Error : " + t.getMessage(), Toast.LENGTH_SHORT).show();
+                                Toast.makeText(context, "Sedang ada masalah di jaringan kami. Coba lagi.", Toast.LENGTH_SHORT).show();
                             }
                         });
                         dialog.hide();
@@ -123,7 +117,7 @@ public class FarmerNotificationAdapter extends RecyclerView.Adapter<FarmerNotifi
                 AlertDialog.Builder myBuild = new AlertDialog.Builder(context);
                 View myView = ((Activity)context).getLayoutInflater().inflate(R.layout.modal_farmer_reject_notification, null);
                 TextView tvNama = myView.findViewById(R.id.tvPanjang);
-                tvNama.setText("Apakah Anda yakin ingin melakukan pembatalan pengambilan uang sebesar Rp. "+ notifications.get(position).getWithdrawal_amount() +"?");
+                tvNama.setText("Apakah Anda yakin ingin melakukan pembatalan pengambilan uang sebesar Rp "+ Helper.formatRupiah(notifications.get(position).getWithdrawal_amount()) +"?");
                 Button btnSubmit = myView.findViewById(R.id.btnkonf);
                 Button btnBatal = myView.findViewById(R.id.btnbatal);
 
@@ -138,12 +132,11 @@ public class FarmerNotificationAdapter extends RecyclerView.Adapter<FarmerNotifi
                             @Override
                             public void onResponse(Call<NotificationUserModel> call, Response<NotificationUserModel> response) {
                                 if(response.isSuccessful()) {
-                                    String message = response.body().rejectFarmerWithdrawalRequest();
-                                    Toast.makeText(context, message, Toast.LENGTH_LONG).show();
+                                    Toast.makeText(context, "Pencairan berhasil dibatalkan!", Toast.LENGTH_LONG).show();
                                     listener.onItemClick(position);
                                 } else {
                                     try {
-                                        Toast.makeText(context, response.errorBody().string(), Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(context, "Masalah: " + response.errorBody().string(), Toast.LENGTH_SHORT).show();
                                     } catch (IOException e) {
                                         e.printStackTrace();
                                     }
@@ -152,7 +145,7 @@ public class FarmerNotificationAdapter extends RecyclerView.Adapter<FarmerNotifi
 
                             @Override
                             public void onFailure(Call<NotificationUserModel> call, Throwable t) {
-                                Toast.makeText(context, "Error : " + t.getMessage(), Toast.LENGTH_SHORT).show();
+                                Toast.makeText(context, "Sedang ada masalah di jaringan kami. Coba lagi.", Toast.LENGTH_SHORT).show();
                             }
                         });
                         dialog.hide();

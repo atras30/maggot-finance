@@ -16,17 +16,13 @@ import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import umn.ac.id.project.maggot.R;
-import umn.ac.id.project.maggot.model.PeternakModel;
 import umn.ac.id.project.maggot.model.UserModel;
-import umn.ac.id.project.maggot.model.WarungModel;
 import umn.ac.id.project.maggot.retrofit.ApiService;
 
 public class DetailWarungAdapter extends RecyclerView.Adapter<DetailWarungAdapter.DetailWarungViewHolder> {
@@ -80,20 +76,19 @@ public class DetailWarungAdapter extends RecyclerView.Adapter<DetailWarungAdapte
                             ApiService.endpoint().deleteUser(warung.get(position).getId()).enqueue(new Callback<UserModel>() {
                                 @Override
                                 public void onResponse(Call<UserModel> call, Response<UserModel> response) {
-                                    String message = response.body().deleteUser();
-                                    Toast.makeText(context, message, Toast.LENGTH_LONG).show();
+                                    Toast.makeText(context, "Warung berhasil dihapus!", Toast.LENGTH_LONG).show();
                                     listener.onItemClick(position);
                                 }
 
                                 @Override
                                 public void onFailure(Call<UserModel> call, Throwable t) {
-                                    Toast.makeText(context, "Error : " + t.getMessage(), Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(context, "Sedang ada masalah di jaringan kami. Coba lagi.", Toast.LENGTH_SHORT).show();
                                 }
                             });
                         }
                         else
                         {
-                            Toast.makeText(context.getApplicationContext(), "Saldo warung belum 0!", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(context.getApplicationContext(), "Tidak dapat menghapus warung karena saldo belum habis.", Toast.LENGTH_SHORT).show();
                         }
                         dialog.hide();
                     }

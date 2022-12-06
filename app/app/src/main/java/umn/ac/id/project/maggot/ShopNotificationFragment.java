@@ -2,18 +2,15 @@ package umn.ac.id.project.maggot;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
-import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.MotionEvent;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.Toast;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -63,7 +60,7 @@ public class ShopNotificationFragment extends Fragment {
                 } else {
                     try {
                         Log.i("Error 2", response.errorBody().string());
-                        Toast.makeText(context, response.errorBody().string(), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(context, "Masalah: " + response.errorBody().string(), Toast.LENGTH_SHORT).show();
                     } catch (IOException e) {
                         Log.i("Error 2", e.getMessage());
                         e.printStackTrace();
@@ -74,7 +71,7 @@ public class ShopNotificationFragment extends Fragment {
             @Override
             public void onFailure(Call<NotificationUserModel> call, Throwable t) {
                 Log.i("Error 3", "Error 3");
-                Toast.makeText(context, t.getMessage(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, "Sedang ada masalah di jaringan kami. Coba lagi.", Toast.LENGTH_LONG).show();
             }
         });
 

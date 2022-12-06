@@ -5,35 +5,26 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.fragment.app.Fragment;
+
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 import com.google.android.material.button.MaterialButton;
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.MultiFormatWriter;
 import com.google.zxing.WriterException;
 import com.google.zxing.common.BitMatrix;
 import com.journeyapps.barcodescanner.BarcodeEncoder;
-
-import java.text.DecimalFormat;
-import java.text.DecimalFormatSymbols;
-import java.util.Objects;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -123,7 +114,7 @@ public class FarmerDashboardFragment extends Fragment {
 
             @Override
             public void onFailure(Call<UserModel> call, Throwable t) {
-                Toast.makeText(context, t.getMessage(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, "Sedang ada masalah di jaringan kami. Coba lagi.", Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -136,7 +127,7 @@ public class FarmerDashboardFragment extends Fragment {
             Bitmap qrCodeBitmap = barcodeEncoder.createBitmap(bitMatrix);
             qrCodeImage.setImageBitmap(qrCodeBitmap);
         } catch (WriterException e) {
-            Toast.makeText(context, e.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+            Toast.makeText(context, "Masalah: " + e.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
         }
 
         return view;

@@ -1,8 +1,5 @@
 package umn.ac.id.project.maggot;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -18,6 +15,9 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
@@ -116,7 +116,7 @@ public class RegisterActivity extends AppCompatActivity implements AdapterView.O
         CheckBox agreementCheckbox = findViewById(R.id.registration_agreement_checkbox);
 
         if(!agreementCheckbox.isChecked()) {
-            Toast.makeText(this, "Oops, anda harus menekan tombol setuju terhadap ketentuan yang berlaku terlebih dahulu.", Toast.LENGTH_LONG).show();
+            Toast.makeText(this, "Anda harus menekan tombol setuju terhadap ketentuan yang berlaku terlebih dahulu.", Toast.LENGTH_LONG).show();
             return;
         }
 
@@ -124,9 +124,7 @@ public class RegisterActivity extends AppCompatActivity implements AdapterView.O
             @Override
             public void onResponse(Call<AuthenticationModel> call, Response<AuthenticationModel> response) {
                 if(response.isSuccessful()) {
-                    String responseMessage = response.body().registerUser();
-                    Log.i("Message", responseMessage);
-                    Toast.makeText(RegisterActivity.this, responseMessage, Toast.LENGTH_SHORT).show();
+                    Toast.makeText(RegisterActivity.this, "Pendaftaranmu telah dikirim!", Toast.LENGTH_SHORT).show();
 
                     Intent intent = new Intent(RegisterActivity.this, RegistrationSuccess.class);
                     startActivity(intent);
@@ -152,7 +150,7 @@ public class RegisterActivity extends AppCompatActivity implements AdapterView.O
         CheckBox agreementCheckbox = findViewById(R.id.registration_agreement_checkbox);
 
         if(!agreementCheckbox.isChecked()) {
-            Toast.makeText(this, "Oops, anda harus menekan tombol setuju terhadap ketentuan yang berlaku terlebih dahulu.", Toast.LENGTH_LONG).show();
+            Toast.makeText(this, "Anda harus menekan tombol setuju terhadap ketentuan yang berlaku terlebih dahulu.", Toast.LENGTH_LONG).show();
             return;
         }
 
