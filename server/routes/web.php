@@ -20,5 +20,5 @@ use Carbon\Carbon;
 |
 */
 
-Route::get('/', );
-Route::get('/excel/export/{email}/{beginDate}/{endDate}', [ExcelController::class, "downloadReport"]);
+// Route::get('/', );
+Route::get('excel/export/{email}/{beginDate}/{endDate}', [ExcelController::class, "downloadReport"]);
