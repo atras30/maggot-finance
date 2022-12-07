@@ -1,7 +1,5 @@
 <resources>
     <string name="app_name">MagFin</string>
-    <string name="pengepul_title_activity">MagFin (Pengelola Bank Sampah)</string>
-    <string name="peternak_title_activity">MagFin (Warga)</string>
     <string name="warung_title_activity">MagFin (Warung)</string>
 
     <string name="recyclerview_peternak_title">MagFin (List Warga)</string>
