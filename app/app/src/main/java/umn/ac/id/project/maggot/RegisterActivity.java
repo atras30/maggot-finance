@@ -22,6 +22,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.material.button.MaterialButton;
+import com.google.gson.Gson;
 
 import java.io.IOException;
 import java.util.List;
@@ -132,7 +133,7 @@ public class RegisterActivity extends AppCompatActivity implements AdapterView.O
                     finish();
                 } else {
                     try {
-                        Log.i("Message", response.errorBody().string());
+                        Toast.makeText(RegisterActivity.this, new Gson().fromJson(response.errorBody().string(), AuthenticationModel.ErrorHandler.class).getMessage(), Toast.LENGTH_SHORT).show();
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
