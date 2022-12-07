@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Filter;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -27,9 +28,14 @@ public class WarungSearchDropDownAdapter extends ArrayAdapter<WarungModel.Warung
     public WarungSearchDropDownAdapter(@NonNull Context context,  ArrayList<WarungModel.Warung> list) {
         super(context, 0 , list);
         mContext = context;
-        WarungList = new ArrayList<WarungModel.Warung>(list.size());
-        WarungList.addAll(list);
-        layoutInflater = (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        try {
+            WarungList = new ArrayList<WarungModel.Warung>(list.size());
+            WarungList.addAll(list);
+            layoutInflater = (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        }
+        catch (Exception e) {
+            Toast.makeText(context, "Belum ada warga/warung yang terdaftar.", Toast.LENGTH_LONG).show();
+        }
     }
 
     @NonNull

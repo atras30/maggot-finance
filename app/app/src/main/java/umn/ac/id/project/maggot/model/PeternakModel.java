@@ -21,6 +21,7 @@ public class PeternakModel {
         private String role;
         private Date created_at;
         private Date updated_at;
+        private int trash_manager_id;
 
         public int getId() {
             return id;
@@ -50,6 +51,10 @@ public class PeternakModel {
 
         public String getRole() {
             return role;
+        }
+
+        public int getTrash_manager_id() {
+            return trash_manager_id;
         }
 
         public String getCreated_at() {

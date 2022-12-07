@@ -41,7 +41,7 @@ import umn.ac.id.project.maggot.retrofit.ApiService;
 public class BuyMaggotFragment extends Fragment {
     private Context context;
     ArrayAdapter<PeternakModel.Peternak> DropDownAdapter;
-    List<PeternakModel.Peternak> results;
+    List<PeternakModel.Peternak> res, results;
     String selectedFarmerEmail = "";
     String description = "-";
     View view = null;
@@ -66,7 +66,12 @@ public class BuyMaggotFragment extends Fragment {
             @Override
             public void onResponse(Call<PeternakModel> call, Response<PeternakModel> response) {
                 if (response.isSuccessful()) {
-                    results = response.body().getPeternak();
+                    res = response.body().getPeternak();
+                    for(PeternakModel.Peternak i: res) {
+                        if(i.getTrash_manager_id() == new TrashManagerSharedPreference(context).getTrashManager().getId()) {
+                            results.add(i);
+                        }
+                    }
                     DropDownAdapter = new PeternakSearchDropDownAdapter(context, (ArrayList<PeternakModel.Peternak>) results);
                     umn.ac.id.project.maggot.InstantAutoComplete textView = (umn.ac.id.project.maggot.InstantAutoComplete) view.findViewById(R.id.namawarga);
                     textView.setAdapter(DropDownAdapter);
@@ -107,7 +112,12 @@ public class BuyMaggotFragment extends Fragment {
                         @Override
                         public void onFocusChange(View v, boolean hasFocus) {
                             if (hasFocus) {
-                                textView.showDropDown();
+                                try {
+                                    textView.showDropDown();
+                                }
+                                catch (Exception e) {
+                                    Toast.makeText(context, "Belum ada warga/warung yang terdaftar.", Toast.LENGTH_LONG).show();
+                                }
                             } else {
                                 textView.dismissDropDown();
                             }
@@ -118,7 +128,12 @@ public class BuyMaggotFragment extends Fragment {
 
                         @Override
                         public boolean onTouch(View v, MotionEvent event) {
-                            textView.showDropDown();
+                            try {
+                                textView.showDropDown();
+                            }
+                            catch (Exception e) {
+                                Toast.makeText(context, "Belum ada warga/warung yang terdaftar.", Toast.LENGTH_LONG).show();
+                            }
                             return false;
                         }
                     });

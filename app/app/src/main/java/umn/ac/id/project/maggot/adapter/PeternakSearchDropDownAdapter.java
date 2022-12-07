@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Filter;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -27,9 +28,14 @@ public class PeternakSearchDropDownAdapter extends ArrayAdapter<PeternakModel.Pe
     public PeternakSearchDropDownAdapter(@NonNull Context context,  ArrayList<PeternakModel.Peternak> list) {
         super(context, 0 , list);
         mContext = context;
-        PeternakList = new ArrayList<PeternakModel.Peternak>(list.size());
-        PeternakList.addAll(list);
-        layoutInflater = (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        try {
+            PeternakList = new ArrayList<PeternakModel.Peternak>(list.size());
+            PeternakList.addAll(list);
+            layoutInflater = (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        }
+        catch (Exception e) {
+            Toast.makeText(context, "Belum ada warga/warung yang terdaftar.", Toast.LENGTH_LONG).show();
+        }
     }
 
     @NonNull
