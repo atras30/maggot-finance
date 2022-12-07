@@ -60,7 +60,7 @@ public class TransactionPengelolaBankSampahFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_pengelolabanksampah_transaction, container, false);
         Button exportButton = view.findViewById(R.id.export_button);
         exportButton.setOnClickListener(v -> {
-            Intent implicit = new Intent(Intent.ACTION_VIEW, Uri.parse("https://atras.my.id/excel/export/" + new TrashManagerSharedPreference(context).getTrashManager().getEmail() + "/" + tanggalawal.getTime() + "/" + tanggalakhir.getTime()));
+            Intent implicit = new Intent(Intent.ACTION_VIEW, Uri.parse(ApiService.getBaseUrlWithoutApiPath() + "excel/export/" + new TrashManagerSharedPreference(context).getTrashManager().getEmail() + "/" + tanggalawal.getTime() + "/" + tanggalakhir.getTime()));
             startActivity(implicit);
         });
         ApiService.endpoint().getTransactions(new TrashManagerSharedPreference(context).getTrashManager().getEmail()).enqueue(new Callback<TransactionModel>() {
