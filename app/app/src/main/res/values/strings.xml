@@ -2,6 +2,8 @@
     <string name="app_name">MagFin</string>
     <string name="warung_title_activity">MagFin (Warung)</string>
 
+    <string name="server_client_id">583111255256-t3gg4h238q0q6d0bj1b4ttgcenm54qbh.apps.googleusercontent.com</string>
+
     <string name="recyclerview_peternak_title">MagFin (List Warga)</string>
 
     <string name="lorem_ipsum">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla malesuada dapibus quam, sed volutpat ex feugiat sed. Aliquam finibus metus eget tortor cursus suscipit. Aliquam finibus metus eget tortor cursus suscipit. Aliquam finibus metus eget tortor cursus suscipit. Aliquam finibus metus eget tortor cursus suscipit.Aliquam finibus metus eget tortor cursus suscipit.Aliquam finibus metus </string>

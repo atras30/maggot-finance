@@ -64,7 +64,7 @@ public class LoginActivity extends AppCompatActivity {
             return;
         }
 
-        gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN).requestEmail().build();
+        gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN).requestIdToken(getString(R.string.server_client_id)).requestEmail().build();
         gsc = GoogleSignIn.getClient(this, gso);
 
         googleSignInButton = findViewById(R.id.login_with_google_button);
@@ -93,6 +93,7 @@ public class LoginActivity extends AppCompatActivity {
             try {
                 task.getResult(ApiException.class);
                 acct = GoogleSignIn.getLastSignedInAccount(this);
+                Log.i("Account Token", acct.getIdToken());
 
                 //login with email from retrieved email from gmail account
                 loginWithGmail(acct.getEmail());
