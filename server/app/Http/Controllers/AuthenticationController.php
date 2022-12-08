@@ -9,6 +9,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Hash;
+use PulkitJalan\Google\Client;
 
 class AuthenticationController extends Controller
 {
@@ -56,11 +57,14 @@ class AuthenticationController extends Controller
     public function login(Request $request)
     {
         $validated = $request->validate([
-            "email" => "string|required",
-            // "password" => "string|required"
+            "google_token" => "string|required"
         ]);
 
-        $email = $validated['email'];
+        $client = new Client(['client_id' => env("GOOGLE_CLIENT_ID")]);
+        $googleClient = $client->getClient();
+        $user = $googleClient->verifyIdToken($validated['google_token']);
+
+        $email = $user['email'];
 
         $user = User::where("email", $email)->first();
         if (!$user) {

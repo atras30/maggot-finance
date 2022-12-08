@@ -12,6 +12,7 @@
         "laravel/tinker": "^2.7",
         "maatwebsite/excel": "^3.1",
         "psr/simple-cache": "2.0",
+        "pulkitjalan/google-apiclient": "^6.0",
         "ramsey/uuid": "^4.6"
     },
     "require-dev": {

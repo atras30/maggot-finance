@@ -93,25 +93,23 @@ public class LoginActivity extends AppCompatActivity {
             try {
                 task.getResult(ApiException.class);
                 acct = GoogleSignIn.getLastSignedInAccount(this);
-                Log.i("Account Token", acct.getIdToken());
 
                 //login with email from retrieved email from gmail account
-                loginWithGmail(acct.getEmail());
+                loginWithGmail(acct.getIdToken());
             } catch (ApiException e) {
                 Toast.makeText(getApplicationContext(), "Masalah: " + e.toString(), Toast.LENGTH_SHORT).show();
-                Log.i("Tag", e.toString());
             }
         }
     }
 
-    private void loginWithGmail(String email) {
-        ApiService.endpoint().login(email).enqueue(new Callback<AuthenticationModel>() {
+    private void loginWithGmail(String googleToken) {
+        ApiService.endpoint().login(googleToken).enqueue(new Callback<AuthenticationModel>() {
             @Override
             public void onResponse(Call<AuthenticationModel> call, Response<AuthenticationModel> response) {
                 if(response.isSuccessful()) {
                     AuthenticationModel.Result result = response.body().login();
                     if(result.getUser() == null) {
-                        loginTrashManager(result);
+                        loginTrashManager(googleToken);
 
                         return;
                     }
@@ -140,13 +138,12 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onFailure(Call<AuthenticationModel> call, Throwable t) {
                 Toast.makeText(LoginActivity.this, "Sedang ada masalah di jaringan kami. Coba lagi.", Toast.LENGTH_SHORT).show();
-                Log.i("Error", t.getMessage());
             }
         });
     }
 
-    private void loginTrashManager(AuthenticationModel.Result result) {
-        ApiService.endpoint().loginTrashManager(acct.getEmail()).enqueue(new Callback<AuthenticationModel>() {
+    private void loginTrashManager(String googleToken) {
+        ApiService.endpoint().loginTrashManager(googleToken).enqueue(new Callback<AuthenticationModel>() {
             @Override
             public void onResponse(Call<AuthenticationModel> call, Response<AuthenticationModel> response) {
                 if(response.isSuccessful()) {

@@ -59,11 +59,11 @@ public interface ApiEndpoint {
 
     @FormUrlEncoded
     @POST("auth/login")
-    Call<AuthenticationModel> login(@Field("email") String email);
+    Call<AuthenticationModel> login(@Field("google_token") String googleToken);
 
     @FormUrlEncoded
     @POST("auth/login")
-    Call<AuthenticationModel> loginTrashManager(@Field("email") String email);
+    Call<AuthenticationModel> loginTrashManager(@Field("google_token") String googleToken);
 
     @FormUrlEncoded
     @Headers("Accept: application/json")
