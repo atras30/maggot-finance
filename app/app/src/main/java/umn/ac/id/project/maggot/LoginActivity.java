@@ -137,6 +137,7 @@ public class LoginActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<AuthenticationModel> call, Throwable t) {
+                Log.i("Error", t.getMessage());
                 Toast.makeText(LoginActivity.this, "Sedang ada masalah di jaringan kami. Coba lagi.", Toast.LENGTH_SHORT).show();
             }
         });
@@ -155,6 +156,7 @@ public class LoginActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<AuthenticationModel> call, Throwable t) {
+                Log.i("Error", t.getMessage());
                 Toast.makeText(LoginActivity.this, "Sedang ada masalah di jaringan kami. Coba lagi.", Toast.LENGTH_LONG).show();
             }
         });
