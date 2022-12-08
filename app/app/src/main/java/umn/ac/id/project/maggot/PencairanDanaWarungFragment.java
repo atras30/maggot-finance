@@ -41,7 +41,8 @@ import umn.ac.id.project.maggot.retrofit.ApiService;
 public class PencairanDanaWarungFragment extends Fragment {
     View view = null;
     ArrayAdapter<WarungModel.Warung> DropDownAdapter;
-    List<WarungModel.Warung> results, res;
+    List<WarungModel.Warung> res;
+    ArrayList<WarungModel.Warung> results = new ArrayList<WarungModel.Warung>();
     private Context context;
     private String selectedEmail = "";
     TextView selectedEmailTextView = null;
@@ -72,7 +73,11 @@ public class PencairanDanaWarungFragment extends Fragment {
                             results.add(i);
                         }
                     }
-                    DropDownAdapter = new WarungSearchDropDownAdapter(context, (ArrayList<WarungModel.Warung>) results);
+                    if(results == null) {
+                        Toast.makeText(context, "Belum ada warga/warung yang terdaftar.", Toast.LENGTH_LONG).show();
+                        return;
+                    }
+                    DropDownAdapter = new WarungSearchDropDownAdapter(context, results);
                     umn.ac.id.project.maggot.InstantAutoComplete textView = (umn.ac.id.project.maggot.InstantAutoComplete) view.findViewById(R.id.namawarung);
                     textView.setAdapter(DropDownAdapter);
                     textView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -114,12 +119,7 @@ public class PencairanDanaWarungFragment extends Fragment {
                         @Override
                         public void onFocusChange(View v, boolean hasFocus) {
                             if (hasFocus) {
-                                try {
-                                    textView.showDropDown();
-                                }
-                                catch (Exception e) {
-                                    Toast.makeText(context, "Belum ada warga/warung yang terdaftar.", Toast.LENGTH_LONG).show();
-                                }
+                                textView.showDropDown();
                             } else {
                                 textView.dismissDropDown();
                             }
@@ -129,12 +129,7 @@ public class PencairanDanaWarungFragment extends Fragment {
 
                         @Override
                         public boolean onTouch(View v, MotionEvent event) {
-                            try {
-                                textView.showDropDown();
-                            }
-                            catch (Exception e) {
-                                Toast.makeText(context, "Belum ada warga/warung yang terdaftar.", Toast.LENGTH_LONG).show();
-                            }
+                            textView.showDropDown();
                             return false;
                         }
                     });

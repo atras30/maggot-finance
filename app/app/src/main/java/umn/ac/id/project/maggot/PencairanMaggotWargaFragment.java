@@ -41,7 +41,8 @@ import umn.ac.id.project.maggot.retrofit.ApiService;
 
 public class PencairanMaggotWargaFragment extends Fragment {
     ArrayAdapter<PeternakModel.Peternak> DropDownAdapter;
-    List<PeternakModel.Peternak> results, res;
+    List<PeternakModel.Peternak> res;
+    ArrayList<PeternakModel.Peternak> results = new ArrayList<PeternakModel.Peternak>();
     private Context context;
     private TextView selectedEmailTextView;
     EditText jumlahBayar;
@@ -73,7 +74,11 @@ public class PencairanMaggotWargaFragment extends Fragment {
                             results.add(i);
                         }
                     }
-                    DropDownAdapter = new PeternakSearchDropDownAdapter(context, (ArrayList<PeternakModel.Peternak>) results);
+                    if(results == null) {
+                        Toast.makeText(context, "Belum ada warga/warung yang terdaftar.", Toast.LENGTH_LONG).show();
+                        return;
+                    }
+                    DropDownAdapter = new PeternakSearchDropDownAdapter(context, results);
                     umn.ac.id.project.maggot.InstantAutoComplete textView = (umn.ac.id.project.maggot.InstantAutoComplete) view.findViewById(R.id.namawarga);
                     textView.setAdapter(DropDownAdapter);
                     textView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -114,12 +119,7 @@ public class PencairanMaggotWargaFragment extends Fragment {
 
                         @Override
                         public boolean onTouch(View v, MotionEvent event) {
-                            try {
-                                textView.showDropDown();
-                            }
-                            catch (Exception e) {
-                                Toast.makeText(context, "Belum ada warga/warung yang terdaftar.", Toast.LENGTH_LONG).show();
-                            }
+                            textView.showDropDown();
                             return false;
                         }
                     });

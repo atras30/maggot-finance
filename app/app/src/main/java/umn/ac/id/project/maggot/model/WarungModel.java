@@ -72,9 +72,12 @@ public class WarungModel {
             return "Warung{" +
                     "id=" + id +
                     ", full_name='" + full_name + '\'' +
+                    ", phone_number='" + phone_number + '\'' +
                     ", email='" + email + '\'' +
+                    ", address='" + address + '\'' +
                     ", balance=" + balance +
                     ", role='" + role + '\'' +
+                    ", trash_manager_id=" + trash_manager_id +
                     ", created_at=" + created_at +
                     ", updated_at=" + updated_at +
                     '}';

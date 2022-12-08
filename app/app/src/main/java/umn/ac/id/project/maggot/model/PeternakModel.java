@@ -80,10 +80,12 @@ public class PeternakModel {
                     ", full_name='" + full_name + '\'' +
                     ", username='" + username + '\'' +
                     ", email='" + email + '\'' +
+                    ", address='" + address + '\'' +
                     ", balance=" + balance +
                     ", role='" + role + '\'' +
                     ", created_at=" + created_at +
                     ", updated_at=" + updated_at +
+                    ", trash_manager_id=" + trash_manager_id +
                     '}';
         }
     }

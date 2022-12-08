@@ -103,11 +103,14 @@ public class UserModel {
                     ", full_name='" + full_name + '\'' +
                     ", username='" + username + '\'' +
                     ", email='" + email + '\'' +
+                    ", address='" + address + '\'' +
                     ", balance=" + balance +
                     ", role='" + role + '\'' +
                     ", created_at=" + created_at +
                     ", updated_at=" + updated_at +
+                    ", deleted_at=" + deleted_at +
                     ", is_verified=" + is_verified +
+                    ", trash_manager_id=" + trash_manager_id +
                     '}';
         }
     }
