@@ -74,7 +74,7 @@ public class PencairanMaggotWargaFragment extends Fragment {
                             results.add(i);
                         }
                     }
-                    if(results == null) {
+                    if(results.size() == 0) {
                         Toast.makeText(context, "Belum ada warga/warung yang terdaftar.", Toast.LENGTH_LONG).show();
                         return;
                     }

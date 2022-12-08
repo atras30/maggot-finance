@@ -131,11 +131,11 @@ public class FarmerPaymentFragment extends Fragment {
                 if(response.isSuccessful()) {
                     res = response.body().getWarung();
                     for(WarungModel.Warung i : res) {
-                        if(i.getTrashManagerId() == user.getTrash_manager_id()) {
+                        if(i.getTrashManagerId() == new UserSharedPreference(context).getUser().getTrash_manager_id()) {
                             results.add(i);
                         }
                     }
-                    if(results == null) {
+                    if(results.size() == 0) {
                         Toast.makeText(context, "Belum ada warga/warung yang terdaftar.", Toast.LENGTH_LONG).show();
                         return;
                     }
