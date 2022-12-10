@@ -119,16 +119,9 @@ public class LoginActivity extends AppCompatActivity {
                     navigateRegisteredUser();
                 } else {
                     try {
-                        Gson gson = new Gson();
-                        assert response.errorBody() != null;
-                        String errorMessage = gson.fromJson(response.errorBody().string(), AuthenticationModel.ErrorHandler.class).getMessage();
-                        if(errorMessage.equalsIgnoreCase("User was not found.")) {
-                            showToastMessage("Silakan registrasi di aplikasi kami.");
-                            startActivity(new Intent(LoginActivity.this, RegisterActivity.class));
-                        } else if(errorMessage.equalsIgnoreCase("")) {
-                            //do something
-                        }
-
+                        Log.i("Error", response.errorBody().string());
+                        showToastMessage("Silakan registrasi di aplikasi kami.");
+                        startActivity(new Intent(LoginActivity.this, RegisterActivity.class));
                     } catch (IOException e) {
                         e.printStackTrace();
                     }

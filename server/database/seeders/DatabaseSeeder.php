@@ -101,11 +101,22 @@ class DatabaseSeeder extends Seeder
 
         User::create([
             'full_name' => 'Jonathan Putra',
-            'email' => 'jonathanputra134@gmail.com',
+            'email' => 'jonathan.putra@student.umn.ac.id',
             'role' => 'farmer',
             'balance' => 50000,
             'address' => fake()->address(),
             'trash_manager_id' => 4,
+            'is_verified' => 1,
+        ]);
+
+        User::create([
+            'full_name' => 'Warung Jonathan Putra',
+            'email' => 'jimmywangkar@gmail.com',
+            'role' => 'shop',
+            'balance' => 50000,
+            'address' => fake()->address(),
+            'trash_manager_id' => 4,
+            'is_verified' => 1,
         ]);
 
         User::create([
