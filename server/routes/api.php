@@ -48,9 +48,9 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('/notifications/shop/withdrawal/approve', [NotificationController::class, 'approveShopWithdrawal']);
     Route::post('/notifications/shop/withdrawal/reject', [NotificationController::class, 'rejectShopWithdrawal']);
 
-    Route::post('/notifications/farmer/buy/shop', [NotificationController::class, 'createFarmerPaymentToShopNotification']);
-    Route::post('/notifications/shop/farmer/purchase/approve', [TransactionController::class, 'approveFarmerPurchase']);
-    Route::post('/notifications/shop/farmer/purchase/reject', [TransactionController::class, 'rejectFarmerPurchase']);
+
+    // Route::post('/notifications/shop/farmer/purchase/approve', [TransactionController::class, 'approveFarmerPurchase']);
+    // Route::post('/notifications/shop/farmer/purchase/reject', [TransactionController::class, 'rejectFarmerPurchase']);
 
     //Transaction List
     Route::prefix("transaction")->group(function() {
@@ -92,6 +92,7 @@ Route::get('/user/unauthenticated', [
 //Authentication
 Route::prefix('auth')->group(function () {
     Route::post('/login', [AuthenticationController::class, 'login']);
+    Route::post('/quick/login', [AuthenticationController::class, 'quickLogin']);
     Route::post('/login/super-admin', [AuthenticationController::class, 'loginSuperAdmin']);
 });
 

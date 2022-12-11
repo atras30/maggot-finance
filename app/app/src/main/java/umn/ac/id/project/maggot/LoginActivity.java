@@ -25,6 +25,7 @@ import retrofit2.Response;
 import umn.ac.id.project.maggot.global.TrashManagerSharedPreference;
 import umn.ac.id.project.maggot.global.UserSharedPreference;
 import umn.ac.id.project.maggot.model.AuthenticationModel;
+import umn.ac.id.project.maggot.retrofit.ApiErrorHandler;
 import umn.ac.id.project.maggot.retrofit.ApiService;
 
 public class LoginActivity extends AppCompatActivity {
@@ -97,31 +98,42 @@ public class LoginActivity extends AppCompatActivity {
                 //login with email from retrieved email from gmail account
                 loginWithGmail(acct.getIdToken());
             } catch (ApiException e) {
-                Toast.makeText(getApplicationContext(), "Masalah: " + e.toString(), Toast.LENGTH_SHORT).show();
+                String errorMessage = e.toString();
+                Log.i("Api Exception", errorMessage);
+                Toast.makeText(getApplicationContext(), "Masalah: " + errorMessage, Toast.LENGTH_SHORT).show();
             }
         }
     }
 
     private void loginWithGmail(String googleToken) {
+        Log.i("Google Token", googleToken);
+
         ApiService.endpoint().login(googleToken).enqueue(new Callback<AuthenticationModel>() {
             @Override
             public void onResponse(Call<AuthenticationModel> call, Response<AuthenticationModel> response) {
                 if(response.isSuccessful()) {
                     AuthenticationModel.Result result = response.body().login();
-                    if(result.getUser() == null) {
-                        loginTrashManager(googleToken);
-
+                    Log.i("Success", result.toString());
+                    if(result.getUser() != null) {
+                        userSharedPreference.setUser(result);
+                        navigateRegisteredUser();
                         return;
+                    } else if(result.getTrash_manager() != null) {
+                        trashManagerSharedPreference.setTrashManager(result);
+                        startActivity(new Intent(getApplicationContext(), HomePagePengelolaBankSampah.class));
+                        finish();
                     }
-
-                    userSharedPreference.setUser(result);
-
-                    navigateRegisteredUser();
                 } else {
                     try {
-                        Log.i("Error", response.errorBody().string());
-                        showToastMessage("Silakan registrasi di aplikasi kami.");
-                        startActivity(new Intent(LoginActivity.this, RegisterActivity.class));
+                        String errorMessage = response.errorBody().string();
+                        Log.i("Error", errorMessage);
+
+                        if(ApiErrorHandler.getErrorMessage(errorMessage).equalsIgnoreCase("User was not found.")) {
+                            showToastMessage("Silakan registrasi di aplikasi kami.");
+                            startActivity(new Intent(LoginActivity.this, RegisterActivity.class));
+                        } else {
+                            Toast.makeText(LoginActivity.this, errorMessage, Toast.LENGTH_SHORT).show();
+                        }
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
@@ -132,25 +144,6 @@ public class LoginActivity extends AppCompatActivity {
             public void onFailure(Call<AuthenticationModel> call, Throwable t) {
                 Log.i("Error", t.getMessage());
                 Toast.makeText(LoginActivity.this, "Sedang ada masalah di jaringan kami. Coba lagi.", Toast.LENGTH_SHORT).show();
-            }
-        });
-    }
-
-    private void loginTrashManager(String googleToken) {
-        ApiService.endpoint().loginTrashManager(googleToken).enqueue(new Callback<AuthenticationModel>() {
-            @Override
-            public void onResponse(Call<AuthenticationModel> call, Response<AuthenticationModel> response) {
-                if(response.isSuccessful()) {
-                    AuthenticationModel.ResultTrashManager result = response.body().loginTrashManager();
-                    trashManagerSharedPreference.setTrashManager(result);
-                    navigateRegisteredTrashManager();
-                }
-            }
-
-            @Override
-            public void onFailure(Call<AuthenticationModel> call, Throwable t) {
-                Log.i("Error", t.getMessage());
-                Toast.makeText(LoginActivity.this, "Sedang ada masalah di jaringan kami. Coba lagi.", Toast.LENGTH_LONG).show();
             }
         });
     }

@@ -60,12 +60,7 @@ class UserController extends Controller
         $validated = $request->validate([
             'total_amount' => 'numeric|required|min:1',
             'shop_email' => 'string|required',
-            "description" => "string"
         ]);
-
-        if(!isset($validated['description'])) {
-            $validated['description'] = "-";
-        }
 
         $user = auth()->user();
         if((int) $user->balance - (int) $validated['total_amount'] < 0) {
@@ -89,7 +84,7 @@ class UserController extends Controller
 
             Transaction::create([
                 'type' => 'expense',
-                'description' => $data['validated']['description'],
+                'description' => "Belanja Sembako",
                 'weight_in_kg' => null,
                 'amount_per_kg' => null,
                 'total_amount' => $data['validated']['total_amount'],
@@ -101,7 +96,7 @@ class UserController extends Controller
 
             Transaction::create([
                 'type' => 'income',
-                'description' => $data['validated']['description'],
+                'description' => "Belanja Sembako",
                 'weight_in_kg' => null,
                 'amount_per_kg' => null,
                 'total_amount' => $data['validated']['total_amount'],
@@ -113,7 +108,7 @@ class UserController extends Controller
         });
 
         return response()->json([
-            "message" => "Transaction berhasil dibuat."
+            "message" => "Transaksi berhasil dibuat."
         ], Response::HTTP_CREATED);
     }
 

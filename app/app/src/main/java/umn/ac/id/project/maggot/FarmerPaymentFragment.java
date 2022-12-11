@@ -1,6 +1,7 @@
 package umn.ac.id.project.maggot;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -25,7 +26,9 @@ import com.journeyapps.barcodescanner.ScanContract;
 import com.journeyapps.barcodescanner.ScanOptions;
 
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import retrofit2.Call;
@@ -209,15 +212,26 @@ public class FarmerPaymentFragment extends Fragment {
 
     private void pay(String email, double totalAmount) {
         String token = "Bearer " + new UserSharedPreference(context).getToken();
-        ApiService.endpoint().createShopBuyRequest(email, totalAmount, token).enqueue(new Callback<NotificationUserModel>() {
+        ApiService.endpoint().farmerBuyFromShop(token, totalAmount, email).enqueue(new Callback<TransactionModel>() {
             @Override
-            public void onResponse(Call<NotificationUserModel> call, Response<NotificationUserModel> response) {
+            public void onResponse(Call<TransactionModel> call, Response<TransactionModel> response) {
                 if(response.isSuccessful()) {
-                    Toast.makeText(context, "Silakan minta konfirmasi dari pihak warung.", Toast.LENGTH_LONG).show();
+                    SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm");
+
+                    Toast.makeText(context, response.body().farmerBuyFromShop(), Toast.LENGTH_LONG).show();
+
+                    Intent invoiceIntent = new Intent(context, FarmerBuyToShopInvoiceActivity.class);
+                    invoiceIntent.putExtra("email", selectedEmail);
+                    invoiceIntent.putExtra("total_amount", totalAmount);
+                    invoiceIntent.putExtra("date", formatter.format(new Date()));
+                    InstantAutoComplete shop_name = layoutView.findViewById(R.id.namawarung);
+                    invoiceIntent.putExtra("shop_name", shop_name.getText().toString());
+                    context.startActivity(invoiceIntent);
                 } else {
                     try {
-                        TransactionModel.ErrorHandler error = new Gson().fromJson(response.errorBody().string(), TransactionModel.ErrorHandler.class);
-                        Toast.makeText(context, "Masalah: " + error.getMessage(), Toast.LENGTH_SHORT).show();
+                        String error = response.errorBody().string();
+                        Log.i("Error 10", error);
+                        Toast.makeText(context, "Masalah: " + error, Toast.LENGTH_SHORT).show();
                     } catch (IOException e) {
                         e.printStackTrace();
                         Toast.makeText(context, "Masalah: " + e.getMessage(), Toast.LENGTH_SHORT).show();
@@ -226,7 +240,7 @@ public class FarmerPaymentFragment extends Fragment {
             }
 
             @Override
-            public void onFailure(Call<NotificationUserModel> call, Throwable t) {
+            public void onFailure(Call<TransactionModel> call, Throwable t) {
                 Toast.makeText(context, "Sedang ada masalah di jaringan kami. Coba lagi.", Toast.LENGTH_SHORT).show();
             }
         });

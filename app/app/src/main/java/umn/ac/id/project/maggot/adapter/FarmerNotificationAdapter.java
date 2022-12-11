@@ -26,6 +26,7 @@ import umn.ac.id.project.maggot.R;
 import umn.ac.id.project.maggot.global.Helper;
 import umn.ac.id.project.maggot.global.UserSharedPreference;
 import umn.ac.id.project.maggot.model.NotificationUserModel;
+import umn.ac.id.project.maggot.retrofit.ApiErrorHandler;
 import umn.ac.id.project.maggot.retrofit.ApiService;
 
 public class FarmerNotificationAdapter extends RecyclerView.Adapter<FarmerNotificationAdapter.ListApprovalRejectionViewHolder> {
@@ -86,7 +87,7 @@ public class FarmerNotificationAdapter extends RecyclerView.Adapter<FarmerNotifi
                                     listener.onItemClick(position);
                                 } else {
                                     try {
-                                        Toast.makeText(context, "Masalah: " + response.errorBody().string(), Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(context, "Masalah: " + ApiErrorHandler.getErrorMessage(response.errorBody().string()), Toast.LENGTH_SHORT).show();
                                     } catch (IOException e) {
                                         e.printStackTrace();
                                     }
@@ -136,7 +137,7 @@ public class FarmerNotificationAdapter extends RecyclerView.Adapter<FarmerNotifi
                                     listener.onItemClick(position);
                                 } else {
                                     try {
-                                        Toast.makeText(context, "Masalah: " + response.errorBody().string(), Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(context, "Masalah: " + ApiErrorHandler.getErrorMessage(response.errorBody().string()), Toast.LENGTH_SHORT).show();
                                     } catch (IOException e) {
                                         e.printStackTrace();
                                     }

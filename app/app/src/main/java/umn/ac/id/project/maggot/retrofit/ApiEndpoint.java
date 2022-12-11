@@ -55,11 +55,16 @@ public interface ApiEndpoint {
     @FormUrlEncoded
     @Headers("Accept: application/json")
     @POST("transaction/farmer/buy/shop")
-    Call<TransactionModel> farmerBuyFromShop(@Header("Authorization") String authorization, @Field("total_amount") double totalAmount, @Field("shop_email") String shopEmail, @Field("description") String description);
+    Call<TransactionModel> farmerBuyFromShop(@Header("Authorization") String authorization, @Field("total_amount") double totalAmount, @Field("shop_email") String shopEmail);
 
     @FormUrlEncoded
     @POST("auth/login")
     Call<AuthenticationModel> login(@Field("google_token") String googleToken);
+
+    @FormUrlEncoded
+    @Headers("Accept: application/json")
+    @POST("auth/logout")
+    Call<AuthenticationModel> logout(@Header("Authorization") String authorization, @Field("any") String any);
 
     @FormUrlEncoded
     @POST("auth/login")

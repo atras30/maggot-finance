@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -31,10 +32,12 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import umn.ac.id.project.maggot.adapter.ListWargaBinaanAdapter;
 import umn.ac.id.project.maggot.adapter.ListWarungBinaanAdapter;
+import umn.ac.id.project.maggot.global.GoogleAccount;
 import umn.ac.id.project.maggot.global.TrashManagerSharedPreference;
 import umn.ac.id.project.maggot.global.UserSharedPreference;
 import umn.ac.id.project.maggot.model.TrashManagerModel;
 import umn.ac.id.project.maggot.model.UserModel;
+import umn.ac.id.project.maggot.retrofit.ApiErrorHandler;
 import umn.ac.id.project.maggot.retrofit.ApiService;
 
 public class DashboardPengelolaBankSampahFragment extends Fragment {
@@ -54,9 +57,10 @@ public class DashboardPengelolaBankSampahFragment extends Fragment {
     }
 
     @Override
-    public void onResume() {
-        super.onResume();
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,Bundle savedInstanceState) {
+        view = inflater.inflate(R.layout.fragment_dashboard_pengelola_bank_sampah, container, false);
 
+        Log.i("Token", "Bearer " + new TrashManagerSharedPreference(context).getToken());
         ApiService.endpoint().updateTrashManagerData("Bearer " + new TrashManagerSharedPreference(context).getToken()).enqueue(new Callback<TrashManagerModel>() {
             @Override
             public void onResponse(Call<TrashManagerModel> call, Response<TrashManagerModel> response) {
@@ -97,7 +101,18 @@ public class DashboardPengelolaBankSampahFragment extends Fragment {
                     });
                 } else {
                     try {
-                        Toast.makeText(context, "Masalah: " + response.errorBody().string(), Toast.LENGTH_SHORT).show();
+                        String errorMessage = response.errorBody().string();
+                        Log.i("error message", errorMessage);
+
+                        if(ApiErrorHandler.getErrorMessage(errorMessage).equalsIgnoreCase("Unauthenticated.")) {
+                            Toast.makeText(context, "Masalah: Silahkan login terlebih dahulu.", Toast.LENGTH_SHORT).show();
+                            new TrashManagerSharedPreference(context).logout();
+                            context.startActivity(new Intent(context, LoginActivity.class));
+                            ((Activity) context).finish();
+                            return;
+                        }
+
+                        Toast.makeText(context, "Masalah: " + ApiErrorHandler.getErrorMessage(errorMessage), Toast.LENGTH_SHORT).show();
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
@@ -109,27 +124,10 @@ public class DashboardPengelolaBankSampahFragment extends Fragment {
                 Toast.makeText(context, "Sedang ada masalah di jaringan kami. Coba lagi.", Toast.LENGTH_SHORT).show();
             }
         });
-    }
-
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.fragment_dashboard_pengelola_bank_sampah, container, false);
 
         MaterialButton logoutButton = view.findViewById(R.id.logout_button);
-
-        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN).requestEmail().build();
-        GoogleSignInClient gsc = GoogleSignIn.getClient(context, gso);
-
         logoutButton.setOnClickListener(v -> {
-            gsc.signOut().addOnCompleteListener(new OnCompleteListener<Void>() {
-                @Override
-                public void onComplete(Task<Void> task) {
-                    new TrashManagerSharedPreference(context).logout();
-                    showToastMessage("Anda telah keluar!");
-                    navigateToLoginPage();
-                    ((Activity)context).finish();
-                }
-            });
+            new GoogleAccount(context).signOut();
         });
 
         return view;

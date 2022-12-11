@@ -21,6 +21,7 @@ import retrofit2.Response;
 import umn.ac.id.project.maggot.adapter.FarmerNotificationAdapter;
 import umn.ac.id.project.maggot.global.UserSharedPreference;
 import umn.ac.id.project.maggot.model.NotificationUserModel;
+import umn.ac.id.project.maggot.retrofit.ApiErrorHandler;
 import umn.ac.id.project.maggot.retrofit.ApiService;
 
 public class FarmerNotificationFragment extends Fragment {
@@ -61,7 +62,7 @@ public class FarmerNotificationFragment extends Fragment {
                     recyclerView.setLayoutManager(new LinearLayoutManager(context));
                 } else {
                     try {
-                        Toast.makeText(context, "Masalah: " + response.errorBody().string(), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(context, "Masalah: " + ApiErrorHandler.getErrorMessage(response.errorBody().string()), Toast.LENGTH_SHORT).show();
                     } catch (IOException e) {
                         e.printStackTrace();
                     }

@@ -77,8 +77,6 @@ public class FarmerDashboardFragment extends Fragment {
         logoutButton.setOnClickListener(v -> {
             GoogleAccount account = new GoogleAccount(context);
             account.signOut();
-            navigateToLoginPage();
-            ((Activity)context).finish();
         });
 
         btnSecret.setOnClickListener(new View.OnClickListener() {
@@ -152,10 +150,5 @@ public class FarmerDashboardFragment extends Fragment {
 
         toast = Toast.makeText(context, message, Toast.LENGTH_LONG);
         toast.show();
-    }
-
-    public void navigateToLoginPage() {
-        Intent intent = new Intent(context, LoginActivity.class);
-        startActivity(intent);
     }
 }
