@@ -25,7 +25,7 @@ public class AuthenticationModel {
         return message;
     }
 
-    public class Result {
+    public static class Result {
         private String token;
         private UserModel.User user;
         private TrashManagerModel.TrashManagers trash_manager;

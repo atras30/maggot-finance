@@ -1,6 +1,8 @@
 package umn.ac.id.project.maggot.global;
 
+import android.app.Activity;
 import android.content.Context;
+import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -16,6 +18,8 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import umn.ac.id.project.maggot.R;
 import umn.ac.id.project.maggot.model.AuthenticationModel;
+import umn.ac.id.project.maggot.model.UserModel;
+import umn.ac.id.project.maggot.retrofit.ApiErrorHandler;
 import umn.ac.id.project.maggot.retrofit.ApiService;
 
 public class Helper {
@@ -35,12 +39,12 @@ public class Helper {
         UserSharedPreference userSharedPreference = new UserSharedPreference(context);
         String authorizationToken = "Bearer " + userSharedPreference.getToken();
 
-        ApiService.endpoint().refreshToken(authorizationToken).enqueue(new Callback<AuthenticationModel>() {
+        ApiService.endpoint().getUser(authorizationToken).enqueue(new Callback<UserModel>() {
             @Override
-            public void onResponse(Call<AuthenticationModel> call, Response<AuthenticationModel> response) {
+            public void onResponse(Call<UserModel> call, Response<UserModel> response) {
                 if(response.isSuccessful()) {
-                    AuthenticationModel.Result result = response.body().refreshToken();
-                    userSharedPreference.setUser(result);
+                    UserModel.User result = response.body().getUser();
+                    userSharedPreference.setUser(new AuthenticationModel.Result(userSharedPreference.getToken(), "", result, null));
 
                     //Update Data
                     TextView name = view.findViewById(R.id.name);
@@ -54,7 +58,14 @@ public class Helper {
                     }
                 } else {
                     try {
-                        Toast.makeText(context, "Masalah: " + response.errorBody().string(), Toast.LENGTH_SHORT).show();
+                        String errorMessage = response.errorBody().string();
+                        Log.i("error 11", errorMessage);
+
+                        if(ApiErrorHandler.getErrorMessage(errorMessage).equalsIgnoreCase("Unauthenticated.")) {
+                            Toast.makeText(context, "Masalah: " + ApiErrorHandler.getErrorMessage(errorMessage), Toast.LENGTH_SHORT).show();
+                            Log.i("User shared pref", new UserSharedPreference(context).toString());
+                            new GoogleAccount(context).signOut();
+                        }
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
@@ -62,7 +73,7 @@ public class Helper {
             }
 
             @Override
-            public void onFailure(Call<AuthenticationModel> call, Throwable t) {
+            public void onFailure(Call<UserModel> call, Throwable t) {
                 Toast.makeText(context, "Sedang ada masalah di jaringan kami. Coba lagi.", Toast.LENGTH_SHORT).show();
             }
         });

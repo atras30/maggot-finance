@@ -36,8 +36,8 @@ public class GoogleAccount {
         UserSharedPreference userSharedPreference = new UserSharedPreference(context);
         TrashManagerSharedPreference trashManagerSharedPreference = new TrashManagerSharedPreference(context);
 
-        Log.i("Logout Token user", "Bearer" + userSharedPreference.getToken());
-        Log.i("Logout Token tm", "Bearer" + trashManagerSharedPreference.getToken());
+        Log.i("Logout Token user", "Bearer " + userSharedPreference.getToken());
+        Log.i("Logout Token Trash.M", "Bearer " + trashManagerSharedPreference.getToken());
 
         if(userSharedPreference.getToken() != null) {
             ApiService.endpoint().logout("Bearer " + userSharedPreference.getToken(), "").enqueue(new Callback<AuthenticationModel>() {
@@ -49,10 +49,7 @@ public class GoogleAccount {
                         gsc.signOut().addOnCompleteListener(new OnCompleteListener<Void>() {
                             @Override
                             public void onComplete(Task<Void> task) {
-                                new UserSharedPreference(context).logout();
                                 Toast.makeText(context, "Anda telah keluar!", Toast.LENGTH_SHORT).show();
-                                context.startActivity(new Intent(context, LoginActivity.class));
-                                ((Activity)context).finish();
                             }
                         });
                     } else {
@@ -69,6 +66,10 @@ public class GoogleAccount {
                     Log.i("Error 3", t.getMessage());
                 }
             });
+
+            new UserSharedPreference(context).logout();
+            context.startActivity(new Intent(context, LoginActivity.class));
+            ((Activity)context).finish();
         }
 
         if(trashManagerSharedPreference.getToken() != null) {
@@ -81,10 +82,7 @@ public class GoogleAccount {
                         gsc.signOut().addOnCompleteListener(new OnCompleteListener<Void>() {
                             @Override
                             public void onComplete(Task<Void> task) {
-                                new TrashManagerSharedPreference(context).logout();
                                 Toast.makeText(context, "Anda telah keluar!", Toast.LENGTH_SHORT).show();
-                                context.startActivity(new Intent(context, LoginActivity.class));
-                                ((Activity)context).finish();
                             }
                         });
                     } else {
@@ -101,6 +99,10 @@ public class GoogleAccount {
                     Log.i("Error 5", t.getMessage());
                 }
             });
+
+            new TrashManagerSharedPreference(context).logout();
+            context.startActivity(new Intent(context, LoginActivity.class));
+            ((Activity)context).finish();
         }
     }
 }

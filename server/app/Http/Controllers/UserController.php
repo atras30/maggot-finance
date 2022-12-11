@@ -72,6 +72,7 @@ class UserController extends Controller
         $user->balance -= $validated['total_amount'];
 
         $shop = User::where("email", $validated['shop_email'])->get()->first();
+        $shop->balance += $validated['total_amount'];
 
         $data = [
             "validated" => $validated,
@@ -81,6 +82,7 @@ class UserController extends Controller
 
         DB::transaction(function () use($data) {
             $data['user']->save();
+            $data['shop']->save();
 
             Transaction::create([
                 'type' => 'expense',

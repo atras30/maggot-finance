@@ -61,14 +61,12 @@ public class DashboardWarungFragment extends Fragment {
         UserSharedPreference userSharedPreference = new UserSharedPreference(context);
         String authorizationToken = "Bearer " + userSharedPreference.getToken();
 
-        ApiService.endpoint().refreshToken(authorizationToken).enqueue(new Callback<AuthenticationModel>() {
+        ApiService.endpoint().getUser(authorizationToken).enqueue(new Callback<UserModel>() {
             @Override
-            public void onResponse(Call<AuthenticationModel> call, Response<AuthenticationModel> response) {
+            public void onResponse(Call<UserModel> call, Response<UserModel> response) {
                 if(response.isSuccessful()) {
-                    AuthenticationModel.Result result = response.body().refreshToken();
-                    userSharedPreference.setUser(result);
-
-                    UserModel.User user = result.getUser();
+                    UserModel.User user = response.body().getUser();
+                    userSharedPreference.setUser(new AuthenticationModel.Result(userSharedPreference.getToken(), "", user, null));
 
                     try {
                         TextView name = view.findViewById(R.id.namaWarung);
@@ -101,7 +99,7 @@ public class DashboardWarungFragment extends Fragment {
             }
 
             @Override
-            public void onFailure(Call<AuthenticationModel> call, Throwable t) {
+            public void onFailure(Call<UserModel> call, Throwable t) {
                 Toast.makeText(context, "Sedang ada masalah di jaringan kami. Coba lagi.", Toast.LENGTH_LONG).show();
             }
         });
