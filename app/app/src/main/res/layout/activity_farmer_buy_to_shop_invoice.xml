@@ -6,39 +6,31 @@
     android:layout_height="match_parent"
     android:background="@color/back2start"
     android:orientation="vertical"
+    android:gravity="center_vertical"
     android:padding="20dp"
     tools:context=".FarmerBuyToShopInvoiceActivity">
-
-<!--    TRANSAKSI BERHASIL -->
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center_horizontal"
-        android:text="Transaksi Berhasil"
-        android:layout_marginBottom="15dp"
-        android:textColor="@color/black"
-        android:textSize="24sp"
-        android:textStyle="bold" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/rounded_back2end_background"
-        android:orientation="vertical"
-        android:padding="20dp">
+        android:backgroundTint="@color/blue_dark"
+        android:orientation="vertical">
 
 <!--        LOGO MAGFIN -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
+            android:background="@drawable/title_corner_top_radius_grey_background"
+            android:backgroundTint="@color/dark"
             android:layout_marginBottom="20dp">
 
             <ImageView
                 android:id="@+id/imageView"
-                android:layout_width="60dp"
+                android:layout_width="50dp"
                 android:layout_height="80dp"
-                android:layout_marginEnd="10dp"
+                android:layout_marginEnd="15dp"
                 android:src="@drawable/iconmagfin" />
 
             <TextView
@@ -48,81 +40,83 @@
                 android:layout_gravity="center"
                 android:text="MagFin"
                 android:textColor="@color/white"
-                android:textSize="45sp"
+                android:textSize="30sp"
                 android:textStyle="bold" />
+        </LinearLayout>
+
+
+        <!--  Transaksi Sukses  -->
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginBottom="30dp">
+
+            <FrameLayout
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:background="@drawable/ic_baseline_check_circle_24"
+                android:padding="5dp">
+            </FrameLayout>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:text="Transaksi Sukses"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:textColor="@color/success"/>
         </LinearLayout>
 
 <!--        TANGGAL & EMAIL CONTAINER -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp">
+            android:layout_marginHorizontal="20dp"
+            android:layout_marginBottom="20dp">
 <!--            TANGGAL -->
             <TextView
-                android:id="@+id/transaction_date"
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:layout_height="wrap_content"
-                android:text="Tanggal"
+                android:text="Tanggal Transaksi"
                 android:textStyle="bold"
                 android:textColor="@color/white"/>
 
 <!--            EMAIL WARUNG -->
             <TextView
-                android:id="@+id/shop_email"
+                android:id="@+id/transaction_date"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:text="Email Warung"
+                android:text="Tanggal"
                 android:textColor="@color/white"
                 android:textStyle="bold" />
         </LinearLayout>
-
 <!--        STATUS TRANSAKSI -->
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
 
-            <FrameLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@drawable/ic_baseline_check_circle_24"
-                android:padding="5dp">
-                <ImageView
-                    android:layout_width="18dp"
-                    android:layout_height="18dp"
-                    android:src="@drawable/check"/>
-            </FrameLayout>
-
-<!--            TRANSAKSI SUKSES -->
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:gravity="center"
-                android:layout_marginStart="5dp"
-                android:text="Transaksi Sukses"
-                android:textStyle="bold"
-                android:textColor="@color/white"/>
-        </LinearLayout>
 
 <!--        DESKRIPSI PEMBAYARAN SUKSES -->
         <TextView
             android:id="@+id/transaction_description"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:text="Pembayaran [jumlah bayar]. ke [nama warung]"
+            android:gravity="center"
+            android:text="Pembayaran sembako ke [nama warung]"
             android:textColor="@color/white"
             android:textStyle="bold"
-            android:layout_marginTop="10dp"/>
+            android:layout_marginTop="10dp"
+            android:layout_marginHorizontal="20dp"/>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            android:background="@color/back2start"
-            android:padding="8dp">
+            android:background="@color/light"
+            android:padding="8dp"
+            android:layout_margin="20dp">
             <TextView
                 android:layout_width="0dp"
-                android:layout_weight="1"
+                android:layout_weight="1.5"
                 android:layout_height="match_parent"
                 android:text="Total Pembayaran"
                 android:textColor="@color/black"
@@ -133,20 +127,32 @@
                 android:id="@+id/transaction_amount"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
+                android:layout_weight="0.3"
                 android:text="[Nominal]"
+                android:textAlignment="textEnd"
                 android:textColor="@color/black"
                 android:textStyle="bold"
                 />
+            <ImageButton
+                android:id="@+id/buttonSecret"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginStart="10dp"
+                android:background="@color/light"
+                android:src="@drawable/ic_show" />
         </LinearLayout>
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/back_button"
             android:layout_width="match_parent"
             android:layout_height="50dp"
+            android:layout_margin="20dp"
             app:cornerRadius="5dp"
             android:layout_marginTop="15dp"
             android:text="Kembali"
-            android:backgroundTint="@color/primary"
+            android:textAllCaps="false"
+            android:backgroundTint="@color/light"
+            android:textColor="@color/dark"
             android:textStyle="bold"/>
 
     </LinearLayout>

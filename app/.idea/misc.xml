@@ -87,6 +87,7 @@
         <entry key="..\:/Semester 5/IF570 - Mobile Application Programming/UTS/maggot-project-server/app/app/src/main/res/drawable/ic_launcher_background.xml" value="0.119" />
         <entry key="..\:/Semester 5/IF570 - Mobile Application Programming/UTS/maggot-project-server/app/app/src/main/res/drawable/input_pre_text_grey_background.xml" value="0.119" />
         <entry key="..\:/Semester 5/IF570 - Mobile Application Programming/UTS/maggot-project-server/app/app/src/main/res/drawable/input_pre_text_right_grey_background.xml" value="0.119" />
+        <entry key="..\:/Semester 5/IF570 - Mobile Application Programming/UTS/maggot-project-server/app/app/src/main/res/drawable/rounded_back2end_background.xml" value="0.2275" />
         <entry key="..\:/Semester 5/IF570 - Mobile Application Programming/UTS/maggot-project-server/app/app/src/main/res/drawable/rounded_edittext.xml" value="0.119" />
         <entry key="..\:/Semester 5/IF570 - Mobile Application Programming/UTS/maggot-project-server/app/app/src/main/res/drawable/rounded_rectangle.xml" value="0.119" />
         <entry key="..\:/Semester 5/IF570 - Mobile Application Programming/UTS/maggot-project-server/app/app/src/main/res/drawable/rounded_recyclerview_transparent_background.xml" value="0.119" />
@@ -96,6 +97,7 @@
         <entry key="..\:/Semester 5/IF570 - Mobile Application Programming/UTS/maggot-project-server/app/app/src/main/res/layout/activity_buy_maggot.xml" value="0.25416666666666665" />
         <entry key="..\:/Semester 5/IF570 - Mobile Application Programming/UTS/maggot-project-server/app/app/src/main/res/layout/activity_buy_maggot2.xml" value="0.20863616930312098" />
         <entry key="..\:/Semester 5/IF570 - Mobile Application Programming/UTS/maggot-project-server/app/app/src/main/res/layout/activity_dashboard_warung.xml" value="0.10400000000000001" />
+        <entry key="..\:/Semester 5/IF570 - Mobile Application Programming/UTS/maggot-project-server/app/app/src/main/res/layout/activity_farmer_buy_to_shop_invoice.xml" value="0.264" />
         <entry key="..\:/Semester 5/IF570 - Mobile Application Programming/UTS/maggot-project-server/app/app/src/main/res/layout/activity_farmer_dashboard.xml" value="0.10400000000000001" />
         <entry key="..\:/Semester 5/IF570 - Mobile Application Programming/UTS/maggot-project-server/app/app/src/main/res/layout/activity_home_page_pengelola_bank_sampah.xml" value="0.11851851851851852" />
         <entry key="..\:/Semester 5/IF570 - Mobile Application Programming/UTS/maggot-project-server/app/app/src/main/res/layout/activity_inactive.xml" value="0.11759036144578314" />

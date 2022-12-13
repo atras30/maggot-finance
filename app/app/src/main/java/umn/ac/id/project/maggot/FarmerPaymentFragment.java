@@ -35,6 +35,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import umn.ac.id.project.maggot.adapter.WarungSearchDropDownAdapter;
+import umn.ac.id.project.maggot.global.Helper;
 import umn.ac.id.project.maggot.global.UserSharedPreference;
 import umn.ac.id.project.maggot.model.NotificationUserModel;
 import umn.ac.id.project.maggot.model.TransactionModel;
@@ -221,8 +222,7 @@ public class FarmerPaymentFragment extends Fragment {
                     Toast.makeText(context, response.body().farmerBuyFromShop(), Toast.LENGTH_LONG).show();
 
                     Intent invoiceIntent = new Intent(context, FarmerBuyToShopInvoiceActivity.class);
-                    invoiceIntent.putExtra("email", selectedEmail);
-                    invoiceIntent.putExtra("total_amount", totalAmount);
+                    invoiceIntent.putExtra("total_amount", Helper.formatRupiah(totalAmount));
                     invoiceIntent.putExtra("date", formatter.format(new Date()));
                     InstantAutoComplete shop_name = layoutView.findViewById(R.id.namawarung);
                     invoiceIntent.putExtra("shop_name", shop_name.getText().toString());
