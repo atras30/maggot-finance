@@ -32,18 +32,16 @@ public class FarmerBuyToShopInvoiceActivity extends AppCompatActivity {
 
         date.setText(extras.getString("date"));
         description.setText("Pembayaran sembako ke" + extras.getString("shop_name"));
-        amount.setText(Helper.formatRupiah(extras.getDouble("total_amount")));
+        amount.setText("Rp " + Helper.formatRupiah(extras.getDouble("total_amount")));
 
         ImageButton btnSecret = findViewById(R.id.buttonSecret);
         btnSecret.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                TextView tvSaldo = findViewById(R.id.transaction_amount);
-
-                if(tvSaldo.getText().toString().contains("*")) {
-                    tvSaldo.setText(Helper.formatRupiah(extras.getDouble("total_amount")));
+                if(amount.getText().toString().contains("*")) {
+                    amount.setText("Rp " + Helper.formatRupiah(extras.getDouble("total_amount")));
                 } else {
-                    tvSaldo.setText("**********");
+                    amount.setText("**********");
                 }
             }
         });
