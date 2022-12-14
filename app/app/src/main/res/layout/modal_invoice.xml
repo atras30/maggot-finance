@@ -53,6 +53,7 @@
             <FrameLayout
                 android:layout_width="40dp"
                 android:layout_height="40dp"
+                android:layout_marginEnd="10dp"
                 android:background="@drawable/ic_baseline_check_circle_24"
                 android:padding="5dp">
             </FrameLayout>
@@ -116,6 +117,7 @@
                 android:layout_width="0dp"
                 android:layout_weight="1.5"
                 android:layout_height="match_parent"
+                android:gravity="center_vertical"
                 android:text="Total Pembayaran"
                 android:textColor="@color/black"
                 android:textStyle="bold"
