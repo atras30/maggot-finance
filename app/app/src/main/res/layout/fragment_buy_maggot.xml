@@ -27,19 +27,6 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <TextView
-            android:id="@+id/textView8"
-            android:layout_width="match_parent"
-            android:layout_height="32dp"
-            android:layout_marginTop="20dp"
-            android:text="Jumlah Bayar"
-            android:textSize="20sp"
-            android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.12"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/scanqrwarga" />
-
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/farmer_payment_shop_selection_container"
             android:layout_width="match_parent"
