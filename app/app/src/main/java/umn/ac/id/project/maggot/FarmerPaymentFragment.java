@@ -1,5 +1,6 @@
 package umn.ac.id.project.maggot;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -12,12 +13,15 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 
 import com.google.android.material.button.MaterialButton;
@@ -221,12 +225,31 @@ public class FarmerPaymentFragment extends Fragment {
 
                     Toast.makeText(context, response.body().farmerBuyFromShop(), Toast.LENGTH_LONG).show();
 
-                    Intent invoiceIntent = new Intent(context, FarmerBuyToShopInvoiceActivity.class);
-                    invoiceIntent.putExtra("total_amount", Helper.formatRupiah(totalAmount));
-                    invoiceIntent.putExtra("date", formatter.format(new Date()));
                     InstantAutoComplete shop_name = layoutView.findViewById(R.id.namawarung);
-                    invoiceIntent.putExtra("shop_name", shop_name.getText().toString());
-                    context.startActivity(invoiceIntent);
+                    date.setText(formatter.format(new Date()));
+                    description.setText("Pembayaran sembako ke" + shop_name.getText().toString());
+                    amount.setText("Rp " + Helper.formatRupiah(totalAmount));
+
+                    ImageButton btnSecret = myView.findViewById(R.id.buttonSecret);
+                    btnSecret.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            if(amount.getText().toString().contains("*")) {
+                                amount.setText("Rp " + Helper.formatRupiah(totalAmount));
+                            } else {
+                                amount.setText("**********");
+                            }
+                        }
+                    });
+
+                    myBuild.setView(myView);
+                    AlertDialog dialog = myBuild.create();
+                    dialog.show();
+
+                    MaterialButton backButton = myView.findViewById(R.id.back_button);
+                    backButton.setOnClickListener(v -> {
+                        dialog.hide();
+                    });
                 } else {
                     try {
                         String error = response.errorBody().string();
