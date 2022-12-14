@@ -234,7 +234,7 @@ public class FarmerPaymentFragment extends Fragment {
 
                     InstantAutoComplete shop_name = layoutView.findViewById(R.id.namawarung);
                     date.setText(formatter.format(new Date()));
-                    description.setText("Pembayaran sembako ke" + shop_name.getText().toString());
+                    description.setText("Pembayaran sembako ke " + shop_name.getText().toString());
                     amount.setText("Rp " + Helper.formatRupiah(totalAmount));
 
                     ImageButton btnSecret = myView.findViewById(R.id.buttonSecret);
