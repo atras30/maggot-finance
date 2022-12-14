@@ -21,6 +21,7 @@ import umn.ac.id.project.maggot.model.WarungModel;
 
 public interface ApiEndpoint {
     @GET("auth/user")
+    @Headers("Accept: application/json")
     Call<UserModel> getUser(@Header("Authorization") String authorization);
 
     @GET("auth/user")
@@ -28,24 +29,31 @@ public interface ApiEndpoint {
     Call<TrashManagerModel> updateTrashManagerData(@Header("Authorization") String authorization);
 
     @GET("user/role/farmer")
+    @Headers("Accept: application/json")
     Call<PeternakModel> getPeternak();
 
     @GET("user/role/farmer")
+    @Headers("Accept: application/json")
     Call<UserModel> getUsers();
 
     @GET("user/email/{email}")
+    @Headers("Accept: application/json")
     Call<UserModel> getUserByEmail(@Path("email") String email);
 
     @DELETE("user/{id}")
+    @Headers("Accept: application/json")
     Call<UserModel> deleteUser(@Path("id") int id);
 
     @GET("user/role/shop")
+    @Headers("Accept: application/json")
     Call<WarungModel> getWarung();
 
     @GET("trash-manager")
+    @Headers("Accept: application/json")
     Call<TrashManagerModel> getTrashManager();
 
     @GET("notifications")
+    @Headers("Accept: application/json")
     Call<NotificationUserModel> getAllNotification();
 
     @Headers("Accept: application/json")
@@ -59,6 +67,7 @@ public interface ApiEndpoint {
 
     @FormUrlEncoded
     @POST("auth/login")
+    @Headers("Accept: application/json")
     Call<AuthenticationModel> login(@Field("google_token") String googleToken);
 
     @FormUrlEncoded
@@ -68,6 +77,7 @@ public interface ApiEndpoint {
 
     @FormUrlEncoded
     @POST("auth/login")
+    @Headers("Accept: application/json")
     Call<AuthenticationModel> loginTrashManager(@Field("google_token") String googleToken);
 
     @FormUrlEncoded
@@ -82,6 +92,7 @@ public interface ApiEndpoint {
 
     @FormUrlEncoded
     @POST("register/user/reject")
+    @Headers("Accept: application/json")
     Call<ApprovalRejectionModel> rejectionUserRegistration(@Field("email") String email);
 
     @FormUrlEncoded
@@ -90,9 +101,11 @@ public interface ApiEndpoint {
     Call<TransactionModel> buyMaggot(@Header("Authorization") String authorizationToken,@Field("weight_in_kg") double weightInKg, @Field("amount_per_kg") double amountPerKg, @Field("farmer_email") String farmerEmail, @Field("description") String description);
 
     @GET("transactions")
+    @Headers("Accept: application/json")
     Call<TransactionModel> getTransactions(@Query("email") String email);
 
     @GET("notifications")
+    @Headers("Accept: application/json")
     Call<NotificationUserModel> getAllNotifications(@Header("Authorization") String authorizationToken);
 
     @FormUrlEncoded
