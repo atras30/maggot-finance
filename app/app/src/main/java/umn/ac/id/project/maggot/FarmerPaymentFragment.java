@@ -225,6 +225,13 @@ public class FarmerPaymentFragment extends Fragment {
 
                     Toast.makeText(context, response.body().farmerBuyFromShop(), Toast.LENGTH_LONG).show();
 
+                    AlertDialog.Builder myBuild = new AlertDialog.Builder(context);
+                    View myView = ((Activity)context).getLayoutInflater().inflate(R.layout.modal_invoice, null);
+
+                    TextView date = myView.findViewById(R.id.transaction_date);
+                    TextView description = myView.findViewById(R.id.transaction_description);
+                    TextView amount = myView.findViewById(R.id.transaction_amount);
+
                     InstantAutoComplete shop_name = layoutView.findViewById(R.id.namawarung);
                     date.setText(formatter.format(new Date()));
                     description.setText("Pembayaran sembako ke" + shop_name.getText().toString());
