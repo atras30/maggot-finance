@@ -57,6 +57,7 @@ public class FarmerPaymentFragment extends Fragment {
     String selectedEmail = "";
     View layoutView;
     UserModel.User user;
+    EditText totalAmountET;
 
     //QR Scanner
     ActivityResultLauncher<ScanOptions> barLauncher = registerForActivityResult(new ScanContract(), result -> {
@@ -108,6 +109,8 @@ public class FarmerPaymentFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         layoutView = inflater.inflate(R.layout.fragment_farmer_payment, container, false);
 
+        totalAmountET = layoutView.findViewById(R.id.editText2);
+
         //QR Code scanner button logic
         MaterialButton scanQrCodeButton = layoutView.findViewById(R.id.scan_qr_code_button);
         scanQrCodeButton.setOnClickListener(v -> {
@@ -120,18 +123,16 @@ public class FarmerPaymentFragment extends Fragment {
         paymentButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                EditText totalAmount = layoutView.findViewById(R.id.editText2);
-
                 Log.i("Selected Email", selectedEmail);
                 if(selectedEmail.equalsIgnoreCase("")) {
                     Toast.makeText(context, "Anda harus memilih warung terlebih dahulu.", Toast.LENGTH_SHORT).show();
                     return;
-                } else if(totalAmount.getText().toString().equalsIgnoreCase("") || totalAmount.getText().toString().equals("0")) {
+                } else if(totalAmountET.getText().toString().equalsIgnoreCase("") || totalAmountET.getText().toString().equals("0")) {
                     Toast.makeText(context, "Jumlah Pembayaran tidak boleh kosong", Toast.LENGTH_SHORT).show();
                     return;
                 }
 
-                pay(selectedEmail, Double.parseDouble(totalAmount.getText().toString()));
+                pay(selectedEmail, Double.parseDouble(totalAmountET.getText().toString()));
             }
         });
 
@@ -260,6 +261,10 @@ public class FarmerPaymentFragment extends Fragment {
                     backButton.setOnClickListener(v -> {
                         dialog.hide();
                     });
+
+                    InstantAutoComplete namawarung = layoutView.findViewById(R.id.namawarung);
+                    namawarung.setText("");
+                    totalAmountET.setText("");
                 } else {
                     try {
                         String error = response.errorBody().string();
