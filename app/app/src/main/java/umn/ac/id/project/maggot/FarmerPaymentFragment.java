@@ -3,6 +3,8 @@ package umn.ac.id.project.maggot;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -251,6 +253,7 @@ public class FarmerPaymentFragment extends Fragment {
 
                     myBuild.setView(myView);
                     AlertDialog dialog = myBuild.create();
+                    dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
                     dialog.show();
 
                     MaterialButton backButton = myView.findViewById(R.id.back_button);
