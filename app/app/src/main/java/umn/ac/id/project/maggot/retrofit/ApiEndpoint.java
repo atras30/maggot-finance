@@ -32,10 +32,6 @@ public interface ApiEndpoint {
     @Headers("Accept: application/json")
     Call<PeternakModel> getPeternak();
 
-    @GET("user/role/farmer")
-    @Headers("Accept: application/json")
-    Call<UserModel> getUsers();
-
     @GET("user/email/{email}")
     @Headers("Accept: application/json")
     Call<UserModel> getUserByEmail(@Path("email") String email);
@@ -52,14 +48,6 @@ public interface ApiEndpoint {
     @Headers("Accept: application/json")
     Call<TrashManagerModel> getTrashManager();
 
-    @GET("notifications")
-    @Headers("Accept: application/json")
-    Call<NotificationUserModel> getAllNotification();
-
-    @Headers("Accept: application/json")
-    @POST("auth/token/refresh")
-    Call<AuthenticationModel> refreshToken(@Header("Authorization") String authorization);
-
     @FormUrlEncoded
     @Headers("Accept: application/json")
     @POST("transaction/farmer/buy/shop")
@@ -74,11 +62,6 @@ public interface ApiEndpoint {
     @Headers("Accept: application/json")
     @POST("auth/logout")
     Call<AuthenticationModel> logout(@Header("Authorization") String authorization, @Field("any") String any);
-
-    @FormUrlEncoded
-    @POST("auth/login")
-    @Headers("Accept: application/json")
-    Call<AuthenticationModel> loginTrashManager(@Field("google_token") String googleToken);
 
     @FormUrlEncoded
     @Headers("Accept: application/json")
@@ -120,16 +103,6 @@ public interface ApiEndpoint {
 
     @FormUrlEncoded
     @Headers("Accept: application/json")
-    @POST("('/notifications/shop/farmer/purchase/reject")
-    Call<NotificationUserModel> rejectFarmerPurchaseRequest(@Field("token") String token, @Header("Authorization") String authorizationToken);
-
-    @FormUrlEncoded
-    @Headers("Accept: application/json")
-    @POST("notifications/farmer/withdrawal/reject")
-    Call<NotificationUserModel> rejectWithdrawalRequest(@Field("token") String token, @Header("Authorization") String authorizationToken);
-
-    @FormUrlEncoded
-    @Headers("Accept: application/json")
     @POST("notifications/trash-manager/withdrawal/farmer")
     Call<NotificationUserModel> createFarmerWithdrawalRequest(@Field("farmer_email") String farmerEmail, @Field("withdrawal_amount") double withdrawalAmount,@Header("Authorization") String token);
 
@@ -158,8 +131,4 @@ public interface ApiEndpoint {
     @POST("notifications/shop/farmer/purchase/reject")
     Call<NotificationUserModel> rejectShopBuyRequest(@Field("token") String token, @Header("Authorization") String authorizationToken);
 
-    @FormUrlEncoded
-    @Headers("Accept: application/json")
-    @POST("notifications/farmer/buy/shop")
-    Call<NotificationUserModel> createShopBuyRequest(@Field("shop_email") String shopEmail, @Field("total_amount") double totalAmount,@Header("Authorization") String token);
 }

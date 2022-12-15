@@ -176,9 +176,5 @@ public class DashboardPengelolaBankSampahFragment extends Fragment {
 
         TrashManagerSharedPreference trashManagerSharedPreference = new TrashManagerSharedPreference(context);
 
-//        if (trashManagerSharedPreference.getTrashManager() != null) {
-//            wargaBinaan.setText(trashManagerSharedPreference.getTrashManager().get());
-//            warungBinaan.setText(trashManagerSharedPreference.getTrashManager().getAddress());
-//        }
     }
 }

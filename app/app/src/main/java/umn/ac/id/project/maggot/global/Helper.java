@@ -30,10 +30,6 @@ public class Helper {
         return date;
     }
 
-    public static void updateTrashManagerData(Context context) {
-
-    }
-
     public static void refreshToken(Context context, View view) {
         UserSharedPreference userSharedPreference = new UserSharedPreference(context);
         String authorizationToken = "Bearer " + userSharedPreference.getToken();
