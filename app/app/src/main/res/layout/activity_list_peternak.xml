@@ -21,7 +21,6 @@
             android:layout_gravity="center_vertical"
             android:src="@drawable/backbutton" />
         <TextView
-            android:id="@+id/list_warga_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"

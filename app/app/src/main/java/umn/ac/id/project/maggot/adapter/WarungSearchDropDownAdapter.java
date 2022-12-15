@@ -20,7 +20,7 @@ import umn.ac.id.project.maggot.model.WarungModel;
 
 public class WarungSearchDropDownAdapter extends ArrayAdapter<WarungModel.Warung> {
 
-    private Context mContext;
+    private final Context mContext;
     private List<WarungModel.Warung> WarungList;
 
     private LayoutInflater layoutInflater;
@@ -47,15 +47,15 @@ public class WarungSearchDropDownAdapter extends ArrayAdapter<WarungModel.Warung
 
         WarungModel.Warung currentWarung = getItem(position);
 
-        TextView name = (TextView) listItem.findViewById(R.id.namaWarga);
+        TextView name = listItem.findViewById(R.id.namaWarga);
         name.setText(currentWarung.getFull_name());
 
-        TextView email = (TextView) listItem.findViewById(R.id.emailWarga);
+        TextView email = listItem.findViewById(R.id.emailWarga);
         email.setText(currentWarung.getEmail());
 
         return listItem;
     }
-    private Filter mFilter = new Filter() {
+    private final Filter mFilter = new Filter() {
         @Override
         public String convertResultToString(Object resultValue) {
             return ((WarungModel.Warung)resultValue).getFull_name();

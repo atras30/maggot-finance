@@ -35,7 +35,7 @@ import umn.ac.id.project.maggot.model.TransactionModel;
 import umn.ac.id.project.maggot.retrofit.ApiService;
 
 public class ShopTransactionFragment extends Fragment {
-    private Context context;
+    private final Context context;
     TextView dateTimeDisplay;
     TextView dateTimeDisplay2;
     private Calendar calendar;
@@ -98,7 +98,7 @@ public class ShopTransactionFragment extends Fragment {
         });
 
         //INI BUAT NGESET CURRENT VALUE DI TEXTVIEW DATE PADA XML
-        dateTimeDisplay = (TextView) view.findViewById(R.id.tanggalawal);
+        dateTimeDisplay = view.findViewById(R.id.tanggalawal);
         calendar = Calendar.getInstance();
         tanggalawal = Calendar.getInstance();
         int currentYear = calendar.get(Calendar.YEAR);
@@ -133,7 +133,7 @@ public class ShopTransactionFragment extends Fragment {
         });
 
         tanggalakhir = Calendar.getInstance();
-        dateTimeDisplay2 = (TextView) view.findViewById(R.id.tanggalakhir);
+        dateTimeDisplay2 = view.findViewById(R.id.tanggalakhir);
         ImageView selectDate2 = view.findViewById(R.id.pilihtanggalakhir);
         selectDate2.setOnClickListener(new View.OnClickListener() {
             @Override

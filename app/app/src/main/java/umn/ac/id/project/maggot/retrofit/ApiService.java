@@ -16,8 +16,8 @@ public class ApiService {
     public static String production = "https://magfin-api.lppmumn.id/public/api/";
     public static String productionWithoutApiPath = "https://magfin-api.lppmumn.id/public/";
 
-    private static String BASE_URL = sharedhosting;
-    private static String BASE_URL_WITHOUT_API_PATH = sharedhostingWithoutApiPath;
+    private static final String BASE_URL = sharedhosting;
+    private static final String BASE_URL_WITHOUT_API_PATH = sharedhostingWithoutApiPath;
 
     private static Retrofit retrofit;
 

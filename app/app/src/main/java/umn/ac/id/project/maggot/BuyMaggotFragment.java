@@ -39,7 +39,7 @@ import umn.ac.id.project.maggot.model.UserModel;
 import umn.ac.id.project.maggot.retrofit.ApiService;
 
 public class BuyMaggotFragment extends Fragment {
-    private Context context;
+    private final Context context;
     ArrayAdapter<PeternakModel.Peternak> DropDownAdapter;
     List<PeternakModel.Peternak> res;
     ArrayList<PeternakModel.Peternak> results = new ArrayList<>();
@@ -79,7 +79,7 @@ public class BuyMaggotFragment extends Fragment {
                         return;
                     }
                     DropDownAdapter = new PeternakSearchDropDownAdapter(context, results);
-                    umn.ac.id.project.maggot.InstantAutoComplete textView = (umn.ac.id.project.maggot.InstantAutoComplete) view.findViewById(R.id.namawarga);
+                    umn.ac.id.project.maggot.InstantAutoComplete textView = view.findViewById(R.id.namawarga);
                     textView.setAdapter(DropDownAdapter);
                     textView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                         @Override
@@ -143,7 +143,7 @@ public class BuyMaggotFragment extends Fragment {
         });
 
         MaterialButton buttonBuy = view.findViewById(R.id.belisekarang);
-        EditText buttons[] = new EditText[] {
+        EditText[] buttons = new EditText[] {
                 view.findViewById(R.id.jumlahbeli),
                 view.findViewById(R.id.hargaperkg)
         };

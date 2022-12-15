@@ -46,7 +46,7 @@ import umn.ac.id.project.maggot.model.WarungModel;
 import umn.ac.id.project.maggot.retrofit.ApiService;
 
 public class FarmerPaymentFragment extends Fragment {
-    private Context context;
+    private final Context context;
     ArrayAdapter<WarungModel.Warung> DropDownAdapter;
     List<WarungModel.Warung> res;
     ArrayList<WarungModel.Warung> results = new ArrayList<WarungModel.Warung>();
@@ -147,7 +147,7 @@ public class FarmerPaymentFragment extends Fragment {
                         return;
                     }
                     DropDownAdapter = new WarungSearchDropDownAdapter(context, results);
-                    umn.ac.id.project.maggot.InstantAutoComplete textView = (umn.ac.id.project.maggot.InstantAutoComplete) layoutView.findViewById(R.id.namawarung);
+                    umn.ac.id.project.maggot.InstantAutoComplete textView = layoutView.findViewById(R.id.namawarung);
                     textView.setAdapter(DropDownAdapter);
 
                     textView.addTextChangedListener(new TextWatcher() {

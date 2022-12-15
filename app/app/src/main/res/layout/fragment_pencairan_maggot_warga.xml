@@ -112,7 +112,6 @@
             tools:layout_editor_absoluteX="28dp" />
 
         <TextView
-            android:id="@+id/jumlahpencairan"
             android:layout_width="wrap_content"
             android:layout_height="40dp"
             android:layout_marginTop="20dp"

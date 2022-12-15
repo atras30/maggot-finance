@@ -19,7 +19,7 @@ public class UserSharedPreference {
     }
 
     public UserModel.User getUser() {
-        return (UserModel.User) new Gson().fromJson(this.sharedPreferences.getString("authenticated_user", null), UserModel.User.class);
+        return new Gson().fromJson(this.sharedPreferences.getString("authenticated_user", null), UserModel.User.class);
     }
 
     public String getToken() {

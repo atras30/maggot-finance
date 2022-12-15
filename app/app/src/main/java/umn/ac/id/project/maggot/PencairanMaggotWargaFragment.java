@@ -42,7 +42,7 @@ public class PencairanMaggotWargaFragment extends Fragment {
     ArrayAdapter<PeternakModel.Peternak> DropDownAdapter;
     List<PeternakModel.Peternak> res;
     ArrayList<PeternakModel.Peternak> results = new ArrayList<PeternakModel.Peternak>();
-    private Context context;
+    private final Context context;
     private TextView selectedEmailTextView;
     EditText jumlahBayar;
     private String selectedEmail = "";
@@ -78,7 +78,7 @@ public class PencairanMaggotWargaFragment extends Fragment {
                         return;
                     }
                     DropDownAdapter = new PeternakSearchDropDownAdapter(context, results);
-                    umn.ac.id.project.maggot.InstantAutoComplete textView = (umn.ac.id.project.maggot.InstantAutoComplete) view.findViewById(R.id.namawarga);
+                    umn.ac.id.project.maggot.InstantAutoComplete textView = view.findViewById(R.id.namawarga);
                     textView.setAdapter(DropDownAdapter);
                     textView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 

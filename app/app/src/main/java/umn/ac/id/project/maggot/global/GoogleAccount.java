@@ -22,12 +22,12 @@ import umn.ac.id.project.maggot.model.AuthenticationModel;
 import umn.ac.id.project.maggot.retrofit.ApiService;
 
 public class GoogleAccount {
-    private Context context;
-    private GoogleSignInClient gsc;
+    private final Context context;
+    private final GoogleSignInClient gsc;
 
     public GoogleAccount(Context context) {
         this.context = context;
-        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN).requestEmail().build();;
+        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN).requestEmail().build();
         gsc = GoogleSignIn.getClient(context, gso);
     }
 

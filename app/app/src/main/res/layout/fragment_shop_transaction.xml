@@ -8,7 +8,6 @@
     tools:context=".ShopTransactionFragment">
 
     <TextView
-        android:id="@+id/farmer_transaction_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Riwayat Transaksi"
@@ -23,7 +22,6 @@
         >
 
         <ImageView
-            android:id="@+id/FirstDate"
             android:layout_width="0dp"
             android:layout_weight=".20"
             android:layout_height="40dp"
@@ -35,7 +33,6 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/constraintLayout1"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
@@ -98,7 +95,6 @@
         android:layout_marginBottom="15dp">
 
         <ImageView
-            android:id="@+id/SecondDate"
             android:layout_width="0dp"
             android:layout_weight=".20"
             android:layout_height="40dp"
@@ -110,7 +106,6 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/constraintLayout2"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"

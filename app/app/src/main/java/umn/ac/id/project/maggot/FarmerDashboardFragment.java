@@ -34,7 +34,7 @@ import umn.ac.id.project.maggot.model.UserModel;
 import umn.ac.id.project.maggot.retrofit.ApiService;
 
 public class FarmerDashboardFragment extends Fragment {
-    private Context context;
+    private final Context context;
     MaterialButton logoutButton;
     ImageView qrCodeImage;
     UserSharedPreference userSharedPreference;

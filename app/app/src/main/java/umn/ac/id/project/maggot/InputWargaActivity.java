@@ -70,7 +70,7 @@ public class InputWargaActivity extends AppCompatActivity {
 
                     @Override
                     public void onFailure(Call<AuthenticationModel> call, Throwable t) {
-                        Log.i("Failure", t.getMessage().toString());
+                        Log.i("Failure", t.getMessage());
                         Toast.makeText(InputWargaActivity.this, "Sedang ada masalah di jaringan kami. Coba lagi.", Toast.LENGTH_SHORT).show();
                     }
                 });

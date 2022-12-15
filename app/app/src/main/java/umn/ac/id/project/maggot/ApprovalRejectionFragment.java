@@ -27,7 +27,7 @@ import umn.ac.id.project.maggot.model.UserModel;
 import umn.ac.id.project.maggot.retrofit.ApiService;
 
 public class ApprovalRejectionFragment extends Fragment {
-    private Context context;
+    private final Context context;
     private View view;
 
     public ApprovalRejectionFragment(Context context) {

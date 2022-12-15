@@ -36,7 +36,7 @@ import umn.ac.id.project.maggot.retrofit.ApiErrorHandler;
 import umn.ac.id.project.maggot.retrofit.ApiService;
 
 public class DashboardPengelolaBankSampahFragment extends Fragment {
-    private Context context;
+    private final Context context;
     Toast toast = null;
     UserSharedPreference userSharedPreference;
     Button detailwarga, detailwarung;

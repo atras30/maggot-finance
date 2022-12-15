@@ -43,7 +43,7 @@ public class PencairanDanaWarungFragment extends Fragment {
     ArrayAdapter<WarungModel.Warung> DropDownAdapter;
     List<WarungModel.Warung> res;
     ArrayList<WarungModel.Warung> results = new ArrayList<WarungModel.Warung>();
-    private Context context;
+    private final Context context;
     private String selectedEmail = "";
     TextView selectedEmailTextView = null;
     EditText jumlahBayar = null;
@@ -78,7 +78,7 @@ public class PencairanDanaWarungFragment extends Fragment {
                         return;
                     }
                     DropDownAdapter = new WarungSearchDropDownAdapter(context, results);
-                    umn.ac.id.project.maggot.InstantAutoComplete textView = (umn.ac.id.project.maggot.InstantAutoComplete) view.findViewById(R.id.namawarung);
+                    umn.ac.id.project.maggot.InstantAutoComplete textView = view.findViewById(R.id.namawarung);
                     textView.setAdapter(DropDownAdapter);
                     textView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 

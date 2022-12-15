@@ -19,7 +19,7 @@ public class TrashManagerSharedPreference {
     }
 
     public TrashManagerModel.TrashManagers getTrashManager() {
-        return (TrashManagerModel.TrashManagers) new Gson().fromJson(this.sharedPreferences.getString("authenticated_trash_manager", null), TrashManagerModel.TrashManagers.class);
+        return new Gson().fromJson(this.sharedPreferences.getString("authenticated_trash_manager", null), TrashManagerModel.TrashManagers.class);
     }
 
     public String getToken() {
