@@ -39,19 +39,30 @@ public class GoogleAccount {
         Log.i("Logout Token user", "Bearer " + userSharedPreference.getToken());
         Log.i("Logout Token Trash.M", "Bearer " + trashManagerSharedPreference.getToken());
 
+        deleteUserTokenInDatabase(userSharedPreference);
+        deleteTrashManagerTokenInDatabase(trashManagerSharedPreference);
+
+        gsc.signOut().addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(Task<Void> task) {
+                Toast.makeText(context, "Anda telah keluar!", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        userSharedPreference.logout();
+        trashManagerSharedPreference.logout();
+
+        context.startActivity(new Intent(context, LoginActivity.class));
+        ((Activity)context).finish();
+    }
+
+    private void deleteUserTokenInDatabase(UserSharedPreference userSharedPreference) {
         if(userSharedPreference.getToken() != null) {
             ApiService.endpoint().logout("Bearer " + userSharedPreference.getToken(), "").enqueue(new Callback<AuthenticationModel>() {
                 @Override
                 public void onResponse(Call<AuthenticationModel> call, Response<AuthenticationModel> response) {
                     if(response.isSuccessful()) {
                         Log.i("Status", response.body().logout());
-
-                        gsc.signOut().addOnCompleteListener(new OnCompleteListener<Void>() {
-                            @Override
-                            public void onComplete(Task<Void> task) {
-                                Toast.makeText(context, "Anda telah keluar!", Toast.LENGTH_SHORT).show();
-                            }
-                        });
                     } else {
                         try {
                             Log.i("Error 2", response.errorBody().string());
@@ -66,25 +77,16 @@ public class GoogleAccount {
                     Log.i("Error 3", t.getMessage());
                 }
             });
-
-            new UserSharedPreference(context).logout();
-            context.startActivity(new Intent(context, LoginActivity.class));
-            ((Activity)context).finish();
         }
+    }
 
+    private void deleteTrashManagerTokenInDatabase(TrashManagerSharedPreference trashManagerSharedPreference) {
         if(trashManagerSharedPreference.getToken() != null) {
             ApiService.endpoint().logout("Bearer " + trashManagerSharedPreference.getToken(), "").enqueue(new Callback<AuthenticationModel>() {
                 @Override
                 public void onResponse(Call<AuthenticationModel> call, Response<AuthenticationModel> response) {
                     if(response.isSuccessful()) {
                         Log.i("Status", response.body().logout());
-
-                        gsc.signOut().addOnCompleteListener(new OnCompleteListener<Void>() {
-                            @Override
-                            public void onComplete(Task<Void> task) {
-                                Toast.makeText(context, "Anda telah keluar!", Toast.LENGTH_SHORT).show();
-                            }
-                        });
                     } else {
                         try {
                             Log.i("Error 4", response.errorBody().string());
@@ -99,10 +101,6 @@ public class GoogleAccount {
                     Log.i("Error 5", t.getMessage());
                 }
             });
-
-            new TrashManagerSharedPreference(context).logout();
-            context.startActivity(new Intent(context, LoginActivity.class));
-            ((Activity)context).finish();
         }
     }
 }
