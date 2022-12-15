@@ -19,7 +19,6 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import umn.ac.id.project.maggot.LoginActivity;
 import umn.ac.id.project.maggot.model.AuthenticationModel;
-import umn.ac.id.project.maggot.model.TrashManagerModel;
 import umn.ac.id.project.maggot.retrofit.ApiService;
 
 public class GoogleAccount {

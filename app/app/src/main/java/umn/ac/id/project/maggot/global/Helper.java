@@ -1,6 +1,5 @@
 package umn.ac.id.project.maggot.global;
 
-import android.app.Activity;
 import android.content.Context;
 import android.util.Log;
 import android.view.View;

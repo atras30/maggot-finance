@@ -2,7 +2,6 @@ package umn.ac.id.project.maggot;
 
 import android.app.Activity;
 import android.content.Context;
-import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
@@ -15,7 +14,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
@@ -27,7 +25,6 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 
 import com.google.android.material.button.MaterialButton;
-import com.google.gson.Gson;
 import com.journeyapps.barcodescanner.ScanContract;
 import com.journeyapps.barcodescanner.ScanOptions;
 
@@ -43,7 +40,6 @@ import retrofit2.Response;
 import umn.ac.id.project.maggot.adapter.WarungSearchDropDownAdapter;
 import umn.ac.id.project.maggot.global.Helper;
 import umn.ac.id.project.maggot.global.UserSharedPreference;
-import umn.ac.id.project.maggot.model.NotificationUserModel;
 import umn.ac.id.project.maggot.model.TransactionModel;
 import umn.ac.id.project.maggot.model.UserModel;
 import umn.ac.id.project.maggot.model.WarungModel;
