@@ -41,7 +41,8 @@ import umn.ac.id.project.maggot.retrofit.ApiService;
 public class BuyMaggotFragment extends Fragment {
     private Context context;
     ArrayAdapter<PeternakModel.Peternak> DropDownAdapter;
-    List<PeternakModel.Peternak> results;
+    List<PeternakModel.Peternak> res;
+    ArrayList<PeternakModel.Peternak> results = new ArrayList<>();
     String selectedFarmerEmail = "";
     String description = "-";
     View view = null;
@@ -66,8 +67,18 @@ public class BuyMaggotFragment extends Fragment {
             @Override
             public void onResponse(Call<PeternakModel> call, Response<PeternakModel> response) {
                 if (response.isSuccessful()) {
-                    results = response.body().getPeternak();
-                    DropDownAdapter = new PeternakSearchDropDownAdapter(context, (ArrayList<PeternakModel.Peternak>) results);
+                    res = response.body().getPeternak();
+                    for(PeternakModel.Peternak i: res) {
+                        if(i.getTrash_manager_id() == new TrashManagerSharedPreference(context).getTrashManager().getId()) {
+                            results.add(i);
+                        }
+                    }
+
+                    if(results.size() == 0) {
+                        Toast.makeText(context, "Belum ada warga/warung yang terdaftar.", Toast.LENGTH_LONG).show();
+                        return;
+                    }
+                    DropDownAdapter = new PeternakSearchDropDownAdapter(context, results);
                     umn.ac.id.project.maggot.InstantAutoComplete textView = (umn.ac.id.project.maggot.InstantAutoComplete) view.findViewById(R.id.namawarga);
                     textView.setAdapter(DropDownAdapter);
                     textView.setOnItemClickListener(new AdapterView.OnItemClickListener() {

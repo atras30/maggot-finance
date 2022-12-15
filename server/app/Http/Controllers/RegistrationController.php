@@ -64,7 +64,7 @@ class RegistrationController extends Controller
             [
                 'full_name' => 'string|required',
                 // "username" => "string|required|unique:users,username|not_in:pengepul,peternak,warung|alpha_dash",
-                'email' => 'string|required|email:rfc,dns|unique:users,email',
+                'email' => 'string|required|email:rfc,dns|unique:users,email|unique:trash_managers,email',
                 // "password" => "string|required",
                 'role' => 'string|required|in:farmer,shop',
                 'trash_manager_id' => 'numeric|required',

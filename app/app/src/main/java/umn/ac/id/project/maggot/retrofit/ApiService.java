@@ -8,13 +8,17 @@ import umn.ac.id.project.maggot.model.AuthenticationModel;
 
 public class ApiService {
     public static String localhost = "http://10.0.2.2:8000/api/";
+    public static String localhostWithoutApiPath = "http://10.0.2.2:8000/";
+
     public static String sharedhosting = "https://atras.my.id/api/";
+    public static String sharedhostingWithoutApiPath = "https://atras.my.id/";
 
     public static String production = "https://magfin-api.lppmumn.id/public/api/";
     public static String productionWithoutApiPath = "https://magfin-api.lppmumn.id/public/";
 
     private static String BASE_URL = production;
     private static String BASE_URL_WITHOUT_API_PATH = productionWithoutApiPath;
+
     private static Retrofit retrofit;
 
     public static ApiEndpoint endpoint() {

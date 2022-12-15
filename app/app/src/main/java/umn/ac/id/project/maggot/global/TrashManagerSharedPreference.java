@@ -26,8 +26,8 @@ public class TrashManagerSharedPreference {
         return sharedPreferences.getString("authenticated_trash_manager_token", null);
     }
 
-    public void setTrashManager(AuthenticationModel.ResultTrashManager result) {
-        editor.putString("authenticated_trash_manager", new Gson().toJson(result.getTrashManager()));
+    public void setTrashManager(AuthenticationModel.Result result) {
+        editor.putString("authenticated_trash_manager", new Gson().toJson(result.getTrash_manager()));
         editor.putString("authenticated_trash_manager_token", result.getToken());
         editor.commit();
     }

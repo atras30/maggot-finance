@@ -21,6 +21,7 @@ public class PeternakModel {
         private String role;
         private Date created_at;
         private Date updated_at;
+        private int trash_manager_id;
 
         public int getId() {
             return id;
@@ -52,6 +53,10 @@ public class PeternakModel {
             return role;
         }
 
+        public int getTrash_manager_id() {
+            return trash_manager_id;
+        }
+
         public String getCreated_at() {
             String pattern = "dd MMMM yyyy hh:mm:ss";
             SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
@@ -75,10 +80,12 @@ public class PeternakModel {
                     ", full_name='" + full_name + '\'' +
                     ", username='" + username + '\'' +
                     ", email='" + email + '\'' +
+                    ", address='" + address + '\'' +
                     ", balance=" + balance +
                     ", role='" + role + '\'' +
                     ", created_at=" + created_at +
                     ", updated_at=" + updated_at +
+                    ", trash_manager_id=" + trash_manager_id +
                     '}';
         }
     }

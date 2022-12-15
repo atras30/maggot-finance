@@ -1,5 +1,7 @@
 package umn.ac.id.project.maggot.model;
 
+import android.util.Log;
+
 public class AuthenticationModel {
     private String token;
     private String message;
@@ -7,28 +9,26 @@ public class AuthenticationModel {
     private TrashManagerModel.TrashManagers trash_manager;
 
     public Result login() {
-        return new Result(token, message, user);
+        Log.i("Login", "LOGIN");
+        return new Result(token, message, user, trash_manager);
     }
 
-    public ResultTrashManager loginTrashManager() {
-        return new ResultTrashManager(token, message, trash_manager);
+    public String logout() {
+        return message;
     }
 
     public Result refreshToken() {
-        return new Result(token, message, user);
-    }
-
-    public ResultTrashManager refreshTokenTrashManager() {
-        return new ResultTrashManager(token, message, trash_manager);
+        return new Result(token, message, user, trash_manager);
     }
 
     public String registerUser() {
         return message;
     }
 
-    public class Result {
+    public static class Result {
         private String token;
         private UserModel.User user;
+        private TrashManagerModel.TrashManagers trash_manager;
         private String message;
 
         public String getToken() {
@@ -43,10 +43,15 @@ public class AuthenticationModel {
             return message;
         }
 
-        public Result(String token, String message, UserModel.User user) {
+        public Result(String token, String message, UserModel.User user, TrashManagerModel.TrashManagers trash_manager) {
             this.token = token;
             this.message = message;
             this.user = user;
+            this.trash_manager = trash_manager;
+        }
+
+        public TrashManagerModel.TrashManagers getTrash_manager() {
+            return trash_manager;
         }
 
         @Override
@@ -54,40 +59,7 @@ public class AuthenticationModel {
             return "Result{" +
                     "token='" + token + '\'' +
                     ", user=" + user +
-                    ", message='" + message + '\'' +
-                    '}';
-        }
-    }
-
-    //for trash manager login
-    public class ResultTrashManager {
-        private String token;
-        private TrashManagerModel.TrashManagers trashManager;
-        private String message;
-
-        public String getToken() {
-            return token;
-        }
-
-        public TrashManagerModel.TrashManagers getTrashManager() {
-            return trashManager;
-        }
-
-        public String getMessage() {
-            return message;
-        }
-
-        public ResultTrashManager(String token, String message, TrashManagerModel.TrashManagers trashManager) {
-            this.token = token;
-            this.message = message;
-            this.trashManager = trashManager;
-        }
-
-        @Override
-        public String toString() {
-            return "ResultTrashManager{" +
-                    "token='" + token + '\'' +
-                    ", trashManager=" + trashManager +
+                    ", trash_manager=" + trash_manager +
                     ", message='" + message + '\'' +
                     '}';
         }

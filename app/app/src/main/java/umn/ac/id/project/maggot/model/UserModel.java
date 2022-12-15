@@ -35,6 +35,7 @@ public class UserModel {
         private Date updated_at;
         private Date deleted_at;
         private int is_verified;
+        private int trash_manager_id;
 
         public int is_verified() {
             return is_verified;
@@ -63,6 +64,10 @@ public class UserModel {
 
         public String getRole() {
             return role;
+        }
+
+        public int getTrash_manager_id() {
+            return trash_manager_id;
         }
 
         public String getCreated_at() {
@@ -98,11 +103,14 @@ public class UserModel {
                     ", full_name='" + full_name + '\'' +
                     ", username='" + username + '\'' +
                     ", email='" + email + '\'' +
+                    ", address='" + address + '\'' +
                     ", balance=" + balance +
                     ", role='" + role + '\'' +
                     ", created_at=" + created_at +
                     ", updated_at=" + updated_at +
+                    ", deleted_at=" + deleted_at +
                     ", is_verified=" + is_verified +
+                    ", trash_manager_id=" + trash_manager_id +
                     '}';
         }
     }

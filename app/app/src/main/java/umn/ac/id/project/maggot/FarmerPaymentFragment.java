@@ -1,6 +1,9 @@
 package umn.ac.id.project.maggot;
 
+import android.app.Activity;
 import android.content.Context;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -12,28 +15,31 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 
 import com.google.android.material.button.MaterialButton;
-import com.google.gson.Gson;
 import com.journeyapps.barcodescanner.ScanContract;
 import com.journeyapps.barcodescanner.ScanOptions;
 
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import umn.ac.id.project.maggot.adapter.WarungSearchDropDownAdapter;
+import umn.ac.id.project.maggot.global.Helper;
 import umn.ac.id.project.maggot.global.UserSharedPreference;
-import umn.ac.id.project.maggot.model.NotificationUserModel;
 import umn.ac.id.project.maggot.model.TransactionModel;
 import umn.ac.id.project.maggot.model.UserModel;
 import umn.ac.id.project.maggot.model.WarungModel;
@@ -42,9 +48,12 @@ import umn.ac.id.project.maggot.retrofit.ApiService;
 public class FarmerPaymentFragment extends Fragment {
     private Context context;
     ArrayAdapter<WarungModel.Warung> DropDownAdapter;
-    List<WarungModel.Warung> results;
+    List<WarungModel.Warung> res;
+    ArrayList<WarungModel.Warung> results = new ArrayList<WarungModel.Warung>();
     String selectedEmail = "";
     View layoutView;
+    UserModel.User user;
+    EditText totalAmountET;
 
     //QR Scanner
     ActivityResultLauncher<ScanOptions> barLauncher = registerForActivityResult(new ScanContract(), result -> {
@@ -57,7 +66,7 @@ public class FarmerPaymentFragment extends Fragment {
                 @Override
                 public void onResponse(Call<UserModel> call, Response<UserModel> response) {
                     if(response.isSuccessful()) {
-                        UserModel.User user = response.body().getUserByEmail();
+                        user = response.body().getUserByEmail();
 
                         InstantAutoComplete namaWarung = layoutView.findViewById(R.id.namawarung);
                         TextView emailWarung = layoutView.findViewById(R.id.edittext_email_warga);
@@ -96,6 +105,8 @@ public class FarmerPaymentFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         layoutView = inflater.inflate(R.layout.fragment_farmer_payment, container, false);
 
+        totalAmountET = layoutView.findViewById(R.id.editText2);
+
         //QR Code scanner button logic
         MaterialButton scanQrCodeButton = layoutView.findViewById(R.id.scan_qr_code_button);
         scanQrCodeButton.setOnClickListener(v -> {
@@ -108,18 +119,16 @@ public class FarmerPaymentFragment extends Fragment {
         paymentButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                EditText totalAmount = layoutView.findViewById(R.id.editText2);
-
                 Log.i("Selected Email", selectedEmail);
                 if(selectedEmail.equalsIgnoreCase("")) {
                     Toast.makeText(context, "Anda harus memilih warung terlebih dahulu.", Toast.LENGTH_SHORT).show();
                     return;
-                } else if(totalAmount.getText().toString().equalsIgnoreCase("") || totalAmount.getText().toString().equals("0")) {
+                } else if(totalAmountET.getText().toString().equalsIgnoreCase("") || totalAmountET.getText().toString().equals("0")) {
                     Toast.makeText(context, "Jumlah Pembayaran tidak boleh kosong", Toast.LENGTH_SHORT).show();
                     return;
                 }
 
-                pay(selectedEmail, Double.parseDouble(totalAmount.getText().toString()));
+                pay(selectedEmail, Double.parseDouble(totalAmountET.getText().toString()));
             }
         });
 
@@ -127,8 +136,17 @@ public class FarmerPaymentFragment extends Fragment {
             @Override
             public void onResponse(@NonNull Call<WarungModel> call, @NonNull Response<WarungModel> response) {
                 if(response.isSuccessful()) {
-                    results = response.body().getWarung();
-                    DropDownAdapter = new WarungSearchDropDownAdapter(context, (ArrayList<WarungModel.Warung>) results);
+                    res = response.body().getWarung();
+                    for(WarungModel.Warung i : res) {
+                        if(i.getTrashManagerId() == new UserSharedPreference(context).getUser().getTrash_manager_id()) {
+                            results.add(i);
+                        }
+                    }
+                    if(results.size() == 0) {
+                        Toast.makeText(context, "Belum ada warga/warung yang terdaftar.", Toast.LENGTH_LONG).show();
+                        return;
+                    }
+                    DropDownAdapter = new WarungSearchDropDownAdapter(context, results);
                     umn.ac.id.project.maggot.InstantAutoComplete textView = (umn.ac.id.project.maggot.InstantAutoComplete) layoutView.findViewById(R.id.namawarung);
                     textView.setAdapter(DropDownAdapter);
 
@@ -169,7 +187,6 @@ public class FarmerPaymentFragment extends Fragment {
                         @Override
                         public void onFocusChange(View v, boolean hasFocus) {
                             if (hasFocus) {
-
                                 textView.showDropDown();
                             } else {
                                 textView.dismissDropDown();
@@ -199,15 +216,56 @@ public class FarmerPaymentFragment extends Fragment {
 
     private void pay(String email, double totalAmount) {
         String token = "Bearer " + new UserSharedPreference(context).getToken();
-        ApiService.endpoint().createShopBuyRequest(email, totalAmount, token).enqueue(new Callback<NotificationUserModel>() {
+        ApiService.endpoint().farmerBuyFromShop(token, totalAmount, email).enqueue(new Callback<TransactionModel>() {
             @Override
-            public void onResponse(Call<NotificationUserModel> call, Response<NotificationUserModel> response) {
+            public void onResponse(Call<TransactionModel> call, Response<TransactionModel> response) {
                 if(response.isSuccessful()) {
-                    Toast.makeText(context, "Silakan minta konfirmasi dari pihak warung.", Toast.LENGTH_LONG).show();
+                    SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm");
+
+                    Toast.makeText(context, response.body().farmerBuyFromShop(), Toast.LENGTH_LONG).show();
+
+                    AlertDialog.Builder myBuild = new AlertDialog.Builder(context);
+                    View myView = ((Activity)context).getLayoutInflater().inflate(R.layout.modal_invoice, null);
+
+                    TextView date = myView.findViewById(R.id.transaction_date);
+                    TextView description = myView.findViewById(R.id.transaction_description);
+                    TextView amount = myView.findViewById(R.id.transaction_amount);
+
+                    InstantAutoComplete shop_name = layoutView.findViewById(R.id.namawarung);
+                    date.setText(formatter.format(new Date()));
+                    description.setText("Pembayaran sembako ke " + shop_name.getText().toString());
+                    amount.setText("Rp " + Helper.formatRupiah(totalAmount));
+
+                    ImageButton btnSecret = myView.findViewById(R.id.buttonSecret);
+                    btnSecret.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            if(amount.getText().toString().contains("*")) {
+                                amount.setText("Rp " + Helper.formatRupiah(totalAmount));
+                            } else {
+                                amount.setText("**********");
+                            }
+                        }
+                    });
+
+                    myBuild.setView(myView);
+                    AlertDialog dialog = myBuild.create();
+                    dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                    dialog.show();
+
+                    MaterialButton backButton = myView.findViewById(R.id.back_button);
+                    backButton.setOnClickListener(v -> {
+                        dialog.hide();
+                    });
+
+                    InstantAutoComplete namawarung = layoutView.findViewById(R.id.namawarung);
+                    namawarung.setText("");
+                    totalAmountET.setText("");
                 } else {
                     try {
-                        TransactionModel.ErrorHandler error = new Gson().fromJson(response.errorBody().string(), TransactionModel.ErrorHandler.class);
-                        Toast.makeText(context, "Masalah: " + error.getMessage(), Toast.LENGTH_SHORT).show();
+                        String error = response.errorBody().string();
+                        Log.i("Error 10", error);
+                        Toast.makeText(context, "Masalah: " + error, Toast.LENGTH_SHORT).show();
                     } catch (IOException e) {
                         e.printStackTrace();
                         Toast.makeText(context, "Masalah: " + e.getMessage(), Toast.LENGTH_SHORT).show();
@@ -216,7 +274,7 @@ public class FarmerPaymentFragment extends Fragment {
             }
 
             @Override
-            public void onFailure(Call<NotificationUserModel> call, Throwable t) {
+            public void onFailure(Call<TransactionModel> call, Throwable t) {
                 Toast.makeText(context, "Sedang ada masalah di jaringan kami. Coba lagi.", Toast.LENGTH_SHORT).show();
             }
         });

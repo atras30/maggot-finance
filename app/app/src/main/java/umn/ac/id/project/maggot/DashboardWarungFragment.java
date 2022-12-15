@@ -1,6 +1,5 @@
 package umn.ac.id.project.maggot;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -15,11 +14,6 @@ import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
 
-import com.google.android.gms.auth.api.signin.GoogleSignIn;
-import com.google.android.gms.auth.api.signin.GoogleSignInClient;
-import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 import com.google.android.material.button.MaterialButton;
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.MultiFormatWriter;
@@ -61,14 +55,12 @@ public class DashboardWarungFragment extends Fragment {
         UserSharedPreference userSharedPreference = new UserSharedPreference(context);
         String authorizationToken = "Bearer " + userSharedPreference.getToken();
 
-        ApiService.endpoint().refreshToken(authorizationToken).enqueue(new Callback<AuthenticationModel>() {
+        ApiService.endpoint().getUser(authorizationToken).enqueue(new Callback<UserModel>() {
             @Override
-            public void onResponse(Call<AuthenticationModel> call, Response<AuthenticationModel> response) {
+            public void onResponse(Call<UserModel> call, Response<UserModel> response) {
                 if(response.isSuccessful()) {
-                    AuthenticationModel.Result result = response.body().refreshToken();
-                    userSharedPreference.setUser(result);
-
-                    UserModel.User user = result.getUser();
+                    UserModel.User user = response.body().getUser();
+                    userSharedPreference.setUser(new AuthenticationModel.Result(userSharedPreference.getToken(), "", user, null));
 
                     try {
                         TextView name = view.findViewById(R.id.namaWarung);
@@ -101,7 +93,7 @@ public class DashboardWarungFragment extends Fragment {
             }
 
             @Override
-            public void onFailure(Call<AuthenticationModel> call, Throwable t) {
+            public void onFailure(Call<UserModel> call, Throwable t) {
                 Toast.makeText(context, "Sedang ada masalah di jaringan kami. Coba lagi.", Toast.LENGTH_LONG).show();
             }
         });

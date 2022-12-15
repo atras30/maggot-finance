@@ -41,7 +41,8 @@ import umn.ac.id.project.maggot.retrofit.ApiService;
 public class PencairanDanaWarungFragment extends Fragment {
     View view = null;
     ArrayAdapter<WarungModel.Warung> DropDownAdapter;
-    List<WarungModel.Warung> results;
+    List<WarungModel.Warung> res;
+    ArrayList<WarungModel.Warung> results = new ArrayList<WarungModel.Warung>();
     private Context context;
     private String selectedEmail = "";
     TextView selectedEmailTextView = null;
@@ -66,8 +67,17 @@ public class PencairanDanaWarungFragment extends Fragment {
             @Override
             public void onResponse(@NonNull Call<WarungModel> call, @NonNull Response<WarungModel> response) {
                 if(response.isSuccessful()) {
-                    results = response.body().getWarung();
-                    DropDownAdapter = new WarungSearchDropDownAdapter(context, (ArrayList<WarungModel.Warung>) results);
+                    res = response.body().getWarung();
+                    for(WarungModel.Warung i : res) {
+                        if(i.getTrashManagerId() == new TrashManagerSharedPreference(context).getTrashManager().getId()) {
+                            results.add(i);
+                        }
+                    }
+                    if(results.size() == 0) {
+                        Toast.makeText(context, "Belum ada warga/warung yang terdaftar.", Toast.LENGTH_LONG).show();
+                        return;
+                    }
+                    DropDownAdapter = new WarungSearchDropDownAdapter(context, results);
                     umn.ac.id.project.maggot.InstantAutoComplete textView = (umn.ac.id.project.maggot.InstantAutoComplete) view.findViewById(R.id.namawarung);
                     textView.setAdapter(DropDownAdapter);
                     textView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
