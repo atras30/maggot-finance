@@ -111,6 +111,7 @@
             android:layout_marginRight="30dp"
             android:background="@drawable/rounded_edittext"
             android:hint="Nomor Telepon"
+            android:inputType="phone"
             android:padding="15dp"
             android:textColorHint="#777"
             android:textStyle="bold"
