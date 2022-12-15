@@ -1,6 +1,9 @@
 package umn.ac.id.project.maggot;
 
+import android.app.Activity;
 import android.content.Context;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -12,10 +15,12 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.activity.result.ActivityResultLauncher;
+import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 
 import com.google.android.material.button.MaterialButton;
@@ -25,13 +30,16 @@ import com.journeyapps.barcodescanner.ScanOptions;
 import java.io.IOException;
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import umn.ac.id.project.maggot.adapter.PeternakSearchDropDownAdapter;
+import umn.ac.id.project.maggot.global.Helper;
 import umn.ac.id.project.maggot.global.TrashManagerSharedPreference;
 import umn.ac.id.project.maggot.model.PeternakModel;
 import umn.ac.id.project.maggot.model.TransactionModel;
@@ -202,9 +210,48 @@ public class BuyMaggotFragment extends Fragment {
                 @Override
                 public void onResponse(Call<TransactionModel> call, Response<TransactionModel> response) {
                     if(response.isSuccessful()) {
-                        TransactionModel.BuyMaggotResult result = response.body().buyMaggot();
-//                        Log.i("Transaction Result", result.toString());
-                        Toast.makeText(context, result.getMessage(), Toast.LENGTH_SHORT).show();
+                        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm");
+
+                        AlertDialog.Builder myBuild = new AlertDialog.Builder(context);
+                        View myView = ((Activity)context).getLayoutInflater().inflate(R.layout.modal_invoice, null);
+
+                        TextView date = myView.findViewById(R.id.transaction_date);
+                        TextView description = myView.findViewById(R.id.transaction_description);
+                        TextView amount = myView.findViewById(R.id.transaction_amount);
+
+                        String total = Helper.formatRupiah(Double.parseDouble(buttons[0].getText().toString()) * Double.parseDouble(buttons[1].getText().toString()));
+                        InstantAutoComplete namawarga = view.findViewById(R.id.namawarga);
+                        date.setText(formatter.format(new Date()));
+                        description.setText("Pembelian maggot " + namawarga.getText().toString() + " sebanyak " + buttons[0].getText().toString() + " kg");
+                        amount.setText("Rp " + total);
+
+                        ImageButton btnSecret = myView.findViewById(R.id.buttonSecret);
+                        btnSecret.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                if(amount.getText().toString().contains("*")) {
+                                    amount.setText("Rp " + total);
+                                } else {
+                                    amount.setText("**********");
+                                }
+                            }
+                        });
+
+                        myBuild.setView(myView);
+                        AlertDialog dialog = myBuild.create();
+                        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                        dialog.show();
+
+                        MaterialButton backButton = myView.findViewById(R.id.back_button);
+                        backButton.setOnClickListener(v -> {
+                            dialog.hide();
+                        });
+
+                        TextView tv = view.findViewById(R.id.textView5);
+                        namawarga.setText("");
+                        buttons[0].setText("");
+                        buttons[1].setText("");
+                        tv.setText("Rp -");
                     } else {
                         try {
                             Log.i("Error", response.errorBody().string());
