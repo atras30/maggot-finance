@@ -18,9 +18,12 @@ import {
   Divider,
   Flex,
   Spacer,
+  Icon,
 } from "@chakra-ui/react";
 import React, { useContext, useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { IoMdArrowBack } from "react-icons/io";
+import { useNavigate, useParams } from "react-router-dom";
+import stc from "string-to-color";
 import { AuthContext } from "../context/AuthContext";
 import { currencyFormatter, getDashboardData, getListWarga } from "../services/service";
 
@@ -29,6 +32,7 @@ const DetailWarga: React.FC = () => {
   const [data, setData] = useState<any>([]);
   const [loading, setLoading] = useState(true);
   const { idWarga } = useParams();
+  const navigate = useNavigate();
 
   const fetchData = async () => {
     try {
@@ -47,10 +51,14 @@ const DetailWarga: React.FC = () => {
   return (
     <Box w="100%" bgColor="var(--color-white)" borderRadius="15px" p="2rem">
       <Skeleton isLoaded={!loading} w="100%" h={loading ? "3rem" : "max-content"}>
+        <Button variant="link" onClick={() => navigate(-1)} mb="1rem">
+          <Icon as={IoMdArrowBack} mr="0.2rem" />
+          kembali
+        </Button>
         <Flex alignItems="center">
           <Heading fontSize="2xl">{data?.full_name}</Heading>
           <Spacer />
-          <Badge colorScheme="red" p="5px 10px">
+          <Badge bgColor={stc(data?.nama_pengelola)} color="white" p="5px 10px">
             {data?.nama_pengelola}
           </Badge>
         </Flex>

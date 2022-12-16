@@ -1,4 +1,4 @@
-import React, { useEffect, useContext } from "react";
+import React, { useEffect, useContext, useState } from "react";
 import {
   Box,
   Button,
@@ -27,6 +27,7 @@ const Login = () => {
     handleSubmit,
     formState: { errors },
   } = useForm<loginInputs>();
+  const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const auth = useContext(AuthContext);
   const navigate = useNavigate();
@@ -39,6 +40,7 @@ const Login = () => {
 
   const handleOnSubmit: SubmitHandler<loginInputs> = async (data) => {
     try {
+      setIsLoading(true);
       const res = await authLogin(data.email, data.password);
       auth.setData({ token: res.token, userData: {} });
       navigate("/dashboard");
@@ -49,13 +51,15 @@ const Login = () => {
         title: "Oops...",
         text: error.response.data.message,
       });
+    } finally {
+      setIsLoading(false);
     }
   };
 
   return (
     <Center bgColor="var(--color-primary)" h="100vh" w="100%" position="relative">
       <Link pos="absolute" top="3rem">
-        <Image src="/assets/login-header.png" />
+        <Image src="/assets/login-header-v2.png" />
       </Link>
       <Box bgColor="var(--color-light)" borderRadius="15px" overflow="hidden">
         <VStack bgColor="var(--color-primary-accent)" p="2rem" color="var(--color-light)">
@@ -107,7 +111,7 @@ const Login = () => {
             )}
           </FormControl>
           <Box pt="1.5rem" w="100%">
-            <Button w="100%" colorScheme="blue" type="submit">
+            <Button w="100%" colorScheme="blue" type="submit" isLoading={isLoading}>
               Login
             </Button>
           </Box>

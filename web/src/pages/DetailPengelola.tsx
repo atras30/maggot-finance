@@ -15,9 +15,11 @@ import {
   Th,
   Thead,
   Tr,
+  Icon,
 } from "@chakra-ui/react";
 import React, { useContext, useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { IoMdArrowBack } from "react-icons/io";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { AuthContext } from "../context/AuthContext";
 import { currencyFormatter, getDashboardData } from "../services/service";
 
@@ -26,6 +28,7 @@ const DetailPengelola: React.FC = () => {
   const [data, setData] = useState<any>([]);
   const [loading, setLoading] = useState(true);
   const { idPengelola } = useParams();
+  const navigate = useNavigate();
 
   const fetchData = async () => {
     try {
@@ -50,6 +53,10 @@ const DetailPengelola: React.FC = () => {
   return (
     <Box w="100%" bgColor="var(--color-white)" borderRadius="15px" p="2rem">
       <Skeleton isLoaded={!loading} w="100%" h={loading ? "5rem" : "max-content"}>
+        <Button variant="link" onClick={() => navigate(-1)} mb="1rem">
+          <Icon as={IoMdArrowBack} mr="0.2rem" />
+          kembali
+        </Button>
         <VStack alignItems="flex-start" spacing="0.2rem">
           <Heading fontSize="2xl">{data?.nama_pengelola}</Heading>
           <Text>{data?.tempat}</Text>
@@ -84,7 +91,11 @@ const DetailPengelola: React.FC = () => {
                     </Td>
                     <Td>{currencyFormatter(warga.balance)}</Td>
                     <Td>
-                      <Button colorScheme="blue">Detail</Button>
+                      <Link
+                        to={warga.role === "shop" ? `/dashboard/warung/${warga.id}` : `/dashboard/warga/${warga.id}`}
+                      >
+                        <Button colorScheme="blue">Detail</Button>
+                      </Link>
                     </Td>
                   </Tr>
                 ))

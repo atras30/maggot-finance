@@ -65,7 +65,7 @@ const ListBankSampah: React.FC = () => {
       </Flex>
       <TableContainer>
         <Table variant="striped">
-          <TableCaption>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Possimus, doloribus.</TableCaption>
+          <TableCaption>Tabel Daftar Pengelola Bank Sampah</TableCaption>
           <Thead>
             <Tr>
               <Th>Nama Pengelola</Th>

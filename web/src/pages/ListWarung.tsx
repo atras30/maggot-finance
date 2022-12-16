@@ -24,6 +24,8 @@ import React, { useContext, useEffect, useState } from "react";
 import { FaSearch } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import { getListWarung } from "../services/service";
+import stc from "string-to-color";
+import invert from "invert-color";
 
 const ListWarung: React.FC = () => {
   const [listWarung, setListWarung] = useState([]);
@@ -33,6 +35,7 @@ const ListWarung: React.FC = () => {
   const fetchData = async () => {
     try {
       const res = await getListWarung();
+      console.log(res.users);
       setListWarung(res.users);
     } catch (error: any) {
       console.log(error);
@@ -53,7 +56,7 @@ const ListWarung: React.FC = () => {
           <InputGroup w="20rem">
             <InputLeftElement pointerEvents="none" children={<Icon as={FaSearch} color="gray.300" />} />
             <Input
-              placeholder="Cari nama pengelola bank sampah"
+              placeholder="Cari nama warung binaan"
               borderRadius="30px"
               onChange={(e) => setSearchQuery(e.target.value)}
             />
@@ -62,7 +65,7 @@ const ListWarung: React.FC = () => {
       </Flex>
       <TableContainer mt="1rem">
         <Table variant="striped">
-          <TableCaption>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Possimus, doloribus.</TableCaption>
+          <TableCaption>Tabel Daftar Warung Binaan</TableCaption>
           <Thead>
             <Tr>
               <Th>Nama Warung</Th>
@@ -79,10 +82,10 @@ const ListWarung: React.FC = () => {
                 .map((warung: any, idx: number) => (
                   <Tr key={`bank-sampah-${idx}`}>
                     <Td>
-                      <Text whiteSpace="initial">{warung.shop_name}</Text>
+                      <Text whiteSpace="initial">{warung.full_name}</Text>
                     </Td>
                     <Td>
-                      <Badge colorScheme="red" p="5px 10px">
+                      <Badge bgColor={stc(warung.nama_pengelola)} color="white" p="5px 10px">
                         {warung.nama_pengelola}
                       </Badge>
                     </Td>

@@ -11,17 +11,23 @@ import {
   Divider,
   Flex,
   Spacer,
+  Button,
+  Link,
+  Icon,
 } from "@chakra-ui/react";
 import React, { useContext, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { AuthContext } from "../context/AuthContext";
 import { currencyFormatter, getListWarung } from "../services/service";
+import { IoMdArrowBack } from "react-icons/io";
+import { useNavigate } from "react-router-dom";
 
 const DetailWarung: React.FC = () => {
   const auth = useContext(AuthContext);
   const [data, setData] = useState<any>([]);
   const [loading, setLoading] = useState(true);
   const { idWarung } = useParams();
+  const navigate = useNavigate();
 
   const fetchData = async () => {
     try {
@@ -40,8 +46,12 @@ const DetailWarung: React.FC = () => {
   return (
     <Box w="100%" bgColor="var(--color-white)" borderRadius="15px" p="2rem">
       <Skeleton isLoaded={!loading} w="100%" h={loading ? "3rem" : "max-content"}>
+        <Button variant="link" onClick={() => navigate(-1)} mb="1rem">
+          <Icon as={IoMdArrowBack} mr="0.2rem" />
+          kembali
+        </Button>
         <Flex alignItems="center">
-          <Heading fontSize="2xl">{data?.shop_name}</Heading>
+          <Heading fontSize="2xl">{data?.full_name}</Heading>
           <Spacer />
           <Badge colorScheme="red" p="5px 10px">
             {data?.nama_pengelola}
@@ -60,10 +70,6 @@ const DetailWarung: React.FC = () => {
                     {data?.is_verified == 1 ? "Aktif" : "Tidak Aktif"}
                   </Badge>
                 </Td>
-              </Tr>
-              <Tr>
-                <Td>Nama Pemilik Warung</Td>
-                <Td>{data?.full_name}</Td>
               </Tr>
               <Tr>
                 <Td>Telepone</Td>

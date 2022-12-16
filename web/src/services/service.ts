@@ -33,6 +33,7 @@ export const getDashboardData = async (token: string) => {
 };
 
 export const addNewBankSampah = async (data: { nama: string; tempat: string; email: string }) => {
+  console.log(token);
   const res = await axios.post(
     `${APP_CONFIG.API_URL}/trash-manager`,
     {

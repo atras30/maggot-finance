@@ -22,6 +22,7 @@ import {
 import React, { useContext, useEffect, useRef, useState } from "react";
 import { FaSearch } from "react-icons/fa";
 import { Link } from "react-router-dom";
+import stc from "string-to-color";
 import { AuthContext } from "../context/AuthContext";
 import { getListWarga } from "../services/service";
 
@@ -52,7 +53,7 @@ const ListWarga: React.FC = () => {
         <InputGroup w="20rem">
           <InputLeftElement pointerEvents="none" children={<Icon as={FaSearch} color="gray.300" />} />
           <Input
-            placeholder="Cari nama pengelola bank sampah"
+            placeholder="Cari nama warga binaan"
             borderRadius="30px"
             onChange={(e) => setSearchQuery(e.target.value)}
           />
@@ -60,7 +61,7 @@ const ListWarga: React.FC = () => {
       </Flex>
       <TableContainer mt="1rem">
         <Table variant="striped">
-          <TableCaption>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Possimus, doloribus.</TableCaption>
+          <TableCaption>Tabel Daftar Warga Binaan</TableCaption>
           <Thead>
             <Tr>
               <Th>Nama Warga</Th>
@@ -80,7 +81,7 @@ const ListWarga: React.FC = () => {
                       <Text whiteSpace="initial">{warga.full_name}</Text>
                     </Td>
                     <Td>
-                      <Badge colorScheme="red" p="5px 10px">
+                      <Badge bgColor={stc(warga.nama_pengelola)} color="white" p="5px 10px">
                         {warga.nama_pengelola}
                       </Badge>
                     </Td>
