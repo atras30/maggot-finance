@@ -18,6 +18,7 @@ import com.google.android.material.button.MaterialButton;
 
 import java.io.IOException;
 
+import es.dmoral.toasty.Toasty;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -43,10 +44,10 @@ public class LoginActivity extends AppCompatActivity {
         super.onResume();
 
         //Guest Middleware
-        if(userSharedPreference.getUser() != null) {
+        if (userSharedPreference.getUser() != null) {
             navigateRegisteredUser();
             return;
-        } else if(trashManagerSharedPreference.getTrashManager() != null) {
+        } else if (trashManagerSharedPreference.getTrashManager() != null) {
             navigateRegisteredTrashManager();
         }
     }
@@ -59,7 +60,7 @@ public class LoginActivity extends AppCompatActivity {
         userSharedPreference = new UserSharedPreference(this);//Guest Middleware
         trashManagerSharedPreference = new TrashManagerSharedPreference(this);
 
-        if(userSharedPreference.getUser() != null) {
+        if (userSharedPreference.getUser() != null) {
             navigateRegisteredUser();
             return;
         }
@@ -83,12 +84,14 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     @Override
-    protected void onActivityResult(int requestCode, int resultCode,Intent data) {
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if(requestCode == 1000) {
+        if (requestCode == 1000) {
             Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
-            showToastMessage("Mencari data pengguna...");
+//            showToastMessage("Mencari data pengguna...");
+            Toasty.success(getApplicationContext(), "Mencari data pengguna...", Toast.LENGTH_SHORT, true).show();
+            Toasty.success(getApplicationContext(), "Data ditemukan", Toast.LENGTH_SHORT, true).show();
 
             try {
                 task.getResult(ApiException.class);
@@ -110,14 +113,14 @@ public class LoginActivity extends AppCompatActivity {
         ApiService.endpoint().login(googleToken).enqueue(new Callback<AuthenticationModel>() {
             @Override
             public void onResponse(Call<AuthenticationModel> call, Response<AuthenticationModel> response) {
-                if(response.isSuccessful()) {
+                if (response.isSuccessful()) {
                     AuthenticationModel.Result result = response.body().login();
                     Log.i("Success", result.toString());
-                    if(result.getUser() != null) {
+                    if (result.getUser() != null) {
                         userSharedPreference.setUser(result);
                         navigateRegisteredUser();
                         return;
-                    } else if(result.getTrash_manager() != null) {
+                    } else if (result.getTrash_manager() != null) {
                         trashManagerSharedPreference.setTrashManager(result);
                         startActivity(new Intent(getApplicationContext(), HomePagePengelolaBankSampah.class));
                         finish();
@@ -127,8 +130,9 @@ public class LoginActivity extends AppCompatActivity {
                         String errorMessage = response.errorBody().string();
                         Log.i("Error", errorMessage);
 
-                        if(ApiErrorHandler.getErrorMessage(errorMessage).equalsIgnoreCase("User was not found.")) {
-                            showToastMessage("Silakan registrasi di aplikasi kami.");
+                        if (ApiErrorHandler.getErrorMessage(errorMessage).equalsIgnoreCase("User was not found.")) {
+//                            showToastMessage("Silakan registrasi di aplikasi kami.");
+                            Toasty.success(getApplicationContext(), "Silakan registrasi di aplikasi kami.", Toast.LENGTH_SHORT, true).show();
                             startActivity(new Intent(LoginActivity.this, RegisterActivity.class));
                         } else {
                             Toast.makeText(LoginActivity.this, errorMessage, Toast.LENGTH_SHORT).show();
@@ -155,9 +159,9 @@ public class LoginActivity extends AppCompatActivity {
 
 
     private void navigateRegisteredUser() {
-        if(userSharedPreference.getUser().is_verified() == 1) {
-            if(userSharedPreference.getUser().getDeleted_at_date_time() == null) {
-                if(userSharedPreference.getUser().getRole().equals("farmer")) {
+        if (userSharedPreference.getUser().is_verified() == 1) {
+            if (userSharedPreference.getUser().getDeleted_at_date_time() == null) {
+                if (userSharedPreference.getUser().getRole().equals("farmer")) {
                     Intent navigateToFarmerDashboardActivity = new Intent(LoginActivity.this, FarmerDashboardActivity.class);
                     startActivity(navigateToFarmerDashboardActivity);
                     finish();
@@ -166,9 +170,7 @@ public class LoginActivity extends AppCompatActivity {
                     startActivity(navigateToDashboardShopActivity);
                     finish();
                 }
-            }
-            else
-            {
+            } else {
                 Intent navigateToInactive = new Intent(LoginActivity.this, InactiveActivity.class);
                 startActivity(navigateToInactive);
                 finish();
@@ -180,7 +182,7 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     public void showToastMessage(String message) {
-        if(toast != null) {
+        if (toast != null) {
             toast.cancel();
         }
 

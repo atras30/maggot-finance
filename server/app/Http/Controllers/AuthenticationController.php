@@ -13,15 +13,9 @@ use PulkitJalan\Google\Client;
 
 class AuthenticationController extends Controller
 {
-    public function quickLogin(Request $request) {
-        return response()->json([
-            "token" => User::firstWhere("email", $request->email)->createToken("login token")->plainTextToken
-        ]);
-    }
-
     public function refreshToken(Request $request) {
         $user = auth()->user();
-        auth()->user()->tokens()->delete();
+        auth()->user()->currentAccessToken()->delete();
 
         $token = $user->createToken("login_token")->plainTextToken;
 
@@ -100,7 +94,7 @@ class AuthenticationController extends Controller
 
     public function logout()
     {
-        auth()->user()->tokens()->delete();
+        auth()->user()->currentAccessToken()->delete();
 
         return response()->json([
             'message' => 'Successfully logged out.'
