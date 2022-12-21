@@ -14,7 +14,7 @@ import umn.ac.id.project.maggot.model.TrashManagerModel;
 
 public class SpinnerRegisterAdapter extends BaseAdapter {
     Context context;
-    int flags[];
+    int[] flags;
     List<TrashManagerModel.TrashManagers> trashManagers;
     LayoutInflater inflater;
 
@@ -43,8 +43,8 @@ public class SpinnerRegisterAdapter extends BaseAdapter {
     @Override
     public View getView(int i, View view, ViewGroup viewGroup) {
         view = inflater.inflate(R.layout.register_spinner_layout, null);
-        TextView nama_tempat = (TextView) view.findViewById(R.id.nama_tempat);
-        TextView nama_pengelola = (TextView) view.findViewById(R.id.nama_pengelola);
+        TextView nama_tempat = view.findViewById(R.id.nama_tempat);
+        TextView nama_pengelola = view.findViewById(R.id.nama_pengelola);
         nama_tempat.setText(trashManagers.get(i).getTempat());
         nama_pengelola.setText(trashManagers.get(i).getNama_pengelola());
         return view;

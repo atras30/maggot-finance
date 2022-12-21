@@ -26,10 +26,10 @@ public class AuthenticationModel {
     }
 
     public static class Result {
-        private String token;
-        private UserModel.User user;
-        private TrashManagerModel.TrashManagers trash_manager;
-        private String message;
+        private final String token;
+        private final UserModel.User user;
+        private final TrashManagerModel.TrashManagers trash_manager;
+        private final String message;
 
         public String getToken() {
             return token;
@@ -66,7 +66,7 @@ public class AuthenticationModel {
     }
 
     public class ErrorHandler {
-        private String message;
+        private final String message;
 
         public ErrorHandler(String message) {
             this.message = message;

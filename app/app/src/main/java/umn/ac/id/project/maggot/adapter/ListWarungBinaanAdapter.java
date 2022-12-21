@@ -17,7 +17,7 @@ import umn.ac.id.project.maggot.model.UserModel;
 
 public class ListWarungBinaanAdapter extends RecyclerView.Adapter<ListWarungBinaanAdapter.ListWarungBinaanViewHolder> {
     Context context;
-    private ArrayList<UserModel.User> warung;
+    private final ArrayList<UserModel.User> warung;
 
     public ListWarungBinaanAdapter(Context context, ArrayList<UserModel.User> warung) {
         this.context = context;

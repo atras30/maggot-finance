@@ -6,7 +6,7 @@ import java.util.List;
 import umn.ac.id.project.maggot.global.Helper;
 
 public class TransactionModel {
-    private List<Transaction> data;
+    private final List<Transaction> data;
     private String message;
     private Transaction transaction1;
     private Transaction transaction2;
@@ -28,9 +28,9 @@ public class TransactionModel {
     }
 
     public class BuyMaggotResult {
-        private String message;
-        private Transaction transaction1;
-        private Transaction transaction2;
+        private final String message;
+        private final Transaction transaction1;
+        private final Transaction transaction2;
 
         public BuyMaggotResult(String message, Transaction transaction1, Transaction transaction2) {
             this.message = message;
@@ -69,10 +69,18 @@ public class TransactionModel {
     }
 
     public class Transaction {
-        private String type, description, transaction_type, weight_in_kg, amount_per_kg, total_amount, message;
-        private Date created_at;
-        private double amount;
-        private int id,farmer_id, trash_manager_id;
+        private final String type;
+        private final String description;
+        private final String transaction_type;
+        private final String weight_in_kg;
+        private final String amount_per_kg;
+        private final String total_amount;
+        private String message;
+        private final Date created_at;
+        private final double amount;
+        private final int id;
+        private final int farmer_id;
+        private final int trash_manager_id;
 
         public Transaction(String type, String description, String transaction_type, String weight_in_kg, String amount_per_kg, String total_amount, Date created_at, double amount, int id, int farmer_id, int trash_manager_id) {
             this.type = type;

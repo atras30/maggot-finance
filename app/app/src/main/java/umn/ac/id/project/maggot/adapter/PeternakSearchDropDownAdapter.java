@@ -20,7 +20,7 @@ import umn.ac.id.project.maggot.model.PeternakModel;
 
 public class PeternakSearchDropDownAdapter extends ArrayAdapter<PeternakModel.Peternak> {
 
-    private Context mContext;
+    private final Context mContext;
     private List<PeternakModel.Peternak> PeternakList;
 
     private LayoutInflater layoutInflater;
@@ -47,15 +47,15 @@ public class PeternakSearchDropDownAdapter extends ArrayAdapter<PeternakModel.Pe
 
         PeternakModel.Peternak currentPeternak = getItem(position);
 
-        TextView name = (TextView) listItem.findViewById(R.id.namaWarga);
+        TextView name = listItem.findViewById(R.id.namaWarga);
         name.setText(currentPeternak.getFull_name());
 
-        TextView email = (TextView) listItem.findViewById(R.id.emailWarga);
+        TextView email = listItem.findViewById(R.id.emailWarga);
         email.setText(currentPeternak.getEmail());
 
         return listItem;
     }
-    private Filter mFilter = new Filter() {
+    private final Filter mFilter = new Filter() {
         @Override
         public String convertResultToString(Object resultValue) {
             return ((PeternakModel.Peternak)resultValue).getFull_name();

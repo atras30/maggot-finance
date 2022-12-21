@@ -30,14 +30,6 @@ public class DropDownAdapter extends ArrayAdapter<PeternakModel.Peternak> {
     }
 
     public View getDropDownView(int position, View convertView, ViewGroup parent) {
-//        if(convertView == null)
-//        {
-//            convertView = flater.inflate(R.layout.peternak_dropdown, parent, false);
-//        }
-//        PeternakModel.Peternak peternak = getItem(position);
-//        TextView namaPeternak = (TextView) convertView.findViewById(R.id.namaPeternak);
-//        namaPeternak.setText(peternak.getFull_name());
-//        return convertView;
         return rowview(convertView, position);
     }
 

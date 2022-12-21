@@ -142,7 +142,7 @@ public class RegisterActivity extends AppCompatActivity implements AdapterView.O
 
             @Override
             public void onFailure(Call<AuthenticationModel> call, Throwable t) {
-                Log.i("Failure", t.getMessage().toString());
+                Log.i("Failure", t.getMessage());
             }
         });
     }
@@ -183,7 +183,7 @@ public class RegisterActivity extends AppCompatActivity implements AdapterView.O
     }
 
     public String convertToCapitalizeWord(String str){
-        String words[]=str.split("\\s");
+        String[] words =str.split("\\s");
         String capitalizeWord="";
 
         for(String w:words){
