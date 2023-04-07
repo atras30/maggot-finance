@@ -16,7 +16,6 @@ export const currencyFormatter = (value: number) => {
 };
 
 export const authLogin = async (email: string, password: string) => {
-  console.log(APP_CONFIG);
   const res = await axios.post(`${APP_CONFIG.API_URL}/auth/login/super-admin`, {
     email: email,
     password: password,

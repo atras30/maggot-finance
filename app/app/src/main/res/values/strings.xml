@@ -1,17 +1,11 @@
 <resources>
-    <string name="app_name">Maggot Finance</string>
-    <string name="pengepul_title_activity">Maggot Finance (Pengepul)</string>
-    <string name="peternak_title_activity">Maggot Finance (Peternak)</string>
-    <string name="warung_title_activity">Maggot Finance (Warung)</string>
+    <string name="app_name">MagFin</string>
 
-    <string name="recyclerview_peternak_title">Maggot Finance (List Peternak)</string>
+    <string name="server_client_id">583111255256-t3gg4h238q0q6d0bj1b4ttgcenm54qbh.apps.googleusercontent.com</string>
 
-    <string name="lorem_ipsum">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla malesuada dapibus quam, sed volutpat ex feugiat sed. Aliquam finibus metus eget tortor cursus suscipit. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla malesuada dapibus quam, sed volutpat ex feugiat sed. Aliquam finibus metus eget tortor cursus suscipit. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla malesuada dapibus quam, sed volutpat ex feugiat sed. Aliquam finibus metus eget tortor cursus suscipit.</string>
+    <string name="recyclerview_peternak_title">MagFin (List Warga)</string>
 
-    <string-array name="arr">
-        <item>test</item>
-        <item>test1</item>
-        <item>test2</item>
-        <item>test3</item>
-    </string-array>
+    <!-- Strings used for fragments for navigation -->
+
+    <!-- TODO: Remove or change this placeholder text -->
 </resources>

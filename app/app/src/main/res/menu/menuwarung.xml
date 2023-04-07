@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/dashboardwarung"
+        android:icon="@drawable/ic_home"
+        android:title="Beranda"/>
+    <item
+        android:id="@+id/transaksiwarung"
+        android:icon="@drawable/ic_transaction"
+        android:title="Transaksi"/>
+    <item
+        android:id="@+id/notification"
+        android:title="Notifikasi"
+        android:icon="@drawable/ic_confirmation"
+        />
+</menu>

@@ -6,6 +6,8 @@ list transaksi, siapa bisa apa & kemana aja
   -peternak jual magot ke pengepul
   -peternak tarik saldo dari pengepul
   -peternak beli bahan pokok ke warung
-  
+
   -pengepul beli magot dari peternak
-  -pengepul 
+  -pengepul
+
+  test github workflow

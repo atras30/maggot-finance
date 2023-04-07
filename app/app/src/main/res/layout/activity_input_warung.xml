@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".InputWarungActivity"
+    android:background="@color/back2start">
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/back"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="30dp"
+        android:layout_marginTop="40dp"
+        android:drawableStart="@drawable/backbutton"
+        android:drawablePadding="10dp"
+        android:textColor="@color/black"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="70dp"
+        android:layout_marginTop="30dp"
+        android:drawablePadding="10dp"
+        android:textColor="@color/primaryacc"
+        android:textStyle="bold"
+        android:textSize="25sp"
+        android:text="Tambah Warung"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+    <TextView
+        android:id="@+id/nama_warung"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="35dp"
+        android:text="Nama"
+        android:textColor="@color/primary"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView2" />
+
+    <EditText
+        android:id="@+id/etNamaWarung"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_marginHorizontal="40dp"
+        android:layout_marginTop="4dp"
+        android:background="@drawable/rounded_edittext"
+        android:hint="Nama"
+        android:inputType="textPersonName"
+        android:paddingHorizontal="25dp"
+        app:layout_constraintTop_toBottomOf="@+id/nama_warung"
+        tools:layout_editor_absoluteX="30dp" />
+    <TextView
+        android:id="@+id/email_warung"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="10dp"
+        android:text="Email"
+        android:textColor="@color/primary"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/etNamaWarung" />
+
+    <EditText
+        android:id="@+id/etEmailWarung"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_marginHorizontal="40dp"
+        android:layout_marginTop="4dp"
+        android:background="@drawable/rounded_edittext"
+        android:hint="Email"
+        android:inputType="textEmailAddress"
+        android:paddingHorizontal="25dp"
+        app:layout_constraintTop_toBottomOf="@+id/email_warung"
+        tools:layout_editor_absoluteX="30dp" />
+    <TextView
+        android:id="@+id/alamat_warung"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="10dp"
+        android:text="Alamat"
+        android:textColor="@color/primary"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/etEmailWarung" />
+
+    <EditText
+        android:id="@+id/etAlamatWarung"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_marginHorizontal="40dp"
+        android:layout_marginTop="4dp"
+        android:background="@drawable/rounded_edittext"
+        android:hint="Alamat"
+        android:inputType="textPostalAddress"
+        android:paddingHorizontal="25dp"
+        app:layout_constraintTop_toBottomOf="@+id/alamat_warung"
+        tools:layout_editor_absoluteX="30dp" />
+    <TextView
+        android:id="@+id/nohp_warung"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="10dp"
+        android:text="Nomor Telepon"
+        android:textColor="@color/primary"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/etAlamatWarung" />
+
+    <EditText
+        android:id="@+id/etNoHPWarung"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_marginHorizontal="40dp"
+        android:layout_marginTop="4dp"
+        android:background="@drawable/rounded_edittext"
+        android:hint="Nomor Telepon"
+        android:inputType="number"
+        android:paddingHorizontal="25dp"
+        app:layout_constraintTop_toBottomOf="@+id/nohp_warung"
+        tools:layout_editor_absoluteX="30dp" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/daftarkanWarung"
+        android:layout_width="match_parent"
+        android:layout_height="55dp"
+        android:layout_marginHorizontal="60dp"
+        android:layout_marginTop="20dp"
+        android:text="Daftarkan Warung"
+        android:textColor="@color/white"
+        android:textStyle="bold"
+        app:backgroundTint="@color/secondary"
+        app:cornerRadius="50dp"
+        app:layout_constraintTop_toBottomOf="@+id/etNoHPWarung"
+        tools:layout_editor_absoluteX="0dp" />
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="10dp"
+    android:paddingVertical="5dp"
+    android:paddingHorizontal="10dp"
+    android:elevation="5dp"
+    >
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_weight=".90"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:orientation="vertical"
+        app:layout_constraintStart_toEndOf="@+id/profilePicture"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/namaWarga"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Nama Warga"
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toEndOf="@+id/profilePicture"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/emailWarga"
+            android:layout_width="wrap_content"
+            android:maxLines="1"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="3dp"
+            android:text="Alamat : "
+            android:textSize="14sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="@+id/namaPeternak"
+            app:layout_constraintTop_toBottomOf="@+id/namaPeternak" />
+    </LinearLayout>
+</LinearLayout>

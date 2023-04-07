@@ -3,12 +3,12 @@ package umn.ac.id.project.maggot.adapter;
 
 import android.app.Activity;
 import android.content.Context;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.view.LayoutInflater;
-import android.widget.ImageView;
 import android.widget.TextView;
+
 import java.util.List;
 
 import umn.ac.id.project.maggot.R;
@@ -17,9 +17,9 @@ import umn.ac.id.project.maggot.model.PeternakModel;
 public class DropDownAdapter extends ArrayAdapter<PeternakModel.Peternak> {
     LayoutInflater flater;
 
-    public DropDownAdapter(Activity context,int resouceId, int textviewId, List<PeternakModel.Peternak> list){
+    public DropDownAdapter(Activity context,int resourceId, int textviewId, List<PeternakModel.Peternak> list){
 
-        super(context,resouceId,textviewId, list);
+        super(context,resourceId,textviewId, list);
         flater = context.getLayoutInflater();
 
 }
@@ -30,14 +30,6 @@ public class DropDownAdapter extends ArrayAdapter<PeternakModel.Peternak> {
     }
 
     public View getDropDownView(int position, View convertView, ViewGroup parent) {
-//        if(convertView == null)
-//        {
-//            convertView = flater.inflate(R.layout.peternak_dropdown, parent, false);
-//        }
-//        PeternakModel.Peternak peternak = getItem(position);
-//        TextView namaPeternak = (TextView) convertView.findViewById(R.id.namaPeternak);
-//        namaPeternak.setText(peternak.getFull_name());
-//        return convertView;
         return rowview(convertView, position);
     }
 
@@ -48,9 +40,7 @@ public class DropDownAdapter extends ArrayAdapter<PeternakModel.Peternak> {
         if(rowview == null) {
             holder = new viewHolder();
             flater = (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            rowview = flater.inflate(R.layout.peternak_dropdown, null, false);
-
-            holder.PeternakName = (TextView) rowview.findViewById(R.id.namaPeternak);
+            rowview = flater.inflate(R.layout.peternakwarung_dropdown, null, false);
             rowview.setTag(holder);
         }else{
             holder = (viewHolder) rowview.getTag();

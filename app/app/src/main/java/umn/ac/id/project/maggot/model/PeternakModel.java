@@ -16,10 +16,20 @@ public class PeternakModel {
         private String full_name;
         private String username;
         private String email;
+        private String address;
         private double balance;
         private String role;
         private Date created_at;
         private Date updated_at;
+        private int trash_manager_id;
+
+        public int getId() {
+            return id;
+        }
+
+        public String getAddress() {
+            return address;
+        }
 
         public String getFull_name() {
             return full_name;
@@ -33,12 +43,18 @@ public class PeternakModel {
             return email;
         }
 
+        public Peternak getSelf() { return this; }
+
         public double getBalance() {
             return balance;
         }
 
         public String getRole() {
             return role;
+        }
+
+        public int getTrash_manager_id() {
+            return trash_manager_id;
         }
 
         public String getCreated_at() {
@@ -64,10 +80,12 @@ public class PeternakModel {
                     ", full_name='" + full_name + '\'' +
                     ", username='" + username + '\'' +
                     ", email='" + email + '\'' +
+                    ", address='" + address + '\'' +
                     ", balance=" + balance +
                     ", role='" + role + '\'' +
                     ", created_at=" + created_at +
                     ", updated_at=" + updated_at +
+                    ", trash_manager_id=" + trash_manager_id +
                     '}';
         }
     }

@@ -1,6 +1,13 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Exports\UsersExport;
+use App\Http\Controllers\ExcelController;
+use App\Models\Transaction;
+use App\Models\User;
+use Illuminate\Support\Facades\Http;
+use Maatwebsite\Excel\Facades\Excel;
+use Carbon\Carbon;
 
 /*
 |--------------------------------------------------------------------------
@@ -13,6 +20,5 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('qr_code');
-});
+// Route::get('/', );
+Route::get('excel/export/{email}/{beginDate}/{endDate}', [ExcelController::class, "downloadReport"]);
