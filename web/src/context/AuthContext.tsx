@@ -36,7 +36,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
   const fetchUserData = async (token: string) => {
     try {
-      const res = await getDashboardData(token);
+      const res = await getDashboardData();
       const userData = res.trash_managers;
       delete userData.trash_managers;
       setAuthData({ token: token, userData: userData });

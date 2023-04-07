@@ -24,6 +24,7 @@ import React, { useContext, useEffect, useState } from "react";
 import { IoMdArrowBack } from "react-icons/io";
 import { useNavigate, useParams } from "react-router-dom";
 import stc from "string-to-color";
+import Swal from "sweetalert2";
 import { AuthContext } from "../context/AuthContext";
 import { currencyFormatter, getDashboardData, getListWarga } from "../services/service";
 
@@ -40,7 +41,11 @@ const DetailWarga: React.FC = () => {
       setData(res.users.filter((warga: any) => warga.id === parseInt(idWarga || "0"))[0]);
       setLoading(false);
     } catch (error: any) {
-      console.log(error);
+      Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: error.message,
+      });
     }
   };
 

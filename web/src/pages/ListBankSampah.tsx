@@ -21,6 +21,7 @@ import {
 import React, { useContext, useEffect, useState } from "react";
 import { FaSearch } from "react-icons/fa";
 import { Link } from "react-router-dom";
+import Swal from "sweetalert2";
 import { AuthContext } from "../context/AuthContext";
 import { getDashboardData } from "../services/service";
 
@@ -32,10 +33,14 @@ const ListBankSampah: React.FC = () => {
 
   const fetchData = async () => {
     try {
-      const res = await getDashboardData(window.sessionStorage.getItem("token") || "");
+      const res = await getDashboardData();
       setUserList(res.trash_managers.trash_managers);
     } catch (error: any) {
-      console.log(error);
+      Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: error.message,
+      });
     } finally {
       setLoading(false);
     }

@@ -21,6 +21,7 @@ import { AuthContext } from "../context/AuthContext";
 import { currencyFormatter, getListWarung } from "../services/service";
 import { IoMdArrowBack } from "react-icons/io";
 import { useNavigate } from "react-router-dom";
+import stc from "string-to-color";
 
 const DetailWarung: React.FC = () => {
   const auth = useContext(AuthContext);
@@ -53,7 +54,7 @@ const DetailWarung: React.FC = () => {
         <Flex alignItems="center">
           <Heading fontSize="2xl">{data?.full_name}</Heading>
           <Spacer />
-          <Badge colorScheme="red" p="5px 10px">
+          <Badge bgColor={stc(data?.nama_pengelola)} color="white" p="5px 10px">
             {data?.nama_pengelola}
           </Badge>
         </Flex>

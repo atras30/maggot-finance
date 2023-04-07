@@ -20,6 +20,7 @@ import {
 import React, { useContext, useEffect, useState } from "react";
 import { IoMdArrowBack } from "react-icons/io";
 import { Link, useNavigate, useParams } from "react-router-dom";
+import Swal from "sweetalert2";
 import { AuthContext } from "../context/AuthContext";
 import { currencyFormatter, getDashboardData } from "../services/service";
 
@@ -32,23 +33,23 @@ const DetailPengelola: React.FC = () => {
 
   const fetchData = async () => {
     try {
-      const res = await getDashboardData(window.sessionStorage.getItem("token") || "");
+      const res = await getDashboardData();
       setData(
         res.trash_managers.trash_managers.filter((pengelola: any) => pengelola.id === parseInt(idPengelola || "0"))[0]
       );
       setLoading(false);
     } catch (error: any) {
-      console.log(error);
+      Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: error.message,
+      });
     }
   };
 
   useEffect(() => {
     fetchData();
   }, []);
-
-  useEffect(() => {
-    console.log(data);
-  }, [data]);
 
   return (
     <Box w="100%" bgColor="var(--color-white)" borderRadius="15px" p="2rem">

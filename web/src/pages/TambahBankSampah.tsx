@@ -10,9 +10,11 @@ import {
   FormErrorMessage,
   FormLabel,
   Spacer,
+  Icon,
 } from "@chakra-ui/react";
 import React, { useContext } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
+import { IoMdArrowBack } from "react-icons/io";
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import { AuthContext } from "../context/AuthContext";
@@ -58,6 +60,10 @@ const TambahBankSampah: React.FC = () => {
 
   return (
     <Box w="100%" bgColor="var(--color-white)" borderRadius="15px" p="2rem">
+      <Button variant="link" onClick={() => navigate(-1)} mb="1rem">
+        <Icon as={IoMdArrowBack} mr="0.2rem" />
+        kembali
+      </Button>
       <Flex justifyContent="space-between" alignItems="center">
         <Heading fontSize="xl">Tambah Pengelola Bank Sampah</Heading>
       </Flex>

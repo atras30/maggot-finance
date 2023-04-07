@@ -33,6 +33,10 @@ const Login = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
+    document.title = "Login - Magfin";
+  }, []);
+
+  useEffect(() => {
     if (auth.isLoggedIn) {
       navigate("/dashboard/ringkasan");
     }

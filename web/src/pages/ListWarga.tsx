@@ -23,6 +23,7 @@ import React, { useContext, useEffect, useRef, useState } from "react";
 import { FaSearch } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import stc from "string-to-color";
+import Swal from "sweetalert2";
 import { AuthContext } from "../context/AuthContext";
 import { getListWarga } from "../services/service";
 
@@ -36,7 +37,11 @@ const ListWarga: React.FC = () => {
       const res = await getListWarga();
       setListWarga(res.users);
     } catch (error: any) {
-      console.log(error);
+      Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: error.message,
+      });
     } finally {
       setLoading(false);
     }

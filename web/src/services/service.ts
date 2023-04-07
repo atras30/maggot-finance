@@ -1,7 +1,7 @@
 import axios from "axios";
 import { loginInputs } from "../types/type";
 
-const token = window.sessionStorage.getItem("token");
+const token = window.sessionStorage?.getItem("token");
 
 const APP_CONFIG = {
   VITE_ENV: import.meta.env,
@@ -16,6 +16,7 @@ export const currencyFormatter = (value: number) => {
 };
 
 export const authLogin = async (email: string, password: string) => {
+  console.log(APP_CONFIG);
   const res = await axios.post(`${APP_CONFIG.API_URL}/auth/login/super-admin`, {
     email: email,
     password: password,
@@ -23,7 +24,7 @@ export const authLogin = async (email: string, password: string) => {
   return res.data;
 };
 
-export const getDashboardData = async (token: string) => {
+export const getDashboardData = async () => {
   const res = await axios.get(`${APP_CONFIG.API_URL}/super-admin`, {
     headers: {
       Authorization: `Bearer ${token}`,

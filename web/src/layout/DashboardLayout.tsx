@@ -29,12 +29,16 @@ const NavButton = (props: any) => {
 const DashboardLayout: React.FC = () => {
   const auth = useContext(AuthContext);
 
+  useEffect(() => {
+    document.title = "Dashboard - Magfin";
+  }, []);
+
   const fetchData = async () => {
     try {
-      const res = await getDashboardData(auth.token);
+      const res = await getDashboardData();
       auth.setData({ token: auth.token, userData: res.trash_managers });
     } catch (error: any) {
-      auth.clearSession();
+      // auth.clearSession();
       console.log(error);
     }
   };

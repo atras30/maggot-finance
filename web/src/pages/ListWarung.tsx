@@ -26,6 +26,7 @@ import { Link } from "react-router-dom";
 import { getListWarung } from "../services/service";
 import stc from "string-to-color";
 import invert from "invert-color";
+import Swal from "sweetalert2";
 
 const ListWarung: React.FC = () => {
   const [listWarung, setListWarung] = useState([]);
@@ -38,7 +39,11 @@ const ListWarung: React.FC = () => {
       console.log(res.users);
       setListWarung(res.users);
     } catch (error: any) {
-      console.log(error);
+      Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: error.message,
+      });
     } finally {
       setLoading(false);
     }
