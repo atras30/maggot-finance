@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Hash;
 use PulkitJalan\Google\Client;
+use Laravel\Socialite\Facades\Socialite;
 
 class AuthenticationController extends Controller
 {
@@ -221,11 +222,27 @@ class AuthenticationController extends Controller
      * ),
      * ),
      * @OA\Response(
+     * response=400,
+     * description="Validation error.",
+     * @OA\JsonContent(
+     * @OA\Property(property="message", type="string", example="The given data was invalid."),
+     * @OA\Property(property="errors", type="object", example={
+     * "google_token": { "The google token field is required." },
+     * }),
+     * ),
+     * ),
+     * @OA\Response(
      * response=404,
      * description="User was not found.",
      * @OA\JsonContent(
      * @OA\Property(property="message", type="string", example="User was not found."),
      * ),
+     * ),
+     * @OA\Response(
+     * response=500,
+     * description="Server error.",
+     * @OA\JsonContent(
+     * @OA\Property(property="message", type="string", example="Server error."),
      * ),
      * ),
      * )
@@ -236,9 +253,16 @@ class AuthenticationController extends Controller
             "google_token" => "string|required",
         ]);
 
-        $client = new Client(["client_id" => env("GOOGLE_CLIENT_ID")]);
-        $googleClient = $client->getClient();
-        $user = $googleClient->verifyIdToken($validated["google_token"]);
+        // $client = new Client([
+        //     "client_id" => env("GOOGLE_CLIENT_ID"),
+        //     "client_secret" => env("GOOGLE_CLIENT_SECRET"),
+        // ]);
+        // $googleClient = $client->getClient();
+        // $user = $googleClient->verifyIdToken($validated["google_token"]);
+
+        $user = Socialite::driver("google")
+            ->stateless()
+            ->userFromToken($validated["google_token"]);
 
         $email = $user["email"];
 

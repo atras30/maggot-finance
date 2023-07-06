@@ -158,6 +158,7 @@ use Illuminate\Routing\Controller as BaseController;
  * @OA\Property(property="updated_at", type="string", format="date-time"),
  * @OA\Property(property="trash_managers", type="array", @OA\Items(ref="#/components/schemas/TrashManager")),
  * ),
+ * 
  */
 
 class Controller extends BaseController

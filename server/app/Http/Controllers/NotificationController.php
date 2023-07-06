@@ -12,6 +12,40 @@ use Ramsey\Uuid\Uuid;
 
 class NotificationController extends Controller
 {
+    /**
+     * Get all notification queue.
+     * 
+     * @OA\Get(
+     *     path="/api/notifications",
+     *    tags={"Notification"},
+     *    summary="Get all notification queue",
+     *      description="Get all notification queue",
+     *     operationId="getNotificationQueue",
+     *    security={{"sanctum":{}}},
+     *   @OA\Response(
+     *     response=200,
+     *   description="Success",
+     *  @OA\JsonContent(
+     *   @OA\Property(property="notifications", type="array", @OA\Items(type="object", ref="")),
+     * ),
+     * ),
+     *  @OA\Response(
+     *  response=401,
+     * description="Unauthenticated",
+     * @OA\JsonContent(
+     * @OA\Property(property="message", type="string", example="Unauthenticated"),
+     * ),
+     * ),
+     * @OA\Response(
+     * response=500,
+     * description="Server Error",
+     * @OA\JsonContent(
+     * @OA\Property(property="message", type="string", example="Server Error"),
+     * ),
+     * ),
+     * ),
+     * )
+     */
     public function getNotificationQueue(Request $request)
     {
         //Delete all expired token
@@ -38,6 +72,8 @@ class NotificationController extends Controller
                 'shop_id',
                 auth()->user()->id
             )->get();
+        } else {
+            error_log(auth()->user());
         }
 
         return response()->json(

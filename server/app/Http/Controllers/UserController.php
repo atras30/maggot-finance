@@ -11,6 +11,56 @@ use Illuminate\Support\Facades\DB;
 
 class UserController extends Controller
 {
+    /**
+     * Delete user by id
+     *
+     * @OA\Delete(
+     *     path="/api/user/{id}",
+     *    tags={"Farmer and Shop"},
+     *   summary="Delete user by id",
+     *  description="Delete user by id",
+     * operationId="deleteUserById",
+     * security={{"sanctum":{}}},
+     * @OA\Parameter(
+     *     name="id",
+     *    in="path",
+     *  required=true,
+     * description="ID of user that needs to be deleted",
+     * @OA\Schema(
+     *    type="integer",
+     *  format="int64"
+     * ),
+     * ),
+     * @OA\Response(
+     *   response=200,
+     * description="Success",
+     * @OA\JsonContent(
+     *  @OA\Property(property="message", type="string", example="User berhasil dihapus."),
+     * ),
+     * ),
+     * @OA\Response(
+     *  response=401,
+     * description="Unauthenticated",
+     * @OA\JsonContent(
+     * @OA\Property(property="message", type="string", example="Unauthenticated."),
+     * ),
+     * ),
+     * @OA\Response(
+     * response=404,
+     * description="Not Found",
+     * @OA\JsonContent(
+     * @OA\Property(property="message", type="string", example="Not Found."),
+     * ),
+     * ),
+     * @OA\Response(
+     * response=500,
+     * description="Internal Server Error",
+     * @OA\JsonContent(
+     * @OA\Property(property="message", type="string", example="Internal Server Error."),
+     * ),
+     * ),
+     * )
+     */
     public function destroy($id)
     {
         $user = User::findOrFail($id);
@@ -35,20 +85,43 @@ class UserController extends Controller
     }
 
     /**
-     * Displaying all users
+     * Get all users
      *
      * @OA\Get(
      *      path="/api/user",
-     *      tags={"Super Admin"},
-     *      summary="Displaying all users",
-     *      description="Displaying all users",
+     *      tags={"Farmer and Shop"},
+     *      summary="Get all",
+     *      description="Get all",
      *      operationId="getAllUsers",
+     *      security={{"sanctum":{}}},
      *      @OA\Response(
      *         response=200,
      *        description="Success",
      *       @OA\JsonContent(
      *         @OA\Property(property="users", type="array", @OA\Items(ref="#/components/schemas/User")),
      *      ),
+     *    ),
+     *     @OA\Response(
+     *       response=401,
+     *     description="Unauthenticated",
+     *   @OA\JsonContent(
+     *    @OA\Property(property="message", type="string", example="Unauthenticated."),
+     *  ),
+     * ),
+     *  @OA\Response(
+     *  response=404,
+     * description="Not Found",
+     * @OA\JsonContent(
+     * @OA\Property(property="message", type="string", example="Not Found."),
+     * ),
+     * ),
+     * @OA\Response(
+     * response=500,
+     * description="Internal Server Error",
+     * @OA\JsonContent(
+     * @OA\Property(property="message", type="string", example="Internal Server Error."),
+     * ),
+     * ),
      *    ),
      * ),
      */
@@ -75,13 +148,13 @@ class UserController extends Controller
     }
 
     /**
-     * Display a list of user by trash manager.
+     * Buy from shop.
      *
      * @OA\Post(
-     *     path="/api/farmer/buy/shop",
-     *    tags={"Farmer and Shop"},
-     *    summary="Create buying on shop transactions",
-     *   description="Create buying on shop transactions",
+     *     path="/api/transaction/farmer/buy/shop",
+     *    tags={"Transaction"},
+     *    summary="Create buying on shop transaction",
+     *   description="Create buying on shop transaction",
      *   operationId="buyShop",
      *  security={{"sanctum":{}}},
      * @OA\RequestBody(
@@ -92,7 +165,7 @@ class UserController extends Controller
      * ),
      * ),
      *  @OA\Response(
-     *    response=200,
+     *    response=201,
      *   description="Success",
      *  @OA\JsonContent(
      *        @OA\Property(property="message", type="string", example="Transaksi Berhasil!"),
@@ -203,13 +276,13 @@ class UserController extends Controller
     }
 
     /**
-     * Get user data by email.
+     * Get specific user by email.
      *
      * @OA\Get(
-     *     path="/user/email/{email}",
-     *    tags={"Trash Manager"},
-     *    summary="Get user data by email",
-     *   description="Get user data by email",
+     *     path="/api/user/email/{email}",
+     *    tags={"Farmer and Shop"},
+     *    summary="Get specific user by email",
+     *   description="Get specific user by email",
      *   operationId="getUserDataByEmail",
      *  security={{"sanctum":{}}},
      * @OA\Parameter(
@@ -278,13 +351,13 @@ class UserController extends Controller
     }
 
     /**
-     * Get user data by email.
+     * Get all users by role
      *
      * @OA\Get(
-     *     path="/user/role/{role}",
-     *    tags={"Super Admin"},
-     *    summary="Get user data by role",
-     *   description="Get user data by role",
+     *     path="/api/user/role/{role}",
+     *    tags={"Farmer and Shop"},
+     *    summary="Get all users by role",
+     *   description="Get all users by role",
      *   operationId="getUserDataByRole",
      *  security={{"sanctum":{}}},
      * @OA\Parameter(

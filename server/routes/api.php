@@ -47,6 +47,10 @@ Route::middleware("auth:sanctum")->group(function () {
         NotificationController::class,
         "createFarmerWithdrawalNotification",
     ]);
+    Route::post("/notifications/farmer/withdrawal/approval", [
+        TransactionController::class,
+        "approvalFarmerWithdrawal",
+    ]);
     Route::post("/notifications/farmer/withdrawal/approve", [
         TransactionController::class,
         "approveFarmerWithdrawal",
@@ -87,12 +91,20 @@ Route::middleware("auth:sanctum")->group(function () {
     Route::post("/trash-manager", [TrashManagerController::class, "store"]);
 
     // Transactions Endpoints
-    Route::get("/transactions", [TransactionController::class, "index"]);
+    // Route::get("/transactions", [TransactionController::class, "index"]);
+    Route::get("/transactions/{email}", [
+        TransactionController::class,
+        "index",
+    ]);
 });
 
 //Trash Managers Endpoints
 Route::get("/trash-manager", [TrashManagerController::class, "index"]);
-Route::get("/trash-manager/list/user", [
+// Route::get("/trash-manager/list/user", [
+//     TrashManagerController::class,
+//     "listUser",
+// ]);
+Route::get("/trash-manager/list/users/{email}", [
     TrashManagerController::class,
     "listUser",
 ]);

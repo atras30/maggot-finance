@@ -307,6 +307,30 @@
                             }
                         }
                     },
+                    "400": {
+                        "description": "Validation error.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "The given data was invalid."
+                                        },
+                                        "errors": {
+                                            "type": "object",
+                                            "example": {
+                                                "google_token": [
+                                                    "The google token field is required."
+                                                ]
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
                     "404": {
                         "description": "User was not found.",
                         "content": {
@@ -316,6 +340,22 @@
                                         "message": {
                                             "type": "string",
                                             "example": "User was not found."
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Server error.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Server error."
                                         }
                                     },
                                     "type": "object"
@@ -376,6 +416,73 @@
                                         "message": {
                                             "type": "string",
                                             "example": "Server error."
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
+            }
+        },
+        "/api/notifications": {
+            "get": {
+                "tags": [
+                    "Notification"
+                ],
+                "summary": "Get all notification queue",
+                "description": "Get all notification queue",
+                "operationId": "getNotificationQueue",
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "notifications": {
+                                            "type": "array",
+                                            "items": {
+                                                "$ref": ""
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthenticated",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Unauthenticated"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Server Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Server Error"
                                         }
                                     },
                                     "type": "object"
@@ -639,8 +746,8 @@
                 "tags": [
                     "Super Admin"
                 ],
-                "summary": "Displaying all users",
-                "description": "Displaying all users",
+                "summary": "Get all data for super admin",
+                "description": "Get all data for super admin",
                 "operationId": "getAllDataSuperAdmin",
                 "responses": {
                     "200": {
@@ -649,11 +756,302 @@
                             "application/json": {
                                 "schema": {
                                     "properties": {
-                                        "users": {
+                                        "super_admin": {
                                             "type": "array",
                                             "items": {
-                                                "$ref": "#/components/schemas/User"
+                                                "$ref": "#/components/schemas/SuperAdmin"
                                             }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthenticated",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Unauthenticated"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Server Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Server Error"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
+            }
+        },
+        "/api/transactions/{email}": {
+            "get": {
+                "tags": [
+                    "Transaction"
+                ],
+                "summary": "Get all transaction data by email",
+                "description": "Get all transaction data by email",
+                "operationId": "getAllTransaction",
+                "parameters": [
+                    {
+                        "name": "email",
+                        "in": "path",
+                        "description": "Email of user",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "transactions": {
+                                            "type": "array",
+                                            "items": {
+                                                "$ref": "#/components/schemas/Transaction"
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": {
+                                                "email": [
+                                                    "The email field is required."
+                                                ]
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthenticated.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Unauthenticated."
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "User not found.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "User not found."
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Server Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Server Error"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
+            }
+        },
+        "/api/notifications/farmer/withdrawal/approval": {
+            "post": {
+                "tags": [
+                    "Notification"
+                ],
+                "summary": "Approval for farmer withdrawal",
+                "description": "Approval for farmer withdrawal",
+                "operationId": "approvalFarmerWithdrawal",
+                "requestBody": {
+                    "description": "Approval for farmer withdrawal",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "token",
+                                    "approval_status"
+                                ],
+                                "properties": {
+                                    "token": {
+                                        "type": "string",
+                                        "example": "token"
+                                    },
+                                    "approval_status": {
+                                        "type": "boolean",
+                                        "example": true
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Pencairan berhasil."
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": {
+                                                "token": [
+                                                    "The token field is required."
+                                                ],
+                                                "approval_status": [
+                                                    "The approval status field is required."
+                                                ]
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthenticated",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Unauthenticated"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Token kadaluarsa."
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "406": {
+                        "description": "Not Acceptable",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Saldo tidak cukup."
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Internal Server Error"
                                         }
                                     },
                                     "type": "object"
@@ -672,7 +1070,7 @@
         "/api/trash-manager": {
             "get": {
                 "tags": [
-                    "Super Admin"
+                    "Trash Manager"
                 ],
                 "summary": "Get all trash manager data",
                 "description": "Get all trash manager data",
@@ -769,13 +1167,38 @@
             },
             "post": {
                 "tags": [
-                    "Super Admin"
+                    "Trash Manager"
                 ],
                 "summary": "Create new trash manager",
                 "description": "Create new trash manager",
                 "operationId": "createTrashManager",
+                "requestBody": {
+                    "description": "Create new trash manager",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "nama_pengelola": {
+                                        "type": "string",
+                                        "example": "string"
+                                    },
+                                    "tempat": {
+                                        "type": "string",
+                                        "example": "string"
+                                    },
+                                    "email": {
+                                        "type": "string",
+                                        "example": "string"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
                 "responses": {
-                    "200": {
+                    "201": {
                         "description": "Success",
                         "content": {
                             "application/json": {
@@ -783,7 +1206,7 @@
                                     "properties": {
                                         "message": {
                                             "type": "string",
-                                            "example": "Super admin created successfully"
+                                            "example": "Trash manager created successfully"
                                         }
                                     },
                                     "type": "object"
@@ -863,7 +1286,7 @@
                 ]
             }
         },
-        "/api/trash-manager/list/user": {
+        "/api/trash-manager/list/users/{email}": {
             "get": {
                 "tags": [
                     "Trash Manager"
@@ -871,22 +1294,17 @@
                 "summary": "Get list of user by trash manager",
                 "description": "Get list of user by trash manager",
                 "operationId": "getListUser",
-                "requestBody": {
-                    "required": true,
-                    "content": {
-                        "application/json": {
-                            "schema": {
-                                "properties": {
-                                    "email": {
-                                        "type": "string",
-                                        "example": "kammagota@magfin.id"
-                                    }
-                                },
-                                "type": "object"
-                            }
+                "parameters": [
+                    {
+                        "name": "email",
+                        "in": "path",
+                        "description": "Email of trash manager",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
                         }
                     }
-                },
+                ],
                 "responses": {
                     "200": {
                         "description": "Success",
@@ -978,13 +1396,13 @@
                 ]
             }
         },
-        "/api/trash-manager/buy/maggot": {
+        "/api/transaction/trash-manager/buy/maggot": {
             "post": {
                 "tags": [
-                    "Trash Manager"
+                    "Transaction"
                 ],
-                "summary": "Create buying maggot transactions",
-                "description": "Create buying maggot transactions",
+                "summary": "Create buying maggot transaction",
+                "description": "Create buying maggot transaction",
                 "operationId": "buyMaggot",
                 "requestBody": {
                     "required": true,
@@ -1109,13 +1527,106 @@
                 ]
             }
         },
+        "/api/user/{id}": {
+            "delete": {
+                "tags": [
+                    "Farmer and Shop"
+                ],
+                "summary": "Delete user by id",
+                "description": "Delete user by id",
+                "operationId": "deleteUserById",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of user that needs to be deleted",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int64"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "User berhasil dihapus."
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthenticated",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Unauthenticated."
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Not Found."
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Internal Server Error."
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
+            }
+        },
         "/api/user": {
             "get": {
                 "tags": [
-                    "Super Admin"
+                    "Farmer and Shop"
                 ],
-                "summary": "Displaying all users",
-                "description": "Displaying all users",
+                "summary": "Get all",
+                "description": "Get all",
                 "operationId": "getAllUsers",
                 "responses": {
                     "200": {
@@ -1135,17 +1646,70 @@
                                 }
                             }
                         }
+                    },
+                    "401": {
+                        "description": "Unauthenticated",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Unauthenticated."
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Not Found."
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Internal Server Error."
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
                     }
-                }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
             }
         },
-        "/api/farmer/buy/shop": {
+        "/api/transaction/farmer/buy/shop": {
             "post": {
                 "tags": [
-                    "Farmer and Shop"
+                    "Transaction"
                 ],
-                "summary": "Create buying on shop transactions",
-                "description": "Create buying on shop transactions",
+                "summary": "Create buying on shop transaction",
+                "description": "Create buying on shop transaction",
                 "operationId": "buyShop",
                 "requestBody": {
                     "required": true,
@@ -1168,7 +1732,7 @@
                     }
                 },
                 "responses": {
-                    "200": {
+                    "201": {
                         "description": "Success",
                         "content": {
                             "application/json": {
@@ -1272,13 +1836,13 @@
                 ]
             }
         },
-        "/user/email/{email}": {
+        "/api/user/email/{email}": {
             "get": {
                 "tags": [
-                    "Trash Manager"
+                    "Farmer and Shop"
                 ],
-                "summary": "Get user data by email",
-                "description": "Get user data by email",
+                "summary": "Get specific user by email",
+                "description": "Get specific user by email",
                 "operationId": "getUserDataByEmail",
                 "parameters": [
                     {
@@ -1372,13 +1936,13 @@
                 ]
             }
         },
-        "/user/role/{role}": {
+        "/api/user/role/{role}": {
             "get": {
                 "tags": [
-                    "Super Admin"
+                    "Farmer and Shop"
                 ],
-                "summary": "Get user data by role",
-                "description": "Get user data by role",
+                "summary": "Get all users by role",
+                "description": "Get all users by role",
                 "operationId": "getUserDataByRole",
                 "parameters": [
                     {

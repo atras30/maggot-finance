@@ -15,7 +15,7 @@ class TrashManagerController extends Controller
      *
      * @OA\Get(
      *     path="/api/trash-manager",
-     *    tags={"Super Admin"},
+     *    tags={"Trash Manager"},
      *    summary="Get all trash manager data",
      *   description="Get all trash manager data",
      *   operationId="getAllTrashManager",
@@ -72,16 +72,25 @@ class TrashManagerController extends Controller
      *
      * @OA\Post(
      *     path="/api/trash-manager",
-     *    tags={"Super Admin"},
+     *    tags={"Trash Manager"},
      *    summary="Create new trash manager",
      *   description="Create new trash manager",
      *   operationId="createTrashManager",
      *  security={{"sanctum":{}}},
+     * @OA\RequestBody(
+     *   required=true,
+     * description="Create new trash manager",
+     * @OA\JsonContent(
+     * @OA\Property(property="nama_pengelola", type="string", example="string"),
+     * @OA\Property(property="tempat", type="string", example="string"),
+     * @OA\Property(property="email", type="string", example="string"),
+     * ),
+     * ),
      *  @OA\Response(
-     *    response=200,
+     *    response=201,
      *   description="Success",
      *  @OA\JsonContent(
-     *         @OA\Property(property="message", type="string", example="Super admin created successfully")
+     *         @OA\Property(property="message", type="string", example="Trash manager created successfully")
      *  ),
      * ),
      * @OA\Response(
@@ -136,17 +145,20 @@ class TrashManagerController extends Controller
      * Display a list of user by trash manager.
      *
      * @OA\Get(
-     *     path="/api/trash-manager/list/user",
+     *     path="/api/trash-manager/list/users/{email}",
      *    tags={"Trash Manager"},
      *    summary="Get list of user by trash manager",
      *   description="Get list of user by trash manager",
      *   operationId="getListUser",
      *  security={{"sanctum":{}}},
-     * @OA\RequestBody(
-     *   required=true,
-     * @OA\JsonContent(
-     * @OA\Property(property="email", type="string", example="kammagota@magfin.id")
-     * ),
+     * @OA\Parameter(
+     *   description="Email of trash manager",
+     *  in="path",
+     * name="email",
+     * required=true,
+     * @OA\Schema(
+     * type="string"
+     * )
      * ),
      *  @OA\Response(
      *    response=200,
@@ -185,12 +197,21 @@ class TrashManagerController extends Controller
      * ),
      * )
      */
-    public function listUser(Request $request)
+    public function listUser($email)
     {
-        $validated = $request->validate([
-            "email" => "string|required",
-        ]);
-        return TrashManager::where("email", $validated["email"])
+        // $validated = $request->validate([
+        //     "email" => "string|required",
+        // ]);
+        if (!$email) {
+            return response()->json(
+                [
+                    "message" => "Email is required",
+                ],
+                Response::HTTP_BAD_REQUEST
+            );
+        }
+
+        return TrashManager::where("email", $email)
             ->get()
             ->first()->users;
     }
@@ -199,10 +220,10 @@ class TrashManagerController extends Controller
      * Display a list of user by trash manager.
      *
      * @OA\Post(
-     *     path="/api/trash-manager/buy/maggot",
-     *    tags={"Trash Manager"},
-     *    summary="Create buying maggot transactions",
-     *   description="Create buying maggot transactions",
+     *     path="/api/transaction/trash-manager/buy/maggot",
+     *    tags={"Transaction"},
+     *    summary="Create buying maggot transaction",
+     *   description="Create buying maggot transaction",
      *   operationId="buyMaggot",
      *  security={{"sanctum":{}}},
      * @OA\RequestBody(
@@ -256,48 +277,62 @@ class TrashManagerController extends Controller
      */
     public static function buyMaggot(Request $request)
     {
-        $validated["description"] = "Pembelian Maggot Warga";
-        $validated["weight_in_kg"] = $request->weight_in_kg;
-        $validated["amount_per_kg"] = $request->amount_per_kg;
-        $validated["farmer_email"] = $request->farmer_email;
+        try {
+            $validated["description"] = "Pembelian Maggot Warga";
+            $validated["weight_in_kg"] = $request->weight_in_kg;
+            $validated["amount_per_kg"] = $request->amount_per_kg;
+            $validated["farmer_email"] = $request->farmer_email;
 
-        if (!isset($validated["description"])) {
-            $validated["description"] = "";
+            if (!isset($validated["description"])) {
+                $validated["description"] = "";
+            }
+
+            //Transaction dari warga ke pengepul
+            $warga = User::where("email", $validated["farmer_email"])
+                ->get()
+                ->first();
+
+            error_log($validated["farmer_email"]);
+
+            $validated["farmer_id"] = $warga->id;
+            $validated["trash_manager_id"] = auth()->user()->id;
+            $validated["type"] = "income";
+            $validated["transaction_type"] = "farmer_transaction";
+            $validated["total_amount"] =
+                $validated["weight_in_kg"] * $validated["amount_per_kg"];
+            $warga->balance += $validated["total_amount"];
+
+            $transaction1 = Transaction::create($validated);
+            $warga->save();
+
+            //Transaction dari pengepul ke warga
+            $pengepulTransaction["trash_manager_id"] =
+                $warga->trash_manager->id;
+            $pengepulTransaction["farmer_id"] = $warga->id;
+            $pengepulTransaction["description"] = $validated["description"];
+            $pengepulTransaction["weight_in_kg"] = $validated["weight_in_kg"];
+            $pengepulTransaction["amount_per_kg"] = $validated["amount_per_kg"];
+            $pengepulTransaction["type"] = "expense";
+            $pengepulTransaction["transaction_type"] =
+                "trash_manager_transaction";
+            $pengepulTransaction["total_amount"] =
+                $validated["weight_in_kg"] * $validated["amount_per_kg"];
+
+            $transaction2 = Transaction::create($pengepulTransaction);
+
+            return [
+                "message" => "Transaksi Berhasil",
+                "transaction1" => $transaction1,
+                "transaction2" => $transaction2,
+            ];
+        } catch (\Exception $e) {
+            error_log($e->getMessage());
+            return response()->json(
+                [
+                    "message" => $e->getMessage(),
+                ],
+                Response::HTTP_INTERNAL_SERVER_ERROR
+            );
         }
-
-        //Transaction dari warga ke pengepul
-        $warga = User::where("email", $validated["farmer_email"])
-            ->get()
-            ->first();
-
-        $validated["farmer_id"] = $warga->id;
-        $validated["trash_manager_id"] = auth()->user()->id;
-        $validated["type"] = "income";
-        $validated["transaction_type"] = "farmer_transaction";
-        $validated["total_amount"] =
-            $validated["weight_in_kg"] * $validated["amount_per_kg"];
-        $warga->balance += $validated["total_amount"];
-
-        $transaction1 = Transaction::create($validated);
-        $warga->save();
-
-        //Transaction dari pengepul ke warga
-        $pengepulTransaction["trash_manager_id"] = $warga->trash_manager->id;
-        $pengepulTransaction["farmer_id"] = $warga->id;
-        $pengepulTransaction["description"] = $validated["description"];
-        $pengepulTransaction["weight_in_kg"] = $validated["weight_in_kg"];
-        $pengepulTransaction["amount_per_kg"] = $validated["amount_per_kg"];
-        $pengepulTransaction["type"] = "expense";
-        $pengepulTransaction["transaction_type"] = "trash_manager_transaction";
-        $pengepulTransaction["total_amount"] =
-            $validated["weight_in_kg"] * $validated["amount_per_kg"];
-
-        $transaction2 = Transaction::create($pengepulTransaction);
-
-        return [
-            "message" => "Transaksi Berhasil",
-            "transaction1" => $transaction1,
-            "transaction2" => $transaction2,
-        ];
     }
 }
